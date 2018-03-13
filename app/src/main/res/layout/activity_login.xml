@@ -9,6 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.bruno.debarrio.LoginActivity">
+    <!-- App Bar --> <android.support.design.widget.AppBarLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"> <!-- Toolbar --> </android.support.design.widget.AppBarLayout>
 
     <!-- Login progress -->
     <ProgressBar
@@ -29,6 +30,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <Button
+                android:id="@+id/seleccionIdioma"
+                android:layout_width="211dp"
+                android:layout_height="23dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:background="@color/colorOrange"
+                android:text="@string/str_seleccion"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
