@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">deBarrio</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Posta elettronica</string>
+    <string name="prompt_password">Chiave (opzionale)</string>
+    <string name="action_sign_in">Accedi o Registrati</string>
+    <string name="action_sign_in_short">Accedi</string>
+    <string name="error_invalid_email">Questo indirizzo posta elettronica non è valido</string>
+    <string name="error_invalid_password">Questa chiave è troppo corta</string>
+    <string name="error_incorrect_password">Questo indirizzo chiave non è valido</string>
+    <string name="error_field_required">Questo campo è obbligatorio</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_main_tabbed">MainTabbedActivity</string>
+    <string name="tab_text_1">CARICARE</string>
+    <string name="tab_text_2">CONTATTI</string>
+    <string name="tab_text_3">EVENTI</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="str_seleccion">Seleziona la lingua</string>
+</resources>

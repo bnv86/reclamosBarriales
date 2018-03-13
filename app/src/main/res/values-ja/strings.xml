@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">deBarrio</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">郵便物</string>
+    <string name="prompt_password">パスワード（オプション）</string>
+    <string name="action_sign_in">ログインまたは登録</string>
+    <string name="action_sign_in_short">サインイン</string>
+    <string name="error_invalid_email">このメールアドレスは無効です</string>
+    <string name="error_invalid_password">このパスワードは短すぎます</string>
+    <string name="error_incorrect_password">このパスワードは間違っています</string>
+    <string name="error_field_required">この項目は必須です</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_main_tabbed">MainTabbedActivity</string>
+    <string name="tab_text_1">アップロード</string>
+    <string name="tab_text_2">お問い合わせ</string>
+    <string name="tab_text_3">イベント</string>
+    <string name="action_settings">設定</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="str_seleccion">Select the Language</string>
+</resources>
