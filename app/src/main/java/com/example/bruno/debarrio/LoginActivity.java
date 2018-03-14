@@ -47,6 +47,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private Button seleccion;
     private Locale locale;
     private Configuration config = new Configuration();
+
+    TextView textview_registrar;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -75,12 +77,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
-        /*seleccion = ((Button)findViewById(R.id.seleccionIdioma));
+        //para elegir idioma al hacer click en boton
+        /*
+        seleccion = ((Button)findViewById(R.id.seleccionIdioma));
         seleccion.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         showDialog();
                     }});*/
+        textview_registrar = findViewById(R.id.textview_registrar);
+        textview_registrar.setOnClickListener(new View.OnClickListener() {
+                                                  @Override
+                                                  public void onClick(View view) {
+                                                      Intent intentRegistro = new Intent(LoginActivity.this, RegistroActivity.class);
+                                                      LoginActivity.this.startActivity(intentRegistro);
+                                                  }
+                                              });
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -362,7 +375,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    /* //para el idioma
+    //para el idioma de las listas
+    /*
     private void showDialog(){
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle(getResources().getString(R.string.str_seleccion));

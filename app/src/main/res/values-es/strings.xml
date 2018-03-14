@@ -1,23 +1,34 @@
 <resources>
     <string name="app_name">deBarrio</string>
 
-    <!-- Strings related to login -->
+    <!-- Strings related to LOGIN -->
     <string name="prompt_email">Correo</string>
-    <string name="prompt_password">Contraseña (opcional)</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Ingresar o Registrarse</string>
     <string name="action_sign_in_short">Ingresar</string>
     <string name="error_invalid_email">Esta cuenta de correo es incorrecta</string>
     <string name="error_invalid_password">La contraseña es muy corta</string>
     <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
     <string name="error_field_required">Este campo es requerido</string>
+    <string name="str_seleccion">Lenguaje</string>
+    <string name="str_registrar">Registrar</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <!-- Strings related to TABS ACTIVITY -->
     <string name="title_activity_main_tabbed">MainTabbedActivity</string>
     <string name="tab_text_1">SUBIR</string>
     <string name="tab_text_2">CONTACTOS</string>
     <string name="tab_text_3">EVENTOS</string>
     <string name="action_settings">Configuración</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="str_seleccion">Selecciona el lenguaje</string>
+
+    <!-- Strings related to REGISTRAR -->
+    <string name="str_regresar">   REGRESAR </string>
+    <string name="str_registrar_titulo">Registrar Usuario</string>
+    <string name="usuario_nombre">Usuario</string>
+    <string name="usuario_password">Contraseña</string>
+    <string name="button_registrar">REGISTRAR</string>
+
 </resources>
