@@ -33,6 +33,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity { //implements LoaderCallbacks<Cursor> {
     private Button seleccion;
     private Locale locale;
     private Configuration config = new Configuration();
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -85,6 +86,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     public void onClick(View view) {
                         showDialog();
                     }});*/
+        //al presionar el text view REGISTRAR se pasa a dicho activity
         textview_registrar = findViewById(R.id.textview_registrar);
         textview_registrar.setOnClickListener(new View.OnClickListener() {
                                                   @Override
@@ -94,10 +96,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                                                   }
                                               });
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        //admin y pass provisorios para pasar a pantalla de tabs
+        Button boton = (Button) findViewById(R.id.email_sign_in_button);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String usuario=  ((EditText)findViewById(R.id.email_login)).getText().toString();
+                String password=  ((EditText)findViewById(R.id.password_login)).getText().toString();
+                if (usuario.equals("admin")&&password.equals("admin")){
+                    Intent nuevoform= new Intent(LoginActivity.this,MainTabbedActivity.class);
+                    startActivity(nuevoform);
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Usuario o password incorrecto",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });
+
+        /*
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email_login);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.password_login);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -119,8 +141,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+        */
     }
 
+    /*
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -149,11 +173,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
         }
         return false;
-    }
+    }*/
 
     /**
      * Callback received when a permissions request has been completed.
      */
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -162,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 populateAutoComplete();
             }
         }
-    }
+    }*/
 
 
     /**
@@ -170,6 +195,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
+
+    /*
     private void attemptLogin() {
         if (mAuthTask != null) {
             return;
@@ -215,8 +242,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
-    }
+    }*/
 
+    /*
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
@@ -225,11 +253,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
-    }
+    }*/
 
     /**
      * Shows the progress UI and hides the login form.
      */
+    /*
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -261,8 +290,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
-    }
+    }*/
 
+    /*
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
@@ -278,8 +308,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
+    }*/
 
+    /*
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
@@ -290,8 +321,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         addEmailsToAutoComplete(emails);
-    }
+    }*/
 
+    /*
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
@@ -315,12 +347,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
-    }
+    }*/
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
+
+    /*
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
@@ -373,7 +407,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
-    }
+    }*/
 
     //para el idioma de las listas
     /*

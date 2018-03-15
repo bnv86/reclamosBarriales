@@ -1,12 +1,18 @@
 package com.example.bruno.debarrio.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.bruno.debarrio.R;
 import com.google.android.gms.plus.PlusOneButton;
@@ -34,6 +40,10 @@ public class SubirFragment extends Fragment {
     private PlusOneButton mPlusOneButton;
 
     private OnFragmentInteractionListener mListener;
+
+    ImageView imagen_foto;
+    Button boton_sacar_foto;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public SubirFragment() {
         // Required empty public constructor
@@ -66,25 +76,27 @@ public class SubirFragment extends Fragment {
         }
     }
 
+    /*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_subir, container, false);
+        View view = inflater.inflate(R.layout.fragment_subir, container, false); //predeterminado del fragment
 
         //Find the +1 button
-        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button);
+        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button); //predeterminado del fragment
 
         return view;
-    }
+    }*/
 
+    /*
     @Override
     public void onResume() {
         super.onResume();
 
         // Refresh the state of the +1 button each time the activity receives focus.
         mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
-    }
+    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -123,6 +135,41 @@ public class SubirFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        //return inflater.inflate(R.layout.fragment_fragment1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_subir,container, false);
+
+        boton_sacar_foto = (Button) rootView.findViewById(R.id.boton_tomar_foto);
+        imagen_foto = (ImageView) rootView.findViewById(R.id.imagen_para_foto);
+
+        boton_sacar_foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llamarIntent();
+            }
+        });
+
+        return rootView;
+    }
+
+    private void llamarIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imagen_foto.setImageBitmap(imageBitmap);
+        }
     }
 
 }
