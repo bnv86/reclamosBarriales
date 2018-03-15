@@ -40,6 +40,7 @@
     -->
 
     <EditText
+        android:id="@+id/edit_usuario_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -48,6 +49,7 @@
         android:layout_marginTop="@dimen/text_margin"/>
 
     <EditText
+        android:id="@+id/edit_password_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -55,6 +57,7 @@
         android:inputType="textPassword"/>
 
     <Button
+        android:id="@+id/boton_registrar_registro"
         android:layout_gravity="center"
         android:text="@string/button_registrar"
         android:background="@color/colorLightBlue"
