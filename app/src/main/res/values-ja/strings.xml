@@ -2,7 +2,7 @@
     <string name="app_name">deBarrio</string>
 
     <!-- Strings related to LOGIN -->
-    <string name="prompt_email">郵便物</string>
+    <string name="prompt_email">ユーザー</string>
     <string name="prompt_password">パスワード（オプション）</string>
     <string name="action_sign_in">ログインまたは登録</string>
     <string name="action_sign_in_short">サインイン</string>

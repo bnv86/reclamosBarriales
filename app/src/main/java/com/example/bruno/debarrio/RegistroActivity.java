@@ -17,11 +17,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class RegistroActivity extends AppCompatActivity {
+public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textview_regresar;
     EditText editUsuario, editPassword;
     Button botonRegistrar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +40,8 @@ public class RegistroActivity extends AppCompatActivity {
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
         botonRegistrar = findViewById(R.id.boton_registrar_registro);
-        //botonRegistrar.setOnClickListener(this);
-        botonRegistrar.setOnClickListener(new View.OnClickListener() {
+        botonRegistrar.setOnClickListener(this);
+        /*botonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //final String idUsuario
@@ -70,37 +71,37 @@ public class RegistroActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
                 queue.add(pedido);
             }
-        });
+        });*/
 
     }
-    //@Override
-    /*
+
+    @Override
     public void onClick (View view){
-        //final String idUsuario
-        final String nombreUsuario=editUsuario.getText().toString();
-        final String password=editPassword.getText().toString();
+            //final String idUsuario
+            final String nombreUsuario = editUsuario.getText().toString();
+            final String password = editPassword.getText().toString();
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try{
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
 
-                    if(success){
-                        Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-                        RegistroActivity.this.startActivity(intent);
-                    }else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
-                        alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();
+                        if(success){
+                            Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+                            RegistroActivity.this.startActivity(intent);
+                        }else {
+                            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
+                            alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();
+                        }
+                    }catch (JSONException e){
+                        e.printStackTrace();
                     }
-                }catch (JSONException e){
-                    e.printStackTrace();
                 }
-            }
-        };
-        PedidoDeRegistro pedido = new PedidoDeRegistro(nombreUsuario, password, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
-        queue.add(pedido);
-    }*/
+            };
+            PedidoDeRegistro pedido = new PedidoDeRegistro(nombreUsuario, password, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
+            queue.add(pedido);
+        }
 }

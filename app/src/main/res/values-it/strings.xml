@@ -2,7 +2,7 @@
     <string name="app_name">deBarrio</string>
 
     <!-- Strings related to LOGIN -->
-    <string name="prompt_email">Posta elettronica</string>
+    <string name="prompt_email">Utente</string>
     <string name="prompt_password">Chiave</string>
     <string name="action_sign_in">Accedi o Registrati</string>
     <string name="action_sign_in_short">Accedi</string>

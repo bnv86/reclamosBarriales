@@ -3,7 +3,8 @@ package com.example.bruno.debarrio;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
+//import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -35,6 +36,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -44,12 +52,16 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity { //implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity { //implements LoaderCallbacks<Cursor> { // implements View.OnClickListener
     private Button seleccion;
     private Locale locale;
     private Configuration config = new Configuration();
 
     TextView textview_registrar;
+    EditText editUsuario;
+    EditText editPassword;
+    Button botonLogin;
+
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -89,21 +101,66 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
         //al presionar el text view REGISTRAR se pasa a dicho activity
         textview_registrar = findViewById(R.id.textview_registrar);
         textview_registrar.setOnClickListener(new View.OnClickListener() {
-                                                  @Override
-                                                  public void onClick(View view) {
-                                                      Intent intentRegistro = new Intent(LoginActivity.this, RegistroActivity.class);
-                                                      LoginActivity.this.startActivity(intentRegistro);
-                                                  }
-                                              });
+            @Override
+            public void onClick(View view) {
+                Intent intentRegistro = new Intent(LoginActivity.this, RegistroActivity.class);
+                LoginActivity.this.startActivity(intentRegistro);
+            }
 
-        //admin y pass provisorios para pasar a pantalla de tabs
+        });
+        editUsuario = findViewById(R.id.edit_usuario_login);
+        editPassword = findViewById(R.id.edit_password_login);
+        botonLogin = findViewById(R.id.boton_login);
+        //botonLogin.setOnClickListener(this);
+
+        botonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //final String idUsuario
+                final String username = editUsuario.getText().toString();
+                final String password = editPassword.getText().toString();
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+
+                            if (success) {
+                                String username = jsonResponse.getString("username");
+                                String password = jsonResponse.getString("password");
+                                Intent intent = new Intent(LoginActivity.this, MainTabbedActivity.class);
+                                intent.putExtra("username", username);
+                                intent.putExtra("password", password);
+                                LoginActivity.this.startActivity(intent);
+                            } else {
+                                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+                                alertBuilder.setMessage("Hubo un error al loguearse").setNegativeButton("Reintentar", null).create().show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                PedidoDeLogin pedido = new PedidoDeLogin(username, password, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                queue.add(pedido);
+            }
+        });
+    }
+}
+
+
+                                              //admin y pass provisorios para pasar a pantalla de tabs
+        /*
         Button boton = (Button) findViewById(R.id.email_sign_in_button);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String usuario=  ((EditText)findViewById(R.id.email_login)).getText().toString();
                 String password=  ((EditText)findViewById(R.id.password_login)).getText().toString();
-                if (usuario.equals("admin")&&password.equals("admin")){
+                if (usuario.equals("adm")&&password.equals("adm")){
                     Intent nuevoform= new Intent(LoginActivity.this,MainTabbedActivity.class);
                     startActivity(nuevoform);
 
@@ -113,7 +170,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
 
                 }
             }
-        });
+        });*/
 
         /*
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email_login);
@@ -142,7 +199,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         */
-    }
+
 
     /*
     private void populateAutoComplete() {
@@ -446,5 +503,5 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
 
         b.show();
     }*/
-}
+
 
