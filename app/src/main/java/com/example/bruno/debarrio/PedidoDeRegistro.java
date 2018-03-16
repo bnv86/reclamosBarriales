@@ -16,7 +16,10 @@ import java.util.Map;
 
 public class PedidoDeRegistro extends StringRequest {
 
-    private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
+    //private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
+    private static final String REGISTER_REQUEST_URL="https://momentary-electrode.000webhostapp.com/Register.php"; //https://momentary-electrode.000webhostapp.com/Register.php
+
+
     private Map<String, String> params;
     public PedidoDeRegistro (String name, String username, int age, String password, Response.Listener<String> listener) { //String idUsuario
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);

@@ -81,8 +81,8 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick (View view){
             //final String idUsuario
-            final String name = editUsuario.getText().toString();
-            final String userName = editUsuario.getText().toString();
+            final String name = editNombre.getText().toString();
+            final String username = editUsuario.getText().toString();
             final String password = editPassword.getText().toString();
             final int age = Integer.parseInt(editEdad.getText().toString());
 
@@ -105,7 +105,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
             };
-            PedidoDeRegistro pedido = new PedidoDeRegistro(name, userName, age, password, responseListener);
+            PedidoDeRegistro pedido = new PedidoDeRegistro(name, username, age, password, responseListener);
             RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
             queue.add(pedido);
         }
