@@ -20,7 +20,8 @@ import org.json.JSONObject;
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textview_regresar;
-    EditText editUsuario, editPassword;
+    //EditText editUsuario, editPassword;
+    EditText editNombre, editUsuario, editPassword, editEdad;
     Button botonRegistrar;
 
     @Override
@@ -37,8 +38,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 //RegistroActivity.this.startActivity(intentRegistro);
             }
         });
+        editNombre = findViewById(R.id.edit_nombre_registro);
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
+        editEdad = findViewById(R.id.edit_edad_registro);
         botonRegistrar = findViewById(R.id.boton_registrar_registro);
         botonRegistrar.setOnClickListener(this);
         /*botonRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -78,8 +81,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick (View view){
             //final String idUsuario
-            final String nombreUsuario = editUsuario.getText().toString();
+            final String name = editUsuario.getText().toString();
+            final String userName = editUsuario.getText().toString();
             final String password = editPassword.getText().toString();
+            final int age = Integer.parseInt(editEdad.getText().toString());
 
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
@@ -100,7 +105,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
             };
-            PedidoDeRegistro pedido = new PedidoDeRegistro(nombreUsuario, password, responseListener);
+            PedidoDeRegistro pedido = new PedidoDeRegistro(name, userName, age, password, responseListener);
             RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
             queue.add(pedido);
         }

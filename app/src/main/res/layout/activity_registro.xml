@@ -40,7 +40,7 @@
     -->
 
     <EditText
-        android:id="@+id/edit_usuario_registro"
+        android:id="@+id/edit_nombre_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -49,12 +49,29 @@
         android:layout_marginTop="@dimen/text_margin"/>
 
     <EditText
+        android:id="@+id/edit_usuario_registro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/usuario_nombre_user"
+        android:inputType="text"
+        />
+
+    <EditText
         android:id="@+id/edit_password_registro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="@string/usuario_password"
         android:inputType="textPassword"/>
+
+    <EditText
+        android:id="@+id/edit_edad_registro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/usuario_edad"
+        android:inputType="number"/>
 
     <Button
         android:id="@+id/boton_registrar_registro"

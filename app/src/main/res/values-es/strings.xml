@@ -27,8 +27,10 @@
     <!-- Strings related to REGISTRAR -->
     <string name="str_regresar">   REGRESAR </string>
     <string name="str_registrar_titulo">Registrar Usuario</string>
-    <string name="usuario_nombre">Usuario</string>
-    <string name="usuario_password">Contraseña</string>
+    <string name="usuario_nombre">Nombre</string>
+    <string name="usuario_nombre_user">Usuario</string>
+    <string name="usuario_password">Contrasena</string>
+    <string name="usuario_edad">Edad</string>
     <string name="button_registrar">REGISTRAR</string>
 
 </resources>

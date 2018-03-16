@@ -27,7 +27,8 @@
     <!-- Strings related to REGISTRAR -->
     <string name="str_regresar">   RITORNO </string>
     <string name="str_registrar_titulo">Registrati Utente</string>
-    <string name="usuario_nombre">Utente</string>
+    <string name="usuario_nombre">Nome</string>
+    <string name="usuario_nombre_user">Utente</string>
     <string name="usuario_password">Chiave</string>
     <string name="button_registrar">REGISTRATI</string>
 
