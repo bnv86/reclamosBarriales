@@ -97,7 +97,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                         if(success){
                             Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                             RegistroActivity.this.startActivity(intent);
-                            Toast.makeText(getApplicationContext(),"Usuario "+"'"+ username.toString() +"'" + " registrado!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Usuario "+"'"+ username.toString() +"'" + " registrado!", Toast.LENGTH_LONG).show();
                         }else {
                             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
                             alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();

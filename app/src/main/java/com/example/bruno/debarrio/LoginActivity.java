@@ -46,6 +46,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringJoiner;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -128,13 +129,17 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (success) {
+                                String name = jsonResponse.getString("name");
                                 String username = jsonResponse.getString("username");
                                 String password = jsonResponse.getString("password");
+                                //int age = Integer.parseInt("age");
                                 Intent intent = new Intent(LoginActivity.this, MainTabbedActivity.class);
+                                //intent.putExtra("name", name);
                                 intent.putExtra("username", username);
                                 intent.putExtra("password", password);
                                 LoginActivity.this.startActivity(intent);
-                                Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username.toString() + " !",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username + " !", Toast.LENGTH_LONG).show(); //DEVUELVE PASS, PORQUEEEEEE?
+                                Toast.makeText(getApplicationContext(),"BIENVENIDO "+ name + " !", Toast.LENGTH_LONG).show();
                             } else {
                                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
                                 alertBuilder.setMessage("Hubo un error al loguearse").setNegativeButton("Reintentar", null).create().show();
