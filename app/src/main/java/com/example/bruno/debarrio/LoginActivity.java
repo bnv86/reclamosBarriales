@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 intent.putExtra("username", username);
                                 intent.putExtra("password", password);
                                 LoginActivity.this.startActivity(intent);
+                                Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username.toString() + " !",Toast.LENGTH_LONG).show();
                             } else {
                                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
                                 alertBuilder.setMessage("Hubo un error al loguearse").setNegativeButton("Reintentar", null).create().show();
