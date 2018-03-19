@@ -1,5 +1,7 @@
 package com.example.bruno.debarrio;
 
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -16,12 +18,14 @@ import com.google.android.gms.maps.model.Marker;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-
+import android.view.View;
+import android.widget.TextView;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    TextView textview_regresar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        /*
+        textview_regresar = findViewById(R.id.textview_regresar);
+        textview_regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });*/
+
+        //boton flotante regresar
+        FloatingActionButton boton_float_regresar = findViewById(R.id.float_regresar);
+        boton_float_regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                 //       .setAction("Action", null).show();
+            }
+        });
     }
 
 

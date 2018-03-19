@@ -4,6 +4,25 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:orientation="vertical">
 
+    <!--
+    <TextView
+        android:id="@+id/textview_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/str_regresar"
+        android:paddingLeft="@dimen/text_margin"
+        android:textColor="@color/colorOrange"/>
+     -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_media_rew" />
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
