@@ -89,7 +89,12 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //se oculta la barra de titulo
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        //setContentView(R.layout.activity_login);
         // Set up the login form.
         //para elegir idioma al hacer click en boton
         /*

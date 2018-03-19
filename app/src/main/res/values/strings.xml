@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">deBarrio</string>
 
-    <!-- Strings related to LOGIN -->
+    <!-- Strings related to LOGIN ACTIVITY -->
     <string name="prompt_email">User</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -22,9 +22,10 @@
     <string name="tab_text_2">CONTACTS</string>
     <string name="tab_text_3">EVENTS</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- Strings related to REGISTRAR -->
+    <!-- Strings related to REGISTRAR ACTIVITY -->
     <string name="str_regresar">   BACK </string>
     <string name="str_registrar_titulo">Register User</string>
     <string name="usuario_nombre">Name</string>
@@ -33,6 +34,9 @@
     <string name="usuario_edad">Age</string>
     <string name="button_registrar">REGISTER</string>
 
+    <!-- Strings related to MAPS ACTIVITY -->
+    <string name="title_activity_maps">Map</string>
 
 
+    <item name="action_logout" type="id">Logout</item>
 </resources>

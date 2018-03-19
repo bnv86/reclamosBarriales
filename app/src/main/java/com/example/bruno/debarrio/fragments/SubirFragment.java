@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.bruno.debarrio.MapsActivity;
 import com.example.bruno.debarrio.R;
 import com.google.android.gms.plus.PlusOneButton;
 
@@ -43,6 +44,7 @@ public class SubirFragment extends Fragment {
 
     ImageView imagen_foto;
     Button boton_sacar_foto;
+    Button boton_ubicacion;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public SubirFragment() {
@@ -150,18 +152,33 @@ public class SubirFragment extends Fragment {
         boton_sacar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llamarIntent();
+                llamarIntent1();
             }
+        });
+
+        boton_ubicacion = (Button) rootView.findViewById(R.id.boton_ubicacion);
+        boton_ubicacion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntent2();
+            }
+
         });
 
         return rootView;
     }
 
-    private void llamarIntent() {
+    private void llamarIntent1() { //activa la camara para capturar y guardar foto
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
+    }
+
+    private void llamarIntent2() { //pasa a un activity o fragment map para obtener un marcador
+        /*
+        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
+        SubirFragment.this.startActivity(intentMaps);*/
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

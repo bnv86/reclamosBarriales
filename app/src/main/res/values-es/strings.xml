@@ -22,6 +22,7 @@
     <string name="tab_text_2">CONTACTOS</string>
     <string name="tab_text_3">EVENTOS</string>
     <string name="action_settings">Configuración</string>
+    <string name="action_logout">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- Strings related to REGISTRAR -->

@@ -18,6 +18,10 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.model.*;
+import android.app.Activity;
+
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textview_regresar;
