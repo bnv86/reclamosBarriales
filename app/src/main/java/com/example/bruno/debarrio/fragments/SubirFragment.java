@@ -179,6 +179,15 @@ public class SubirFragment extends Fragment {
         /*
         Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
         SubirFragment.this.startActivity(intentMaps);*/
+        Intent intentMaps = new Intent(getActivity(), MapsActivity.class);
+        getActivity().startActivity(intentMaps);
+
+        /* si no funciona lo anterior...
+        private final Context context;
+        context = itemView.getContext();
+        Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
+        detail.putExtra("id", imagen.getId());
+        context.startActivity(detail);*/
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
