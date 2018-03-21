@@ -24,6 +24,7 @@ import com.example.bruno.debarrio.fragments.*;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainTabbedActivity extends AppCompatActivity implements SubirFragment.OnFragmentInteractionListener, ContactosFragment.OnListFragmentInteractionListener, EventosFragment.OnListFragmentInteractionListener{
 
@@ -98,6 +99,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
             edit.commit();
             Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(intent);
+            Toast.makeText(getApplicationContext(),"Sesion cerrada", Toast.LENGTH_LONG).show();
             this.finish();
         }
         return super.onOptionsItemSelected(item);

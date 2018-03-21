@@ -12,3 +12,5 @@
     tools:context="com.example.bruno.debarrio.fragments.ContactosFragment"
     android:background="@android:color/holo_green_dark"
     tools:listitem="@layout/fragment_contactos" />
+
+

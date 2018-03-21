@@ -1,7 +1,9 @@
 package com.example.bruno.debarrio.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.bruno.debarrio.AddContactoActivity;
+import com.example.bruno.debarrio.MapsActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
@@ -29,6 +34,7 @@ public class ContactosFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    Button boton_agregar;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -54,6 +60,29 @@ public class ContactosFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+        /*
+        View rootView = inflater.inflate(R.layout.fragment_contactos, container, false);
+
+        //boton flotante para agregar contacto
+        //FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
+        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+        boton_agregar = (Button) rootView.findViewById(R.id.boton_ubicacion);
+        boton_agregar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                llamarIntentAgregarContacto();
+            }
+        });
+        return rootView;*/
+
+    }
+
+    private void llamarIntentAgregarContacto() { //pasa a un activity o fragment map para obtener un marcador
+        /*
+        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
+        SubirFragment.this.startActivity(intentMaps);*/
+        Intent intentAgregar = new Intent(getActivity(), AddContactoActivity.class);
+        getActivity().startActivity(intentAgregar);
     }
 
     @Override
@@ -72,7 +101,20 @@ public class ContactosFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
-        return view;
+
+        View rootView = inflater.inflate(R.layout.fragment_contactos, container, false);
+        //boton flotante para agregar contacto
+        //FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
+        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+        boton_agregar = rootView.findViewById(R.id.boton_agregar_contacto);
+        boton_agregar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                llamarIntentAgregarContacto();
+            }
+        });
+        return rootView;
+        //return view;
     }
 
 

@@ -152,7 +152,7 @@ public class SubirFragment extends Fragment {
         boton_sacar_foto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llamarIntent1();
+                llamarIntentFoto();
             }
         });
 
@@ -160,7 +160,7 @@ public class SubirFragment extends Fragment {
         boton_ubicacion.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                llamarIntent2();
+                llamarIntentMapa();
             }
 
         });
@@ -168,14 +168,14 @@ public class SubirFragment extends Fragment {
         return rootView;
     }
 
-    private void llamarIntent1() { //activa la camara para capturar y guardar foto
+    private void llamarIntentFoto() { //activa la camara para capturar y guardar foto
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
-    private void llamarIntent2() { //pasa a un activity o fragment map para obtener un marcador
+    private void llamarIntentMapa() { //pasa a un activity o fragment map para obtener un marcador
         /*
         Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
         SubirFragment.this.startActivity(intentMaps);*/
