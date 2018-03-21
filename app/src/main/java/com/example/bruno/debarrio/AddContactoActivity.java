@@ -45,9 +45,9 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick (View view){
-        final int tel = Integer.parseInt(editTelefono.getText().toString());
+        final int telefono = Integer.parseInt(editTelefono.getText().toString());
         final String email = editEmail.getText().toString();
-        final String dire = editDireccion.getText().toString();
+        final String direccion = editDireccion.getText().toString();
         final String detalle = editDetalle.getText().toString();
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -70,7 +70,7 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         };
-        PedidoDeContacto pedido = new PedidoDeContacto(tel, email, dire, detalle, responseListener);
+        PedidoDeContacto pedido = new PedidoDeContacto(telefono, email, direccion, detalle, responseListener);
         RequestQueue queue = Volley.newRequestQueue(AddContactoActivity.this);
         queue.add(pedido);
     }

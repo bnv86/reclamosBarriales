@@ -13,17 +13,16 @@ import java.util.Map;
 public class PedidoDeContacto extends StringRequest {
 
     //private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
-    private static final String REGISTER_REQUEST_URL="https://momentary-electrode.000webhostapp.com/Contacto.php"; //https://momentary-electrode.000webhostapp.com/Register.php
+    private static final String CONTACTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/Contacto.php"; //https://momentary-electrode.000webhostapp.com/Register.php
 
 
     private Map<String, String> params;
-    public PedidoDeContacto (int tel, String email, String dire, String detalle, Response.Listener<String> listener) {
-        super(Method.POST, REGISTER_REQUEST_URL, listener, null);
+    public PedidoDeContacto (int telefono, String email, String direccion, String detalle, Response.Listener<String> listener) {
+        super(Method.POST, CONTACTO_REQUEST_URL, listener, null);
         params = new HashMap<>();
-        //parametros.put("id_usuario", idUsuario);
-        params.put("telefono", tel+"");
+        params.put("telefono", telefono+"");
         params.put("email", email);
-        params.put("direccion", dire);
+        params.put("direccion", direccion);
         params.put("detalle", detalle);
     }
     @Override
