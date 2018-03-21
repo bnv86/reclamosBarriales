@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.example.bruno.debarrio.fragments.ContactosFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="com.example.bruno.debarrio.fragments.ContactosFragment"
-    android:background="@android:color/holo_green_dark"
-    tools:listitem="@layout/fragment_contactos" />
+    android:orientation="horizontal">
 
 
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/list"
+        android:name="com.example.bruno.debarrio.fragments.ContactosFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        app:layoutManager="LinearLayoutManager"
+        tools:context="com.example.bruno.debarrio.fragments.ContactosFragment"
+        android:background="@android:color/holo_green_dark"
+        tools:listitem="@layout/fragment_contactos" />
+<!--
+    <Button
+        android:id="@+id/boton_agregar_contacto"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:background="@color/colorLightBlue"
+        android:text="Agregar"
+        android:textColor="@color/colorDark"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+--><FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_agregar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add" />
+    </FrameLayout>
+
+</RelativeLayout>

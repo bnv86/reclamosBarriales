@@ -8,15 +8,29 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.AddContactoActivity;
+import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.MapsActivity;
+import com.example.bruno.debarrio.PedidoDeContacto;
+import com.example.bruno.debarrio.PedidoDeFoto;
+import com.example.bruno.debarrio.PedidoDeRegistro;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.RegistroActivity;
 import com.google.android.gms.plus.PlusOneButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A fragment with a Google +1 button.
@@ -45,6 +59,7 @@ public class SubirFragment extends Fragment {
     ImageView imagen_foto;
     Button boton_sacar_foto;
     Button boton_ubicacion;
+    Button boton_compartir;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     public SubirFragment() {
@@ -164,9 +179,19 @@ public class SubirFragment extends Fragment {
             }
 
         });
+        /*
+        boton_compartir = rootView.findViewById(R.id.boton_compartir);
+        boton_compartir.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentMapa();
+            }
+
+        });*/
 
         return rootView;
     }
+
 
     private void llamarIntentFoto() { //activa la camara para capturar y guardar foto
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -195,7 +220,43 @@ public class SubirFragment extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imagen_foto.setImageBitmap(imageBitmap);
+            guardarFoto(imageBitmap);
         }
+    }
+
+    private void guardarFoto(Bitmap foto) {
+        /*
+        final int telefono = Integer.parseInt(editTelefono.getText().toString());
+        final String email = editEmail.getText().toString();
+        final String direccion = editDireccion.getText().toString();
+        final String detalle = editDetalle.getText().toString();*/
+        final String username = "Sesion";
+        final String imagen = foto.toString();
+        //final int evento_id = 1;
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+
+                    if(success){
+                        //Intent intent = new Intent(AddContactoActivity.this, MainTabbedActivity.class);
+                        //AddContactoActivity.this.startActivity(intent);
+                        Toast.makeText(getContext(),"Foto agregada!", Toast.LENGTH_LONG).show();
+                    }else {
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+                        alertBuilder.setMessage("Error al agregar foto").setNegativeButton("Reintentar", null).create().show();
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        PedidoDeFoto pedido = new PedidoDeFoto(username, imagen, responseListener); //evento_id,
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(pedido);
     }
 
 }

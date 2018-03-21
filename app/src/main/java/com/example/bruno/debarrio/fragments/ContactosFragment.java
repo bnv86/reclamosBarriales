@@ -36,6 +36,7 @@ public class ContactosFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     Button boton_agregar;
 
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -89,11 +90,17 @@ public class ContactosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contactos_list, container, false);
+        //boton flotante para agregar contacto
+        //FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
+        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+        View rootView = inflater.inflate(R.layout.fragment_contactos, container, false);
+
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
+
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -102,10 +109,7 @@ public class ContactosFragment extends Fragment {
             recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
 
-        View rootView = inflater.inflate(R.layout.fragment_contactos, container, false);
-        //boton flotante para agregar contacto
-        //FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
-        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+
         boton_agregar = rootView.findViewById(R.id.boton_agregar_contacto);
         boton_agregar.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -113,8 +117,18 @@ public class ContactosFragment extends Fragment {
                 llamarIntentAgregarContacto();
             }
         });
+        /*
+        //boton flotante para agregar contacto
+        FloatingActionButton boton_float_agregar = view.findViewById(R.id.float_agregar);
+        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+        //boton_agregar = (Button) view.findViewById(R.id.boton_agregar_contacto);
+        boton_float_agregar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View rootView) {
+                llamarIntentAgregarContacto();
+            }
+        });*/
         return rootView;
-        //return view;
     }
 
 
