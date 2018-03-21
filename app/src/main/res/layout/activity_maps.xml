@@ -23,6 +23,18 @@ android:orientation="vertical">
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_media_rew" />
 
+    <Button
+        android:visibility="gone"
+        android:text="Guardar Ubicación"
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/background_dark"
+        android:id="@+id/boton_guardar_ubicacion"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
+
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -31,6 +43,8 @@ android:orientation="vertical">
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.bruno.debarrio.MapsActivity" >
+
+
 
 </fragment>
 

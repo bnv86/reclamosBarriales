@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -70,9 +71,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
                         .setAction("Action", null).show();
             }
         });*/
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -89,13 +88,18 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) { //no hace nada
             return true;
         }
-        else if (id == R.id.action_logout) {
-            return true;
+        if (id == R.id.action_logout) { //cierra sesion
+            SharedPreferences sharedPreferences = getSharedPreferences("sesion",MODE_PRIVATE);
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            edit.remove("usuario");
+            edit.commit();
+            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
+            this.finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -108,7 +112,6 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
-
 
     /**
      * A placeholder fragment containing a simple view.
