@@ -55,7 +55,7 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link SubirFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SubirFragment extends Fragment{ // implements  View.OnClickListener
+public class SubirFragment extends Fragment implements View.OnClickListener{ // implements  View.OnClickListener
 
     /* elegirActivity
     private Bitmap bitmap;
@@ -88,6 +88,14 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
     EditText editext_comentario;
     Button boton_compartir;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    private Bitmap bitmap;
+
+    private int PICK_IMAGE_REQUEST = 1;
+
+    private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/upload.php";
+
+    private String KEY_IMAGEN = "foto";
+    private String KEY_NOMBRE = "nombre";
 
     public SubirFragment() {
         // Required empty public constructor
@@ -114,11 +122,72 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_add_foto_elegir);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        }}
+
+    public String getStringImagen(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
     }
+
+        private void uploadImage(){
+            //Mostrar el diálogo de progreso
+            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false);
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Descartar el diálogo de progreso
+                            loading.dismiss();
+                            //Mostrando el mensaje de la respuesta
+                            Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
+                            //llamarIntentFotoElegir();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            //Descartar el diálogo de progreso
+                            loading.dismiss();
+
+                            //Showing toast
+                            Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                        }
+                    }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    //Convertir bits a cadena
+                    String imagen = getStringImagen(bitmap);
+
+                    //Obtener el nombre de la imagen
+                    String nombre = "CAPTURA";
+
+                    //Creación de parámetros
+                    Map<String,String> params = new Hashtable<String, String>();
+
+                    //Agregando de parámetros
+                    params.put(KEY_IMAGEN, imagen);
+                    params.put(KEY_NOMBRE, nombre);
+
+                    //Parámetros de retorno
+                    return params;
+                }
+            };
+
+            //Creación de una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+
+            //Agregar solicitud a la cola
+            requestQueue.add(stringRequest);
+        }
+
+
 
     /* boton flotante
     @Override
@@ -166,6 +235,11 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
         mListener = null;
     }
 
+    @Override
+    public void onClick(View v) {
+            uploadImage();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -179,13 +253,12 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_fragment1, container, false);
         View rootView = inflater.inflate(R.layout.fragment_subir,container, false);
 
         boton_sacar_foto = rootView.findViewById(R.id.boton_tomar_foto);
@@ -220,9 +293,9 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
         boton_compartir.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                llamarIntentCompartir();
+                    uploadImage();
+                //llamarIntentCompartir();
             }
-
         });
 
         return rootView;
@@ -259,21 +332,14 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
     private void llamarIntentCompartir() {
         return;
     }
-
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imagen_foto.setImageBitmap(imageBitmap);
-            guardarFoto(imageBitmap);
-        }
-        /* elegirActivity
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
+
             try {
                 //Cómo obtener el mapa de bits de la Galería
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
@@ -282,9 +348,21 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }*/
-    }
+        }
+    }*/
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imagen_foto.setImageBitmap(imageBitmap);
+            //guardarFoto(imageBitmap);
+        }
+
+    }
+/*
     private void guardarFoto(Bitmap imagen) {
         final String nombre = "User";
         final String foto = getStringImagen(imagen);
@@ -313,13 +391,6 @@ public class SubirFragment extends Fragment{ // implements  View.OnClickListener
         PedidoDeFoto pedido = new PedidoDeFoto(foto, nombre, responseListener); //evento_id,
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(pedido);
-    }
+    }*/
 
-    public String getStringImagen(Bitmap bmp){
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        return encodedImage;
-    }
 }

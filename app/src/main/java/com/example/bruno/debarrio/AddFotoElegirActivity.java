@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +31,7 @@ import java.util.Map;
 
 public class AddFotoElegirActivity extends AppCompatActivity implements View.OnClickListener  {
 
+    TextView textview_regresar;
     private Button btnBuscar;
     private Button btnSubir;
 
@@ -51,6 +53,13 @@ public class AddFotoElegirActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_foto_elegir);
 
+        textview_regresar = findViewById(R.id.textview_regresar);
+        textview_regresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed(); //vuelve al activity anterior
+            }
+        });
         btnBuscar = findViewById(R.id.btnBuscar);
         btnSubir = findViewById(R.id.btnSubir);
 
