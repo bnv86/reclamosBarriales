@@ -123,6 +123,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_add_foto_elegir);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -138,7 +139,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
         private void uploadImage(){
             //Mostrar el diálogo de progreso
-            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false);
+            final ProgressDialog loading = ProgressDialog.show(getContext(),"Subiendo...","Espere por favor...",false,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
                     new Response.Listener<String>() {
                         @Override
@@ -146,7 +147,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                             //Descartar el diálogo de progreso
                             loading.dismiss();
                             //Mostrando el mensaje de la respuesta
-                            Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
                             //llamarIntentFotoElegir();
                         }
                     },
@@ -157,16 +158,17 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                             loading.dismiss();
 
                             //Showing toast
-                            Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
                         }
                     }){
+
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     //Convertir bits a cadena
                     String imagen = getStringImagen(bitmap);
 
                     //Obtener el nombre de la imagen
-                    String nombre = "CAPTURA";
+                    String nombre = "CAPTURA"; //.trim()
 
                     //Creación de parámetros
                     Map<String,String> params = new Hashtable<String, String>();
@@ -181,7 +183,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             };
 
             //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
 
             //Agregar solicitud a la cola
             requestQueue.add(stringRequest);
@@ -259,7 +261,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_subir,container, false);
+        View rootView = inflater.inflate(R.layout.fragment_subir, container, false);
 
         boton_sacar_foto = rootView.findViewById(R.id.boton_tomar_foto);
         imagen_foto = rootView.findViewById(R.id.imagen_para_foto);
@@ -353,11 +355,11 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imagen_foto.setImageBitmap(imageBitmap);
+            Bitmap bitmap = (Bitmap) extras.get("data");
+            imagen_foto.setImageBitmap(bitmap);
             //guardarFoto(imageBitmap);
         }
 
