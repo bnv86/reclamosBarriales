@@ -23,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/imagen_para_foto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_above="@+id/boton_tomar_foto"
 
@@ -43,6 +43,15 @@
 
                 <!--android:layout_marginBottom="20dp"
                 android:layout_centerHorizontal="true"-->
+
+            <Button
+                android:id="@+id/boton_elegir_foto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/boton_tomar_foto"
+                android:layout_gravity="center"
+                android:text="Elegir Foto" />
+
 
             <Button
                 android:id="@+id/boton_ubicacion"
