@@ -31,8 +31,6 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View view) {
                 onBackPressed(); //vuelve al activity anterior
-                //Intent intentRegistro = new Intent(RegistroActivity.this, LoginActivity.class);
-                //RegistroActivity.this.startActivity(intentRegistro);
             }
         });
         editTelefono = findViewById(R.id.edit_tel_contacto);
@@ -45,10 +43,14 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick (View view){
-        final int telefono = Integer.parseInt(editTelefono.getText().toString());
+        //final int telefono = Integer.parseInt(editTelefono.getText().toString());
         final String email = editEmail.getText().toString();
         final String direccion = editDireccion.getText().toString();
         final String detalle = editDetalle.getText().toString();
+        //esto soluciona el error que tira al dejar en blanco campos int al agregar
+        final EditText t = findViewById(R.id.edit_tel_contacto);
+        final String tel = t.getText().toString().trim();
+        final int telefono = !tel.equals("")?Integer.parseInt(tel) : 0;
 
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

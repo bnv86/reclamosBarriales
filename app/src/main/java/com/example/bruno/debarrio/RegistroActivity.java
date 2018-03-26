@@ -85,11 +85,21 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick (View view){
-            //final String idUsuario
             final String name = editNombre.getText().toString();
             final String username = editUsuario.getText().toString();
             final String password = editPassword.getText().toString();
-            final int age = Integer.parseInt(editEdad.getText().toString());
+            //int age = Integer.parseInt(editEdad.getText().toString());
+            //esto soluciona el error que tira al dejar en blanco campos int al agregar
+            final EditText a = findViewById(R.id.edit_edad_registro);
+            final String edad = a.getText().toString().trim();
+            final int age = !edad.equals("")?Integer.parseInt(edad) : 0;
+            /*
+            try {
+                int age = Integer.parseInt(editEdad.getText().toString());
+
+            }catch (NumberFormatException n){
+                n.printStackTrace();
+            }*/
 
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
@@ -102,7 +112,12 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                             Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                             RegistroActivity.this.startActivity(intent);
                             Toast.makeText(getApplicationContext(),"Usuario "+"'"+ username.toString() +"'" + " registrado!", Toast.LENGTH_LONG).show();
-                        }else {
+                        }
+                        if (editEdad.getText().toString() == ""){
+                            AlertDialog.Builder ab = new AlertDialog.Builder(RegistroActivity.this);
+                            ab.setMessage("Edad debe ser un número").setNegativeButton("Reintente", null).create().show();
+                        }
+                        else {
                             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
                             alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();
                         }
@@ -111,6 +126,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     }
                 }
             };
+
             PedidoDeRegistro pedido = new PedidoDeRegistro(name, username, age, password, responseListener);
             RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
             queue.add(pedido);

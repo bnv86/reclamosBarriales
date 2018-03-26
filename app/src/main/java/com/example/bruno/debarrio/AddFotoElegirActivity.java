@@ -31,9 +31,9 @@ import java.util.Map;
 
 public class AddFotoElegirActivity extends AppCompatActivity implements View.OnClickListener  {
 
-    TextView textview_regresar;
-    private Button btnBuscar;
-    private Button btnSubir;
+    TextView textviewRegresar;
+    private Button botonBuscar;
+    private Button botonSubir;
 
     private ImageView imageView;
 
@@ -53,22 +53,22 @@ public class AddFotoElegirActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_foto_elegir);
 
-        textview_regresar = findViewById(R.id.textview_regresar);
-        textview_regresar.setOnClickListener(new View.OnClickListener() {
+        textviewRegresar = findViewById(R.id.textview_regresar);
+        textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed(); //vuelve al activity anterior
             }
         });
-        btnBuscar = findViewById(R.id.btnBuscar);
-        btnSubir = findViewById(R.id.btnSubir);
+        botonBuscar = findViewById(R.id.boton_buscar);
+        botonSubir = findViewById(R.id.boton_subir);
 
         editTextName = findViewById(R.id.editText);
 
         imageView  = findViewById(R.id.imageView);
 
-        btnBuscar.setOnClickListener(this);
-        btnSubir.setOnClickListener(this);
+        botonBuscar.setOnClickListener(this);
+        botonSubir.setOnClickListener(this);
     }
 
     public String getStringImagen(Bitmap bmp){
@@ -157,11 +157,11 @@ public class AddFotoElegirActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
 
-        if(v == btnBuscar){
+        if(v == botonBuscar){
             showFileChooser();
         }
 
-        if(v == btnSubir){
+        if(v == botonSubir){
             uploadImage();
         }
     }

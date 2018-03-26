@@ -27,10 +27,9 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_above="@+id/boton_tomar_foto"
-
-                android:paddingTop="@dimen/text_margin"
-                android:src="@android:color/darker_gray"/>
-                <!--android:src="@mipmap/camera"-->
+                android:src="@mipmap/camera"
+                android:paddingTop="@dimen/text_margin" />
+                <!--android:src="@android:color/darker_gray"/>-->
                 <!-- android:layout_marginBottom="0dp" -->
 
             <Button

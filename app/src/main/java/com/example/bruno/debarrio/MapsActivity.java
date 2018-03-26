@@ -147,14 +147,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 finish();
             }
         });*/
-
     }
 
     private void actualizarMiUbicacion(Location location){
 
         if (location!=null){
-            lat=location.getLatitude();
-            lng=location.getLongitude();
+            lat = location.getLatitude();
+            lng = location.getLongitude();
             agregarMarcadorUbicacion(lat,lng);
         }
     }

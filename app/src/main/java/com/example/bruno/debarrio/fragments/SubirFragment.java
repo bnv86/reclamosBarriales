@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -80,20 +82,13 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
     private OnFragmentInteractionListener mListener;
 
-    ImageView imagen_foto;
-    Button boton_sacar_foto;
-    Button boton_elegir_foto;
-    Button boton_ubicacion;
-    EditText editext_motivo;
-    EditText editext_comentario;
-    Button boton_compartir;
+    ImageView imagenFoto;
+    Button botonSacarFoto, botonElegirFoto, botonUbicacion, botonCompartir;
+    EditText editextMotivo, editextComentario;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap bitmap;
-
     private int PICK_IMAGE_REQUEST = 1;
-
     private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/upload.php";
-
     private String KEY_IMAGEN = "foto";
     private String KEY_NOMBRE = "nombre";
 
@@ -141,26 +136,26 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             //Mostrar el diálogo de progreso
             final ProgressDialog loading = ProgressDialog.show(getContext(),"Subiendo...","Espere por favor...",false,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            //Descartar el diálogo de progreso
-                            loading.dismiss();
-                            //Mostrando el mensaje de la respuesta
-                            Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
-                            //llamarIntentFotoElegir();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            //Descartar el diálogo de progreso
-                            loading.dismiss();
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        //Mostrando el mensaje de la respuesta
+                        Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
+                        //llamarIntentFotoElegir();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
 
-                            //Showing toast
-                            Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
-                        }
-                    }){
+                        //Showing toast
+                        Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
+                    }
+                }){
 
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
@@ -188,30 +183,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             //Agregar solicitud a la cola
             requestQueue.add(stringRequest);
         }
-
-
-
-    /* boton flotante
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_subir, container, false); //predeterminado del fragment
-
-        //Find the +1 button
-        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button); //predeterminado del fragment
-
-        return view;
-    }*/
-
-    /*
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Refresh the state of the +1 button each time the activity receives focus.
-        mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
-    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -263,27 +234,28 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_subir, container, false);
 
-        boton_sacar_foto = rootView.findViewById(R.id.boton_tomar_foto);
-        imagen_foto = rootView.findViewById(R.id.imagen_para_foto);
+        botonSacarFoto = rootView.findViewById(R.id.boton_tomar_foto);
+        imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.camera);
 
-        boton_sacar_foto.setOnClickListener(new View.OnClickListener() {
+        botonSacarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 llamarIntentFoto();
             }
         });
 
-        boton_elegir_foto = rootView.findViewById(R.id.boton_elegir_foto);
-        boton_elegir_foto.setOnClickListener(new View.OnClickListener() {
+        botonElegirFoto = rootView.findViewById(R.id.boton_elegir_foto);
+        botonElegirFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 llamarIntentFotoElegir();
             }
         });
 
-
-        boton_ubicacion = rootView.findViewById(R.id.boton_ubicacion);
-        boton_ubicacion.setOnClickListener(new View.OnClickListener(){
+        botonUbicacion = rootView.findViewById(R.id.boton_ubicacion);
+        botonUbicacion.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 llamarIntentMapa();
@@ -291,8 +263,24 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
         });
 
-        boton_compartir = rootView.findViewById(R.id.boton_compartir);
-        boton_compartir.setOnClickListener(new View.OnClickListener(){
+        editextMotivo = rootView.findViewById(R.id.editext_motivo);
+        editextMotivo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return;
+            }
+        });
+
+        editextComentario = rootView.findViewById(R.id.editext_comentario);
+        editextComentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                return;
+            }
+        });
+
+        botonCompartir = rootView.findViewById(R.id.boton_compartir);
+        botonCompartir.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                     uploadImage();
@@ -359,7 +347,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
-            imagen_foto.setImageBitmap(bitmap);
+            imagenFoto.setImageBitmap(bitmap);
             //guardarFoto(imageBitmap);
         }
 
@@ -393,6 +381,28 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         PedidoDeFoto pedido = new PedidoDeFoto(foto, nombre, responseListener); //evento_id,
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(pedido);
+    }*/
+
+    /* boton flotante
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_subir, container, false); //predeterminado del fragment
+
+        //Find the +1 button
+        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button); //predeterminado del fragment
+
+        return view;
+    }*/
+
+    /*
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Refresh the state of the +1 button each time the activity receives focus.
+        mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
     }*/
 
 }

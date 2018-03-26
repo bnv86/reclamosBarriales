@@ -14,15 +14,16 @@ tools:context="com.example.bruno.debarrio.AddFotoElegirActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:text="Regresar"
         android:paddingLeft="@dimen/text_margin"
-        android:textColor="@color/colorOrange"/>
+        android:paddingRight="@dimen/text_margin"
+        android:textColor="@color/colorOrange"
+        android:text="Regresar" />
 
     <Button
+        android:id="@+id/boton_buscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Elegir foto"
-        android:id="@+id/btnBuscar" />
+        android:text="Elegir foto" />
 
 
     <ImageView
@@ -34,15 +35,15 @@ tools:context="com.example.bruno.debarrio.AddFotoElegirActivity">
 
     <EditText
         android:id="@+id/editText"
-        android:hint="Nombre de la foto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Subir Foto"
-        android:id="@+id/btnSubir" />
+        android:hint="Nombre de la foto"/>
+
+    <Button
+        android:id="@+id/boton_subir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subir Foto" />
 
 
 </LinearLayout>

@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
     private Locale locale;
     private Configuration config = new Configuration();
 
-    TextView textview_registrar;
+    TextView textviewRegistrar;
     EditText editUsuario;
     EditText editPassword;
     Button botonLogin;
@@ -105,8 +105,8 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                         showDialog();
                     }});*/
         //al presionar el text view REGISTRAR se pasa a dicho activity
-        textview_registrar = findViewById(R.id.textview_registrar);
-        textview_registrar.setOnClickListener(new View.OnClickListener() {
+        textviewRegistrar = findViewById(R.id.textview_registrar);
+        textviewRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentRegistro = new Intent(LoginActivity.this, RegistroActivity.class);
@@ -161,27 +161,6 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
         });
     }
 }
-
-
-                                              //admin y pass provisorios para pasar a pantalla de tabs
-        /*
-        Button boton = (Button) findViewById(R.id.email_sign_in_button);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String usuario=  ((EditText)findViewById(R.id.email_login)).getText().toString();
-                String password=  ((EditText)findViewById(R.id.password_login)).getText().toString();
-                if (usuario.equals("adm")&&password.equals("adm")){
-                    Intent nuevoform= new Intent(LoginActivity.this,MainTabbedActivity.class);
-                    startActivity(nuevoform);
-
-                }
-                else {
-                    Toast.makeText(getApplicationContext(),"Usuario o password incorrecto",Toast.LENGTH_SHORT).show();
-
-                }
-            }
-        });*/
 
         /*
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email_login);
@@ -514,5 +493,25 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
 
         b.show();
     }*/
+
+//admin y pass provisorios para pasar a pantalla de tabs
+        /*
+        Button boton = (Button) findViewById(R.id.email_sign_in_button);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String usuario=  ((EditText)findViewById(R.id.email_login)).getText().toString();
+                String password=  ((EditText)findViewById(R.id.password_login)).getText().toString();
+                if (usuario.equals("adm")&&password.equals("adm")){
+                    Intent nuevoform= new Intent(LoginActivity.this,MainTabbedActivity.class);
+                    startActivity(nuevoform);
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Usuario o password incorrecto",Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        });*/
 
 
