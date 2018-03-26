@@ -108,14 +108,11 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
 
+                        //if usuario ya existe, mostrar mensaje
                         if(success){
                             Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                             RegistroActivity.this.startActivity(intent);
                             Toast.makeText(getApplicationContext(),"Usuario "+"'"+ username.toString() +"'" + " registrado!", Toast.LENGTH_LONG).show();
-                        }
-                        if (editEdad.getText().toString() == ""){
-                            AlertDialog.Builder ab = new AlertDialog.Builder(RegistroActivity.this);
-                            ab.setMessage("Edad debe ser un número").setNegativeButton("Reintente", null).create().show();
                         }
                         else {
                             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
