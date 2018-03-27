@@ -43,7 +43,7 @@ public class AddFotoElegirActivity extends AppCompatActivity implements View.OnC
 
     private int PICK_IMAGE_REQUEST = 1;
 
-    private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/upload.php";
+    private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
 
     private String KEY_IMAGEN = "foto";
     private String KEY_NOMBRE = "nombre";

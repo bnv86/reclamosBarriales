@@ -21,7 +21,7 @@ public class PedidoDeFoto extends StringRequest {
     private String KEY_NOMBRE = "nombre";
 
     //private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
-    private static final String FOTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/SubirFoto.php";
+    private static final String FOTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/SubirCapturaFoto.php";
     //private Bitmap bitmap;
     //private String nombre;
 
