@@ -2,6 +2,7 @@ package com.example.bruno.debarrio.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.AddContactoActivity;
 import com.example.bruno.debarrio.MapsActivity;
+import com.example.bruno.debarrio.ObtenerContacto;
+import com.example.bruno.debarrio.PedidoDeContacto;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
@@ -34,7 +43,16 @@ public class ContactosFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    TextView textview_regresar;
     Button boton_agregar;
+    ListView listView;
+    String lista;
+    SimpleCursorAdapter cursorAdapter;
+    Cursor cursor;
+    String[] from;
+    int[] to;
+    int telefono;
+    String email, direccion, detalle;
 
 
     /**
@@ -89,13 +107,36 @@ public class ContactosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_contactos_list, container, false);
         //boton flotante para agregar contacto
         //FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
         //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
         View rootView = inflater.inflate(R.layout.fragment_contactos, container, false);
+        listView = rootView.findViewById(R.id.list_contactos);
+
+        /*
+        //forma de traer los contactos?? como meterlos en la listview???
+        ObtenerContacto obtener = new ObtenerContacto(email, direccion, detalle);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(obtener);*/
+
+        //reemplazar por datos de la BD
+        String[] menuItems = {"Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Once", "Doce"}; //scrollea pero no llega al doce
+        //String[] menuItems = {email, direccion, detalle}; //algo asi no funciona
+
+        ArrayAdapter<String> listviewAdapter = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_list_item_1, menuItems);
+        listView.setAdapter(listviewAdapter);
+
+        /* prueba
+        from = new String[]{"_id", "item"};
+        to = new int[] {R.id.id, R.id.title_item};
+        cursorAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.fragment_contactos_list, cursor, from, to);
+        listView.setAdapter(cursorAdapter);*/
 
 
+        /*
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -107,7 +148,7 @@ public class ContactosFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+        }*/
 
 
         boton_agregar = rootView.findViewById(R.id.boton_agregar_contacto);
@@ -130,7 +171,6 @@ public class ContactosFragment extends Fragment {
         });*/
         return rootView;
     }
-
 
     @Override
     public void onAttach(Context context) {
