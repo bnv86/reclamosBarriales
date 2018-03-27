@@ -23,6 +23,7 @@ tools:context="com.example.bruno.debarrio.AddFotoElegirActivity">
         android:id="@+id/boton_buscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorLightBlue"
         android:text="Elegir foto" />
 
 
@@ -43,6 +44,7 @@ tools:context="com.example.bruno.debarrio.AddFotoElegirActivity">
         android:id="@+id/boton_subir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorLightBlue"
         android:text="Subir Foto" />
 
 
