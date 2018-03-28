@@ -13,25 +13,73 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/boton_agregar_contacto"
+            android:id="@+id/boton_agregar_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="20dp"
             android:background="@android:color/holo_green_light"
-            android:text="Agregar"
+            android:text="Agregar Email"
             android:textColor="@color/colorDark"
             android:textSize="20dp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/boton_ver_contactos"
+            android:id="@+id/boton_agregar_telefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="@android:color/holo_green_light"
+            android:text="Agregar Teléfono"
+            android:textColor="@color/colorDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/boton_agregar_direccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="@android:color/holo_green_light"
+            android:text="Agregar Dirección"
+            android:textColor="@color/colorDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/boton_ver_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="20dp"
             android:background="@android:color/holo_orange_light"
-            android:text="Ver Contactos"
+            android:text="Ver Emails"
+            android:textColor="@color/colorDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/boton_ver_telefonos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="@android:color/holo_orange_light"
+            android:text="Ver Teléfonos"
+            android:textColor="@color/colorDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/boton_ver_direcciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="20dp"
+            android:background="@android:color/holo_orange_light"
+            android:text="Ver Direcciones"
             android:textColor="@color/colorDark"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -62,49 +110,50 @@
             android:text="det"/>
             -->
 
+
     </LinearLayout>
 
 
-        <ListView
-            android:id="@+id/list_contactos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:textColor="@android:color/background_dark"
-            android:background="@android:color/holo_green_dark"
-             >
+            <ListView
+                android:id="@+id/list_contactos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:textColor="@android:color/background_dark"
+                android:background="@android:color/holo_green_dark"
+                 >
 
-        </ListView>
+            </ListView>
 
-</LinearLayout>
-<!--
-        <TextView
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textAppearance="?attr/textAppearanceListItem" />
+    </LinearLayout>
+    <!--
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textAppearance="?attr/textAppearanceListItem" />
 
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem" />
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:textAppearance="?attr/textAppearanceListItem" />
 
 
-        <Button
-            android:id="@+id/boton_agregar_contacto"
-            android:layout_width="140dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
-            android:background="@color/colorLightBlue"
-            android:text="Agregar"
-            android:textColor="@color/colorDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
--->
+            <Button
+                android:id="@+id/boton_agregar_contacto"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:background="@color/colorLightBlue"
+                android:text="Agregar"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+    -->
     <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/float_agregar"

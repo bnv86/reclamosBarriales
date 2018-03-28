@@ -4,32 +4,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.AddContactoActivity;
-import com.example.bruno.debarrio.ContactosActivity;
-import com.example.bruno.debarrio.MapsActivity;
-import com.example.bruno.debarrio.ObtenerContacto;
-import com.example.bruno.debarrio.PedidoDeContacto;
+import com.example.bruno.debarrio.AddDireccionActivity;
+import com.example.bruno.debarrio.AddEmailActivity;
+import com.example.bruno.debarrio.AddTelefonoActivity;
+import com.example.bruno.debarrio.DireccionesActivity;
+import com.example.bruno.debarrio.EmailsActivity;
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.fragments.dummy.DummyContent;
+import com.example.bruno.debarrio.TelefonosActivity;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
-
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -45,8 +37,12 @@ public class ContactosFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     TextView textview_regresar;
-    Button botonAgregar;
-    Button botonVerContactos;
+    Button botonAgregarEmail;
+    Button botonAgregarTel;
+    Button botonAgregarDir;
+    Button botonVerEmails;
+    Button botonVerTels;
+    Button botonVerDirs;
     ListView listView;
     String lista;
     SimpleCursorAdapter cursorAdapter;
@@ -98,19 +94,6 @@ public class ContactosFragment extends Fragment {
 
     }
 
-    private void llamarIntentAgregarContacto() {
-        /*
-        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
-        SubirFragment.this.startActivity(intentMaps);*/
-        Intent intentAgregar = new Intent(getActivity(), AddContactoActivity.class);
-        getActivity().startActivity(intentAgregar);
-    }
-
-    private void llamarIntentVerContactos() {
-        Intent intentVer = new Intent(getActivity(), ContactosActivity.class);
-        getActivity().startActivity(intentVer);
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -158,21 +141,53 @@ public class ContactosFragment extends Fragment {
             recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }*/
 
-        botonAgregar = rootView.findViewById(R.id.boton_agregar_contacto);
-        botonAgregar.setOnClickListener(new View.OnClickListener(){
+        botonAgregarEmail = rootView.findViewById(R.id.boton_agregar_email);
+        botonAgregarEmail.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                llamarIntentAgregarContacto();
+                llamarIntentAgregarEmail();
             }
         });
 
-        botonVerContactos = rootView.findViewById(R.id.boton_ver_contactos);
-        botonVerContactos.setOnClickListener(new View.OnClickListener() {
+        botonVerEmails = rootView.findViewById(R.id.boton_ver_email);
+        botonVerEmails.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-                 llamarIntentVerContactos();
+                 llamarIntentVerEmails();
              }
          });
+
+        botonAgregarTel = rootView.findViewById(R.id.boton_agregar_telefono);
+        botonAgregarTel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                llamarIntentAgregarTel();
+            }
+        });
+
+        botonVerTels = rootView.findViewById(R.id.boton_ver_telefonos);
+        botonVerTels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarIntentVerTels();
+            }
+        });
+
+        botonAgregarDir = rootView.findViewById(R.id.boton_agregar_direccion);
+        botonAgregarDir.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                llamarIntentAgregarDir();
+            }
+        });
+
+        botonVerDirs = rootView.findViewById(R.id.boton_ver_direcciones);
+        botonVerDirs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarIntentVerDirs();
+            }
+        });
 
         /*
         //boton flotante para agregar contacto
@@ -221,5 +236,38 @@ public class ContactosFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+    }
+
+    private void llamarIntentAgregarEmail() {
+        /*
+        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
+        SubirFragment.this.startActivity(intentMaps);*/
+        Intent intentAgregar = new Intent(getActivity(), AddEmailActivity.class);
+        getActivity().startActivity(intentAgregar);
+    }
+
+    private void llamarIntentVerEmails() {
+        Intent intentVer = new Intent(getActivity(), EmailsActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentAgregarTel() {
+        Intent intentAgregar = new Intent(getActivity(), AddTelefonoActivity.class);
+        getActivity().startActivity(intentAgregar);
+    }
+
+    private void llamarIntentVerTels() {
+        Intent intentVer = new Intent(getActivity(), TelefonosActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentAgregarDir() {
+        Intent intentAgregar = new Intent(getActivity(), AddDireccionActivity.class);
+        getActivity().startActivity(intentAgregar);
+    }
+
+    private void llamarIntentVerDirs() {
+        Intent intentVer = new Intent(getActivity(), DireccionesActivity.class);
+        getActivity().startActivity(intentVer);
     }
 }

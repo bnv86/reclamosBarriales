@@ -284,7 +284,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             @Override
             public void onClick(View v) {
                     uploadImage();
-                //llamarIntentCompartir();
+                llamarIntentCompartir();
             }
         });
 
@@ -366,8 +366,8 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                     boolean success = jsonResponse.getBoolean("success");
 
                     if(success){
-                        //Intent intent = new Intent(AddContactoActivity.this, MainTabbedActivity.class);
-                        //AddContactoActivity.this.startActivity(intent);
+                        //Intent intent = new Intent(AddDireccionActivity.this, MainTabbedActivity.class);
+                        //AddDireccionActivity.this.startActivity(intent);
                         Toast.makeText(getContext(),"Foto agregada!", Toast.LENGTH_LONG).show();
                     }else {
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());

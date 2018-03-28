@@ -1,32 +1,34 @@
 package com.example.bruno.debarrio;
 
-import android.support.v7.app.AppCompatActivity;
-import java.util.ArrayList;
-import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-public class ContactosActivity extends AppCompatActivity {
 
-    ListView ContactosListView;
-    ProgressBar progressBarContactos;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TelefonosActivity extends AppCompatActivity {
+
+    ListView telefonosListView;
+    ProgressBar progressBarTelefonos;
     TextView textviewRegresar;
-    //String ServerURL = "http://androidblog.esy.es/AndroidJSon/Subjects.php";
-    String ServerURL = "https://momentary-electrode.000webhostapp.com/getContacto3.php";
+    String ServerURL = "https://momentary-electrode.000webhostapp.com/getTelefono.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contactos);
+        setContentView(R.layout.activity_telefonos);
         textviewRegresar = findViewById(R.id.textview_regresar);
         textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,16 +36,16 @@ public class ContactosActivity extends AppCompatActivity {
                 onBackPressed(); //vuelve al activity anterior
             }
         });
-        ContactosListView = findViewById(R.id.listview1);
-        progressBarContactos = findViewById(R.id.progressBar);
-        new GetHttpResponse(ContactosActivity.this).execute();
+        telefonosListView = findViewById(R.id.listview1);
+        progressBarTelefonos = findViewById(R.id.progressBar);
+        new GetHttpResponse(TelefonosActivity.this).execute();
     }
 
     private class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         public Context context;
         String ResultHolder;
-        List<Contactos> contactosList;
+        List<Contactos> telefonoList;
 
         public GetHttpResponse(Context context)
         {
@@ -75,15 +77,16 @@ public class ContactosActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Contactos contactos;
-                            contactosList = new ArrayList<Contactos>();
+                            Contactos telefono;
+
+                            telefonoList = new ArrayList<Contactos>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                contactos = new Contactos();
+                                telefono = new Contactos();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                contactos.ContactoName = jsonObject.getString("email");
-                                contactosList.add(contactos);
+                                telefono.ContactoName = jsonObject.getString("telefono");
+                                telefonoList.add(telefono);
                             }
                         }
                         catch (JSONException e) {
@@ -109,15 +112,14 @@ public class ContactosActivity extends AppCompatActivity {
         protected void onPostExecute(Void result)
 
         {
-            progressBarContactos.setVisibility(View.GONE);
-            ContactosListView.setVisibility(View.VISIBLE);
+            progressBarTelefonos.setVisibility(View.GONE);
+            telefonosListView.setVisibility(View.VISIBLE);
 
-            if(contactosList != null)
+            if(telefonoList != null)
             {
-                ListAdapter adapter = new ListAdapter(contactosList, context);
-                ContactosListView.setAdapter(adapter);
+                ListAdapter adapter = new ListAdapter(telefonoList, context);
+                telefonosListView.setAdapter(adapter);
             }
         }
     }
-
 }
