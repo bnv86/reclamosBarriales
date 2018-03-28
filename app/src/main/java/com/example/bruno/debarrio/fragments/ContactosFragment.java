@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.AddContactoActivity;
+import com.example.bruno.debarrio.ContactosActivity;
 import com.example.bruno.debarrio.MapsActivity;
 import com.example.bruno.debarrio.ObtenerContacto;
 import com.example.bruno.debarrio.PedidoDeContacto;
@@ -44,7 +45,8 @@ public class ContactosFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     TextView textview_regresar;
-    Button boton_agregar;
+    Button botonAgregar;
+    Button botonVerContactos;
     ListView listView;
     String lista;
     SimpleCursorAdapter cursorAdapter;
@@ -96,12 +98,17 @@ public class ContactosFragment extends Fragment {
 
     }
 
-    private void llamarIntentAgregarContacto() { //pasa a un activity o fragment map para obtener un marcador
+    private void llamarIntentAgregarContacto() {
         /*
         Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
         SubirFragment.this.startActivity(intentMaps);*/
         Intent intentAgregar = new Intent(getActivity(), AddContactoActivity.class);
         getActivity().startActivity(intentAgregar);
+    }
+
+    private void llamarIntentVerContactos() {
+        Intent intentVer = new Intent(getActivity(), ContactosActivity.class);
+        getActivity().startActivity(intentVer);
     }
 
     @Override
@@ -121,13 +128,14 @@ public class ContactosFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(obtener);*/
 
-        //reemplazar por datos de la BD
+        /*
+        //reemplazar por datos de la BD, estos datos son de prueba, mejor en un activity
         String[] menuItems = {"Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Once", "Doce"}; //scrollea pero no llega al doce
         //String[] menuItems = {email, direccion, detalle}; //algo asi no funciona
 
         ArrayAdapter<String> listviewAdapter = new ArrayAdapter<String>(
                 getActivity(), android.R.layout.simple_list_item_1, menuItems);
-        listView.setAdapter(listviewAdapter);
+        listView.setAdapter(listviewAdapter);*/
 
         /* prueba
         from = new String[]{"_id", "item"};
@@ -150,14 +158,22 @@ public class ContactosFragment extends Fragment {
             recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }*/
 
-
-        boton_agregar = rootView.findViewById(R.id.boton_agregar_contacto);
-        boton_agregar.setOnClickListener(new View.OnClickListener(){
+        botonAgregar = rootView.findViewById(R.id.boton_agregar_contacto);
+        botonAgregar.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 llamarIntentAgregarContacto();
             }
         });
+
+        botonVerContactos = rootView.findViewById(R.id.boton_ver_contactos);
+        botonVerContactos.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 llamarIntentVerContactos();
+             }
+         });
+
         /*
         //boton flotante para agregar contacto
         FloatingActionButton boton_float_agregar = view.findViewById(R.id.float_agregar);

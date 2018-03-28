@@ -18,7 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AddContactoActivity extends AppCompatActivity implements View.OnClickListener {
-    TextView textview_regresar;
+    TextView textviewRegresar;
     EditText editTelefono, editEmail, editDireccion, editDetalle;
     Button botonAgregar;
     @Override
@@ -26,8 +26,8 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contacto);
 
-        textview_regresar = findViewById(R.id.textview_regresar);
-        textview_regresar.setOnClickListener(new View.OnClickListener() {
+        textviewRegresar = findViewById(R.id.textview_regresar);
+        textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed(); //vuelve al activity anterior
