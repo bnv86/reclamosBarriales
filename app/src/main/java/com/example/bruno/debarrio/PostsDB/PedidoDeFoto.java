@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio;
+package com.example.bruno.debarrio.PostsDB;
 
 import android.graphics.Bitmap;
 import android.util.Base64;

@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio;
+package com.example.bruno.debarrio.HTTP;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

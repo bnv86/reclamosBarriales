@@ -12,15 +12,12 @@ import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.*;
-import com.google.android.gms.maps.model.*;
-import android.app.Activity;
+import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 

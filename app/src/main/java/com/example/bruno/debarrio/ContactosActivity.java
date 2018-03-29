@@ -1,9 +1,14 @@
 package com.example.bruno.debarrio;
 
+import android.support.v7.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -13,25 +18,19 @@ import android.widget.Toast;
 import com.example.bruno.debarrio.Adapters.ListAdapter;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+public class ContactosActivity extends AppCompatActivity {
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DireccionesActivity extends AppCompatActivity {
-
-    ListView direccionesListView;
-    ProgressBar progressBarDirecciones;
+    ListView ContactosListView;
+    ProgressBar progressBarContactos;
     TextView textviewRegresar;
-    String ServerURL = "https://momentary-electrode.000webhostapp.com/getDireccion.php";
+    //String ServerURL = "http://androidblog.esy.es/AndroidJSon/Subjects.php";
+    String ServerURL = "https://momentary-electrode.000webhostapp.com/getContacto.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_direcciones);
+        setContentView(R.layout.activity_contactos);
         textviewRegresar = findViewById(R.id.textview_regresar);
         textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,16 +38,16 @@ public class DireccionesActivity extends AppCompatActivity {
                 onBackPressed(); //vuelve al activity anterior
             }
         });
-        direccionesListView = findViewById(R.id.listview1);
-        progressBarDirecciones = findViewById(R.id.progressBar);
-        new GetHttpResponse(DireccionesActivity.this).execute();
+        ContactosListView = findViewById(R.id.listview1);
+        progressBarContactos = findViewById(R.id.progressBar);
+        new GetHttpResponse(ContactosActivity.this).execute();
     }
 
     private class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         public Context context;
         String ResultHolder;
-        List<Contactos> direccionList;
+        List<Contactos> contactosList;
 
         public GetHttpResponse(Context context)
         {
@@ -80,15 +79,15 @@ public class DireccionesActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Contactos direccion;
-                            direccionList = new ArrayList<Contactos>();
+                            Contactos contactos;
+                            contactosList = new ArrayList<Contactos>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                direccion = new Contactos();
+                                contactos = new Contactos();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                direccion.ContactoName = jsonObject.getString("direccion");
-                                direccionList.add(direccion);
+                                contactos.ContactoName = jsonObject.getString("email");
+                                contactosList.add(contactos);
                             }
                         }
                         catch (JSONException e) {
@@ -114,14 +113,15 @@ public class DireccionesActivity extends AppCompatActivity {
         protected void onPostExecute(Void result)
 
         {
-            progressBarDirecciones.setVisibility(View.GONE);
-            direccionesListView.setVisibility(View.VISIBLE);
+            progressBarContactos.setVisibility(View.GONE);
+            ContactosListView.setVisibility(View.VISIBLE);
 
-            if(direccionList != null)
+            if(contactosList != null)
             {
-                ListAdapter adapter = new ListAdapter(direccionList, context);
-                direccionesListView.setAdapter(adapter);
+                ListAdapter adapter = new ListAdapter(contactosList, context);
+                ContactosListView.setAdapter(adapter);
             }
         }
     }
+
 }

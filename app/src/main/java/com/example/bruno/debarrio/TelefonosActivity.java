@@ -10,6 +10,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.HTTP.HttpServices;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

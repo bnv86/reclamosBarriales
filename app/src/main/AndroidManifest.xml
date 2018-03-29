@@ -83,7 +83,9 @@
         <activity android:name=".TelefonosActivity" />
         <activity android:name=".DireccionesActivity" />
         <activity android:name=".FotoElegirActivity" />
-        <activity android:name=".EmailsActivity"></activity>
+        <activity android:name=".AddFotoElegirActivity" />
+        <activity android:name=".EmailsActivity" />
+        <activity android:name=".ContactosActivity"></activity>
     </application>
 
 </manifest>

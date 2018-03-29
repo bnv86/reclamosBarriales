@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio;
+package com.example.bruno.debarrio.Adapters;
 
 import android.content.Context;
 import java.util.List;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.bruno.debarrio.Contactos;
+import com.example.bruno.debarrio.R;
 
 /**
  * Created by Bruno on 27/03/2018.

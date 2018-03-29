@@ -14,6 +14,10 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.HTTP.HttpServices;
+
 public class EmailsActivity extends AppCompatActivity {
 
     ListView emailsListView;

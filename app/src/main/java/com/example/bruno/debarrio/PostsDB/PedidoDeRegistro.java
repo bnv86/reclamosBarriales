@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio;
+package com.example.bruno.debarrio.PostsDB;
 
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.Response;

@@ -1,6 +1,5 @@
 package com.example.bruno.debarrio.fragments;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,22 +26,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bruno.debarrio.AddContactoActivity;
 import com.example.bruno.debarrio.AddFotoElegirActivity;
-import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.MapsActivity;
-import com.example.bruno.debarrio.PedidoDeContacto;
-import com.example.bruno.debarrio.PedidoDeFoto;
-import com.example.bruno.debarrio.PedidoDeRegistro;
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.RegistroActivity;
 import com.google.android.gms.plus.PlusOneButton;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 

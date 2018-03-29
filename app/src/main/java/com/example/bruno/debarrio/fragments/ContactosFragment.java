@@ -17,6 +17,7 @@ import com.example.bruno.debarrio.AddContactoActivity;
 import com.example.bruno.debarrio.AddDireccionActivity;
 import com.example.bruno.debarrio.AddEmailActivity;
 import com.example.bruno.debarrio.AddTelefonoActivity;
+import com.example.bruno.debarrio.ContactosActivity;
 import com.example.bruno.debarrio.DireccionesActivity;
 import com.example.bruno.debarrio.EmailsActivity;
 import com.example.bruno.debarrio.R;
@@ -40,9 +41,11 @@ public class ContactosFragment extends Fragment {
     Button botonAgregarEmail;
     Button botonAgregarTel;
     Button botonAgregarDir;
+    Button botonAgregarContacto;
     Button botonVerEmails;
     Button botonVerTels;
     Button botonVerDirs;
+    Button botonVerContactos;
     ListView listView;
     String lista;
     SimpleCursorAdapter cursorAdapter;
@@ -97,49 +100,7 @@ public class ContactosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_contactos_list, container, false);
-        //boton flotante para agregar contacto
-        //FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
-        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
         View rootView = inflater.inflate(R.layout.fragment_contactos, container, false);
-        listView = rootView.findViewById(R.id.list_contactos);
-
-        /*
-        //forma de traer los contactos?? como meterlos en la listview???
-        ObtenerContacto obtener = new ObtenerContacto(email, direccion, detalle);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(obtener);*/
-
-        /*
-        //reemplazar por datos de la BD, estos datos son de prueba, mejor en un activity
-        String[] menuItems = {"Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Once", "Doce"}; //scrollea pero no llega al doce
-        //String[] menuItems = {email, direccion, detalle}; //algo asi no funciona
-
-        ArrayAdapter<String> listviewAdapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_list_item_1, menuItems);
-        listView.setAdapter(listviewAdapter);*/
-
-        /* prueba
-        from = new String[]{"_id", "item"};
-        to = new int[] {R.id.id, R.id.title_item};
-        cursorAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.fragment_contactos_list, cursor, from, to);
-        listView.setAdapter(cursorAdapter);*/
-
-
-        /*
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }*/
 
         botonAgregarEmail = rootView.findViewById(R.id.boton_agregar_email);
         botonAgregarEmail.setOnClickListener(new View.OnClickListener(){
@@ -162,6 +123,14 @@ public class ContactosFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 llamarIntentAgregarTel();
+            }
+        });
+
+        botonAgregarContacto = rootView.findViewById(R.id.boton_agregar_contacto);
+        botonAgregarContacto.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                llamarIntentAgregarContacto();
             }
         });
 
@@ -189,17 +158,13 @@ public class ContactosFragment extends Fragment {
             }
         });
 
-        /*
-        //boton flotante para agregar contacto
-        FloatingActionButton boton_float_agregar = view.findViewById(R.id.float_agregar);
-        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
-        //boton_agregar = (Button) view.findViewById(R.id.boton_agregar_contacto);
-        boton_float_agregar.setOnClickListener(new View.OnClickListener(){
+        botonVerContactos = rootView.findViewById(R.id.boton_ver_contactos);
+        botonVerContactos.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View rootView) {
-                llamarIntentAgregarContacto();
+            public void onClick(View view) {
+                llamarIntentVerContactos();
             }
-        });*/
+        });
         return rootView;
     }
 
@@ -256,6 +221,11 @@ public class ContactosFragment extends Fragment {
         getActivity().startActivity(intentAgregar);
     }
 
+    private void llamarIntentAgregarContacto() {
+        Intent intentAgregar = new Intent(getActivity(), AddContactoActivity.class);
+        getActivity().startActivity(intentAgregar);
+    }
+
     private void llamarIntentVerTels() {
         Intent intentVer = new Intent(getActivity(), TelefonosActivity.class);
         getActivity().startActivity(intentVer);
@@ -270,4 +240,64 @@ public class ContactosFragment extends Fragment {
         Intent intentVer = new Intent(getActivity(), DireccionesActivity.class);
         getActivity().startActivity(intentVer);
     }
+
+    private void llamarIntentVerContactos() {
+        Intent intentVer = new Intent(getActivity(), ContactosActivity.class);
+        getActivity().startActivity(intentVer);
+    }
 }
+
+//OnCreateView
+//View view = inflater.inflate(R.layout.fragment_contactos_list, container, false);
+//boton flotante para agregar contacto
+//FloatingActionButton boton_float_agregar = findViewById(R.id.float_agregar;
+//boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+
+//listView = rootView.findViewById(R.id.list_contactos);
+
+        /*
+        //forma de traer los contactos?? como meterlos en la listview???
+        ObtenerContacto obtener = new ObtenerContacto(email, direccion, detalle);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(obtener);*/
+
+        /*
+        //reemplazar por datos de la BD, estos datos son de prueba, mejor en un activity
+        String[] menuItems = {"Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Once", "Doce"}; //scrollea pero no llega al doce
+        //String[] menuItems = {email, direccion, detalle}; //algo asi no funciona
+
+        ArrayAdapter<String> listviewAdapter = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_list_item_1, menuItems);
+        listView.setAdapter(listviewAdapter);*/
+
+        /* prueba
+        from = new String[]{"_id", "item"};
+        to = new int[] {R.id.id, R.id.title_item};
+        cursorAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),R.layout.fragment_contactos_list, cursor, from, to);
+        listView.setAdapter(cursorAdapter);*/
+
+
+        /*
+        // Set the adapter
+        if (view instanceof RecyclerView) {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new MyContactosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        }*/
+        /*
+        //boton flotante para agregar contacto
+        FloatingActionButton boton_float_agregar = view.findViewById(R.id.float_agregar);
+        //boton_float_agregar.setOnClickListener(new View.OnClickListener() {
+        //boton_agregar = (Button) view.findViewById(R.id.boton_agregar_contacto);
+        boton_float_agregar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View rootView) {
+                llamarIntentAgregarContacto();
+            }
+        });*/
