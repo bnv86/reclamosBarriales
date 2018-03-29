@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.AddFotoElegirActivity;
+import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.MapsActivity;
 import com.example.bruno.debarrio.R;
 import com.google.android.gms.plus.PlusOneButton;
@@ -78,10 +79,10 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap bitmap;
     public int PICK_IMAGE_REQUEST = 1;
-    //private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
-    private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/postEvento.php";
+    private String UPLOAD_URL_FOTO = "https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
+    private String UPLOAD_URL_EVENTO = "https://momentary-electrode.000webhostapp.com/postEvento.php";
     private String KEY_IMAGEN = "foto";
-    //private String KEY_NOMBRE = "nombre";
+    private String KEY_NOMBRE = "nombre";
     private String KEY_MOTIVO = "motivo";
     private String KEY_COMENTARIO = "comentario";
 
@@ -125,10 +126,63 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         return encodedImage;
     }
 
+    /*
+    private void uploadImage(){
+        //Mostrar el diálogo de progreso
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_FOTO,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        //Mostrando el mensaje de la respuesta
+                        Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
+                        //llamarIntentFotoElegir();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+
+                        //Showing toast
+                        Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Convertir bits a cadena
+                String imagen = getStringImagen(bitmap);
+
+                //Obtener el nombre de la imagen
+                String nombre = "CAPTURA"; //.trim()
+
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+
+                //Agregando de parámetros
+                params.put(KEY_IMAGEN, imagen);
+                params.put(KEY_NOMBRE, nombre);
+
+                //Parámetros de retorno
+                return params;
+            }
+        };
+
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }*/
+
         public void subirEvento(){
             //Mostrar el diálogo de progreso
-            final ProgressDialog loading = ProgressDialog.show(getContext(),"Subiendo...","Espere por favor...",false,false); //getActivity()
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_EVENTO,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -136,7 +190,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
-                        Toast.makeText(getContext(), "EVENTO SUBIDO" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "EVENTO SUBIDO" , Toast.LENGTH_LONG).show();
                         //llamarIntentFotoElegir();
                     }
                 },
@@ -148,7 +202,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
                         //Showing toast
                         //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
-                        Toast.makeText(getContext(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -179,7 +233,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(getActivity()); //getActivity()
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
             //Agregar solicitud a la cola
             requestQueue.add(stringRequest);
         }
@@ -285,6 +339,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         botonCompartir.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //uploadImage();
                 subirEvento();
                 //llamarIntentCompartir();
             }
@@ -335,7 +390,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
             try {
                 //Cómo obtener el mapa de bits de la Galería
-                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
                 //Configuración del mapa de bits en ImageView
                 imagenFoto.setImageBitmap(bitmap);
             } catch (IOException e) {
