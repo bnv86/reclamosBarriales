@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,6 +33,7 @@ import com.example.bruno.debarrio.R;
 import com.google.android.gms.plus.PlusOneButton;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -75,10 +77,13 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     EditText editextMotivo, editextComentario;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap bitmap;
-    private int PICK_IMAGE_REQUEST = 1;
-    private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
+    public int PICK_IMAGE_REQUEST = 1;
+    //private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
+    private String UPLOAD_URL ="https://momentary-electrode.000webhostapp.com/postEvento.php";
     private String KEY_IMAGEN = "foto";
-    private String KEY_NOMBRE = "nombre";
+    //private String KEY_NOMBRE = "nombre";
+    private String KEY_MOTIVO = "motivo";
+    private String KEY_COMENTARIO = "comentario";
 
     public SubirFragment() {
         // Required empty public constructor
@@ -120,7 +125,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         return encodedImage;
     }
 
-        private void uploadImage(){
+        public void subirEvento(){
             //Mostrar el diálogo de progreso
             final ProgressDialog loading = ProgressDialog.show(getContext(),"Subiendo...","Espere por favor...",false,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
@@ -130,7 +135,8 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "EVENTO SUBIDO" , Toast.LENGTH_LONG).show();
                         //llamarIntentFotoElegir();
                     }
                 },
@@ -141,36 +147,49 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                         loading.dismiss();
 
                         //Showing toast
-                        Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
+                        //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
+                        Toast.makeText(getContext(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
                     }
                 }){
 
                 @Override
                 protected Map<String, String> getParams() throws AuthFailureError {
                     //Convertir bits a cadena
-                    String imagen = getStringImagen(bitmap);
+                    String foto = getStringImagen(bitmap);
 
                     //Obtener el nombre de la imagen
-                    String nombre = "CAPTURA"; //.trim()
+                    //String nombre = "CAPTURA"; //.trim()
+                    String motivo = editextMotivo.getText().toString().trim();
+                    String comentario = editextComentario.getText().toString().trim();
 
                     //Creación de parámetros
                     Map<String,String> params = new Hashtable<String, String>();
 
                     //Agregando de parámetros
-                    params.put(KEY_IMAGEN, imagen);
-                    params.put(KEY_NOMBRE, nombre);
+                    params.put(KEY_IMAGEN, foto);
+                    //params.put(KEY_NOMBRE, nombre);
+                    params.put(KEY_MOTIVO, motivo);
+                    params.put(KEY_COMENTARIO, comentario);
 
                     //Parámetros de retorno
                     return params;
                 }
             };
 
+            //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity()); //getActivity()
             //Agregar solicitud a la cola
             requestQueue.add(stringRequest);
         }
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Seleccione una foto"), PICK_IMAGE_REQUEST);
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -198,7 +217,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
     @Override
     public void onClick(View v) {
-            uploadImage();
+            //subirEvento();
     }
 
     /**
@@ -224,21 +243,29 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
         botonSacarFoto = rootView.findViewById(R.id.boton_tomar_foto);
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
+        editextMotivo = rootView.findViewById(R.id.editext_motivo);
+        editextComentario = rootView.findViewById(R.id.editext_comentario);
+        //String motivo = editextMotivo.getText().toString();
+        //String comentario = editextComentario.getText().toString();
+
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
 
+        /*
         botonSacarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 llamarIntentFoto();
             }
-        });
+        });*/
 
         botonElegirFoto = rootView.findViewById(R.id.boton_elegir_foto);
         botonElegirFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarIntentFotoElegir();
+                showFileChooser();
+                //llamarIntentFotoElegir();
+                //llamarIntentFoto();
             }
         });
 
@@ -252,27 +279,14 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         });
 
         editextMotivo = rootView.findViewById(R.id.editext_motivo);
-        editextMotivo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                return;
-            }
-        });
-
         editextComentario = rootView.findViewById(R.id.editext_comentario);
-        editextComentario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                return;
-            }
-        });
 
         botonCompartir = rootView.findViewById(R.id.boton_compartir);
         botonCompartir.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                    uploadImage();
-                llamarIntentCompartir();
+                subirEvento();
+                //llamarIntentCompartir();
             }
         });
 
@@ -283,13 +297,14 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     private void llamarIntentFoto() { //activa la camara para capturar y guardar foto
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
 
     private void llamarIntentFotoElegir() {
-        Intent intentElegir = new Intent(getActivity(), AddFotoElegirActivity.class);
-        getActivity().startActivity(intentElegir);
+        //Intent intentElegir = new Intent(getActivity(), AddFotoElegirActivity.class);
+        //getActivity().startActivity(intentElegir);
     }
 
     private void llamarIntentMapa() { //pasa a un activity o fragment map para obtener un marcador
@@ -310,7 +325,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     private void llamarIntentCompartir() {
         return;
     }
-/*
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -320,26 +335,26 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
 
             try {
                 //Cómo obtener el mapa de bits de la Galería
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), filePath);
                 //Configuración del mapa de bits en ImageView
-                imagen_foto.setImageBitmap(bitmap);
+                imagenFoto.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }*/
-
+    }
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) { //REQUEST_IMAGE_CAPTURE
             Bundle extras = data.getExtras();
             Bitmap bitmap = (Bitmap) extras.get("data");
             imagenFoto.setImageBitmap(bitmap);
             //guardarFoto(imageBitmap);
         }
 
-    }
+    }*/
 /*
     private void guardarFoto(Bitmap imagen) {
         final String nombre = "User";
@@ -371,26 +386,5 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         queue.add(pedido);
     }*/
 
-    /* boton flotante
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_subir, container, false); //predeterminado del fragment
-
-        //Find the +1 button
-        mPlusOneButton = (PlusOneButton) view.findViewById(R.id.plus_one_button); //predeterminado del fragment
-
-        return view;
-    }*/
-
-    /*
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Refresh the state of the +1 button each time the activity receives focus.
-        mPlusOneButton.initialize(PLUS_ONE_URL, PLUS_ONE_REQUEST_CODE);
-    }*/
 
 }
