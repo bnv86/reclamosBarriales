@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.bruno.debarrio.IdiomaActivity">
+    tools:context="com.example.bruno.debarrio.NoIncluidos.IdiomaActivity">
 
     <ScrollView
         android:id="@+id/register_scroll_form"

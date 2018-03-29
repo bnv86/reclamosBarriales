@@ -10,7 +10,6 @@
     <string name="error_invalid_password">Questa chiave è troppo corta</string>
     <string name="error_incorrect_password">Questo indirizzo chiave non è valido</string>
     <string name="error_field_required">Questo campo è obbligatorio</string>
-    <string name="str_seleccion">Lingua</string>
     <string name="str_registrar">Registrati</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -21,8 +20,9 @@
     <string name="tab_text_1">CARICARE</string>
     <string name="tab_text_2">CONTATTI</string>
     <string name="tab_text_3">EVENTI</string>
-    <string name="action_languaje">Impostazioni</string>
+    <string name="action_languaje">Lingua Selezione</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
 
     <!-- Strings related to REGISTRAR -->
     <string name="str_regresar">   RITORNO </string>
@@ -31,5 +31,22 @@
     <string name="usuario_nombre_user">Utente</string>
     <string name="usuario_password">Chiave</string>
     <string name="button_registrar">REGISTRATI</string>
+
+    <!-- Strings related to IDIOMA ACTIVITY -->
+    <string name="str_idioma_titulo">Seleccione un idioma</string>
+    <string name="idioma_ingles">Inglés</string>
+    <string name="idioma_español">Español</string>
+    <string name="idioma_italiano">Italiano</string>
+    <string name="idioma_japones">Japonés</string>
+
+    <string name="toast_idioma">Lingua cambiata!</string>
+    <string name="seleccion_idioma">Lingua</string>
+    <string-array name="languages">
+        <item>@string/idioma_ingles</item>
+        <item>@string/idioma_español</item>
+        <item>@string/idioma_italiano</item>
+        <item>@string/idioma_japones</item>
+    </string-array>
+
 
 </resources>

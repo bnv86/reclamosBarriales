@@ -1,11 +1,14 @@
 package com.example.bruno.debarrio;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -23,8 +26,11 @@ import android.view.ViewGroup;
 import com.example.bruno.debarrio.fragments.*;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Locale;
 
 public class MainTabbedActivity extends AppCompatActivity implements SubirFragment.OnFragmentInteractionListener, ContactosFragment.OnListFragmentInteractionListener, EventosFragment.OnListFragmentInteractionListener{
 
@@ -42,6 +48,8 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private Locale locale;
+    private Configuration config = new Configuration();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +97,10 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
         int id = item.getItemId();
 
         if (id == R.id.action_languaje) {
+            showDialog();
+            /*
             Intent intent = new Intent(getApplicationContext(), IdiomaActivity.class);
-            startActivity(intent);
+            startActivity(intent);*/
             //return true;
         }
         if (id == R.id.action_logout) { //cierra sesion
@@ -185,5 +195,44 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
             // Show 3 total pages.
             return 3;
         }
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle(getResources().getString(R.string.seleccion_idioma));
+        //obtiene los idiomas del array de string.xml
+        String[] types = getResources().getStringArray(R.array.languages);
+        b.setItems(types, new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dialog.dismiss();
+                switch (which) {
+                    case 0:
+                        locale = new Locale("en");
+                        config.locale = locale;
+                        break;
+                    case 1:
+                        locale = new Locale("es");
+                        config.locale = locale;
+                        break;
+                    case 2:
+                        locale = new Locale("it");
+                        config.locale = locale;
+                        break;
+                    case 3:
+                        locale = new Locale("ja");
+                        config.locale = locale;
+                        break;
+                }
+                getResources().updateConfiguration(config, null);
+                Intent refresh = new Intent(MainTabbedActivity.this, MainTabbedActivity.class);
+                startActivity(refresh);
+                Toast.makeText(getApplicationContext(), getString(R.string.toast_idioma), Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+        b.show();
     }
 }

@@ -1,6 +1,5 @@
 <?php
-    //$con = mysqli_connect("localhost", "root", "", "deBarrio_db"); //LOCAL
-	$con = mysqli_connect("localhost", "id5094472_bnv", "Fray1234", "id5094472_debarrio_db"); //REMOTO
+    $con = mysqli_connect("localhost", "id5094472_bnv", "Fray1234", "id5094472_debarrio_db");
     
     $name = $_POST["name"];
     $age = $_POST["age"];

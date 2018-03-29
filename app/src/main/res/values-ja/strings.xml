@@ -10,7 +10,6 @@
     <string name="error_invalid_password">このパスワードは短すぎます</string>
     <string name="error_incorrect_password">このパスワードは間違っています</string>
     <string name="error_field_required">この項目は必須です</string>
-    <string name="str_seleccion">言語</string>
     <string name="str_registrar">たは登録</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -31,5 +30,21 @@
     <string name="usuario_nombre_user">ユーザー</string>
     <string name="usuario_password">パスワード</string>
     <string name="button_registrar">たは登録</string>
+
+    <!-- Strings related to IDIOMA ACTIVITY -->
+    <string name="str_idioma_titulo">Seleccione un idioma</string>
+    <string name="idioma_ingles">Inglés</string>
+    <string name="idioma_español">Español</string>
+    <string name="idioma_italiano">Italiano</string>
+    <string name="idioma_japones">Japonés</string>
+
+    <string name="toast_idioma">言語が変更された!</string>
+    <string name="seleccion_idioma">言語</string>
+    <string-array name="languages">
+        <item>@string/idioma_ingles</item>
+        <item>@string/idioma_español</item>
+        <item>@string/idioma_italiano</item>
+        <item>@string/idioma_japones</item>
+    </string-array>
 
 </resources>

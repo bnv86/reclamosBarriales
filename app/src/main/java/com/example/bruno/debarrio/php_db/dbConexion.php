@@ -1,5 +1,5 @@
 <?php 
- define('HOST','localhost');
+ define('HOST','localhost'); //remoto: databases.000webhost.com
  define('USER','id5094472_bnv');
  define('PASS','Fray1234');
  define('DB','id5094472_debarrio_db');

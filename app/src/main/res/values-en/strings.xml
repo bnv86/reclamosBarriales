@@ -10,7 +10,6 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="str_seleccion">Language</string>
     <string name="str_registrar">Register</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
@@ -38,5 +37,14 @@
     <string name="idioma_español">Spanish</string>
     <string name="idioma_italiano">Italian</string>
     <string name="idioma_japones">Japanese</string>
+
+    <string name="toast_idioma">Language changed!</string>
+    <string name="seleccion_idioma">Language</string>
+    <string-array name="languages">
+        <item>@string/idioma_ingles</item>
+        <item>@string/idioma_español</item>
+        <item>@string/idioma_italiano</item>
+        <item>@string/idioma_japones</item>
+    </string-array>
 
 </resources>

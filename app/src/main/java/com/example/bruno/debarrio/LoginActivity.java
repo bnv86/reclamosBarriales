@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio;
 
 //import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
         import android.content.Intent;
         import android.content.res.Configuration;
@@ -72,13 +73,14 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
         //setContentView(R.layout.activity_login);
         // Set up the login form.
         //para elegir idioma al hacer click en boton
-        /*
-        seleccion = ((Button)findViewById(R.id.seleccionIdioma));
+
+        seleccion = ((Button) findViewById(R.id.seleccionIdioma));
         seleccion.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         showDialog();
-                    }});*/
+                    }
+                });
         //al presionar el text view REGISTRAR se pasa a dicho activity
         textviewRegistrar = findViewById(R.id.textview_registrar);
         textviewRegistrar.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +121,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 intent.putExtra("password", password);
                                 LoginActivity.this.startActivity(intent);
                                 //Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username + " !", Toast.LENGTH_LONG).show(); //DEVUELVE PASS, PORQUEEEEEE?
-                                Toast.makeText(getApplicationContext(),"BIENVENIDO "+ name + " !", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "BIENVENIDO " + name + " !", Toast.LENGTH_LONG).show();
                             } else {
                                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
                                 alertBuilder.setMessage("Hubo un error al loguearse").setNegativeButton("Reintentar", null).create().show();
@@ -135,7 +137,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
             }
         });
     }
-}
+
 
         /*
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email_login);
@@ -432,10 +434,9 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
     }*/
 
     //para el idioma de las listas
-    /*
-    private void showDialog(){
+    private void showDialog() {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
-        b.setTitle(getResources().getString(R.string.str_seleccion));
+        b.setTitle(getResources().getString(R.string.seleccion_idioma));
         //obtiene los idiomas del array de string.xml
         String[] types = getResources().getStringArray(R.array.languages);
         b.setItems(types, new DialogInterface.OnClickListener() {
@@ -444,30 +445,35 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
             public void onClick(DialogInterface dialog, int which) {
 
                 dialog.dismiss();
-                switch(which){
+                switch (which) {
                     case 0:
                         locale = new Locale("en");
-                        config.locale =locale;
+                        config.locale = locale;
                         break;
                     case 1:
                         locale = new Locale("es");
-                        config.locale =locale;
+                        config.locale = locale;
                         break;
                     case 2:
-                        locale = new Locale("de");
-                        config.locale =locale;
+                        locale = new Locale("it");
+                        config.locale = locale;
+                        break;
+                    case 3:
+                        locale = new Locale("ja");
+                        config.locale = locale;
                         break;
                 }
                 getResources().updateConfiguration(config, null);
                 Intent refresh = new Intent(LoginActivity.this, LoginActivity.class);
                 startActivity(refresh);
+                Toast.makeText(getApplicationContext(), getString(R.string.toast_idioma), Toast.LENGTH_LONG).show();
                 finish();
             }
-
         });
 
         b.show();
-    }*/
+    }
+}
 
 //admin y pass provisorios para pasar a pantalla de tabs
         /*

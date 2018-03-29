@@ -1,9 +1,11 @@
-package com.example.bruno.debarrio;
+package com.example.bruno.debarrio.NoIncluidos;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.bruno.debarrio.R;
 
 public class IdiomaActivity extends AppCompatActivity {
 

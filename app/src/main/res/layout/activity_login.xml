@@ -41,12 +41,12 @@
             <Button
                 android:id="@+id/seleccionIdioma"
                 android:layout_width="140dp"
-                android:layout_height="25dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:background="@color/colorAccent"
-                android:text="@string/str_seleccion" />
+                android:text="@string/seleccion_idioma" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
