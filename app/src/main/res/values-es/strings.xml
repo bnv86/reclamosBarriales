@@ -21,7 +21,7 @@
     <string name="tab_text_1">SUBIR</string>
     <string name="tab_text_2">CONTACTOS</string>
     <string name="tab_text_3">EVENTOS</string>
-    <string name="action_settings">Configuración</string>
+    <string name="action_languaje">Selección de Idioma</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -33,5 +33,12 @@
     <string name="usuario_password">Contrasena</string>
     <string name="usuario_edad">Edad</string>
     <string name="button_registrar">REGISTRAR</string>
+
+    <!-- Strings related to IDIOMA ACTIVITY -->
+    <string name="str_idioma_titulo">Seleccione un idioma</string>
+    <string name="idioma_ingles">Inglés</string>
+    <string name="idioma_español">Español</string>
+    <string name="idioma_italiano">Italiano</string>
+    <string name="idioma_japones">Japonés</string>
 
 </resources>

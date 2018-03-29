@@ -21,7 +21,7 @@
     <string name="tab_text_1">アップロード</string>
     <string name="tab_text_2">お問い合わせ</string>
     <string name="tab_text_3">イベント</string>
-    <string name="action_settings">設定</string>
+    <string name="action_languaje">設定</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- Strings related to REGISTRAR -->

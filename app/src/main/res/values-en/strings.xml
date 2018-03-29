@@ -21,7 +21,7 @@
     <string name="tab_text_1">UPLOAD</string>
     <string name="tab_text_2">CONTACTS</string>
     <string name="tab_text_3">EVENTS</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_languaje">Languaje Selection</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- Strings related to REGISTRAR -->
@@ -31,5 +31,12 @@
     <string name="usuario_nombre_user">User</string>
     <string name="usuario_password">Password</string>
     <string name="button_registrar">REGISTER</string>
+
+    <!-- Strings related to IDIOMA ACTIVITY -->
+    <string name="str_idioma_titulo">Select a languaje</string>
+    <string name="idioma_ingles">English</string>
+    <string name="idioma_español">Spanish</string>
+    <string name="idioma_italiano">Italian</string>
+    <string name="idioma_japones">Japanese</string>
 
 </resources>

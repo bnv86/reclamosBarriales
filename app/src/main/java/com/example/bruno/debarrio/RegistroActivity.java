@@ -21,7 +21,7 @@ import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
-    TextView textview_regresar;
+    TextView textviewRegresar;
     //EditText editUsuario, editPassword;
     EditText editNombre, editUsuario, editPassword, editEdad;
     Button botonRegistrar;
@@ -31,8 +31,8 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        textview_regresar = findViewById(R.id.textview_regresar);
-        textview_regresar.setOnClickListener(new View.OnClickListener() {
+        textviewRegresar = findViewById(R.id.textview_regresar);
+        textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed(); //vuelve al activity anterior

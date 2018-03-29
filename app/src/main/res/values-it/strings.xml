@@ -21,7 +21,7 @@
     <string name="tab_text_1">CARICARE</string>
     <string name="tab_text_2">CONTATTI</string>
     <string name="tab_text_3">EVENTI</string>
-    <string name="action_settings">Impostazioni</string>
+    <string name="action_languaje">Impostazioni</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- Strings related to REGISTRAR -->

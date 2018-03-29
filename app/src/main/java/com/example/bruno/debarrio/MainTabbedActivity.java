@@ -88,16 +88,17 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) { //no hace nada
-            return true;
+        if (id == R.id.action_languaje) {
+            Intent intent = new Intent(getApplicationContext(), IdiomaActivity.class);
+            startActivity(intent);
+            //return true;
         }
         if (id == R.id.action_logout) { //cierra sesion
-            SharedPreferences sharedPreferences = getSharedPreferences("sesion",MODE_PRIVATE);
+            SharedPreferences sharedPreferences = getSharedPreferences("sesion",MODE_PRIVATE); //toma la sesion actual del usuario
             SharedPreferences.Editor edit = sharedPreferences.edit();
-            edit.remove("usuario");
+            edit.remove("usuario"); //cierra la sesion del usuario
             edit.commit();
-            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(),"Sesion cerrada", Toast.LENGTH_LONG).show();
             this.finish();
