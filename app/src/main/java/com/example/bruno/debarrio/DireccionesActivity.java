@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -119,7 +119,7 @@ public class DireccionesActivity extends AppCompatActivity {
 
             if(direccionList != null)
             {
-                ListAdapter adapter = new ListAdapter(direccionList, context);
+                ListAdapterContactos adapter = new ListAdapterContactos(direccionList, context);
                 direccionesListView.setAdapter(adapter);
             }
             else{

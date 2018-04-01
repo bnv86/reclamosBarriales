@@ -2,6 +2,8 @@
  
  if($_SERVER['REQUEST_METHOD']=='POST'){
  
+    $fecha = $_POST['fecha'];
+    $usuario = $_POST['usuario'];
     $foto = $_POST['foto'];
     $motivo = $_POST['motivo'];
     $comentario = $_POST['comentario'];
@@ -18,7 +20,7 @@
  
  $path = "fotos/$id.png";
  $actualpath = "https://momentary-electrode.000webhostapp.com/$path";
- $sql = "INSERT INTO evento (foto,motivo,comentario) VALUES ('$actualpath','$motivo', '$comentario')";
+ $sql = "INSERT INTO evento (fecha, usuario, foto, motivo, comentario) VALUES ('$fecha', '$usuario', '$actualpath', '$motivo', '$comentario')";
  
  if(mysqli_query($con,$sql)){
     file_put_contents($path,base64_decode($foto));

@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -126,7 +126,7 @@ public class TelefonosActivity extends AppCompatActivity {
 
             if(telefonoList != null)
             {
-                ListAdapter adapter = new ListAdapter(telefonoList, context);
+                ListAdapterContactos adapter = new ListAdapterContactos(telefonoList, context);
                 telefonosListView.setAdapter(adapter);
             }
             else{

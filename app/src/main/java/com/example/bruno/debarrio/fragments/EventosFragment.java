@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.bruno.debarrio.EmailsActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
@@ -29,6 +32,8 @@ public class EventosFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    Button botonVerTodos;
+    Button botonVerMios;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,8 +64,25 @@ public class EventosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_eventos_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_eventos, container, false);
 
+        botonVerTodos = rootView.findViewById(R.id.boton_ver_todos);
+        botonVerTodos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarIntentVerTodos();
+            }
+        });
+
+        botonVerMios = rootView.findViewById(R.id.boton_ver_mios);
+        botonVerMios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarIntentVerMios();
+            }
+        });
+        /*
+        //View view = inflater.inflate(R.layout.fragment_eventos_list, container, false);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -72,7 +94,7 @@ public class EventosFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyEventosRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
-        return view;
+        return view;*/
     }
 
 
@@ -109,5 +131,15 @@ public class EventosFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
+    }
+
+    private void llamarIntentVerTodos() {
+        Intent intentVer = new Intent(getActivity(), EventosTodosActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentVerMios() {
+        Intent intentVer = new Intent(getActivity(), EventosMiosActivity.class);
+        getActivity().startActivity(intentVer);
     }
 }

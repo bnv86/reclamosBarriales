@@ -16,12 +16,12 @@ import com.example.bruno.debarrio.R;
  * Created by Bruno on 27/03/2018.
  */
 
-public class ListAdapter extends BaseAdapter {
+public class ListAdapterContactos extends BaseAdapter {
 
     Context context;
     List<Contactos> valueList;
 
-    public ListAdapter(List<Contactos> listValue, Context context)
+    public ListAdapterContactos(List<Contactos> listValue, Context context)
     {
         this.context = context;
         this.valueList = listValue;
