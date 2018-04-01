@@ -2,6 +2,7 @@ package com.example.bruno.debarrio;
 
 //import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
         import android.content.Intent;
         import android.content.res.Configuration;
@@ -20,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.PostsDB.PedidoDeLogin;
+import com.example.bruno.debarrio.fragments.SubirFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,8 +37,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
     private Configuration config = new Configuration();
 
     TextView textviewRegistrar;
-    EditText editUsuario;
-    EditText editPassword;
+    EditText editUsuario, editPassword;
     Button botonLogin;
 
     /**
@@ -115,13 +116,20 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 String username = jsonResponse.getString("username");
                                 String password = jsonResponse.getString("password");
                                 //int age = Integer.parseInt("age");
-                                Intent intent = new Intent(LoginActivity.this, MainTabbedActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class); //LoginActivity.this
                                 //intent.putExtra("name", name);
-                                intent.putExtra("username", username);
-                                intent.putExtra("password", password);
+                                //intent.putExtra("username", username);
+                                //intent.putExtra("password", password);
+
+                                //guardo el usuario logueado en sesion
+                                SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putString("username", username); //GUARDA EL PASSWORD, VER PORQUÉ PASA ESTO
+                                //editor.putString("password", password);
+                                editor.commit();
+                                Toast.makeText(getApplicationContext(), "BIENVENIDO " + name + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
                                 LoginActivity.this.startActivity(intent);
                                 //Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username + " !", Toast.LENGTH_LONG).show(); //DEVUELVE PASS, PORQUEEEEEE?
-                                Toast.makeText(getApplicationContext(), "BIENVENIDO " + name + " !", Toast.LENGTH_LONG).show();
                             } else {
                                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
                                 alertBuilder.setMessage("Hubo un error al loguearse").setNegativeButton("Reintentar", null).create().show();

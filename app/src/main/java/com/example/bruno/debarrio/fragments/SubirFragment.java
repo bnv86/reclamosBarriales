@@ -3,6 +3,7 @@ package com.example.bruno.debarrio.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -35,6 +36,8 @@ import com.google.android.gms.plus.PlusOneButton;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -85,6 +88,8 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     private String KEY_NOMBRE = "nombre";
     private String KEY_MOTIVO = "motivo";
     private String KEY_COMENTARIO = "comentario";
+    private String KEY_FECHA = "fecha";
+    private String KEY_USUARIO = "usuario";
 
     public SubirFragment() {
         // Required empty public constructor
@@ -180,6 +185,12 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     }*/
 
         public void subirEvento(){
+            final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
+            SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
+            final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
+            //pref_userName = preferences.getString("pref_userName", "n/a");
+            //userName.setText("Welcome to "+pref_userName);
+            //String username = getIntent().getStringExtra("username");
             //Mostrar el diálogo de progreso
             final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_EVENTO,
@@ -190,7 +201,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
-                        Toast.makeText(getActivity(), "EVENTO SUBIDO" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "EVENTO SUBIDO " + usuario + " !", Toast.LENGTH_LONG).show();
                         //llamarIntentFotoElegir();
                     }
                 },
@@ -220,6 +231,8 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                     Map<String,String> params = new Hashtable<String, String>();
 
                     //Agregando de parámetros
+                    params.put(KEY_FECHA, fecha.format(new Date()));
+                    params.put(KEY_USUARIO, usuario);
                     params.put(KEY_IMAGEN, foto);
                     //params.put(KEY_NOMBRE, nombre);
                     params.put(KEY_MOTIVO, motivo);
@@ -340,6 +353,10 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             @Override
             public void onClick(View v) {
                 //uploadImage();
+                if(bitmap == null){
+                    Toast.makeText(getContext(),"Olvidaste elegir una foto!", Toast.LENGTH_LONG).show();
+                    return ;
+                }
                 subirEvento();
                 //llamarIntentCompartir();
             }
