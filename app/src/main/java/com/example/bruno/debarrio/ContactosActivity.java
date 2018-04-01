@@ -121,6 +121,9 @@ public class ContactosActivity extends AppCompatActivity {
                 ListAdapter adapter = new ListAdapter(contactosList, context);
                 ContactosListView.setAdapter(adapter);
             }
+            else{
+                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+            }
         }
     }
 

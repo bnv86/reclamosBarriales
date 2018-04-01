@@ -12,8 +12,7 @@ import java.util.Map;
 
 public class PedidoDeEmail extends StringRequest {
 
-    //private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
-    private static final String CONTACTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/postEmail.php"; //https://momentary-electrode.000webhostapp.com/Register.php
+    private static final String CONTACTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/postEmail.php";
 
 
     private Map<String, String> params;

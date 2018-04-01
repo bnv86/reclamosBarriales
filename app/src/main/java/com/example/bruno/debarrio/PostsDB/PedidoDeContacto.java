@@ -1,5 +1,6 @@
 package com.example.bruno.debarrio.PostsDB;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
@@ -12,8 +13,7 @@ import java.util.Map;
 
 public class PedidoDeContacto extends StringRequest {
 
-    //private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
-    private static final String CONTACTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/postContacto.php"; //https://momentary-electrode.000webhostapp.com/Register.php
+    private static final String CONTACTO_REQUEST_URL = "https://momentary-electrode.000webhostapp.com/postContacto.php";
 
 
     private Map<String, String> params;

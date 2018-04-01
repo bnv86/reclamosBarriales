@@ -97,10 +97,16 @@ public class TelefonosActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
+                    else
+                    {
+                        //Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Sin conexión :(", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else
                 {
-                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Sin conexión :(", Toast.LENGTH_LONG).show();
                 }
             }
             catch (Exception e)
@@ -122,6 +128,9 @@ public class TelefonosActivity extends AppCompatActivity {
             {
                 ListAdapter adapter = new ListAdapter(telefonoList, context);
                 telefonosListView.setAdapter(adapter);
+            }
+            else{
+                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
         }
     }

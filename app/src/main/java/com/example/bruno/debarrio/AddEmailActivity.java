@@ -22,6 +22,7 @@ public class AddEmailActivity extends AppCompatActivity implements View.OnClickL
     TextView textviewRegresar;
     EditText editEmail, editDetalle;
     Button botonAgregar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,36 +38,47 @@ public class AddEmailActivity extends AppCompatActivity implements View.OnClickL
         editEmail = findViewById(R.id.edit_email_contacto);
         editDetalle = findViewById(R.id.edit_detalle_contacto);
         botonAgregar = findViewById(R.id.boton_agregar_email);
-        botonAgregar.setOnClickListener(this);
+        //botonAgregar.setOnClickListener(this);
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                final String email = editEmail.getText().toString();
+                final String detalle = editDetalle.getText().toString();
+                if (detalle == null || detalle == "" || detalle.isEmpty() || email == null || email == "" || email.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Complete los campos!", Toast.LENGTH_LONG).show();
+                } else {
+
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+
+                                if (success) {
+                                    Intent intent = new Intent(AddEmailActivity.this, MainTabbedActivity.class);
+                                    AddEmailActivity.this.startActivity(intent);
+                                    Toast.makeText(getApplicationContext(), "Contacto agregado!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEmailActivity.this);
+                                    alertBuilder.setMessage("Error al agregar contacto").setNegativeButton("Reintentar", null).create().show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    PedidoDeEmail pedido = new PedidoDeEmail(email, detalle, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(AddEmailActivity.this);
+                    queue.add(pedido);
+                }
+            }
+        });
     }
 
     @Override
-    public void onClick (View view){
-        final String email = editEmail.getText().toString();
-        final String detalle = editDetalle.getText().toString();
+    public void onClick(View view) {
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                    if(success){
-                        Intent intent = new Intent(AddEmailActivity.this, MainTabbedActivity.class);
-                        AddEmailActivity.this.startActivity(intent);
-                        Toast.makeText(getApplicationContext(),"Contacto agregado!", Toast.LENGTH_LONG).show();
-                    }else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddEmailActivity.this);
-                        alertBuilder.setMessage("Error al agregar contacto").setNegativeButton("Reintentar", null).create().show();
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        };
-        PedidoDeEmail pedido = new PedidoDeEmail(email, detalle, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(AddEmailActivity.this);
-        queue.add(pedido);
     }
 }

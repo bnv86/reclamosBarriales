@@ -122,6 +122,9 @@ public class EmailsActivity extends AppCompatActivity {
                 ListAdapter adapter = new ListAdapter(emailList, context);
                 emailsListView.setAdapter(adapter);
             }
+            else{
+                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

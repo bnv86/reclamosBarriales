@@ -122,6 +122,9 @@ public class DireccionesActivity extends AppCompatActivity {
                 ListAdapter adapter = new ListAdapter(direccionList, context);
                 direccionesListView.setAdapter(adapter);
             }
+            else{
+                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

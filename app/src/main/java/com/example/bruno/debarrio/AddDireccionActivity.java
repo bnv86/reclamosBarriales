@@ -37,36 +37,48 @@ public class AddDireccionActivity extends AppCompatActivity implements View.OnCl
         editDireccion = findViewById(R.id.edit_dire_contacto);
         editDetalle = findViewById(R.id.edit_detalle_contacto);
         botonAgregar = findViewById(R.id.boton_agregar_direccion);
-        botonAgregar.setOnClickListener(this);
+        //botonAgregar.setOnClickListener(this);
+        botonAgregar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick (View view) {
+                final String direccion = editDireccion.getText().toString();
+                final String detalle = editDetalle.getText().toString();
+                if (detalle == null || detalle == "" || detalle.isEmpty() || direccion == null || direccion == "" || direccion.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Complete los campos!", Toast.LENGTH_LONG).show();
+                } else {
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+
+                                if (success) {
+                                    Intent intent = new Intent(AddDireccionActivity.this, MainTabbedActivity.class);
+                                    AddDireccionActivity.this.startActivity(intent);
+                                    Toast.makeText(getApplicationContext(), "Contacto agregado!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddDireccionActivity.this);
+                                    alertBuilder.setMessage("Error al agregar contacto").setNegativeButton("Reintentar", null).create().show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    PedidoDeDireccion pedido = new PedidoDeDireccion(direccion, detalle, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(AddDireccionActivity.this);
+                    queue.add(pedido);
+                }
+            }
+        });
     }
 
     @Override
-    public void onClick (View view){
-        final String direccion = editDireccion.getText().toString();
-        final String detalle = editDetalle.getText().toString();
+    public void onClick(View view) {
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                    if(success){
-                        Intent intent = new Intent(AddDireccionActivity.this, MainTabbedActivity.class);
-                        AddDireccionActivity.this.startActivity(intent);
-                        Toast.makeText(getApplicationContext(),"Contacto agregado!", Toast.LENGTH_LONG).show();
-                    }else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(AddDireccionActivity.this);
-                        alertBuilder.setMessage("Error al agregar contacto").setNegativeButton("Reintentar", null).create().show();
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        };
-        PedidoDeDireccion pedido = new PedidoDeDireccion(direccion, detalle, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(AddDireccionActivity.this);
-        queue.add(pedido);
     }
 }
+
+

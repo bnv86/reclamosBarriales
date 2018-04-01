@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,59 +131,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
     }
-
-    /*
-    private void uploadImage(){
-        //Mostrar el diálogo de progreso
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_FOTO,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        //Mostrando el mensaje de la respuesta
-                        Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
-                        //llamarIntentFotoElegir();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-
-                        //Showing toast
-                        Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
-                    }
-                }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Convertir bits a cadena
-                String imagen = getStringImagen(bitmap);
-
-                //Obtener el nombre de la imagen
-                String nombre = "CAPTURA"; //.trim()
-
-                //Creación de parámetros
-                Map<String,String> params = new Hashtable<String, String>();
-
-                //Agregando de parámetros
-                params.put(KEY_IMAGEN, imagen);
-                params.put(KEY_NOMBRE, nombre);
-
-                //Parámetros de retorno
-                return params;
-            }
-        };
-
-        //Creación de una cola de solicitudes
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-
-        //Agregar solicitud a la cola
-        requestQueue.add(stringRequest);
-    }*/
 
         public void subirEvento(){
             final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
@@ -353,11 +301,26 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             @Override
             public void onClick(View v) {
                 //uploadImage();
-                if(bitmap == null){
-                    Toast.makeText(getContext(),"Olvidaste elegir una foto!", Toast.LENGTH_LONG).show();
-                    return ;
+                if(bitmap == null || KEY_MOTIVO == null || KEY_MOTIVO.isEmpty() || KEY_MOTIVO == "" || KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
+                    Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
                 }
-                subirEvento();
+                /*
+                if(bitmap == null){
+                    //Toast.makeText(getContext(),"Olvidaste elegir una foto!", Toast.LENGTH_LONG).show();
+                }
+                if(KEY_MOTIVO == null || KEY_MOTIVO.isEmpty() || KEY_MOTIVO == ""){
+                    Toast.makeText(getContext(),"Debes poner el motivo del evento!", Toast.LENGTH_LONG).show();
+                    //AlertDialog.Builder alertBuilder1 = new AlertDialog.Builder(getContext());
+                    //alertBuilder1.setMessage("Debe completar el campo 'Motivo'").setNegativeButton("Por favor", null).create().show();
+                }
+                if(KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
+                    Toast.makeText(getContext(),"Debes poner un comentario del evento!", Toast.LENGTH_LONG).show();
+                    //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
+                    //alertBuilder2.setMessage("Debe completar el campo 'Comentario'").setNegativeButton("Por favor", null).create().show();
+                }*/
+                else {
+                    subirEvento();
+                }
                 //llamarIntentCompartir();
             }
         });
@@ -402,18 +365,31 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //si se elige una imagen de la galeria
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri filePath = data.getData();
-
             try {
-                //Cómo obtener el mapa de bits de la Galería
+                //obtener el mapa de bits de la galería
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-                //Configuración del mapa de bits en ImageView
+                //se setea la foto en lugar de la imagenView predeterminada
                 imagenFoto.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        /*
+        //para el mapa
+        if(data!=null) {
+            //tomo las coordenadas que devuelve el MapsActivity cuando se la llama desde el click
+            //en el boton "Zona", ver el código de MapsActivity cuando se le da click al boton R.id.coords
+            if (data.getStringExtra("coordLat") != null && !data.getStringExtra("coordLat").equals("")) {
+                coordLat = data.getStringExtra("coordLat");
+            }
+            if (data.getStringExtra("coordLong") != null && !data.getStringExtra("coordLong").equals("")) {
+                coordLong = data.getStringExtra("coordLong");
+            }
+        }*/
     }
 /*
     @Override
@@ -427,35 +403,58 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         }
 
     }*/
-/*
-    private void guardarFoto(Bitmap imagen) {
-        final String nombre = "User";
-        final String foto = getStringImagen(imagen);
-        //final int evento_id = 1;
 
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                    if(success){
-                        //Intent intent = new Intent(AddDireccionActivity.this, MainTabbedActivity.class);
-                        //AddDireccionActivity.this.startActivity(intent);
-                        Toast.makeText(getContext(),"Foto agregada!", Toast.LENGTH_LONG).show();
-                    }else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
-                        alertBuilder.setMessage("Error al agregar foto").setNegativeButton("Reintentar", null).create().show();
+   /* subir solo la foto
+    private void uploadImage(){
+        //Mostrar el diálogo de progreso
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_FOTO,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        //Mostrando el mensaje de la respuesta
+                        Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
+                        //llamarIntentFotoElegir();
                     }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+
+                        //Showing toast
+                        Toast.makeText(getActivity(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Convertir bits a cadena
+                String imagen = getStringImagen(bitmap);
+
+                //Obtener el nombre de la imagen
+                String nombre = "CAPTURA"; //.trim()
+
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+
+                //Agregando de parámetros
+                params.put(KEY_IMAGEN, imagen);
+                params.put(KEY_NOMBRE, nombre);
+
+                //Parámetros de retorno
+                return params;
             }
         };
-        PedidoDeFoto pedido = new PedidoDeFoto(foto, nombre, responseListener); //evento_id,
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(pedido);
+
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
     }*/
 
 
