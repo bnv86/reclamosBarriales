@@ -27,6 +27,9 @@
     <string name="str_regresar">   BACK </string>
     <string name="str_registrar_titulo">Register User</string>
     <string name="usuario_nombre">Name</string>
+    <string name="usuario_apellido">Lastname</string>
+    <string name="usuario_email">Email</string>
+    <string name="usuario_telefono">Phone</string>
     <string name="usuario_nombre_user">User</string>
     <string name="usuario_password">Password</string>
     <string name="button_registrar">REGISTER</string>

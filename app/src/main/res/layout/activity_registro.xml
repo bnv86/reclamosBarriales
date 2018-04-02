@@ -64,21 +64,31 @@
                 android:layout_marginTop="@dimen/text_margin"/>
 
             <EditText
-                android:id="@+id/edit_usuario_registro"
+                android:id="@+id/edit_apellido_registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="@string/usuario_nombre_user"
+                android:hint="@string/usuario_apellido"
                 android:inputType="text"
-                />
+                android:layout_marginTop="1dp"/>
 
             <EditText
-                android:id="@+id/edit_password_registro"
+                android:id="@+id/edit_email_registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="@string/usuario_password"
-                android:inputType="textPassword"/>
+                android:hint="@string/usuario_email"
+                android:inputType="text"
+                android:layout_marginTop="1dp"/>
+
+            <EditText
+                android:id="@+id/edit_telefono_registro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/usuario_telefono"
+                android:inputType="number"
+                android:layout_marginTop="1dp"/>
 
             <EditText
                 android:id="@+id/edit_edad_registro"
@@ -86,7 +96,26 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:hint="@string/usuario_edad"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:layout_marginTop="1dp"/>
+
+            <EditText
+                android:id="@+id/edit_usuario_registro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/usuario_nombre_user"
+                android:inputType="text"
+                android:layout_marginTop="1dp"/>
+
+            <EditText
+                android:id="@+id/edit_password_registro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/usuario_password"
+                android:inputType="textPassword"
+                android:layout_marginTop="1dp"/>
 
             <Button
                 android:id="@+id/boton_registrar_registro"
@@ -101,4 +130,13 @@
         </LinearLayout>
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        />
+
 </LinearLayout>
+

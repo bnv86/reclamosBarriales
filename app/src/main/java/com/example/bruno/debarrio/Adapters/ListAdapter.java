@@ -9,19 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bruno.debarrio.Contactos;
+import com.example.bruno.debarrio.Subject;
 import com.example.bruno.debarrio.R;
 
 /**
  * Created by Bruno on 27/03/2018.
  */
 
-public class ListAdapterContactos extends BaseAdapter {
+public class ListAdapter extends BaseAdapter {
 
     Context context;
-    List<Contactos> valueList;
+    List<Subject> valueList;
 
-    public ListAdapterContactos(List<Contactos> listValue, Context context)
+    public ListAdapter(List<Subject> listValue, Context context)
     {
         this.context = context;
         this.valueList = listValue;
@@ -63,7 +63,7 @@ public class ListAdapterContactos extends BaseAdapter {
             viewItem = (ViewItem) convertView.getTag();
         }
 
-        viewItem.TextViewSubjectName.setText(valueList.get(position).ContactoName);
+        viewItem.TextViewSubjectName.setText(valueList.get(position).SubjectName);
         return convertView;
     }
 }

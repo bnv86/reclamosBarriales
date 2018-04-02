@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
+import com.example.bruno.debarrio.Adapters.ListAdapter;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 public class EmailsActivity extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class EmailsActivity extends AppCompatActivity {
     {
         public Context context;
         String ResultHolder;
-        List<Contactos> emailList;
+        List<Subject> emailList;
 
         public GetHttpResponse(Context context)
         {
@@ -78,16 +78,16 @@ public class EmailsActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Contactos email;
-                            //Contactos telefono;
+                            Subject email;
+                            //Subject telefono;
 
-                            emailList = new ArrayList<Contactos>();
+                            emailList = new ArrayList<Subject>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                email = new Contactos();
+                                email = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                email.ContactoName = jsonObject.getString("email");
+                                email.SubjectName = jsonObject.getString("email");
                                 emailList.add(email);
                             }
                         }
@@ -119,7 +119,7 @@ public class EmailsActivity extends AppCompatActivity {
 
             if(emailList != null)
             {
-                ListAdapterContactos adapter = new ListAdapterContactos(emailList, context);
+                ListAdapter adapter = new ListAdapter(emailList, context);
                 emailsListView.setAdapter(adapter);
             }
             else{

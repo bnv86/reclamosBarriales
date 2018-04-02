@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
+import com.example.bruno.debarrio.Adapters.ListAdapter;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -48,7 +48,7 @@ public class TelefonosActivity extends AppCompatActivity {
     {
         public Context context;
         String ResultHolder;
-        List<Contactos> telefonoList;
+        List<Subject> telefonoList;
 
         public GetHttpResponse(Context context)
         {
@@ -80,15 +80,15 @@ public class TelefonosActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Contactos telefono;
+                            Subject telefono;
 
-                            telefonoList = new ArrayList<Contactos>();
+                            telefonoList = new ArrayList<Subject>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                telefono = new Contactos();
+                                telefono = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                telefono.ContactoName = jsonObject.getString("telefono");
+                                telefono.SubjectName = jsonObject.getString("telefono");
                                 telefonoList.add(telefono);
                             }
                         }
@@ -126,7 +126,7 @@ public class TelefonosActivity extends AppCompatActivity {
 
             if(telefonoList != null)
             {
-                ListAdapterContactos adapter = new ListAdapterContactos(telefonoList, context);
+                ListAdapter adapter = new ListAdapter(telefonoList, context);
                 telefonosListView.setAdapter(adapter);
             }
             else{

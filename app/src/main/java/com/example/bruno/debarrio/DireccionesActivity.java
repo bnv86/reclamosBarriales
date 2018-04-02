@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
+import com.example.bruno.debarrio.Adapters.ListAdapter;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -48,7 +48,7 @@ public class DireccionesActivity extends AppCompatActivity {
     {
         public Context context;
         String ResultHolder;
-        List<Contactos> direccionList;
+        List<Subject> direccionList;
 
         public GetHttpResponse(Context context)
         {
@@ -80,14 +80,14 @@ public class DireccionesActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Contactos direccion;
-                            direccionList = new ArrayList<Contactos>();
+                            Subject direccion;
+                            direccionList = new ArrayList<Subject>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                direccion = new Contactos();
+                                direccion = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                direccion.ContactoName = jsonObject.getString("direccion");
+                                direccion.SubjectName = jsonObject.getString("direccion");
                                 direccionList.add(direccion);
                             }
                         }
@@ -119,7 +119,7 @@ public class DireccionesActivity extends AppCompatActivity {
 
             if(direccionList != null)
             {
-                ListAdapterContactos adapter = new ListAdapterContactos(direccionList, context);
+                ListAdapter adapter = new ListAdapter(direccionList, context);
                 direccionesListView.setAdapter(adapter);
             }
             else{

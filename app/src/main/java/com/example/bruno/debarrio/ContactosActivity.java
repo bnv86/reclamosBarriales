@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
+import com.example.bruno.debarrio.Adapters.ListAdapter;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 public class ContactosActivity extends AppCompatActivity {
@@ -47,7 +47,7 @@ public class ContactosActivity extends AppCompatActivity {
     {
         public Context context;
         String ResultHolder;
-        List<Contactos> contactosList;
+        List<Subject> subjectList;
 
         public GetHttpResponse(Context context)
         {
@@ -79,15 +79,15 @@ public class ContactosActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Contactos contactos;
-                            contactosList = new ArrayList<Contactos>();
+                            Subject subject;
+                            subjectList = new ArrayList<Subject>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                contactos = new Contactos();
+                                subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                contactos.ContactoName = jsonObject.getString("email");
-                                contactosList.add(contactos);
+                                subject.SubjectName = jsonObject.getString("email");
+                                subjectList.add(subject);
                             }
                         }
                         catch (JSONException e) {
@@ -116,9 +116,9 @@ public class ContactosActivity extends AppCompatActivity {
             progressBarContactos.setVisibility(View.GONE);
             ContactosListView.setVisibility(View.VISIBLE);
 
-            if(contactosList != null)
+            if(subjectList != null)
             {
-                ListAdapterContactos adapter = new ListAdapterContactos(contactosList, context);
+                ListAdapter adapter = new ListAdapter(subjectList, context);
                 ContactosListView.setAdapter(adapter);
             }
             else{

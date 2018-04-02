@@ -22,8 +22,7 @@ import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textviewRegresar;
-    //EditText editUsuario, editPassword;
-    EditText editNombre, editUsuario, editPassword, editEdad;
+    EditText editNombre, editUsuario, editPassword, editEdad, editTelefono, editEmail, editApellido;
     Button botonRegistrar;
 
     @Override
@@ -41,6 +40,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             }
         });
         editNombre = findViewById(R.id.edit_nombre_registro);
+        editApellido = findViewById(R.id.edit_apellido_registro);
+        editEmail = findViewById(R.id.edit_email_registro);
+        editTelefono = findViewById(R.id.edit_telefono_registro);
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
         editEdad = findViewById(R.id.edit_edad_registro);
@@ -52,11 +54,17 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 final String name = editNombre.getText().toString();
                 final String username = editUsuario.getText().toString();
                 final String password = editPassword.getText().toString();
+                final String apellido = editApellido.getText().toString();
+                final String email = editEmail.getText().toString();
                 //int age = Integer.parseInt(editEdad.getText().toString());
                 //esto soluciona el error que tira al dejar en blanco campos int al agregar
                 final EditText a = findViewById(R.id.edit_edad_registro);
                 final String edad = a.getText().toString().trim();
                 final int age = !edad.equals("") ? Integer.parseInt(edad) : 0;
+
+                final EditText t = findViewById(R.id.edit_telefono_registro);
+                final String telefono = t.getText().toString().trim();
+                final int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
             /*
             try {
                 int age = Integer.parseInt(editEdad.getText().toString());
@@ -65,7 +73,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 n.printStackTrace();
             }*/
                 if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
-                        || password == null || password == "" || password.isEmpty() || edad == null || edad == "" || edad.isEmpty()) {
+                        || password == null || password == "" || password.isEmpty() || edad == null || edad == "" || edad.isEmpty()
+                        || telefono == null || telefono == "" || telefono.isEmpty() || apellido == null || apellido == "" || apellido.isEmpty()
+                        || email == null || email == "" || email.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
                 } else {
 
@@ -90,7 +100,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     };
-                    PedidoDeRegistro pedido = new PedidoDeRegistro(name, username, age, password, responseListener);
+                    PedidoDeRegistro pedido = new PedidoDeRegistro(name, apellido, email, phone, age, username, password, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
                     queue.add(pedido);
                 }

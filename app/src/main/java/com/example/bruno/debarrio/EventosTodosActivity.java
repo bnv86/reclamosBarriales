@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bruno.debarrio.Adapters.ListAdapter;
-import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -25,7 +24,7 @@ public class EventosTodosActivity extends AppCompatActivity {
     ListView eventosListView;
     ProgressBar progressBarEventos;
     TextView textviewRegresar;
-    String ServerURL = "https://momentary-electrode.000webhostapp.com/getEventos.php";
+    String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,7 +47,7 @@ public class EventosTodosActivity extends AppCompatActivity {
     {
         public Context context;
         String ResultHolder;
-        List<Eventos> eventosList;
+        List<Subject> eventosList;
 
         public GetHttpResponse(Context context)
         {
@@ -80,16 +79,16 @@ public class EventosTodosActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Eventos evento;
+                            Subject subject;
 
-                            eventosList = new ArrayList<Eventos>();
+                            eventosList = new ArrayList<Subject>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                evento = new Eventos();
+                                subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                evento.EventoName = jsonObject.getString("id");
-                                eventosList.add(evento);
+                                subject.SubjectName = jsonObject.getString("foto");
+                                eventosList.add(subject);
                             }
                         }
                         catch (JSONException e) {
@@ -120,7 +119,7 @@ public class EventosTodosActivity extends AppCompatActivity {
 
             if(eventosList != null)
             {
-                ListAdapterEventos adapter = new ListAdapterEventos(eventosList, context);
+                ListAdapter adapter = new ListAdapter(eventosList, context);
                 eventosListView.setAdapter(adapter);
             }
             else{
