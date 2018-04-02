@@ -87,7 +87,7 @@ public class EventosMiosActivity extends AppCompatActivity {
                             {
                                 subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                subject.SubjectName = jsonObject.getString("foto");
+                                subject.SubjectName = jsonObject.getString("fecha");
                                 eventosList.add(subject);
                             }
                         }

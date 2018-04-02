@@ -1,16 +1,21 @@
 package com.example.bruno.debarrio;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -38,6 +43,14 @@ public class EventosTodosActivity extends AppCompatActivity {
                 onBackPressed(); //vuelve al activity anterior
             }
         });
+
+        ImageView imagen = (ImageView) findViewById(R.id.icon);
+        /*
+        if(incidente.getCaptura()!=null) {
+            imagen.setImageBitmap(incidente.getCaptura().getImagen());
+        }else{
+            imagen.setImageDrawable(mParentActivity.getResources().getDrawable(R.drawable.ic_launcher_background));
+        }*/
         eventosListView = findViewById(R.id.listview1);
         progressBarEventos = findViewById(R.id.progressBar);
         new GetHttpResponse(EventosTodosActivity.this).execute();
@@ -48,6 +61,7 @@ public class EventosTodosActivity extends AppCompatActivity {
         public Context context;
         String ResultHolder;
         List<Subject> eventosList;
+        ImageView imagen = (ImageView) findViewById(R.id.icon);
 
         public GetHttpResponse(Context context)
         {
@@ -87,7 +101,14 @@ public class EventosTodosActivity extends AppCompatActivity {
                             {
                                 subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                subject.SubjectName = jsonObject.getString("foto");
+                                subject.SubjectName = jsonObject.getString("fecha");
+                                subject.SubjectImage = StringToBitMap(jsonObject.getString("foto")); //TENGO Q VERIFICAR ESTE METODO O ENCODE URL
+                                //If you get bitmap = null, you can use:
+                                //byte[] decodedString = Base64.decode(subject.SubjectName, Base64.URL_SAFE );
+                                //Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                               // subject.SubjectName = jsonObject.getString("foto");
+                                //Bitmap b = StringToBitMap(subject.SubjectName);
+                                //imagen.setImageBitmap(b);
                                 eventosList.add(subject);
                             }
                         }
@@ -119,7 +140,7 @@ public class EventosTodosActivity extends AppCompatActivity {
 
             if(eventosList != null)
             {
-                ListAdapter adapter = new ListAdapter(eventosList, context);
+                ListAdapterEventos adapter = new ListAdapterEventos(eventosList, context);
                 eventosListView.setAdapter(adapter);
             }
             else{
@@ -127,4 +148,17 @@ public class EventosTodosActivity extends AppCompatActivity {
             }
         }
     }
+    public Bitmap StringToBitMap(String encodedString){
+        try{
+            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        }catch(Exception e){
+            e.getMessage();
+            return null;
+        }
+    }
+
+// second solution is you can set the path inside decodeFile function
+//viewImage.setImageBitmap(BitmapFactory.decodeFile("your iamge path"));
 }
