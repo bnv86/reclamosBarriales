@@ -30,7 +30,7 @@ public class EventosMiosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eventos_todos);
+        setContentView(R.layout.activity_eventos_mios);
         textviewRegresar = findViewById(R.id.textview_regresar);
         textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override

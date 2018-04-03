@@ -25,7 +25,7 @@
             android:textColor="@color/colorOrange"/>
 
         <TextView
-            android:id="@+id/textview_eventos_todos"
+            android:id="@+id/textview_eventos_mios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20dp"

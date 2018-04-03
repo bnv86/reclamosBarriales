@@ -64,7 +64,6 @@ public class ListAdapterEventos extends BaseAdapter {
         ViewItemEventos viewItem = null;
         //ImageView imageView = convertView.findViewById(R.id.icon);
         ImageView img;
-        Context context;
 
         if(convertView == null)
         {
@@ -72,8 +71,6 @@ public class ListAdapterEventos extends BaseAdapter {
             LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.layout_item_evento, null);
             viewItem.ImageViewSubjectImage = convertView.findViewById(R.id.icon);
-            //img = (ImageView) convertView.findViewById(R.id.icon);
-            //Picasso.with(null).load(url).into(img);
             viewItem.TextViewSubjectName = convertView.findViewById(R.id.textView1);
             convertView.setTag(viewItem);
         }
@@ -81,11 +78,7 @@ public class ListAdapterEventos extends BaseAdapter {
         {
             viewItem = (ViewItemEventos) convertView.getTag();
         }
-        //viewItem.ImageViewSubjectImage = convertView.findViewById(R.id.icon);
-        //viewItem.ImageViewSubjectImage.setImage(valueList.get(position).SubjectImage);
-        //imageView.setImageResource(valueList.get(position).SubjectImage);
-        //viewItem.ImageViewSubjectImage.setImageBitmap(valueList.get(position).SubjectImage);
-        //viewItem.ImageViewSubjectImage.getPath(valueList.get(position).SubjectImage); //SI SACO ESTO SALE EL IF PORQUE LA IMAGEN ESTA EN NULL, O SEA, SALE LA CAMARA
+
         viewItem.TextViewSubjectName.setText(valueList.get(position).SubjectName);
         viewItem.ImageViewSubjectImage.setImageBitmap(valueList.get(position).SubjectBitmap);
 
@@ -99,3 +92,13 @@ class ViewItemEventos
     ImageView ImageViewSubjectImage;
     Bitmap BitmapSubjectImage;
 }
+
+//PROBANDO
+//img = (ImageView) convertView.findViewById(R.id.icon);
+//Picasso.with(null).load(url).into(img);
+
+//viewItem.ImageViewSubjectImage = convertView.findViewById(R.id.icon);
+//viewItem.ImageViewSubjectImage.setImage(valueList.get(position).SubjectImage);
+//imageView.setImageResource(valueList.get(position).SubjectImage);
+//viewItem.ImageViewSubjectImage.setImageBitmap(valueList.get(position).SubjectImage);
+//viewItem.ImageViewSubjectImage.getPath(valueList.get(position).SubjectImage); //SI SACO ESTO SALE EL IF PORQUE LA IMAGEN ESTA EN NULL, O SEA, SALE LA CAMARA

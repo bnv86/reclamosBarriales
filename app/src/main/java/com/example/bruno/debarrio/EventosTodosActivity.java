@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -141,7 +143,6 @@ public class EventosTodosActivity extends AppCompatActivity {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
                             Subject subject;
-                            //URL imagen;
 
                             eventosList = new ArrayList<Subject>();
 
@@ -149,34 +150,9 @@ public class EventosTodosActivity extends AppCompatActivity {
                             {
                                 subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                //subject.SubjectName = jsonObject.getString("fecha");
-
+                                subject.SubjectName = jsonObject.getString("fecha");
                                 String dec = jsonObject.getString("foto");
-                                subject.SubjectBitmap = StringToBitMap(dec);
-                                //String dec = jsonObject.getString("foto");
-                                //Picasso.with(getApplication()).load(URL).into(subject.SubjectImage);
-
-                                //Bitmap link = StringToBitMap(jsonObject.getString("foto")); //hay un problema con get_imagen
-                                //subject.SubjectImage.setImageBitmap(link); //ESTA TRAYENDO NULL
-                                //OTRO EJEMPLO
-                                /*
-                                String base64String = jsonObject.getString("foto");
-                                String base64Image = base64String.split("https://")[1];
-                                byte[] decodedString = Base64.decode(base64Image, Base64.DEFAULT); //aca se traba el debug
-                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                                subject.SubjectImage.setImageBitmap(decodedByte);*/
-
-                                //subject.SubjectImage = StringToBitMap(jsonObject.getString("foto"));
-
-                                /*
-                                //If you get bitmap = null, you can use:
-                                byte[] decodedString = Base64.decode(dec, Base64.DEFAULT); //con CRLF sigue una linea mas, pero devuelve decodedByte = null
-                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length); //con DEFAULT o URL_SAFE aca muere el debug
-                                subject.SubjectImage.setImageBitmap(decodedByte); //decodedByte: null
-                                */
-                               // subject.SubjectName = jsonObject.getString("foto");
-                                //Bitmap b = StringToBitMap(subject.SubjectName);
-                                //imagen.setImageBitmap(b);
+                                subject.SubjectBitmap = downloadImage(dec);
                                 eventosList.add(subject);
                             }
                         }
@@ -226,33 +202,48 @@ public class EventosTodosActivity extends AppCompatActivity {
             }
         }
     }
-    //OTRO EJEMPLO
-    public Bitmap StringToBitMap(String encodedString){
-        try{
-            byte [] encodeByte = Base64.decode(encodedString,Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length); //aca se traba el debug
-            return bitmap; //devuelve bitmap = null
-        }catch(Exception e){
-            e.getMessage();
-            return null;
-        }
-    }
-    //OTRO EJEMPLO
-    private Bitmap get_imagen(String url) {
-        Bitmap bm = null;
-        try {
-            URL _url = new URL(url);
-            URLConnection con = _url.openConnection();
-            con.connect();
-            InputStream is = con.getInputStream();
-            BufferedInputStream bis = new BufferedInputStream(is);
-            bm = BitmapFactory.decodeStream(bis);
-            bis.close();
-            is.close();
-        } catch (IOException e) {
 
+
+    public static  Bitmap downloadImage(String url) {
+        Bitmap bitmap = null;
+        InputStream stream = null;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inSampleSize = 1;
+
+        try {
+            stream = getHttpConnection(url);
+            bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
+            stream.close();
         }
-        return bm;
+        catch (IOException e1) {
+            e1.printStackTrace();
+            System.out.println("downloadImage"+ e1.toString());
+        }
+        return bitmap;
+    }
+
+    // Makes HttpURLConnection and returns InputStream
+
+    public static  InputStream getHttpConnection(String urlString)  throws IOException {
+
+        InputStream stream = null;
+        URL url = new URL(urlString);
+        URLConnection connection = url.openConnection();
+
+        try {
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            httpConnection.setRequestMethod("GET");
+            httpConnection.connect();
+
+            if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                stream = httpConnection.getInputStream();
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("downloadImage" + ex.toString());
+        }
+        return stream;
     }
 
 }
@@ -268,102 +259,3 @@ public class EventosTodosActivity extends AppCompatActivity {
 
 // second solution is you can set the path inside decodeFile function
 //viewImage.setImageBitmap(BitmapFactory.decodeFile("your iamge path"));*/
-
-/* EJEMPLO PARA TRAER LA IMAGEN AL LISTVIEW
-public class Zoom extends Activity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.gallery_zoom);
-
-        String selection = getIntent().getExtras().getString("image");
-        Toast.makeText(this, selection, Toast.LENGTH_LONG).show();
-
-        new backgroundLoader().execute();
-    }
-
-
-    private class backgroundLoader extends AsyncTask<Void, Void, Void> {
-        Bitmap bmp;
-
-        @Override
-        protected Void doInBackground(Void... params) {
-
-            bmp = DecodeBitmapSampleSize(getIntent().getExtras().getString("image"), 48, 64);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            ImageView image = (ImageView) findViewById(R.id.imageZoom);
-            image.setImageBitmap(bmp);
-        }
-
-    }
-
-    public Bitmap DecodeBitmapSampleSize (String strURL, int reqWidth, int reqHeight) {
-        InputStream in = null;
-        Bitmap bmp = null;
-
-        in = OpenHttpConnection(strURL);
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(in, null, options);
-
-        options.inSampleSize = calculateSampleSize(options, reqWidth, reqHeight);
-
-        options.inJustDecodeBounds = false;
-        bmp = BitmapFactory.decodeStream(in, null, options);
-        return bmp;
-    }
-
-    private InputStream OpenHttpConnection(String strURL) {
-
-        try {
-            URL url = new URL(strURL);
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            InputStream in = new BufferedInputStream(connection.getInputStream());
-            return in;
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return null;
-        }
-    }
-
-    public static int calculateSampleSize(BitmapFactory.Options options,
-                                          int reqWidth, int reqHeight) {
-
-        final int width = options.outWidth;
-        final int height = options.outHeight;
-        int inSampleSize = 1;
-
-        if (width > reqWidth || height > reqHeight) {
-            if (width > height) {
-                inSampleSize = Math.round((float) height / (float) reqHeight);
-            } else {
-                inSampleSize = Math.round((float) width / (float) reqWidth);
-            }
-        }
-        return inSampleSize;
-    }
-
-final BitmapFactory.Options options = new BitmapFactory.Options();
-options.inJustDecodeBounds = true;
-BufferedInputStream buffer=new BufferedInputStream(is);
-BitmapFactory.decodeStream(buffer,null,options);
-buffer.reset();
-
-    // Calculate inSampleSize
-options.inSampleSize = calculateInSampleSize(options, reqWidth,reqHeight);
-
-    // Decode bitmap with inSampleSize set
-options.inJustDecodeBounds = false;
-BitmapFactory.decodeStream(buffer,null,options);
-
-}*/
