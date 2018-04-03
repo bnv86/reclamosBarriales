@@ -1,8 +1,19 @@
 package com.example.bruno.debarrio;
 
 import android.graphics.Bitmap;
+import android.graphics.ImageFormat;
 import android.media.Image;
+import android.media.ImageReader;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v4.widget.ImageViewCompat;
+import android.text.Html;
 import android.widget.ImageView;
+
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
+
+import java.net.URL;
 
 /**
  * Created by Bruno on 27/03/2018.
@@ -11,5 +22,6 @@ import android.widget.ImageView;
 //esta clase sirve para hacer puente a ListAdapter
 public class Subject {
     public String SubjectName;
-    public Bitmap SubjectImage;
+    public ImageView SubjectImage;
+    public  Bitmap SubjectBitmap;
 }

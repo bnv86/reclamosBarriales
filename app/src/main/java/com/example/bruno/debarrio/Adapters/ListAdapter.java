@@ -53,8 +53,8 @@ public class ListAdapter extends BaseAdapter {
         if(convertView == null)
         {
             viewItem = new ViewItem();
-            LayoutInflater layoutInfiater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInfiater.inflate(R.layout.layout_item, null);
+            LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(R.layout.layout_item, null);
             viewItem.TextViewSubjectName = (TextView)convertView.findViewById(R.id.textView1);
             convertView.setTag(viewItem);
         }
