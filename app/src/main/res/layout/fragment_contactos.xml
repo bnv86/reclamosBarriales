@@ -26,6 +26,15 @@
             android:paddingBottom="40dp"
             android:gravity="center">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar"
+                android:textColor="@color/colorBlanco"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/text_margin"
+                android:textSize="28sp"/>
+
             <Button
                 android:id="@+id/boton_agregar_email"
                 android:layout_width="match_parent"
@@ -34,7 +43,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_green_light"
-                android:text="Agregar Email"
+                android:text="Email"
                 android:textColor="@color/colorDark"
                 android:textColorLink="@android:color/holo_red_dark"
                 android:textSize="20dp"
@@ -48,7 +57,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_green_light"
-                android:text="Agregar Teléfono"
+                android:text="Teléfono"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -61,7 +70,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_green_light"
-                android:text="Agregar Dirección"
+                android:text="Dirección"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -74,10 +83,19 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_red_light"
-                android:text="Agregar Contacto"
+                android:text="Contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver"
+                android:textColor="@color/colorBlanco"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/text_margin"
+                android:textSize="28sp"/>
 
             <Button
                 android:id="@+id/boton_ver_email"
@@ -87,7 +105,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="Ver Emails"
+                android:text="Emails"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -100,7 +118,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="Ver Teléfonos"
+                android:text="Teléfonos"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -113,7 +131,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="Ver Direcciones"
+                android:text="Direcciones"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -126,7 +144,20 @@
                 android:padding="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/holo_red_light"
-                android:text="Ver Contactos"
+                android:text="Contactos"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_ver_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/holo_purple"
+                android:text="Usuarios"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />

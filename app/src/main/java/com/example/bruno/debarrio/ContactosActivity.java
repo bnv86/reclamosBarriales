@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 public class ContactosActivity extends AppCompatActivity {
@@ -118,7 +118,7 @@ public class ContactosActivity extends AppCompatActivity {
 
             if(subjectList != null)
             {
-                ListAdapter adapter = new ListAdapter(subjectList, context);
+                ListAdapterContactos adapter = new ListAdapterContactos(subjectList, context);
                 ContactosListView.setAdapter(adapter);
             }
             else{

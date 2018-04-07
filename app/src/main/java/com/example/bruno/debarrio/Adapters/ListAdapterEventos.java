@@ -72,6 +72,7 @@ public class ListAdapterEventos extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.layout_item_evento, null);
             viewItem.ImageViewSubjectImage = convertView.findViewById(R.id.icon);
             viewItem.TextViewSubjectName = convertView.findViewById(R.id.textView1);
+            viewItem.TextViewSubjectMotivo = convertView.findViewById(R.id.textView2);
             convertView.setTag(viewItem);
         }
         else
@@ -79,8 +80,9 @@ public class ListAdapterEventos extends BaseAdapter {
             viewItem = (ViewItemEventos) convertView.getTag();
         }
 
-        viewItem.TextViewSubjectName.setText(valueList.get(position).SubjectName);
+        viewItem.TextViewSubjectName.setText(valueList.get(position).SubjectFecha);
         viewItem.ImageViewSubjectImage.setImageBitmap(valueList.get(position).SubjectBitmap);
+        viewItem.TextViewSubjectMotivo.setText(valueList.get(position).SubjectMotivo);
 
         return convertView;
     }
@@ -89,6 +91,7 @@ public class ListAdapterEventos extends BaseAdapter {
 class ViewItemEventos
 {
     TextView TextViewSubjectName;
+    TextView TextViewSubjectMotivo;
     ImageView ImageViewSubjectImage;
     Bitmap BitmapSubjectImage;
 }

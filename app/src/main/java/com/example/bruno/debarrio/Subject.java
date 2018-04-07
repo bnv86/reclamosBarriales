@@ -23,5 +23,9 @@ import java.net.URL;
 public class Subject {
     public String SubjectName;
     public ImageView SubjectImage;
-    public  Bitmap SubjectBitmap;
+    public Bitmap SubjectBitmap;
+    public String SubjectFecha;
+    public String SubjectMotivo;
+    public String SubjectComentario;
+
 }

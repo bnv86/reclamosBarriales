@@ -1,13 +1,8 @@
 package com.example.bruno.debarrio;
 
-import android.support.v7.app.AppCompatActivity;
-import java.util.ArrayList;
-import java.util.List;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -18,18 +13,24 @@ import android.widget.Toast;
 import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
-public class EmailsActivity extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    ListView emailsListView;
-    ProgressBar progressBarEmails;
+import java.util.ArrayList;
+import java.util.List;
+
+public class UsuariosActivity extends AppCompatActivity {
+    ListView usersListView;
+    ProgressBar progressBarUsers;
     TextView textviewRegresar;
-    String ServerURL = "https://momentary-electrode.000webhostapp.com/getEmail.php";
+    String ServerURL = "https://momentary-electrode.000webhostapp.com/getUsuario.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emails);
+        setContentView(R.layout.activity_usuarios);
         textviewRegresar = findViewById(R.id.textview_regresar);
         textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,16 +38,16 @@ public class EmailsActivity extends AppCompatActivity {
                 onBackPressed(); //vuelve al activity anterior
             }
         });
-        emailsListView = findViewById(R.id.listview1);
-        progressBarEmails = findViewById(R.id.progressBar);
-        new GetHttpResponse(EmailsActivity.this).execute();
+        usersListView = findViewById(R.id.listview1);
+        progressBarUsers = findViewById(R.id.progressBar);
+        new GetHttpResponse(UsuariosActivity.this).execute();
     }
 
     private class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         public Context context;
         String ResultHolder;
-        List<Subject> emailList;
+        List<Subject> userList;
 
         public GetHttpResponse(Context context)
         {
@@ -78,16 +79,16 @@ public class EmailsActivity extends AppCompatActivity {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            Subject email;
+                            Subject username;
 
-                            emailList = new ArrayList<Subject>();
+                            userList = new ArrayList<Subject>();
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
-                                email = new Subject();
+                                username = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                email.SubjectName = jsonObject.getString("email");
-                                emailList.add(email);
+                                username.SubjectName = jsonObject.getString("username");
+                                userList.add(username);
                             }
                         }
                         catch (JSONException e) {
@@ -113,13 +114,13 @@ public class EmailsActivity extends AppCompatActivity {
         protected void onPostExecute(Void result)
 
         {
-            progressBarEmails.setVisibility(View.GONE);
-            emailsListView.setVisibility(View.VISIBLE);
+            progressBarUsers.setVisibility(View.GONE);
+            usersListView.setVisibility(View.VISIBLE);
 
-            if(emailList != null)
+            if(userList != null)
             {
-                ListAdapterContactos adapter = new ListAdapterContactos(emailList, context);
-                emailsListView.setAdapter(adapter);
+                ListAdapterContactos adapter = new ListAdapterContactos(userList, context);
+                usersListView.setAdapter(adapter);
             }
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();

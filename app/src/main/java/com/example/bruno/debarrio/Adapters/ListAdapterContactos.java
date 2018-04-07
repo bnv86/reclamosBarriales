@@ -16,12 +16,12 @@ import com.example.bruno.debarrio.R;
  * Created by Bruno on 27/03/2018.
  */
 
-public class ListAdapter extends BaseAdapter {
+public class ListAdapterContactos extends BaseAdapter {
 
     Context context;
     List<Subject> valueList;
 
-    public ListAdapter(List<Subject> listValue, Context context)
+    public ListAdapterContactos(List<Subject> listValue, Context context)
     {
         this.context = context;
         this.valueList = listValue;
@@ -48,27 +48,27 @@ public class ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        ViewItem viewItem = null;
+        ViewItemContactos viewItemContactos = null;
 
         if(convertView == null)
         {
-            viewItem = new ViewItem();
+            viewItemContactos = new ViewItemContactos();
             LayoutInflater layoutInflater = (LayoutInflater)this.context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.layout_item, null);
-            viewItem.TextViewSubjectName = (TextView)convertView.findViewById(R.id.textView1);
-            convertView.setTag(viewItem);
+            viewItemContactos.TextViewSubjectName = (TextView)convertView.findViewById(R.id.textView1);
+            convertView.setTag(viewItemContactos);
         }
         else
         {
-            viewItem = (ViewItem) convertView.getTag();
+            viewItemContactos = (ViewItemContactos) convertView.getTag();
         }
 
-        viewItem.TextViewSubjectName.setText(valueList.get(position).SubjectName);
+        viewItemContactos.TextViewSubjectName.setText(valueList.get(position).SubjectName);
         return convertView;
     }
 }
 
-class ViewItem
+class ViewItemContactos
 {
     TextView TextViewSubjectName;
 

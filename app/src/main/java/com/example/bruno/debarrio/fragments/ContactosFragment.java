@@ -22,6 +22,7 @@ import com.example.bruno.debarrio.DireccionesActivity;
 import com.example.bruno.debarrio.EmailsActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.TelefonosActivity;
+import com.example.bruno.debarrio.UsuariosActivity;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
 
 /**
@@ -46,6 +47,7 @@ public class ContactosFragment extends Fragment {
     Button botonVerTels;
     Button botonVerDirs;
     Button botonVerContactos;
+    Button botonVerUsuarios;
     ListView listView;
     String lista;
     SimpleCursorAdapter cursorAdapter;
@@ -165,8 +167,17 @@ public class ContactosFragment extends Fragment {
                 llamarIntentVerContactos();
             }
         });
+
+        botonVerUsuarios = rootView.findViewById(R.id.boton_ver_usuarios);
+        botonVerUsuarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarIntentVerUsuarios();
+            }
+        });
         return rootView;
     }
+
 
     @Override
     public void onAttach(Context context) {
@@ -243,6 +254,11 @@ public class ContactosFragment extends Fragment {
 
     private void llamarIntentVerContactos() {
         Intent intentVer = new Intent(getActivity(), ContactosActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentVerUsuarios() {
+        Intent intentVer = new Intent(getActivity(), UsuariosActivity.class);
         getActivity().startActivity(intentVer);
     }
 }

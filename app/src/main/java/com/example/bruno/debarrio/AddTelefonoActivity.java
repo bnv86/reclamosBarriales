@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
 import com.example.bruno.debarrio.PostsDB.PedidoDeTelefono;
 
 import org.json.JSONException;

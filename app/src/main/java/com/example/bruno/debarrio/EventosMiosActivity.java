@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapter;
+import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 
 import org.json.JSONArray;
@@ -87,7 +87,7 @@ public class EventosMiosActivity extends AppCompatActivity {
                             {
                                 subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                subject.SubjectName = jsonObject.getString("fecha");
+                                subject.SubjectFecha = jsonObject.getString("fecha");
                                 eventosList.add(subject);
                             }
                         }
@@ -119,7 +119,7 @@ public class EventosMiosActivity extends AppCompatActivity {
 
             if(eventosList != null)
             {
-                ListAdapter adapter = new ListAdapter(eventosList, context);
+                ListAdapterEventos adapter = new ListAdapterEventos(eventosList, context);
                 eventosListView.setAdapter(adapter);
             }
             else{

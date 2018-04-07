@@ -19,7 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.ListAdapter;
 import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.squareup.picasso.Picasso;
@@ -150,7 +149,8 @@ public class EventosTodosActivity extends AppCompatActivity {
                             {
                                 subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
-                                subject.SubjectName = jsonObject.getString("fecha");
+                                subject.SubjectFecha = jsonObject.getString("fecha");
+                                subject.SubjectMotivo = jsonObject.getString("motivo");
                                 String dec = jsonObject.getString("foto");
                                 subject.SubjectBitmap = downloadImage(dec);
                                 eventosList.add(subject);

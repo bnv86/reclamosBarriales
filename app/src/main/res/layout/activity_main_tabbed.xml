@@ -51,6 +51,7 @@
                 android:id="@+id/tabItem2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textSize="10dp"
                 android:text="@string/tab_text_2" />
 
 
