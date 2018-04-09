@@ -1,19 +1,33 @@
 package com.example.bruno.debarrio;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bruno.debarrio.Adapters.AdaptadorPersonajes;
 import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
+import com.example.bruno.debarrio.entidades.Personaje;
+import com.example.bruno.debarrio.fragments.DetallePersonajesFragment;
+import com.example.bruno.debarrio.fragments.ListaPersonajesFragment;
+import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,34 +41,72 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventosMiosActivity extends AppCompatActivity {
+public class MainActivity extends FragmentActivity implements ListaPersonajesFragment.OnFragmentInteractionListener,
+DetallePersonajesFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
+
     ListView eventosListView;
     ProgressBar progressBarEventos;
     TextView textviewRegresar;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
 
+    ArrayList<Personaje> listaPersonajes;
+    RecyclerView recyclerViewPersonajes;
+
+    ListaPersonajesFragment listaPersonajesFragment;
+    DetallePersonajesFragment detallePersonajesFragment;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eventos_mios);
+        //setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+
+        listaPersonajesFragment = new ListaPersonajesFragment();
+        //listaPersonajes = new ArrayList<>();
+        //recyclerViewPersonajes = (RecyclerView) findViewById(R.id.reciclerId);
+        //recyclerViewPersonajes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaPersonajesFragment).commit();
+        //new GetHttpResponse(MainActivity.this).execute();
+
+/*
         textviewRegresar = findViewById(R.id.textview_regresar);
         textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed(); //vuelve al activity anterior
             }
-        });
-        eventosListView = findViewById(R.id.listview1);
-        progressBarEventos = findViewById(R.id.progressBar);
-        new GetHttpResponse(EventosMiosActivity.this).execute();
+        });*/
+
+        /*
+        progressBarEventos = findViewById(R.id.progressBar);*/
+
+        //new GetHttpResponse(MainActivity.this).execute();
     }
 
-    private class GetHttpResponse extends AsyncTask<Void, Void, Void>
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void enviarPersonaje(Personaje personaje) {
+        detallePersonajesFragment = new DetallePersonajesFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto", personaje);
+        detallePersonajesFragment.setArguments(bundleEnvio);
+
+        //cargar el fragment en el activity
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detallePersonajesFragment).addToBackStack(null).commit();
+    }
+
+    public class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         public Context context;
         String ResultHolder;
         List<Subject> eventosList;
+        //ImageView imagen = (ImageView) findViewById(R.id.icon);
 
         public GetHttpResponse(Context context)
         {
@@ -89,12 +141,14 @@ public class EventosMiosActivity extends AppCompatActivity {
                             Subject subject;
 
                             eventosList = new ArrayList<Subject>();
+                            //setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contenido.titulos));
 
                             for(int i=0; i<jsonArray.length(); i++)
                             {
                                 subject = new Subject();
                                 jsonObject = jsonArray.getJSONObject(i);
                                 subject.SubjectFecha = jsonObject.getString("fecha");
+                                subject.SubjectMotivo = jsonObject.getString("motivo");
                                 String dec = jsonObject.getString("foto");
                                 subject.SubjectBitmap = downloadImage(dec);
                                 eventosList.add(subject);
@@ -123,19 +177,30 @@ public class EventosMiosActivity extends AppCompatActivity {
         protected void onPostExecute(Void result)
 
         {
-            progressBarEventos.setVisibility(View.GONE);
-            eventosListView.setVisibility(View.VISIBLE);
+  //          progressBarEventos.setVisibility(View.GONE);
+//            eventosListView.setVisibility(View.VISIBLE);
 
-            if(eventosList != null)
+            if(listaPersonajesFragment != null)
             {
-                ListAdapterEventos adapter = new ListAdapterEventos(eventosList, context);
-                eventosListView.setAdapter(adapter);
+                final AdaptadorPersonajes adapter = new AdaptadorPersonajes(listaPersonajes);
+                recyclerViewPersonajes.setAdapter(adapter);
+                /*eventosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //Subject subject;
+                        //subject = new Subject();
+                        ClipData clip = ClipData.newPlainText("text","Texto copiado al portapapeles"); //que copie el string del item "Texto copiado al portapapeles" , subject.SubjectName
+                        ClipboardManager clipboard = (ClipboardManager)getBaseContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                        clipboard.setPrimaryClip(clip);
+                    }
+                });*/
             }
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
         }
     }
+
 
     public static Bitmap downloadImage(String url) {
         Bitmap bitmap = null;
@@ -178,4 +243,5 @@ public class EventosMiosActivity extends AppCompatActivity {
         }
         return stream;
     }
+
 }

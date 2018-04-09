@@ -15,6 +15,7 @@ import android.widget.Button;
 import com.example.bruno.debarrio.EmailsActivity;
 import com.example.bruno.debarrio.EventosMiosActivity;
 import com.example.bruno.debarrio.EventosTodosActivity;
+import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
@@ -138,7 +139,7 @@ public class EventosFragment extends Fragment {
     }
 
     private void llamarIntentVerTodos() {
-        Intent intentVer = new Intent(getActivity(), EventosTodosActivity.class);
+        Intent intentVer = new Intent(getActivity(), MainActivity.class); //  EventosTodosActivity
         getActivity().startActivity(intentVer);
     }
 

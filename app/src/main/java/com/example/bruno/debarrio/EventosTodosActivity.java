@@ -55,53 +55,12 @@ public class EventosTodosActivity extends AppCompatActivity {
             }
         });
 
-        //ImageView imagen = (ImageView) findViewById(R.id.icon);
-        /*
-        if(incidente.getCaptura()!=null) {
-            imagen.setImageBitmap(incidente.getCaptura().getImagen());
-        }else{
-            imagen.setImageDrawable(mParentActivity.getResources().getDrawable(R.drawable.ic_launcher_background));
-        }*/
         eventosListView = findViewById(R.id.listview1);
         progressBarEventos = findViewById(R.id.progressBar);
         Context c;
         new GetHttpResponse(EventosTodosActivity.this).execute();
-        List<Subject> eventosList;
-        Subject subject;
-        /*
-        eventosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //final Subject subject;
-                //subject = new Subject(); //subject.SubjectName
-                ClipData clip = ClipData.newPlainText("text","Texto copiado al portapapeles"); //que copie el string del item
-                ClipboardManager clipboard = (ClipboardManager)getBaseContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                clipboard.setPrimaryClip(clip);
-            }
-        });*/
-/*      //ejemplos
-        eventosListView.setOnItemClickListener(new ListAdapterEventos.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                ImageView selectedImage = (ImageView) view.findViewById(R.id.checkBox);
-
-                selectedImage.setImageResource(R.drawable.simplecheck);
-                String str =  parent.getAdapter().getItem(position).toString();
-
-                Toast.makeText(getApplicationContext(), "  " + str , Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        eventosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TarifeFavorite clickedObj = (TarifeFavorite) parent.getItemAtPosition(position);
-                Intent intentToDetay = new Intent(getActivity(), TarifeDetay.class);
-                intentToDetay.putExtra("tarife_name",clickedObj.getName());
-                startActivity(intentToDetay);
-            }
-        });*/
+        //List<Subject> eventosList;
+        //Subject subject;
     }
 
     public class GetHttpResponse extends AsyncTask<Void, Void, Void>

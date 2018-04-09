@@ -1,0 +1,73 @@
+<RelativeLayout android:layout_height="match_parent"
+android:layout_width="match_parent"
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical">
+
+    <!--
+    <TextView
+        android:id="@+id/textview_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/str_regresar"
+        android:paddingLeft="@dimen/text_margin"
+        android:textColor="@color/colorOrange"/>
+     -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_media_rew" />
+
+    <Button
+        android:visibility="gone"
+        android:text="Guardar Ubicación"
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/background_dark"
+        android:id="@+id/boton_guardar_ubicacion"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"/>
+
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bruno.debarrio.MapsActivity" >
+
+
+
+</fragment>
+
+<!--
+<ProgressBar
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/cargarMapa"
+    android:layout_width="150dp"
+    android:layout_height="150dp" />
+
+
+<Button
+    android:visibility="gone"
+    android:text="Mi ubicacion"
+    android:background="@color/colorBlue"
+    android:textColor="@color/colorBlanco"
+    android:id="@+id/coords"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="25dp"
+    android:layout_marginLeft="25dp"/>
+-->
+
+</RelativeLayout>

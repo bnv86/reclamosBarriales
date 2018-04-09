@@ -89,7 +89,8 @@
         <activity android:name=".NoIncluidos.IdiomaActivity" />
         <activity android:name=".EventosTodosActivity" />
         <activity android:name=".EventosMiosActivity" />
-        <activity android:name=".UsuariosActivity"></activity>
+        <activity android:name=".UsuariosActivity" />
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

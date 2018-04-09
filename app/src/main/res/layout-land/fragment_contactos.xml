@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+
+
+
+    <ScrollView
+        android:id="@+id/contactos_scroll_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="0dp"
+        android:paddingTop="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_dark"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="40dp"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar"
+                android:textColor="@color/colorBlanco"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/text_margin"
+                android:textSize="28sp"/>
+
+            <Button
+                android:id="@+id/boton_agregar_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_green_light"
+                android:text="Email"
+                android:textColor="@color/colorDark"
+                android:textColorLink="@android:color/holo_red_dark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_agregar_telefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_green_light"
+                android:text="Teléfono"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_agregar_direccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_green_light"
+                android:text="Dirección"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_agregar_contacto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_red_light"
+                android:text="Contacto"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ver"
+                android:textColor="@color/colorBlanco"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/text_margin"
+                android:textSize="28sp"/>
+
+            <Button
+                android:id="@+id/boton_ver_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_orange_light"
+                android:text="Emails"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_ver_telefonos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_orange_light"
+                android:text="Teléfonos"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_ver_direcciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_orange_light"
+                android:text="Direcciones"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_ver_contactos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/holo_red_light"
+                android:text="Contactos"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/boton_ver_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/holo_purple"
+                android:text="Usuarios"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <!--
+            <TextView
+                android:id="@+id/texto_telefono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="tel"/>
+
+            <TextView
+                android:id="@+id/texto_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mail"/>
+
+            <TextView
+                android:id="@+id/texto_direccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dire"/>
+
+            <TextView
+                android:id="@+id/texto_detalle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="det"/>
+                -->
+
+        </LinearLayout>
+
+    </ScrollView>
+    <!--
+                <ListView
+                    android:id="@+id/list_contactos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:textColor="@android:color/background_dark"
+                    android:background="@android:color/holo_green_dark">
+                </ListView>
+    -->
+</LinearLayout>
+        <!--
+                <TextView
+                    android:id="@+id/id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+                <TextView
+                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/text_margin"
+                    android:textAppearance="?attr/textAppearanceListItem" />
+
+
+                <Button
+                    android:id="@+id/boton_agregar_contacto"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@color/colorLightBlue"
+                    android:text="Agregar"
+                    android:textColor="@color/colorDark"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+        -->
+    <!--
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/float_agregar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    -->
+
+

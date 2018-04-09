@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.bruno.debarrio.NoIncluidos.IdiomaActivity">
+
+    <ScrollView
+        android:id="@+id/register_scroll_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/register_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
+            android:paddingTop="@dimen/text_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textview_regresar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="@string/str_regresar"
+                android:paddingLeft="@dimen/text_margin"
+                android:textColor="@color/colorOrange"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_idioma_titulo"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/text_margin"
+                android:textColor="@color/colorDark"
+                android:textSize="28sp"/>
+
+            <TextView
+                android:id="@+id/textview_idioma_ingles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/idioma_ingles"
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:layout_marginTop="@dimen/text_margin"
+                android:textColorHighlight="@android:color/holo_red_dark"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textview_idioma_español"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/idioma_español"
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:textColorHighlight="@android:color/holo_red_dark"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textview_idioma_italiano"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:text="@string/idioma_italiano"
+                android:textColorHighlight="@android:color/holo_red_dark"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/textview_idioma_japones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent"
+                android:textColorHighlight="@android:color/holo_red_dark"
+                android:text="@string/idioma_japones"
+                android:inputType="text" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

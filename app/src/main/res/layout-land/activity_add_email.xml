@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.bruno.debarrio.AddEmailActivity">
+
+    <ScrollView
+        android:id="@+id/agregar_email_scroll_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/agregar_email_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
+            android:paddingTop="@dimen/text_margin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textview_regresar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Regresar"
+                android:paddingLeft="@dimen/text_margin"
+                android:textColor="@color/colorOrange"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar Email"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/text_margin"
+                android:textSize="28sp"/>
+
+            <EditText
+                android:id="@+id/edit_email_contacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Email"
+                android:inputType="text" />
+
+
+            <EditText
+                android:id="@+id/edit_detalle_contacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Persona/entidad"
+                android:inputType="text"/>
+
+            <Button
+                android:id="@+id/boton_agregar_email"
+                android:layout_gravity="center"
+                android:text="AGREGAR"
+                android:background="@color/colorLightBlue"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"/>
+            <!-- android:layout_marginTop="@dimen/text_margin" -->
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
