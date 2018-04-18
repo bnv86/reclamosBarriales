@@ -56,9 +56,10 @@
         <activity android:name=".RegistroActivity" />
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
+            android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCqZ9zKjUMTiWVcPAVDuEL8WqFs3NHFm-E" /> <!-- android:value="@string/google_maps_key"  AIzaSyAuJY44MzeWCWREBKTHAQuq66h7bz0BJPw -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

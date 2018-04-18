@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada;
+import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada2;
 import com.example.bruno.debarrio.PostsDB.PedidoDeEmail;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -108,8 +109,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(latLng).title("Foto"));
                 //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
                 //mMap.animateCamera(miUbicacion);
-                String latitud = String.valueOf(latLng.latitude);
-                String longitud = String.valueOf(latLng.longitude);
+                //String latitud = String.valueOf(latLng.latitude);
+                //String longitud = String.valueOf(latLng.longitude);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
                 //PedidoDeCoordenada(latLng, mMap);
                 /*
@@ -120,11 +121,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }*/
             }
         });
+
         Button botonGuardar = (Button)findViewById(R.id.boton_guardar_ubicacion);
         botonGuardar.setVisibility(View.VISIBLE);
         botonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
@@ -136,7 +139,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 if (success) {
                                     Intent intent = new Intent(MapsActivity.this, MainTabbedActivity.class);
                                     MapsActivity.this.startActivity(intent);
-                                    Toast.makeText(getApplicationContext(), "Contacto agregado!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), "Coordenadas agregadas!", Toast.LENGTH_LONG).show();
                                 } else {
                                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MapsActivity.this);
                                     alertBuilder.setMessage("Error al agregar coordenadas").setNegativeButton("Reintentar", null).create().show();
@@ -146,21 +149,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             }
                         }
                     };
-                    PedidoDeCoordenada pedido = new PedidoDeCoordenada(coordenadas.toString(), responseListener);
+                    //PedidoDeCoordenada pedido = new PedidoDeCoordenada(coordenadas.toString() , responseListener); //String.valueOf(coordenadas.latitude), String.valueOf(coordenadas.longitude)
+                    PedidoDeCoordenada2 pedido = new PedidoDeCoordenada2(coordenadas.latitude , coordenadas.longitude, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(MapsActivity.this);
                     queue.add(pedido);
+                    Toast.makeText(getApplicationContext(),"Guardando...", Toast.LENGTH_LONG).show();
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("Latitud", String.valueOf(coordenadas.latitude));
+                    resultIntent.putExtra("Longitud", String.valueOf(coordenadas.longitude));
+                    //resultIntent.putExtra("Latitud", String.valueOf(latLng.latitude));
+                    //resultIntent.putExtra("Longitud", String.valueOf(latLng.longitude));
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
                 }
             });
 
-                /*
-                Toast.makeText(getApplicationContext(),"Guardando...", Toast.LENGTH_LONG).show();
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("Latitud", String.valueOf(coordenadas.latitude));
-                resultIntent.putExtra("Longitud", String.valueOf(coordenadas.longitude));
-                //resultIntent.putExtra("Latitud", String.valueOf(latLng.latitude));
-                //resultIntent.putExtra("Longitud", String.valueOf(latLng.longitude));
-                setResult(Activity.RESULT_OK, resultIntent);*/
-                finish();
+
             //}
     }
 
