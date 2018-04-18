@@ -11,6 +11,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada;
+import com.example.bruno.debarrio.PostsDB.PedidoDeEmail;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,11 +31,15 @@ import com.google.android.gms.maps.model.Marker;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.Permission;
 
@@ -38,8 +47,8 @@ import java.security.Permission;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    double lat =0.0;
-    double lng =0.0;
+    double lat = 0.0;
+    double lng = 0.0;
     private Marker marcadorPos;
     private Marker marcadorCam;
     //TextView textview_regresar;
@@ -63,8 +72,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });*/
 
         //boton flotante regresar a pantalla anterior
-        FloatingActionButton boton_float_regresar = findViewById(R.id.float_regresar);
-        boton_float_regresar.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton botonFloatRegresar = findViewById(R.id.float_regresar);
+        botonFloatRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -91,6 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void miMarcador(){
         final LatLng coordenadas = new LatLng(lat, lng);
         final CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas,16);
+        final Location locationMarker;
         mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
             public void onMapLongClick(LatLng latLng) {
@@ -98,22 +108,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(latLng).title("Foto"));
                 //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
                 //mMap.animateCamera(miUbicacion);
+                String latitud = String.valueOf(latLng.latitude);
+                String longitud = String.valueOf(latLng.longitude);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                //PedidoDeCoordenada(latLng, mMap);
+                /*
+                if (marcadorCam != null){
+                    lat = marcadorCam.getLatitude();
+                    lng = marcadorCam.getLongitude();
+                    agregarMarcadorUbicacion(lat,lng);
+                }*/
             }
         });
-        Button boton_guardar = (Button)findViewById(R.id.boton_guardar_ubicacion);
-        boton_guardar.setVisibility(View.VISIBLE);
-        boton_guardar.setOnClickListener(new View.OnClickListener() {
+        Button botonGuardar = (Button)findViewById(R.id.boton_guardar_ubicacion);
+        botonGuardar.setVisibility(View.VISIBLE);
+        botonGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Guardando...",Toast.LENGTH_LONG).show();
+
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+
+                                if (success) {
+                                    Intent intent = new Intent(MapsActivity.this, MainTabbedActivity.class);
+                                    MapsActivity.this.startActivity(intent);
+                                    Toast.makeText(getApplicationContext(), "Contacto agregado!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MapsActivity.this);
+                                    alertBuilder.setMessage("Error al agregar coordenadas").setNegativeButton("Reintentar", null).create().show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    PedidoDeCoordenada pedido = new PedidoDeCoordenada(coordenadas.toString(), responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(MapsActivity.this);
+                    queue.add(pedido);
+                }
+            });
+
+                /*
+                Toast.makeText(getApplicationContext(),"Guardando...", Toast.LENGTH_LONG).show();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("Latitud", String.valueOf(coordenadas.latitude));
                 resultIntent.putExtra("Longitud", String.valueOf(coordenadas.longitude));
-                setResult(Activity.RESULT_OK, resultIntent);
+                //resultIntent.putExtra("Latitud", String.valueOf(latLng.latitude));
+                //resultIntent.putExtra("Longitud", String.valueOf(latLng.longitude));
+                setResult(Activity.RESULT_OK, resultIntent);*/
                 finish();
-            }
-        });
+            //}
     }
 
     // creo un metodo que sirve para agregar el marcador al mapa, creo un objeto Latlng en el cual se incluye la longitud y la latitud
@@ -167,7 +215,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         actualizarMiUbicacion(location);
         //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 15000,0,locListener);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,15000,0,locationListener);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,50000,0,locationListener);
     }
 
     LocationListener locationListener = new LocationListener() {
