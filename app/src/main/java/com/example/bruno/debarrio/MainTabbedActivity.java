@@ -97,7 +97,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
         int id = item.getItemId();
 
         if (id == R.id.action_languaje) {
-            showDialog();
+            mostrarDialog();
             /*
             Intent intent = new Intent(getApplicationContext(), IdiomaActivity.class);
             startActivity(intent);*/
@@ -197,7 +197,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
         }
     }
 
-    private void showDialog() {
+    private void mostrarDialog() { //
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setTitle(getResources().getString(R.string.seleccion_idioma));
         //obtiene los idiomas del array de string.xml

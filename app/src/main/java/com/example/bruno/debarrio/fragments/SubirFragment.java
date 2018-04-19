@@ -122,7 +122,9 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-        }}
+        }
+        //Bundle bundle = getIntent().getExtras();
+    }
 
     public String getStringImagen(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -136,6 +138,10 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
             SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
             final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
+            Intent resultIntent = new Intent();
+            resultIntent.getExtras();
+
+            //resultIntent.putExtra("Longitud", longiMarker);
             //pref_userName = preferences.getString("pref_userName", "n/a");
             //userName.setText("Welcome to "+pref_userName);
             //String username = getIntent().getStringExtra("username");
@@ -262,9 +268,12 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         editextComentario = rootView.findViewById(R.id.editext_comentario);
         //String motivo = editextMotivo.getText().toString();
         //String comentario = editextComentario.getText().toString();
-
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
+
+        double lat = this.getArguments().getDouble("Latitud");
+        double lng = this.getArguments().getDouble("Longitud");
+        //Toast.makeText(getContext(),lat+"", Toast.LENGTH_LONG).show();
 
         /*
         botonSacarFoto.setOnClickListener(new View.OnClickListener() {
@@ -300,7 +309,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         botonCompartir.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //uploadImage();
                 if(bitmap == null || KEY_MOTIVO == null || KEY_MOTIVO.isEmpty() || KEY_MOTIVO == "" || KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
                     Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
                 }
@@ -321,7 +329,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                 else {
                     subirEvento();
                 }
-                //llamarIntentCompartir();
             }
         });
 
@@ -355,10 +362,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
         detail.putExtra("id", imagen.getId());
         context.startActivity(detail);*/
-    }
-
-    private void llamarIntentCompartir() {
-        return;
     }
 
     @Override
