@@ -84,8 +84,10 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     private Bitmap bitmap;
     public int PICK_IMAGE_REQUEST = 1;
     private String UPLOAD_URL_FOTO = "https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
-    private String UPLOAD_URL_EVENTO = "https://momentary-electrode.000webhostapp.com/postEvento.php";
+    private String UPLOAD_URL_EVENTO = "https://momentary-electrode.000webhostapp.com/postEvento2.php";
     private String KEY_IMAGEN = "foto";
+    private String KEY_LAT = "latitud";
+    private String KEY_LNG = "longitud";
     private String KEY_NOMBRE = "nombre";
     private String KEY_MOTIVO = "motivo";
     private String KEY_COMENTARIO = "comentario";
@@ -111,6 +113,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -122,8 +125,13 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            //Bundle bundle1 = getArguments().getDouble("Latitud");
         }
         //Bundle bundle = getIntent().getExtras();
+        /*
+        Bundle bundle = getArguments();
+        double lat = bundle.getDouble("Latitud");
+        double lng = bundle.getDouble("Longitud");*/
     }
 
     public String getStringImagen(Bitmap bmp){
@@ -140,6 +148,18 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
             Intent resultIntent = new Intent();
             resultIntent.getExtras();
+            SharedPreferences sharedpreferencesMap = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
+            final String latitud = sharedpreferences.getString("Latitud","");
+            final String longitud = sharedpreferences.getString("Longitud","");
+            Intent resultIntentMap = new Intent();
+            resultIntentMap.getExtras();
+
+            //Bundle bundle = getArguments();
+            //double lat = this.getArguments().getDouble("Latitud");
+            //double lng = this.getArguments().getDouble("Longitud");
+            //double lat = bundle.getDouble("Latitud");
+            //double lng = bundle.getDouble("Longitud");
+            //Toast.makeText(getContext(),lat+"", Toast.LENGTH_LONG).show();
 
             //resultIntent.putExtra("Longitud", longiMarker);
             //pref_userName = preferences.getString("pref_userName", "n/a");
@@ -188,6 +208,8 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                     params.put(KEY_FECHA, fecha.format(new Date()));
                     params.put(KEY_USUARIO, usuario);
                     params.put(KEY_IMAGEN, foto);
+                    params.put(KEY_LAT, latitud);
+                    params.put(KEY_LNG, longitud);
                     //params.put(KEY_NOMBRE, nombre);
                     params.put(KEY_MOTIVO, motivo);
                     params.put(KEY_COMENTARIO, comentario);
@@ -271,9 +293,11 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
 
-        double lat = this.getArguments().getDouble("Latitud");
-        double lng = this.getArguments().getDouble("Longitud");
-        //Toast.makeText(getContext(),lat+"", Toast.LENGTH_LONG).show();
+        /*
+        Bundle bundle = getArguments();
+        String lat = bundle.getString("Latitud");
+        String lng = bundle.getString("Longitud");
+        */
 
         /*
         botonSacarFoto.setOnClickListener(new View.OnClickListener() {

@@ -173,26 +173,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 queue.add(pedido);
                 */
                 Toast.makeText(getApplicationContext(),"Guardando...", Toast.LENGTH_LONG).show();
-                Bundle bundle = new Bundle();
-                bundle.putDouble("Latitud", Double.valueOf(latiMarker)); //latiMarker
-                bundle.putDouble("Longitud", Double.valueOf(longiMarker)); //longiMarker
+                Bundle bundleMap = new Bundle();
+                //bundle.putDouble("Latitud", Double.valueOf(latiMarker)); //latiMarker
+                //bundle.putDouble("Longitud", Double.valueOf(longiMarker)); //longiMarker
+                bundleMap.putDouble("Latitud", latiMarker); //latiMarker
+                bundleMap.putDouble("Longitud", longiMarker); //longiMarker
+                //bundle.putString("Latitud", String.valueOf(latiMarker)); //latiMarker
+                //bundle.putString("Longitud", String.valueOf(longiMarker)); //longiMarker
                 SubirFragment subirFragment = new SubirFragment();
-                subirFragment.setArguments(bundle);
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, subirFragment).commit();
-                /*
-                Intent resultIntent =  new Intent(getApplicationContext(), SubirFragment.class); // new Intent(getApplicationContext(), SubirFragment.class)
+                subirFragment.setArguments(bundleMap);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.container, subirFragment).commit();
+
+                /*Intent resultIntent =  new Intent(getApplicationContext(), MainTabbedActivity.class); // new Intent(getApplicationContext(), SubirFragment.class)
                 //resultIntent.putExtra("Latitud", String.valueOf(coordenadas.latitude));
                 //resultIntent.putExtra("Longitud", String.valueOf(coordenadas.longitude));
+                //resultIntent.putExtra("Latitud", Double.valueOf(latiMarker));
+                //resultIntent.putExtra("Longitud", Double.valueOf(longiMarker));
                 resultIntent.putExtra("Latitud", latiMarker);
                 resultIntent.putExtra("Longitud", longiMarker);
                 //setResult(Activity.RESULT_OK, resultIntent);
-                setResult(FragmentActivity.RESULT_OK, resultIntent);
-                */
-                /*
+                setResult(FragmentActivity.RESULT_OK, resultIntent);*/
+
+                Intent resultIntent =  new Intent(getApplicationContext(), MainTabbedActivity.class);
                 SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("latitud", String.valueOf(latiMarker));
-                editor.putString("longitud", String.valueOf(longiMarker));*/
+                editor.putString("Latitud", String.valueOf(latiMarker));
+                editor.putString("Longitud", String.valueOf(longiMarker));
+                editor.commit();
                 finish();
             }
         });
@@ -240,13 +247,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /*
     private void actualizarMiMarker(Location location){
 
         if (location != null){
             latFoto = location.getLatitude();
             lngFoto = location.getLongitude();
         }
-    }
+    }*/
 
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&

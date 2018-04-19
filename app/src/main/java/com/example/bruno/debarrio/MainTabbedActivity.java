@@ -227,8 +227,8 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
                         break;
                 }
                 getResources().updateConfiguration(config, null);
-                Intent refresh = new Intent(MainTabbedActivity.this, MainTabbedActivity.class);
-                startActivity(refresh);
+                Intent idiomasAlert = new Intent(MainTabbedActivity.this, MainTabbedActivity.class);
+                startActivity(idiomasAlert);
                 Toast.makeText(getApplicationContext(), getString(R.string.toast_idioma), Toast.LENGTH_LONG).show();
                 finish();
             }
