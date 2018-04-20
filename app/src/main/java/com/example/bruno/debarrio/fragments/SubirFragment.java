@@ -147,12 +147,12 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
             final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
             Intent resultIntent = new Intent();
-            resultIntent.getExtras();
+            //resultIntent.getExtras();
             SharedPreferences sharedpreferencesMap = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-            final String latitud = sharedpreferences.getString("Latitud","");
-            final String longitud = sharedpreferences.getString("Longitud","");
+            final String latitud = sharedpreferencesMap.getString("Latitud","");
+            final String longitud = sharedpreferencesMap.getString("Longitud","");
             Intent resultIntentMap = new Intent();
-            resultIntentMap.getExtras();
+            //resultIntentMap.getExtras();
 
             //Bundle bundle = getArguments();
             //double lat = this.getArguments().getDouble("Latitud");
@@ -165,7 +165,7 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
             //pref_userName = preferences.getString("pref_userName", "n/a");
             //userName.setText("Welcome to "+pref_userName);
             //String username = getIntent().getStringExtra("username");
-            //Mostrar el diálogo de progreso
+            //Muestro la carga del progreso
             final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_EVENTO,
                 new Response.Listener<String>() {
@@ -185,7 +185,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                         //Descartar el diálogo de progreso
                         loading.dismiss();
 
-                        //Showing toast
                         //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
                         Toast.makeText(getActivity(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
                     }
@@ -294,12 +293,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         Drawable drawable = res.getDrawable(R.drawable.camera);
 
         /*
-        Bundle bundle = getArguments();
-        String lat = bundle.getString("Latitud");
-        String lng = bundle.getString("Longitud");
-        */
-
-        /*
         botonSacarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -363,7 +356,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     private void llamarIntentFoto() { //activa la camara para capturar y guardar foto
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            //startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
@@ -374,9 +366,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     }
 
     private void llamarIntentMapa() { //pasa a un activity o fragment map para obtener un marcador
-        /*
-        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
-        SubirFragment.this.startActivity(intentMaps);*/
         Intent intentMaps = new Intent(getActivity(), MapsActivity.class);
         getActivity().startActivity(intentMaps);
 
@@ -404,19 +393,6 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
                 e.printStackTrace();
             }
         }
-
-        /*
-        //para el mapa
-        if(data!=null) {
-            //tomo las coordenadas que devuelve el MapsActivity cuando se la llama desde el click
-            //en el boton "Zona", ver el código de MapsActivity cuando se le da click al boton R.id.coords
-            if (data.getStringExtra("coordLat") != null && !data.getStringExtra("coordLat").equals("")) {
-                coordLat = data.getStringExtra("coordLat");
-            }
-            if (data.getStringExtra("coordLong") != null && !data.getStringExtra("coordLong").equals("")) {
-                coordLong = data.getStringExtra("coordLong");
-            }
-        }*/
     }
 /*
     @Override

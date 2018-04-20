@@ -124,8 +124,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(latLng).title("Foto"));
                 //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
                 mMap.animateCamera(miMarker);
-                //String latitud = String.valueOf(latLng.latitude);
-                //String longitud = String.valueOf(latLng.longitude);
                 final double lati = latLng.latitude;
                 final double longi = latLng.longitude;
                 guardar.setLatitudMarker(lati);
@@ -167,12 +165,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 final double latiMarker = guardar.getLatitudMarker();
                 final double longiMarker = guardar.getLongitudMarker();
-                /* FUNCIONA
+                /* PRUEBA PARA SUBIR A LA DB LAS COORDENADAS
                 PedidoDeCoordenada2 pedido = new PedidoDeCoordenada2(latiMarker, longiMarker, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MapsActivity.this);
                 queue.add(pedido);
                 */
                 Toast.makeText(getApplicationContext(),"Guardando...", Toast.LENGTH_LONG).show();
+
+                /* INTENTOS FALLIDOS DE PASAR DATOS
                 Bundle bundleMap = new Bundle();
                 //bundle.putDouble("Latitud", Double.valueOf(latiMarker)); //latiMarker
                 //bundle.putDouble("Longitud", Double.valueOf(longiMarker)); //longiMarker
@@ -181,7 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //bundle.putString("Latitud", String.valueOf(latiMarker)); //latiMarker
                 //bundle.putString("Longitud", String.valueOf(longiMarker)); //longiMarker
                 SubirFragment subirFragment = new SubirFragment();
-                subirFragment.setArguments(bundleMap);
+                subirFragment.setArguments(bundleMap);*/
                 //getSupportFragmentManager().beginTransaction().replace(R.id.container, subirFragment).commit();
 
                 /*Intent resultIntent =  new Intent(getApplicationContext(), MainTabbedActivity.class); // new Intent(getApplicationContext(), SubirFragment.class)
@@ -195,10 +195,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 setResult(FragmentActivity.RESULT_OK, resultIntent);*/
 
                 Intent resultIntent =  new Intent(getApplicationContext(), MainTabbedActivity.class);
-                SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
+                SharedPreferences sharedpreferencesMap = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferencesMap.edit();
                 editor.putString("Latitud", String.valueOf(latiMarker));
                 editor.putString("Longitud", String.valueOf(longiMarker));
+                Toast.makeText(getApplicationContext(),latiMarker + "", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),longiMarker + "", Toast.LENGTH_LONG).show();
                 editor.commit();
                 finish();
             }

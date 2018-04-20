@@ -101,7 +101,6 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
             /*
             Intent intent = new Intent(getApplicationContext(), IdiomaActivity.class);
             startActivity(intent);*/
-            //return true;
         }
         if (id == R.id.action_logout) { //cierra sesion
             SharedPreferences sharedPreferences = getSharedPreferences("sesion",MODE_PRIVATE); //toma la sesion actual del usuario
