@@ -1,32 +1,24 @@
 package com.example.bruno.debarrio;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.AdaptadorPersonajes;
-import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
+import com.example.bruno.debarrio.Adapters.AdaptadorEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
-import com.example.bruno.debarrio.entidades.Personaje;
-import com.example.bruno.debarrio.fragments.DetallePersonajesFragment;
-import com.example.bruno.debarrio.fragments.ListaPersonajesFragment;
+import com.example.bruno.debarrio.entidades.Evento;
+import com.example.bruno.debarrio.entidades.Subject;
+import com.example.bruno.debarrio.fragments.DetalleEventoFragment;
+import com.example.bruno.debarrio.fragments.ListaEventosFragment;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import org.json.JSONArray;
@@ -41,19 +33,19 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements ListaPersonajesFragment.OnFragmentInteractionListener,
-DetallePersonajesFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
+public class MainActivity extends FragmentActivity implements ListaEventosFragment.OnFragmentInteractionListener,
+DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     ListView eventosListView;
     ProgressBar progressBarEventos;
     TextView textviewRegresar;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
 
-    ArrayList<Personaje> listaPersonajes;
+    ArrayList<Evento> listaPersonajes;
     RecyclerView recyclerViewPersonajes;
 
-    ListaPersonajesFragment listaPersonajesFragment;
-    DetallePersonajesFragment detallePersonajesFragment;
+    ListaEventosFragment listaEventosFragment;
+    DetalleEventoFragment detalleEventoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +53,12 @@ DetallePersonajesFragment.OnFragmentInteractionListener, ComunicacionFragments{ 
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
 
-        listaPersonajesFragment = new ListaPersonajesFragment();
+        listaEventosFragment = new ListaEventosFragment();
         //listaPersonajes = new ArrayList<>();
         //recyclerViewPersonajes = (RecyclerView) findViewById(R.id.reciclerId);
         //recyclerViewPersonajes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaPersonajesFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaEventosFragment).commit();
         //new GetHttpResponse(MainActivity.this).execute();
 
 /*
@@ -91,14 +83,14 @@ DetallePersonajesFragment.OnFragmentInteractionListener, ComunicacionFragments{ 
     }
 
     @Override
-    public void enviarPersonaje(Personaje personaje) {
-        detallePersonajesFragment = new DetallePersonajesFragment();
+    public void enviarPersonaje(Evento evento) {
+        detalleEventoFragment = new DetalleEventoFragment();
         Bundle bundleEnvio = new Bundle();
-        bundleEnvio.putSerializable("objeto", personaje);
-        detallePersonajesFragment.setArguments(bundleEnvio);
+        bundleEnvio.putSerializable("objeto", evento);
+        detalleEventoFragment.setArguments(bundleEnvio);
 
         //cargar el fragment en el activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detallePersonajesFragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleEventoFragment).addToBackStack(null).commit();
     }
 
     public class GetHttpResponse extends AsyncTask<Void, Void, Void>
@@ -180,9 +172,9 @@ DetallePersonajesFragment.OnFragmentInteractionListener, ComunicacionFragments{ 
   //          progressBarEventos.setVisibility(View.GONE);
 //            eventosListView.setVisibility(View.VISIBLE);
 
-            if(listaPersonajesFragment != null)
+            if(listaEventosFragment != null)
             {
-                final AdaptadorPersonajes adapter = new AdaptadorPersonajes(listaPersonajes);
+                final AdaptadorEventos adapter = new AdaptadorEventos(listaPersonajes);
                 recyclerViewPersonajes.setAdapter(adapter);
                 /*eventosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override

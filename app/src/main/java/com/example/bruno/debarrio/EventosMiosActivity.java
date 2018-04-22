@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
+import com.example.bruno.debarrio.entidades.Subject;
 
 import org.json.JSONArray;
 import org.json.JSONException;

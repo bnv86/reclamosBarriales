@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Personaje;
+import com.example.bruno.debarrio.entidades.Evento;
 
 import java.util.ArrayList;
 
@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * Created by Bruno on 08/04/2018.
  */
 
-public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonajes.PersonajesViewHolder> implements View.OnClickListener{
+public class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.PersonajesViewHolder> implements View.OnClickListener{
 
-    ArrayList<Personaje> listaPersonajes;
+    ArrayList<Evento> listaPersonajes;
     private View.OnClickListener listener;
 
-    public AdaptadorPersonajes(ArrayList<Personaje> listaPersonajes){
+    public AdaptadorEventos(ArrayList<Evento> listaPersonajes){
         this.listaPersonajes = listaPersonajes;
     }
 
@@ -34,8 +34,8 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
 
     @Override
     public void onBindViewHolder(PersonajesViewHolder holder, int position) {
-        holder.textNombre.setText(listaPersonajes.get(position).getNombre());
-        holder.textInformacion.setText(listaPersonajes.get(position).getInfo());
+        holder.textFecha.setText(listaPersonajes.get(position).getFecha());
+        holder.textMotivo.setText(listaPersonajes.get(position).getMotivo());
         holder.foto.setImageBitmap(listaPersonajes.get(position).getImagen());
     }
 
@@ -56,13 +56,13 @@ public class AdaptadorPersonajes extends RecyclerView.Adapter<AdaptadorPersonaje
 
     public class PersonajesViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textNombre, textInformacion;
+        TextView textFecha, textMotivo;
         ImageView foto;
 
         public PersonajesViewHolder(View itemView) {
             super(itemView);
-            textNombre = (TextView) itemView.findViewById(R.id.idNombre);
-            textInformacion = (TextView) itemView.findViewById(R.id.idInfo);
+            textFecha = (TextView) itemView.findViewById(R.id.idFecha);
+            textMotivo = (TextView) itemView.findViewById(R.id.idMotivo);
             foto = (ImageView) itemView.findViewById(R.id.idImagen);
         }
     }

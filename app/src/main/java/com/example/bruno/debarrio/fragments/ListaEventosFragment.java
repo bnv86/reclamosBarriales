@@ -2,10 +2,8 @@ package com.example.bruno.debarrio.fragments;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,19 +13,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bruno.debarrio.Adapters.AdaptadorPersonajes;
-import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
+import com.example.bruno.debarrio.Adapters.AdaptadorEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
-import com.example.bruno.debarrio.MainActivity;
-import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.Subject;
-import com.example.bruno.debarrio.entidades.Personaje;
+import com.example.bruno.debarrio.entidades.Evento;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import org.json.JSONArray;
@@ -40,17 +33,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListaPersonajesFragment.OnFragmentInteractionListener} interface
+ * {@link ListaEventosFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListaPersonajesFragment#newInstance} factory method to
+ * Use the {@link ListaEventosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaPersonajesFragment extends Fragment {
+public class ListaEventosFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -62,15 +54,15 @@ public class ListaPersonajesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    ArrayList<Personaje> listaPersonajes;
-    RecyclerView recyclerViewPersonajes;
+    ArrayList<Evento> listaEventos;
+    RecyclerView recyclerViewEventos;
     TextView textviewRegresar;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
     ProgressBar progressBarEventos;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
 
-    public ListaPersonajesFragment() {
+    public ListaEventosFragment() {
         // Required empty public constructor
     }
 
@@ -80,11 +72,11 @@ public class ListaPersonajesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListaPersonajesFragment.
+     * @return A new instance of fragment ListaEventosFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListaPersonajesFragment newInstance(String param1, String param2) {
-        ListaPersonajesFragment fragment = new ListaPersonajesFragment();
+    public static ListaEventosFragment newInstance(String param1, String param2) {
+        ListaEventosFragment fragment = new ListaEventosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -104,7 +96,7 @@ public class ListaPersonajesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_lista_personajes, container, false);
+        View vista = inflater.inflate(R.layout.fragment_lista_eventos, container, false);
         //progressBarEventos = vista.findViewById(R.id.progressBar);
 
         //textviewRegresar = vista.findViewById(R.id.textview_regresar);
@@ -119,39 +111,39 @@ public class ListaPersonajesFragment extends Fragment {
             }
         });*/
 
-        listaPersonajes = new ArrayList<>();
-        recyclerViewPersonajes = (RecyclerView) vista.findViewById(R.id.reciclerId);
-        recyclerViewPersonajes.setLayoutManager(new LinearLayoutManager(getContext()));
+        listaEventos = new ArrayList<>();
+        recyclerViewEventos = (RecyclerView) vista.findViewById(R.id.reciclerId);
+        recyclerViewEventos.setLayoutManager(new LinearLayoutManager(getContext()));
         
-        llenarListaPersonajes();
+        llenarlistaEventos();
         //new GetHttpResponse(getContext()).execute();
 
-        //AdaptadorPersonajes adapter = new AdaptadorPersonajes(listaPersonajes);
+        //AdaptadorEventos adapter = new AdaptadorEventos(listaEventos);
 
-        //recyclerViewPersonajes.setAdapter(adapter);
+        //recyclerViewEventos.setAdapter(adapter);
         /*
         adapter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Toast.makeText(getContext(), "Seleccionó " + listaPersonajes.get(recyclerViewPersonajes.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Seleccionó " + listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
 
-                interfaceComunicacionFragments.enviarPersonaje(listaPersonajes.get(recyclerViewPersonajes.getChildAdapterPosition(view)));
+                interfaceComunicacionFragments.enviarPersonaje(listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)));
             }
         });*/
         //progressBarEventos.setVisibility(View.GONE);
-        //recyclerViewPersonajes.setVisibility(View.VISIBLE);
+        //recyclerViewEventos.setVisibility(View.VISIBLE);
 
         return vista;
     }
 
-    private void llenarListaPersonajes() {
+    private void llenarlistaEventos() {
 
         new GetHttpResponse(getContext()).execute();
 
 /*
-        listaPersonajes.add(new Personaje("Android1", "ldkjfosdhfjosdhflsdhfljskdhfoksdhfojhsdfjhsdfokhsdlkfjsdljfhlsdhflksdflshdflksjdflksdlfjhsldfh", "aaaaaaaaaaaaaaa",  R.drawable.camera, R.drawable.camera));
-        listaPersonajes.add(new Personaje("Android2","jlhsldhfldhflkjkhgfjkljgflkgjflkgjlkfg456465432465465165465465465465465465465465465465465465465", "bbbbbbbbbbbbbbb", R.drawable.camera, R.drawable.camera));
-        listaPersonajes.add(new Personaje("Android3", "algo", "lalalalalalalalalalallalalalalalalalaalalalalaaaaaaaaaaaaaaaaaaaalalalalalalalalalalallaallalalalalalalallaa", R.drawable.camera, R.drawable.camera));
+        listaEventos.add(new Evento("Android1", "ldkjfosdhfjosdhflsdhfljskdhfoksdhfojhsdfjhsdfokhsdlkfjsdljfhlsdhflksdflshdflksjdflksdlfjhsldfh", "aaaaaaaaaaaaaaa",  R.drawable.camera, R.drawable.camera));
+        listaEventos.add(new Evento("Android2","jlhsldhfldhflkjkhgfjkljgflkgjflkgjlkfg456465432465465165465465465465465465465465465465465465465", "bbbbbbbbbbbbbbb", R.drawable.camera, R.drawable.camera));
+        listaEventos.add(new Evento("Android3", "algo", "lalalalalalalalalalallalalalalalalalaalalalalaaaaaaaaaaaaaaaaaaaalalalalalalalalalalallaallalalalalalalallaa", R.drawable.camera, R.drawable.camera));
 */
     }
 
@@ -238,10 +230,10 @@ public class ListaPersonajesFragment extends Fragment {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
 
-                            //Personaje personaje;
-                            //Personaje personaje = new Personaje("fecha", "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                            //listaPersonajes = new ArrayList<Personaje>();
-                            //ArrayList<Personaje> listaPersonajes;
+                            //Evento evento;
+                            //Evento evento = new Evento("fecha", "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                            //listaEventos = new ArrayList<Evento>();
+                            //ArrayList<Evento> listaEventos;
                             //eventosList = new ArrayList<Subject>();
                             //setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contenido.titulos));
 
@@ -249,14 +241,17 @@ public class ListaPersonajesFragment extends Fragment {
                             {
                                 jsonObject = jsonArray.getJSONObject(i);
                                 //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                //personaje.SubjectMotivo = jsonObject.getString("motivo");
+                                //evento.SubjectMotivo = jsonObject.getString("motivo");
                                 String dec = jsonObject.getString("foto");
                                 Bitmap foto = downloadImage(dec);
+                                String usuario = jsonObject.getString("usuario");
                                 String fecha = jsonObject.getString("fecha");
+                                String latitud = jsonObject.getString("latitud");
+                                String longitud = jsonObject.getString("longitud");
                                 String motivo = jsonObject.getString("motivo");
                                 String comentario = jsonObject.getString("comentario");
-                                Personaje personaje = new Personaje(fecha.toString(), motivo.toString(), comentario.toString(), foto, foto);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                listaPersonajes.add(personaje);
+                                Evento evento = new Evento(usuario.toString(), fecha.toString(), latitud.toString(), longitud.toString(), motivo.toString(), comentario.toString(), foto, foto);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                listaEventos.add(evento);
                             }
                         }
                         catch (JSONException e) {
@@ -282,16 +277,16 @@ public class ListaPersonajesFragment extends Fragment {
         protected void onPostExecute(Void result)
 
         {
-            if(listaPersonajes != null) {
+            if(listaEventos != null) {
 
-                final AdaptadorPersonajes adapter = new AdaptadorPersonajes(listaPersonajes);
-                recyclerViewPersonajes.setAdapter(adapter);
+                final AdaptadorEventos adapter = new AdaptadorEventos(listaEventos);
+                recyclerViewEventos.setAdapter(adapter);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        Toast.makeText(getContext(), "Seleccionó " + listaPersonajes.get(recyclerViewPersonajes.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Seleccionó " + listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
 
-                        interfaceComunicacionFragments.enviarPersonaje(listaPersonajes.get(recyclerViewPersonajes.getChildAdapterPosition(view)));
+                        interfaceComunicacionFragments.enviarPersonaje(listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)));
                     }
                 });
             }
@@ -300,7 +295,7 @@ public class ListaPersonajesFragment extends Fragment {
             }
 
             //progressBarEventos.setVisibility(View.GONE);
-            //recyclerViewPersonajes.setVisibility(View.VISIBLE);
+            //recyclerViewEventos.setVisibility(View.VISIBLE);
 
         }
     }

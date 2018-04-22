@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.bruno.debarrio.Adapters.ListAdapterContactos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
+import com.example.bruno.debarrio.entidades.Subject;
 
 public class EmailsActivity extends AppCompatActivity {
 

@@ -11,19 +11,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Personaje;
-
-import java.util.ArrayList;
+import com.example.bruno.debarrio.entidades.Evento;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DetallePersonajesFragment.OnFragmentInteractionListener} interface
+ * {@link DetalleEventoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DetallePersonajesFragment#newInstance} factory method to
+ * Use the {@link DetalleEventoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetallePersonajesFragment extends Fragment {
+public class DetalleEventoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,10 +33,10 @@ public class DetallePersonajesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    TextView textDescripcion;
-    ImageView imagenDescripcion;
+    TextView textUsuario, textComentario, textFecha, textCoordenadas, textLatitud, textLongitud;
+    ImageView imagenDetalle;
 
-    public DetallePersonajesFragment() {
+    public DetalleEventoFragment() {
         // Required empty public constructor
     }
 
@@ -48,11 +46,11 @@ public class DetallePersonajesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DetallePersonajesFragment.
+     * @return A new instance of fragment DetalleEventoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DetallePersonajesFragment newInstance(String param1, String param2) {
-        DetallePersonajesFragment fragment = new DetallePersonajesFragment();
+    public static DetalleEventoFragment newInstance(String param1, String param2) {
+        DetalleEventoFragment fragment = new DetalleEventoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,17 +70,23 @@ public class DetallePersonajesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_detalle_personajes, container, false);
-        textDescripcion = (TextView) vista.findViewById(R.id.descripcionId);
-        imagenDescripcion = (ImageView) vista.findViewById(R.id.imagenDescripcionId);
+        View vista = inflater.inflate(R.layout.fragment_detalle_evento, container, false);
+        textUsuario = (TextView) vista.findViewById(R.id.detalle_usuario);
+        textComentario = vista.findViewById(R.id.detalle_comentario);
+        textLatitud = vista.findViewById(R.id.detalle_latitud);
+        textLongitud = vista.findViewById(R.id.detalle_longitud);
+        imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
 
         Bundle bundleObjeto = getArguments();
-        Personaje personaje = null;
+        Evento evento = null;
 
         if (bundleObjeto != null){
-            personaje = (Personaje) bundleObjeto.getSerializable("objeto");
-            imagenDescripcion.setImageBitmap(personaje.getImagenDesc());
-            textDescripcion.setText(personaje.getDescripcion());
+            evento = (Evento) bundleObjeto.getSerializable("objeto");
+            imagenDetalle.setImageBitmap(evento.getImagenDesc());
+            textUsuario.setText(evento.getUsuarioDesc());
+            textComentario.setText(evento.getComentarioDesc());
+            textLatitud.setText(evento.getLatitudDesc());
+            textLongitud.setText(evento.getLongitudDesc());
         }
 
         return vista;

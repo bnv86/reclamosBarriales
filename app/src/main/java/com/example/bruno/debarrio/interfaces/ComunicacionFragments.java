@@ -1,6 +1,6 @@
 package com.example.bruno.debarrio.interfaces;
 
-import com.example.bruno.debarrio.entidades.Personaje;
+import com.example.bruno.debarrio.entidades.Evento;
 
 /**
  * Created by Bruno on 08/04/2018.
@@ -8,6 +8,6 @@ import com.example.bruno.debarrio.entidades.Personaje;
 
 public interface ComunicacionFragments {
 
-    public void enviarPersonaje(Personaje personaje);
+    public void enviarPersonaje(Evento evento);
 
 }

@@ -3,14 +3,11 @@ package com.example.bruno.debarrio;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,13 +18,12 @@ import android.widget.Toast;
 
 import com.example.bruno.debarrio.Adapters.ListAdapterEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
-import com.squareup.picasso.Picasso;
+import com.example.bruno.debarrio.entidades.Subject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
