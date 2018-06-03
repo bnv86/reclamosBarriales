@@ -30,10 +30,10 @@ public class AddContactoActivity extends AppCompatActivity implements View.OnCli
         textviewRegresar = findViewById(R.id.textview_regresar);
         textviewRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                onBackPressed(); //vuelve al activity anterior
-            }
-        });
+        public void onClick(View view) {
+            onBackPressed(); //vuelve al activity anterior
+        }
+    });
         editTelefono = findViewById(R.id.edit_tel_contacto);
         editEmail = findViewById(R.id.edit_email_contacto);
         editDireccion = findViewById(R.id.edit_dire_contacto);

@@ -141,6 +141,7 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
                                 jsonObject = jsonArray.getJSONObject(i);
                                 subject.SubjectFecha = jsonObject.getString("fecha");
                                 subject.SubjectMotivo = jsonObject.getString("motivo");
+                                subject.SubjectEstado = jsonObject.getString("estado");
                                 String dec = jsonObject.getString("foto");
                                 subject.SubjectBitmap = downloadImage(dec);
                                 eventosList.add(subject);

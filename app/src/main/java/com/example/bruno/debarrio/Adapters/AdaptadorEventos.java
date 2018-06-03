@@ -36,6 +36,7 @@ public class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.Pers
     public void onBindViewHolder(PersonajesViewHolder holder, int position) {
         holder.textFecha.setText(listaPersonajes.get(position).getFecha());
         holder.textMotivo.setText(listaPersonajes.get(position).getMotivo());
+        holder.textEstado.setText(listaPersonajes.get(position).getEstado());
         holder.foto.setImageBitmap(listaPersonajes.get(position).getImagen());
     }
 
@@ -56,13 +57,14 @@ public class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.Pers
 
     public class PersonajesViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textFecha, textMotivo;
+        TextView textFecha, textMotivo, textEstado;
         ImageView foto;
 
         public PersonajesViewHolder(View itemView) {
             super(itemView);
             textFecha = (TextView) itemView.findViewById(R.id.idFecha);
             textMotivo = (TextView) itemView.findViewById(R.id.idMotivo);
+            textEstado = (TextView) itemView.findViewById(R.id.idEstado);
             foto = (ImageView) itemView.findViewById(R.id.idImagen);
         }
     }

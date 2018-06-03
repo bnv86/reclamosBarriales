@@ -26,6 +26,7 @@ public class Subject {
     public Bitmap SubjectBitmap;
     public String SubjectFecha;
     public String SubjectMotivo;
+    public String SubjectEstado;
     public String SubjectComentario;
 
 }

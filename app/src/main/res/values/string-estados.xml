@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="animals">
+        <item>Abierto</item>
+        <item>Resuelto</item>
+        <item>En curso</item>
+        <item>Re-abierto</item>
+    </string-array>
+</resources>

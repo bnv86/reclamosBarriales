@@ -9,12 +9,14 @@ import java.io.Serializable;
  */
 
 public class Evento implements Serializable{
+    private String id;
     private String usuarioDesc;
     private String fecha;
     private String latitudDesc;
     private String longitudDesc;
     private String motivo;
     private String comentarioDesc;
+    private String estado;
     private int imagenId;
     private int imagenDescripcion;
 
@@ -25,19 +27,23 @@ public class Evento implements Serializable{
 
     }
 
-    public Evento(String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
+    public Evento(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
+        this.id = id;
         this.usuarioDesc = usuarioDesc;
         this.fecha = fecha;
         this.latitudDesc = latitudDesc;
         this.longitudDesc = longitudDesc;
         this.motivo = motivo;
         this.comentarioDesc = comentarioDesc;
+        this.estado = estado;
         //this.imagenId = imagenId;
         this.imagen = imagen;
         this.imagenDesc = imagenDesc;
         //this.imagenDescripcion = imagenDescripcion;
 
     }
+
+    public String getId() {return id;}
 
     public String getUsuarioDesc(){return usuarioDesc;}
     public void setUsuarioDesc(String usuarioDesc){this.usuarioDesc = usuarioDesc;}
@@ -56,6 +62,9 @@ public class Evento implements Serializable{
 
     public String getComentarioDesc(){return comentarioDesc;}
     public void setComentarioDesc(String comentarioDesc){this.comentarioDesc = comentarioDesc;}
+
+    public String getEstado(){return estado;}
+    public void setEstado(String estado){this.estado = estado;}
 
     //public int getImagenId(){return imagenId;}
     //public void setImagenId(int imagenId){this.imagenId = imagenId;}

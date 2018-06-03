@@ -83,8 +83,8 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap bitmap;
     public int PICK_IMAGE_REQUEST = 1;
-    private String UPLOAD_URL_FOTO = "https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
-    private String UPLOAD_URL_EVENTO = "https://momentary-electrode.000webhostapp.com/postEvento2.php";
+    //private String UPLOAD_URL_FOTO = "https://momentary-electrode.000webhostapp.com/SubirElegirFoto.php";
+    private String UPLOAD_URL_EVENTO = "https://momentary-electrode.000webhostapp.com/postEvento.php";
     private String KEY_IMAGEN = "foto";
     private String KEY_LAT = "latitud";
     private String KEY_LNG = "longitud";
@@ -142,89 +142,89 @@ public class SubirFragment extends Fragment implements View.OnClickListener{ // 
         return encodedImage;
     }
 
-        public void subirEvento(){
-            final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
-            SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-            final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
-            Intent resultIntent = new Intent();
-            //resultIntent.getExtras();
-            SharedPreferences sharedpreferencesMap = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-            final String latitud = sharedpreferencesMap.getString("Latitud","");
-            final String longitud = sharedpreferencesMap.getString("Longitud","");
-            Intent resultIntentMap = new Intent();
-            //resultIntentMap.getExtras();
+    public void subirEvento(){
+        final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
+        SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
+        final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
+        Intent resultIntent = new Intent();
+        //resultIntent.getExtras();
+        SharedPreferences sharedpreferencesMap = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
+        final String latitud = sharedpreferencesMap.getString("Latitud","");
+        final String longitud = sharedpreferencesMap.getString("Longitud","");
+        Intent resultIntentMap = new Intent();
+        //resultIntentMap.getExtras();
 
-            //Bundle bundle = getArguments();
-            //double lat = this.getArguments().getDouble("Latitud");
-            //double lng = this.getArguments().getDouble("Longitud");
-            //double lat = bundle.getDouble("Latitud");
-            //double lng = bundle.getDouble("Longitud");
-            //Toast.makeText(getContext(),lat+"", Toast.LENGTH_LONG).show();
+        //Bundle bundle = getArguments();
+        //double lat = this.getArguments().getDouble("Latitud");
+        //double lng = this.getArguments().getDouble("Longitud");
+        //double lat = bundle.getDouble("Latitud");
+        //double lng = bundle.getDouble("Longitud");
+        //Toast.makeText(getContext(),lat+"", Toast.LENGTH_LONG).show();
 
-            //resultIntent.putExtra("Longitud", longiMarker);
-            //pref_userName = preferences.getString("pref_userName", "n/a");
-            //userName.setText("Welcome to "+pref_userName);
-            //String username = getIntent().getStringExtra("username");
-            //Muestro la carga del progreso
-            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_EVENTO,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        //Mostrando el mensaje de la respuesta
-                        //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
-                        Toast.makeText(getActivity(), "EVENTO SUBIDO " + usuario + " !", Toast.LENGTH_LONG).show();
-                        //llamarIntentFotoElegir();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-
-                        //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
-                        Toast.makeText(getActivity(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
-                    }
-                }){
-
+        //resultIntent.putExtra("Longitud", longiMarker);
+        //pref_userName = preferences.getString("pref_userName", "n/a");
+        //userName.setText("Welcome to "+pref_userName);
+        //String username = getIntent().getStringExtra("username");
+        //Muestro la carga del progreso
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_EVENTO,
+            new Response.Listener<String>() {
                 @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    //Convertir bits a cadena
-                    String foto = getStringImagen(bitmap);
-
-                    //Obtener el nombre de la imagen
-                    //String nombre = "CAPTURA"; //.trim()
-                    String motivo = editextMotivo.getText().toString().trim();
-                    String comentario = editextComentario.getText().toString().trim();
-
-                    //Creación de parámetros
-                    Map<String,String> params = new Hashtable<String, String>();
-
-                    //Agregando de parámetros
-                    params.put(KEY_FECHA, fecha.format(new Date()));
-                    params.put(KEY_USUARIO, usuario);
-                    params.put(KEY_IMAGEN, foto);
-                    params.put(KEY_LAT, latitud);
-                    params.put(KEY_LNG, longitud);
-                    //params.put(KEY_NOMBRE, nombre);
-                    params.put(KEY_MOTIVO, motivo);
-                    params.put(KEY_COMENTARIO, comentario);
-
-                    //Parámetros de retorno
-                    return params;
+                public void onResponse(String s) {
+                    //Descartar el diálogo de progreso
+                    loading.dismiss();
+                    //Mostrando el mensaje de la respuesta
+                    //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "EVENTO SUBIDO " + usuario + " !", Toast.LENGTH_LONG).show();
+                    //llamarIntentFotoElegir();
                 }
-            };
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    //Descartar el diálogo de progreso
+                    loading.dismiss();
 
-            //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-            //Agregar solicitud a la cola
-            requestQueue.add(stringRequest);
-        }
+                    //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
+                    Toast.makeText(getActivity(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
+                }
+            }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Convertir bits a cadena
+                String foto = getStringImagen(bitmap);
+
+                //Obtener el nombre de la imagen
+                //String nombre = "CAPTURA"; //.trim()
+                String motivo = editextMotivo.getText().toString().trim();
+                String comentario = editextComentario.getText().toString().trim();
+
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+
+                //Agregando de parámetros
+                params.put(KEY_FECHA, fecha.format(new Date()));
+                params.put(KEY_USUARIO, usuario);
+                params.put(KEY_IMAGEN, foto);
+                params.put(KEY_LAT, latitud);
+                params.put(KEY_LNG, longitud);
+                //params.put(KEY_NOMBRE, nombre);
+                params.put(KEY_MOTIVO, motivo);
+                params.put(KEY_COMENTARIO, comentario);
+
+                //Parámetros de retorno
+                return params;
+            }
+        };
+
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }
 
     private void showFileChooser() {
         Intent intent = new Intent();

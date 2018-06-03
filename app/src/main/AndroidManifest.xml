@@ -57,7 +57,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCqZ9zKjUMTiWVcPAVDuEL8WqFs3NHFm-E" /> <!-- android:value="@string/google_maps_key"  AIzaSyAuJY44MzeWCWREBKTHAQuq66h7bz0BJPw -->
+            android:value="AIzaSyBfeBcTJ59VJ0RsFLZ36O_JkTRX1EgpVzQ" /> <!-- android:value="@string/google_maps_key"  AIzaSyCqZ9zKjUMTiWVcPAVDuEL8WqFs3NHFm-E -->
         <!-- android:name="com.google.android.maps.v2.API_KEY" -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <meta-data
