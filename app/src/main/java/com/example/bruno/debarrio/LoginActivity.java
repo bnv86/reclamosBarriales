@@ -136,6 +136,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Error en el servidor", Toast.LENGTH_LONG).show();
                         }
                     }
                 };

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.bruno.debarrio.ActivityUser;
 import com.example.bruno.debarrio.EmailsActivity;
 import com.example.bruno.debarrio.EventosMiosActivity;
 import com.example.bruno.debarrio.EventosTodosActivity;
@@ -144,7 +145,8 @@ public class EventosFragment extends Fragment {
     }
 
     private void llamarIntentVerMios() {
-        Intent intentVer = new Intent(getActivity(), EventosMiosActivity.class);
+        //Intent intentVer = new Intent(getActivity(), EventosMiosActivity.class);
+        Intent intentVer = new Intent(getActivity(), ActivityUser.class);
         getActivity().startActivity(intentVer);
     }
 }

@@ -39,12 +39,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListaEventosFragment.OnFragmentInteractionListener} interface
+ * {@link ListaEventosUsuarioFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListaEventosFragment#newInstance} factory method to
+ * Use the {@link ListaEventosUsuarioFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaEventosFragment extends Fragment {
+public class ListaEventosUsuarioFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -63,7 +63,7 @@ public class ListaEventosFragment extends Fragment {
     ProgressBar progressBarEventos;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
 
-    public ListaEventosFragment() {
+    public ListaEventosUsuarioFragment() {
         // Required empty public constructor
     }
 
@@ -73,11 +73,11 @@ public class ListaEventosFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListaEventosFragment.
+     * @return A new instance of fragment ListaEventosUsuarioFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListaEventosFragment newInstance(String param1, String param2) {
-        ListaEventosFragment fragment = new ListaEventosFragment();
+    public static ListaEventosUsuarioFragment newInstance(String param1, String param2) {
+        ListaEventosUsuarioFragment fragment = new ListaEventosUsuarioFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -209,6 +209,8 @@ public class ListaEventosFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... arg0)
         {
+            SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().MODE_PRIVATE);
+            final String usuarioActual = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
             HttpServices httpServiceObject = new HttpServices(ServerURL);
             try
             {
@@ -233,21 +235,24 @@ public class ListaEventosFragment extends Fragment {
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
+                                //subject = new Subject();
                                 String usuario = jsonObject.getString("usuario");
-                                //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                //evento.SubjectMotivo = jsonObject.getString("motivo");
-                                String id = jsonObject.getString("id");
-                                String dec = jsonObject.getString("foto");
-                                Bitmap foto = downloadImage(dec);
-                                //String usuario = jsonObject.getString("usuario");
-                                String fecha = jsonObject.getString("fecha");
-                                String latitud = jsonObject.getString("latitud");
-                                String longitud = jsonObject.getString("longitud");
-                                String motivo = jsonObject.getString("motivo");
-                                String comentario = jsonObject.getString("comentario");
-                                String estado = jsonObject.getString("estado");
-                                Evento evento = new Evento(id.toString(), usuario.toString(), fecha.toString(), latitud.toString(), longitud.toString(), motivo.toString(), comentario.toString(), estado.toString(), foto, foto);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                listaEventos.add(evento);
+                                if (usuario.equals(usuarioActual)) {
+                                    //nombre.getNombre(nombre) = jsonObject.getString("fecha");
+                                    //evento.SubjectMotivo = jsonObject.getString("motivo");
+                                    String id = jsonObject.getString("id");
+                                    String dec = jsonObject.getString("foto");
+                                    Bitmap foto = downloadImage(dec);
+                                    //String usuario = jsonObject.getString("usuario");
+                                    String fecha = jsonObject.getString("fecha");
+                                    String latitud = jsonObject.getString("latitud");
+                                    String longitud = jsonObject.getString("longitud");
+                                    String motivo = jsonObject.getString("motivo");
+                                    String comentario = jsonObject.getString("comentario");
+                                    String estado = jsonObject.getString("estado");
+                                    Evento evento = new Evento(id.toString(), usuario.toString(), fecha.toString(), latitud.toString(), longitud.toString(), motivo.toString(), comentario.toString(), estado.toString(), foto, foto);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                    listaEventos.add(evento);
+                                }
                             }
                         }
                         catch (JSONException e) {

@@ -93,6 +93,7 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleEventoFragment).addToBackStack(null).commit();
     }
 
+    /*
     public class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         public Context context;
@@ -177,24 +178,14 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
             {
                 final AdaptadorEventos adapter = new AdaptadorEventos(listaPersonajes);
                 recyclerViewPersonajes.setAdapter(adapter);
-                /*eventosListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //Subject subject;
-                        //subject = new Subject();
-                        ClipData clip = ClipData.newPlainText("text","Texto copiado al portapapeles"); //que copie el string del item "Texto copiado al portapapeles" , subject.SubjectName
-                        ClipboardManager clipboard = (ClipboardManager)getBaseContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setPrimaryClip(clip);
-                    }
-                });*/
             }
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
         }
-    }
+    }*/
 
-
+/*
     public static Bitmap downloadImage(String url) {
         Bitmap bitmap = null;
         InputStream stream = null;
@@ -235,6 +226,6 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
             System.out.println("downloadImage" + ex.toString());
         }
         return stream;
-    }
+    }*/
 
 }
