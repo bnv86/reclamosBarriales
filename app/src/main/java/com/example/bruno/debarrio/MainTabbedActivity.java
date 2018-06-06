@@ -146,14 +146,14 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
             //PlaceholderFragment fragment = new PlaceholderFragment(); //DEFECTO
             Fragment fragment = null;
             switch (sectionNumber){
+                //case 1:
+                //    fragment = new SubirFragment();
+                //    break;
                 case 1:
-                    fragment = new SubirFragment();
+                    fragment = new EventosFragment();
                     break;
                 case 2:
                     fragment = new ContactosFragment();
-                    break;
-                case 3:
-                    fragment = new EventosFragment();
                     break;
             }
             Bundle args = new Bundle();
@@ -192,7 +192,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 2;
         }
     }
 

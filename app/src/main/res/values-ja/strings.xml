@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">deBarrio</string>
+    <string name="app_name">reclamosMunicipales</string>
 
     <!-- Strings related to LOGIN -->
     <string name="prompt_email">ユーザー</string>
@@ -18,8 +18,8 @@
     <!-- Strings related to TABS ACTIVITY -->
     <string name="title_activity_main_tabbed">MainTabbedActivity</string>
     <string name="tab_text_1">アップロード</string>
-    <string name="tab_text_2">お問い合わせ</string>
-    <string name="tab_text_3">イベント</string>
+    <string name="tab_text_2">イベント</string>
+    <string name="tab_text_3">お問い合わせ</string>
     <string name="action_languaje">設定</string>
     <string name="section_format">Hello World from section: %1$d</string>
 

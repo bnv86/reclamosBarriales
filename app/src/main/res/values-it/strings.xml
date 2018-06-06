@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">deBarrio</string>
+    <string name="app_name">reclamosMunicipales</string>
 
     <!-- Strings related to LOGIN -->
     <string name="prompt_email">Utente</string>
@@ -18,8 +18,8 @@
     <!-- Strings related to TABS ACTIVITY -->
     <string name="title_activity_main_tabbed">MainTabbedActivity</string>
     <string name="tab_text_1">CARICARE</string>
-    <string name="tab_text_2">CONTATTI</string>
-    <string name="tab_text_3">EVENTI</string>
+    <string name="tab_text_2">EVENTI</string>
+    <string name="tab_text_3">CONTATTI</string>
     <string name="action_languaje">Lingua Selezione</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
