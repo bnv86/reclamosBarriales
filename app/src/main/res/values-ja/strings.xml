@@ -23,6 +23,20 @@
     <string name="action_languaje">設定</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
+    <string name="ver_todos">すべてのイベント</string>
+    <string name="ver_mios">私の出来事</string>
+
+    <!-- Strings related to CONTACTOS -->
+    <string name="agregar_contacto">たす</string>
+    <string name="telefono_contacto">電話番号</string>
+    <string name="direccion_contacto">住所</string>
+    <string name="contacto_contacto">連絡先</string>
+    <string name="ver_contacto">すべてを見る</string>
+    <string name="telefonos_contacto">電話番号</string>
+    <string name="direcciones_contacto">アドレス</string>
+    <string name="contactos_contacto">連絡先</string>
+    <string name="usuarios_contacto">私たち</string>
+
     <!-- Strings related to REGISTRAR -->
     <string name="str_regresar">   リターン </string>
     <string name="str_registrar_titulo">ユーザー登録</string>

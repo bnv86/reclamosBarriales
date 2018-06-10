@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Agregar"
+                android:text="@string/agregar_contacto"
                 android:textColor="@color/colorBlanco"
                 android:layout_gravity="center"
                 android:paddingTop="@dimen/text_margin"
@@ -57,7 +57,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_green_light"
-                android:text="Teléfono"
+                android:text="@string/telefono_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -70,7 +70,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_green_light"
-                android:text="Dirección"
+                android:text="@string/direccion_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -83,7 +83,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_red_light"
-                android:text="Contacto"
+                android:text="@string/contacto_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -91,7 +91,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ver"
+                android:text="@string/ver_contacto"
                 android:textColor="@color/colorBlanco"
                 android:layout_gravity="center"
                 android:paddingTop="@dimen/text_margin"
@@ -118,7 +118,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="Teléfonos"
+                android:text="@string/telefonos_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -131,7 +131,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="Direcciones"
+                android:text="@string/direcciones_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -144,7 +144,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/holo_red_light"
-                android:text="Contactos"
+                android:text="@string/contactos_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -157,7 +157,7 @@
                 android:padding="20dp"
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/holo_purple"
-                android:text="Usuarios"
+                android:text="@string/usuarios_contacto"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
