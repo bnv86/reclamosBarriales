@@ -6,184 +6,163 @@
     android:background="#BBF8FA"
     tools:context="com.example.bruno.debarrio.fragments.DetalleEventoFragment">
 
-    <ImageView
-        android:id="@+id/imagen_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:src="@drawable/camera"
-        android:scaleType="fitXY"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
-
-        <TextView
-            android:id="@+id/static_usuario"
+        <ImageView
+            android:id="@+id/imagen_detalle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Usuario: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+            android:layout_height="220dp"
+            android:src="@drawable/camera"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
 
-        <TextView
-            android:id="@+id/detalle_usuario"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Usuario"
-            android:textColor="#0021FA"/>
-    </LinearLayout>
+        <ScrollView
+            android:id="@+id/detalle_scroll_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp">
 
-        <TextView
-            android:id="@+id/static_categoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Categoria: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/static_usuario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Usuario: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/detalle_categoria"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Categoria"
-            android:textColor="#0021FA"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/detalle_usuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@+id/static_usuario"
+                    android:text="Usuario"
+                    android:textColor="#0021FA"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/static_categoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/static_usuario"
+                    android:text="Categoria: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/static_descripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripcion: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/detalle_categoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/static_categoria"
+                    android:text="Categoria"
+                    android:textColor="#0021FA"/>
 
-        <TextView
-            android:id="@+id/detalle_descripcion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripcion"
-            android:textColor="#0021FA"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/static_descripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/detalle_categoria"
+                    android:text="Descripcion: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/detalle_descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/static_descripcion"
+                    android:text="Descripcion"
+                    android:textColor="#0021FA"/>
 
-        <TextView
-            android:id="@+id/static_municipalidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Municipalidad: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/static_municipalidad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/detalle_descripcion"
+                    android:text="Municipalidad: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/detalle_municipalidad"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/detalle_municipalidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/static_municipalidad"
+                    android:textColor="#0021FA"/>
 
-            android:textColor="#0021FA"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/static_latitud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/detalle_municipalidad"
+                    android:text="Latitud: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/detalle_latitud"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/static_latitud"
+                    android:text="Latitud"
+                    android:textColor="#0021FA"/>
 
-        <TextView
-            android:id="@+id/static_latitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Latitud: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/detalle_latitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Latitud"
-            android:textColor="#0021FA"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/static_longitud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/detalle_latitud"
+                    android:text="Longitud: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/detalle_longitud"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/static_longitud"
+                    android:text="Longitud"
+                    android:textColor="#0021FA"/>
 
-        <TextView
-            android:id="@+id/static_longitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Longitud: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/divisor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" />
 
-        <TextView
-            android:id="@+id/detalle_longitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Longitud"
-            android:textColor="#0021FA"/>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/static_estado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/detalle_longitud"
+                    android:text="Estado: "
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp">
+                <Spinner
+                    android:id="@+id/spinner_estado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/static_estado"/>
 
-        <TextView
-            android:id="@+id/divisor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+                <Button
+                    android:id="@+id/boton_actualizar_estado"
+                    android:layout_below="@+id/spinner_estado"
+                    android:layout_gravity="center"
+                    android:text="ACTUALIZAR ESTADO"
+                    android:background="@color/colorLightBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="16dp"/>
 
-        <TextView
-            android:id="@+id/static_estado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Estado: "
-            android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+            </RelativeLayout>
+        </ScrollView>
 
-        <Spinner
-            android:id="@+id/spinner_estado"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/boton_actualizar_estado"
-        android:layout_gravity="center"
-        android:text="ACTUALIZAR ESTADO"
-        android:background="@color/colorLightBlue"
-        android:layout_width="140dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"/>
     <!--android:entries="@array/string-estados"
 
     <EditText
@@ -197,6 +176,5 @@
         android:ems="10"
         android:focusable="false"
         android:inputType="textMultiLine" /> -->
-
 
 </LinearLayout>

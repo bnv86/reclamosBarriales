@@ -65,7 +65,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
 
     private OnFragmentInteractionListener mListener;
 
-    TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textCoordenadas, textLatitud, textLongitud; //, textID
+    TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textLatitud, textLongitud; //, textID
     ImageView imagenDetalle;
     EditText etDescrip;
     Button botonActualizarEstado;
@@ -105,6 +105,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         }
     }
 
+    /*
     private void actualizarEstado(Spinner spinner) {
         final String estado = spinner.getSelectedItem().toString();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -130,7 +131,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         PedidoDeEstado pedido = new PedidoDeEstado(estado, responseListener);
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(pedido);
-    }
+    }*/
 
     public void subirEstado(Spinner spinner){
         //Bundle bundleObjeto = getArguments();
