@@ -61,7 +61,7 @@ public class ListaEventosFragment extends Fragment {
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
     ProgressBar progressBarEventos;
-    String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
+    String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
 
     public ListaEventosFragment() {
         // Required empty public constructor
@@ -233,7 +233,7 @@ public class ListaEventosFragment extends Fragment {
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-                                String usuario = jsonObject.getString("usuario");
+                                String usuario = jsonObject.getString("id_usuario");
                                 //nombre.getNombre(nombre) = jsonObject.getString("fecha");
                                 //evento.SubjectMotivo = jsonObject.getString("motivo");
                                 String id = jsonObject.getString("id");
@@ -243,10 +243,12 @@ public class ListaEventosFragment extends Fragment {
                                 String fecha = jsonObject.getString("fecha");
                                 String latitud = jsonObject.getString("latitud");
                                 String longitud = jsonObject.getString("longitud");
-                                String motivo = jsonObject.getString("motivo");
-                                String comentario = jsonObject.getString("comentario");
-                                String estado = jsonObject.getString("estado");
-                                Evento evento = new Evento(id.toString(), usuario.toString(), fecha.toString(), latitud.toString(), longitud.toString(), motivo.toString(), comentario.toString(), estado.toString(), foto, foto);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                String categoria = jsonObject.getString("id_categoria");
+                                String estado = jsonObject.getString("id_estado");
+                                String municipalidad = jsonObject.getString("municipalidad");
+                                String descripcion = jsonObject.getString("descripcion");
+
+                                Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                 listaEventos.add(evento);
                             }
                         }

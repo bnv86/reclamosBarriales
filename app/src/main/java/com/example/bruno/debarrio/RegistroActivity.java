@@ -22,8 +22,8 @@ import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textviewRegresar;
-    EditText editNombre, editUsuario, editPassword, editEdad, editTelefono, editEmail, editApellido;
-    Button botonRegistrar;
+    EditText editNombre, editUsuario, editPassword, editDireccion, editTelefono, editEmail, editApellido, editMunicipio;
+    Button botonRegistrar, botonFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         editTelefono = findViewById(R.id.edit_telefono_registro);
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
-        editEdad = findViewById(R.id.edit_edad_registro);
+        editDireccion = findViewById(R.id.edit_direccion_registro);
         botonRegistrar = findViewById(R.id.boton_registrar_registro);
         //botonRegistrar.setOnClickListener(this);
         botonRegistrar.setOnClickListener(new View.OnClickListener() {

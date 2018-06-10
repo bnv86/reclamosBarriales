@@ -33,7 +33,8 @@
     <string name="usuario_telefono">Phone</string>
     <string name="usuario_nombre_user">User</string>
     <string name="usuario_password">Password</string>
-    <string name="usuario_edad">Age</string>
+    <string name="usuario_direccion">Address</string>
+    <string name="button_foto">Photo</string>
     <string name="button_registrar">REGISTER</string>
 
     <!-- Strings related to MAPS ACTIVITY -->

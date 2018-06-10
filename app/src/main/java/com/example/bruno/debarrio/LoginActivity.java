@@ -4,16 +4,14 @@ package com.example.bruno.debarrio;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
-        import android.content.Intent;
-        import android.content.res.Configuration;
-        import android.support.v7.app.AppCompatActivity;
-
-        import android.widget.Button;
-
-        import android.os.Bundle;
-        import android.view.View;
-        import android.widget.AutoCompleteTextView;
-        import android.widget.EditText;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +23,7 @@ import com.example.bruno.debarrio.fragments.SubirFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-        import java.util.Locale;
+import java.util.Locale;
 
 /**
  * A login screen that offers login via email/password.
@@ -112,7 +109,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (success) {
-                                String name = jsonResponse.getString("name");
+                                String nombre = jsonResponse.getString("nombre");
                                 String username = jsonResponse.getString("username");
                                 String password = jsonResponse.getString("password");
                                 //int age = Integer.parseInt("age");
@@ -127,7 +124,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 editor.putString("username", username); //GUARDA EL PASSWORD, VER PORQUÉ PASA ESTO
                                 //editor.putString("password", password);
                                 editor.commit();
-                                Toast.makeText(getApplicationContext(), "BIENVENIDO " + name + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
+                                Toast.makeText(getApplicationContext(), "BIENVENIDO " + nombre + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
                                 LoginActivity.this.startActivity(intent);
                                 //Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username + " !", Toast.LENGTH_LONG).show(); //DEVUELVE PASS, PORQUEEEEEE?
                             } else {

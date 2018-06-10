@@ -247,10 +247,11 @@ public class ListaEventosUsuarioFragment extends Fragment {
                                     String fecha = jsonObject.getString("fecha");
                                     String latitud = jsonObject.getString("latitud");
                                     String longitud = jsonObject.getString("longitud");
-                                    String motivo = jsonObject.getString("motivo");
-                                    String comentario = jsonObject.getString("comentario");
-                                    String estado = jsonObject.getString("estado");
-                                    Evento evento = new Evento(id.toString(), usuario.toString(), fecha.toString(), latitud.toString(), longitud.toString(), motivo.toString(), comentario.toString(), estado.toString(), foto, foto);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                    String categoria = jsonObject.getString("id_categoria");
+                                    String municipalidad = jsonObject.getString("municipalidad");
+                                    String descripcion = jsonObject.getString("descripcion");
+                                    String estado = jsonObject.getString("id_estado");
+                                    Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                     listaEventos.add(evento);
                                 }
                             }

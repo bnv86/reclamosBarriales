@@ -41,14 +41,14 @@
             android:layout_height="wrap_content"
             android:background="@android:color/background_dark" >
 
-            <!--
+
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/tab_text_1" />
 
-                -->
+
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tabItem2"

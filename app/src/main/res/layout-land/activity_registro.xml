@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="@string/usuario_edad"
+                android:hint="@string/usuario_direccion"
                 android:inputType="number"
                 android:layout_marginTop="1dp"/>
 
@@ -116,6 +116,15 @@
                 android:hint="@string/usuario_password"
                 android:inputType="textPassword"
                 android:layout_marginTop="1dp"/>
+
+            <Button
+                android:id="@+id/boton_foto_registro"
+                android:layout_gravity="center"
+                android:text="@string/button_foto"
+                android:background="@color/colorLightBlue"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"/>
 
             <Button
                 android:id="@+id/boton_registrar_registro"

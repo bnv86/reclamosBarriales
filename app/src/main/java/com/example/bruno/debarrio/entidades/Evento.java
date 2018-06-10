@@ -10,43 +10,53 @@ import java.io.Serializable;
 
 public class Evento implements Serializable{
     private String id;
-    private String usuarioDesc;
+    //private String usuarioDesc;
+    private String id_categoria;
+    private String id_usuario;
+    private String id_estado;
     private String fecha;
-    private String latitudDesc;
-    private String longitudDesc;
-    private String motivo;
-    private String comentarioDesc;
-    private String estado;
-    private int imagenId;
-    private int imagenDescripcion;
-
     private Bitmap imagen;
     private Bitmap imagenDesc;
+    private String latitudDesc;
+    private String longitudDesc;
+    //private String categoria;
+    private String municipalidad;
+    private String descripcionDesc;
+
+    private int imagenId;
+    private int imagenDescripcion;
 
     public Evento(){
 
     }
 
-    public Evento(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
+    //public Evento(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
+    public Evento(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc){
         this.id = id;
-        this.usuarioDesc = usuarioDesc;
+        this.id_categoria = id_categoria;
+        this.id_usuario = id_usuario;
+        this.id_estado = id_estado;
         this.fecha = fecha;
-        this.latitudDesc = latitudDesc;
-        this.longitudDesc = longitudDesc;
-        this.motivo = motivo;
-        this.comentarioDesc = comentarioDesc;
-        this.estado = estado;
-        //this.imagenId = imagenId;
         this.imagen = imagen;
         this.imagenDesc = imagenDesc;
+        this.latitudDesc = latitudDesc;
+        this.longitudDesc = longitudDesc;
+        this.municipalidad = municipalidad;
+        this.descripcionDesc = descripcionDesc;
+        //this.imagenId = imagenId;
         //this.imagenDescripcion = imagenDescripcion;
-
     }
 
     public String getId() {return id;}
 
-    public String getUsuarioDesc(){return usuarioDesc;}
-    public void setUsuarioDesc(String usuarioDesc){this.usuarioDesc = usuarioDesc;}
+    public String getId_categoria(){return id_categoria;}
+    public void setId_categoria(String id_categoria){this.id_categoria = id_categoria;}
+
+    public String getId_usuario(){return id_usuario;}
+    public void setId_usuario(String id_usuario){this.id_usuario = id_usuario;}
+
+    public String getId_estado(){return id_estado;}
+    public void setId_estado(String id_estado){this.id_estado = id_estado;}
 
     public String getFecha(){return fecha;}
     public void setFecha(String fecha){this.fecha = fecha;}
@@ -57,14 +67,11 @@ public class Evento implements Serializable{
     public String getLongitudDesc(){return longitudDesc;}
     public void setLongitudDesc(String longitudDesc){this.longitudDesc = longitudDesc;}
 
-    public String getMotivo(){return motivo;}
-    public void setMotivo(String motivo){this.motivo = motivo;}
+    public String getMunicipalidad(){return municipalidad;}
+    public void setMunicipalidad(String municipalidad){this.municipalidad = municipalidad;}
 
-    public String getComentarioDesc(){return comentarioDesc;}
-    public void setComentarioDesc(String comentarioDesc){this.comentarioDesc = comentarioDesc;}
-
-    public String getEstado(){return estado;}
-    public void setEstado(String estado){this.estado = estado;}
+    public String getDescripcionDesc(){return descripcionDesc;}
+    public void setDescripcionDesc(String descripcionDesc){this.descripcionDesc = descripcionDesc;}
 
     //public int getImagenId(){return imagenId;}
     //public void setImagenId(int imagenId){this.imagenId = imagenId;}
