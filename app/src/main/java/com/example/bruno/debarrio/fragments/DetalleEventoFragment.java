@@ -143,7 +143,23 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         queue.add(pedido);
     }*/
 
-    public void subirEstado(final String pos){
+    public void subirEstado(String pos){
+        String estado = "0";
+        if(pos == "Abierto"){
+            estado = "1";
+        }
+        if(pos == "En curso"){
+            estado = "2";
+        }
+        if(pos == "Resuelto"){
+            estado = "3";
+        }
+        if(pos == "Re-abierto"){
+            estado = "4";
+        }
+
+        final String estadoFinal = estado;
+
         //Bundle bundleObjeto = getArguments();
         //final String id = e.getId();
         Evento evento2 = null;
@@ -180,20 +196,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID, id);
-                /*
-                if (estado.equals("Abierto")){
-                    params.put(KEY_ESTADO, "1");
-                }
-                if (estado.equals("En curso")){
-                    params.put(KEY_ESTADO, "2");
-                }
-                if (estado.equals("Resuelto")){
-                    params.put(KEY_ESTADO, "3");
-                }
-                if (estado.equals("Re-abierto")){
-                    params.put(KEY_ESTADO, "4");
-                }*/
-                params.put(KEY_ESTADO, pos);
+                params.put(KEY_ESTADO, estadoFinal);
                 //Parámetros de retorno
                 return params;
             }
@@ -219,8 +222,8 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
         //etDescrip = (EditText) vista.findViewById(R.id.etDescription);
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
-        //String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
-        String[] tipos1 = {"1","2", "3","4"};
+        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        //String[] tipos1 = {"1","2", "3","4"};
         //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_evento, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
@@ -285,8 +288,24 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
             textLatitud.setText(evento.getLatitudDesc());
             textLongitud.setText(evento.getLongitudDesc());
             //spinner.setItemAt(evento.getEstado());
-            //id = evento.getId();
-            spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(evento.getId_estado()));
+            String est = evento.getId_estado().toString();
+            if (est.equals("1")){
+                est = "Abierto";
+                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
+            }
+            if (est.equals("2")){
+                est = "En curso";
+                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
+            }
+            if (est.equals("3")){
+                est = "Resuelto";
+                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
+            }
+            if (est.equals("4")){
+                est = "Re-abierto";
+                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
+            }
+            //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(evento.getId_estado()));
             //(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(myString));
         }
         /*
