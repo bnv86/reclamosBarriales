@@ -133,7 +133,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         queue.add(pedido);
     }*/
 
-    public void subirEstado(Spinner spinner){
+    public void subirEstado(final String pos){
         //Bundle bundleObjeto = getArguments();
         //final String id = e.getId();
         Evento evento2 = null;
@@ -143,7 +143,6 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         final String id = evento2.getId();
         //}
         //final String estado = spinner.getSelectedItem().toString();
-        final String estado = spinner.getSelectedItem().toString();
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
         //final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
@@ -153,8 +152,8 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        //Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
-                        Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -171,19 +170,20 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID, id);
-                if (estado == "Abierto"){
+                /*
+                if (estado.equals("Abierto")){
                     params.put(KEY_ESTADO, "1");
                 }
-                if (estado == "En curso"){
+                if (estado.equals("En curso")){
                     params.put(KEY_ESTADO, "2");
                 }
-                if (estado == "Resuelto"){
+                if (estado.equals("Resuelto")){
                     params.put(KEY_ESTADO, "3");
                 }
-                if (estado == "Re-abierto"){
+                if (estado.equals("Re-abierto")){
                     params.put(KEY_ESTADO, "4");
-                }
-                //params.put(KEY_ESTADO, estado);
+                }*/
+                params.put(KEY_ESTADO, pos);
                 //Parámetros de retorno
                 return params;
             }
@@ -210,7 +210,8 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
         //etDescrip = (EditText) vista.findViewById(R.id.etDescription);
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
-        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        //String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        String[] tipos1 = {"1","2", "3","4"};
         //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_evento, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
@@ -222,7 +223,9 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
 */
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
+        botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
@@ -230,7 +233,16 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
                 //String name = tipos2[pos];
                 //String description = descrip.get(name);
                 //etDescrip.setText(description);
-                Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                final String posicion = (String) adapterView.getItemAtPosition(pos);
+
+                botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        subirEstado(posicion);
+                    }
+                });
+
             }
 
             @Override
@@ -255,41 +267,16 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
             spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(evento.getId_estado()));
             //(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(myString));
         }
+        /*
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                subirEstado(spinner);
+                subirEstado(pos);
             }
-        });
+        });*/
         return vista;
     }
-
-    /*
-    public void rellenarDescripciones() {
-        // Inicializamos la variable.
-        descrip = new TreeMap<String, String>();
-
-        // Rellenamos la variable con las descripciones.
-        descrip.put(
-                "Perro",
-                "Mamífero carnívoro de la familia de los cánidos, doméstico, con cuatro patas, un olfato muy fino y de gran diversidad de tamaños, formas y pelajes, que sirve al ser humano como animal de compañía o para cazar.");
-        descrip.put(
-                "Gato",
-                " Mamífero carnívoro doméstico, de la familia de los félidos, de patas cortas y uñas retráctiles, cabeza redonda, y pelo espeso y suave; suele tenerse como animal de compañía: el gato es un hábil cazador de ratones.");
-        descrip.put(
-                "Caballo",
-                "Mamífero équido, macho, de cuerpo fuerte, orejas pequeñas, cola cubierta de largo pelo y patas terminadas en casco; es herbívoro, se domestica con facilidad y se suele usar para montar en él.");
-        descrip.put(
-                "Canario",
-                "Pájaro de plumaje amarillo, verdoso o casi blanco, muy apreciado por su canto y que se suele criar como ave doméstica.");
-        descrip.put(
-                "Vaca",
-                "Hembra del toro. De joven se denomina ternera, becerra, vaquilla o novilla. Su leche constituye un alimento completísimo y, después de la de burra, es la más parecida a la de la mujer.");
-        descrip.put(
-                "Cerdo",
-                "Mamífero doméstico de cuerpo grueso, patas cortas, cabeza grande, orejas caídas, hocico chato y casi cilíndrico y cola en forma de hélice, que se cría para aprovechar su carne.");
-    }*/
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

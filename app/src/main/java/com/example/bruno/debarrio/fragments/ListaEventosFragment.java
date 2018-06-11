@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio.fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -21,6 +22,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.Adapters.AdaptadorEventos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.R;
@@ -103,18 +111,6 @@ public class ListaEventosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_lista_eventos, container, false);
         //progressBarEventos = vista.findViewById(R.id.progressBar);
-
-        //textviewRegresar = vista.findViewById(R.id.textview_regresar);
-        /*
-        textviewRegresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //onBackPressed(); //vuelve al activity anterior
-                Intent intentEventos = new Intent(getActivity(), MainTabbedActivity.class);
-                getActivity().startActivity(intentEventos);
-            }
-        });*/
-
         //listaEventos = new ArrayList<>();
         recyclerViewEventos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewEventos.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -129,11 +125,8 @@ public class ListaEventosFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
-                //String name = tipos2[pos];
-                //String description = descrip.get(name);
-                //etDescrip.setText(description);
                 String posicion = (String) adapterView.getItemAtPosition(pos);
-                Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
                 llenarlistaEstados(posicion);
             }
 
@@ -162,16 +155,11 @@ public class ListaEventosFragment extends Fragment {
 
     private void llenarlistaReclamos() {
         new GetHttpResponse(getContext()).execute();
-
-/*
-        listaEventos.add(new Evento("Android1", "ldkjfosdhfjosdhflsdhfljskdhfoksdhfojhsdfjhsdfokhsdlkfjsdljfhlsdhflksdflshdflksjdflksdlfjhsldfh", "aaaaaaaaaaaaaaa",  R.drawable.camera, R.drawable.camera));
-        listaEventos.add(new Evento("Android2","jlhsldhfldhflkjkhgfjkljgflkgjflkgjlkfg456465432465465165465465465465465465465465465465465465465", "bbbbbbbbbbbbbbb", R.drawable.camera, R.drawable.camera));
-        listaEventos.add(new Evento("Android3", "algo", "lalalalalalalalalalallalalalalalalalaalalalalaaaaaaaaaaaaaaaaaaaalalalalalalalalalalallaallalalalalalalallaa", R.drawable.camera, R.drawable.camera));
-*/
     }
 
     private void llenarlistaEstados(String posicion) {
         listaEventos = new ArrayList<>();
+        //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
         new GetHttpResponseEstados(getContext(), posicion).execute();
     }
 
@@ -237,6 +225,28 @@ public class ListaEventosFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
+            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false); //getActivity()
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerURL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Descartar el diálogo de progreso
+                            loading.dismiss();
+                            //Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            loading.dismiss();
+                            Toast.makeText(getActivity(), "No se pueden cargar" , Toast.LENGTH_LONG).show();
+                        }
+                    });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            //Creación de una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+            //Agregar solicitud a la cola
+            requestQueue.add(stringRequest);
         }
 
         @Override
@@ -257,12 +267,6 @@ public class ListaEventosFragment extends Fragment {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            //Evento evento;
-                            //Evento evento = new Evento("fecha", "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                            //listaEventos = new ArrayList<Evento>();
-                            //ArrayList<Evento> listaEventos;
-                            //eventosList = new ArrayList<Subject>();
-                            //setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contenido.titulos));
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
@@ -272,23 +276,16 @@ public class ListaEventosFragment extends Fragment {
                                 {
                                     posicion = "1";
                                     if (estado.equals(posicion)) {
-
-                                        //estado = "1";
                                         String usuario = jsonObject.getString("id_usuario");
-                                        //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                        //evento.SubjectMotivo = jsonObject.getString("motivo");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
-                                        //String usuario = jsonObject.getString("usuario");
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
                                         String categoria = jsonObject.getString("id_categoria");
-
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-
                                         Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaEventos.add(evento);
                                         posicion = "Abierto";
@@ -302,22 +299,16 @@ public class ListaEventosFragment extends Fragment {
                                 {
                                     posicion = "2";
                                     if (estado.equals(posicion)) {
-                                        //estado = "2";
                                         String usuario = jsonObject.getString("id_usuario");
-                                        //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                        //evento.SubjectMotivo = jsonObject.getString("motivo");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
-                                        //String usuario = jsonObject.getString("usuario");
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
                                         String categoria = jsonObject.getString("id_categoria");
-
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-
                                         Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaEventos.add(evento);
                                         posicion = "En curso";
@@ -330,22 +321,16 @@ public class ListaEventosFragment extends Fragment {
                                 {
                                     posicion = "3";
                                     if (estado.equals(posicion)) {
-                                        //estado = "3";
                                         String usuario = jsonObject.getString("id_usuario");
-                                        //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                        //evento.SubjectMotivo = jsonObject.getString("motivo");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
-                                        //String usuario = jsonObject.getString("usuario");
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
                                         String categoria = jsonObject.getString("id_categoria");
-
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-
                                         Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaEventos.add(evento);
                                         posicion = "Resuelto";
@@ -358,22 +343,16 @@ public class ListaEventosFragment extends Fragment {
                                 {
                                     posicion = "4";
                                     if (estado.equals(posicion)) {
-                                        //estado = "4";
                                         String usuario = jsonObject.getString("id_usuario");
-                                        //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                        //evento.SubjectMotivo = jsonObject.getString("motivo");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
-                                        //String usuario = jsonObject.getString("usuario");
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
                                         String categoria = jsonObject.getString("id_categoria");
-
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-
                                         Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaEventos.add(evento);
                                         posicion = "Re-abierto";
@@ -460,22 +439,14 @@ public class ListaEventosFragment extends Fragment {
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
-                            //Evento evento;
-                            //Evento evento = new Evento("fecha", "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                            //listaEventos = new ArrayList<Evento>();
-                            //ArrayList<Evento> listaEventos;
-                            //eventosList = new ArrayList<Subject>();
-                            //setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contenido.titulos));
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
                                 String usuario = jsonObject.getString("id_usuario");
                                 //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                //evento.SubjectMotivo = jsonObject.getString("motivo");
                                 String id = jsonObject.getString("id");
                                 String dec = jsonObject.getString("foto");
                                 Bitmap foto = downloadImage(dec);
-                                //String usuario = jsonObject.getString("usuario");
                                 String fecha = jsonObject.getString("fecha");
                                 String latitud = jsonObject.getString("latitud");
                                 String longitud = jsonObject.getString("longitud");
@@ -509,7 +480,6 @@ public class ListaEventosFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result)
-
         {
             if(listaEventos != null) {
                 final AdaptadorEventos adapter = new AdaptadorEventos(listaEventos);
@@ -525,8 +495,6 @@ public class ListaEventosFragment extends Fragment {
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
-            //progressBarEventos.setVisibility(View.GONE);
-            //recyclerViewEventos.setVisibility(View.VISIBLE);
         }
     }
 
