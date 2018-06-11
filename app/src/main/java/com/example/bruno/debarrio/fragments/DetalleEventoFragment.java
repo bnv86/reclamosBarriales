@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -38,6 +40,10 @@ import com.example.bruno.debarrio.entidades.Evento;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
@@ -223,6 +229,50 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
 */
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
+
+        imagenDetalle.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                String fileName = "imagen";
+                String sd= Environment.getExternalStorageDirectory().getAbsolutePath();
+                File folder= new File(sd+"/Imagenes/reclamosBarriales");
+
+                if(!folder.exists()){
+                    folder.mkdirs();
+                }
+
+                File image= new File(folder,fileName);
+                boolean success=false;
+
+                imagenDetalle.buildDrawingCache();
+                Bitmap bmap = imagenDetalle.getDrawingCache();
+
+                FileOutputStream outStream;
+
+                try {
+                    outStream=new FileOutputStream(image);
+                    bmap.compress(Bitmap.CompressFormat.JPEG,80,outStream);
+                    outStream.flush();
+                    outStream.close();
+                    success=true;
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(success){
+                    Toast.makeText(getActivity(), "Imagen guardada en la galería.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getActivity(), "No se pudo guardar la imagen.", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
+
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
