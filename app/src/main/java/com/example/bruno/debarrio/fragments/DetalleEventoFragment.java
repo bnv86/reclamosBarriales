@@ -1,7 +1,9 @@
 package com.example.bruno.debarrio.fragments;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -36,6 +38,7 @@ import com.example.bruno.debarrio.PostsDB.PedidoDeEmail;
 import com.example.bruno.debarrio.PostsDB.PedidoDeEstado;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Evento;
+import com.example.bruno.debarrio.entidades.Save;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +50,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -202,7 +206,6 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         requestQueue.add(stringRequest);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -230,52 +233,23 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
 
-        imagenDetalle.setOnLongClickListener(new View.OnLongClickListener() {
+        imagenDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View v) {
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "(Mantenga presionado para guardar la imagen)", Toast.LENGTH_LONG).show();            }
+        });
 
-                String fileName = "imagen";
-                String sd= Environment.getExternalStorageDirectory().getAbsolutePath();
-                File folder= new File(sd+"/Imagenes/reclamosBarriales");
+        imagenDetalle.setOnLongClickListener(new View.OnLongClickListener() {
 
-                if(!folder.exists()){
-                    folder.mkdirs();
-                }
-
-                File image= new File(folder,fileName);
-                boolean success=false;
-
-                imagenDetalle.buildDrawingCache();
-                Bitmap bmap = imagenDetalle.getDrawingCache();
-
-                FileOutputStream outStream;
-
-                try {
-                    outStream=new FileOutputStream(image);
-                    bmap.compress(Bitmap.CompressFormat.JPEG,80,outStream);
-                    outStream.flush();
-                    outStream.close();
-                    success=true;
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if(success){
-                    Toast.makeText(getActivity(), "Imagen guardada en la galería.", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getActivity(), "No se pudo guardar la imagen.", Toast.LENGTH_SHORT).show();
-                }
+            @Override
+            public boolean onLongClick(View arg0) {
+                confirmDialog();
                 return true;
             }
         });
 
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
@@ -292,7 +266,6 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
                         subirEstado(posicion);
                     }
                 });
-
             }
 
             @Override
@@ -302,7 +275,6 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
 
         Bundle bundleObjeto = getArguments();
         Evento evento = null;
-        //String id;
 
         if (bundleObjeto != null){
             evento = (Evento) bundleObjeto.getSerializable("objeto");
@@ -365,5 +337,31 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void confirmDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder
+                .setMessage("¿Desea guardar la imagen?")
+                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        //convertir imagen a bitmap
+                        imagenDetalle.buildDrawingCache();
+                        Bitmap bmap = imagenDetalle.getDrawingCache();
+
+                        //guardar imagen
+                        Save savefile = new Save();
+                        savefile.SaveImage(getContext(), bmap);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
     }
 }
