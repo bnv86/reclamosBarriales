@@ -1,15 +1,12 @@
 package com.example.bruno.debarrio.fragments;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -32,25 +29,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bruno.debarrio.AddEmailActivity;
-import com.example.bruno.debarrio.MainTabbedActivity;
-import com.example.bruno.debarrio.PostsDB.PedidoDeEmail;
-import com.example.bruno.debarrio.PostsDB.PedidoDeEstado;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Evento;
 import com.example.bruno.debarrio.entidades.Save;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Hashtable;
-import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 

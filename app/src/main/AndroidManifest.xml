@@ -77,19 +77,10 @@
             -->
 
         </activity>
-        <activity android:name=".AddContactoActivity" />
-        <activity android:name=".AddEmailActivity" />
-        <activity android:name=".AddTelefonoActivity" />
-        <activity android:name=".AddDireccionActivity" />
-        <activity android:name=".TelefonosActivity" />
-        <activity android:name=".DireccionesActivity" />
         <activity android:name=".AddFotoElegirActivity" />
-        <activity android:name=".EmailsActivity" />
-        <activity android:name=".ContactosActivity" />
         <activity android:name=".NoIncluidos.IdiomaActivity" />
         <activity android:name=".EventosTodosActivity" />
         <activity android:name=".EventosMiosActivity" />
-        <activity android:name=".UsuariosActivity" />
         <activity android:name=".ActivityUser" />
         <activity android:name=".MainActivity"></activity>
     </application>
