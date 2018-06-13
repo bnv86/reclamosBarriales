@@ -18,14 +18,14 @@
     <!-- Strings related to TABS ACTIVITY -->
     <string name="title_activity_main_tabbed">MainTabbedActivity</string>
     <string name="tab_text_1">UPLOAD</string>
-    <string name="tab_text_2">EVENTS</string>
-    <string name="tab_text_3">CONTACTS</string>
+    <string name="tab_text_2">CLAIMS</string>
+    <string name="tab_text_3">PROFILE</string>
     <string name="action_languaje">Languaje Selection</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- Strings related to EVENTOS -->
-    <string name="ver_todos">ALL EVENTS</string>
-    <string name="ver_mios">MY EVENTS</string>
+    <!-- Strings related to RECLAMOS -->
+    <string name="ver_todos">BY STATE</string>
+    <string name="ver_mios">BY ...</string>
 
     <!-- Strings related to CONTACTOS -->
     <string name="agregar_contacto">Add</string>

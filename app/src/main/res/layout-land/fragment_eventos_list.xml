@@ -9,6 +9,6 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="com.example.bruno.debarrio.fragments.EventosFragment"
+    tools:context="com.example.bruno.debarrio.fragments.ReclamosFragment"
     android:background="@android:color/holo_purple"
-    tools:listitem="@layout/fragment_eventos" />
+    tools:listitem="@layout/fragment_reclamos" />

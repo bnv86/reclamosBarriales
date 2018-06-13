@@ -30,7 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Evento;
+import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Save;
 
 import java.util.Hashtable;
@@ -145,11 +145,11 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
 
         //Bundle bundleObjeto = getArguments();
         //final String id = e.getId();
-        Evento evento2 = null;
+        Reclamo reclamo2 = null;
         Bundle bundleObjeto2 = getArguments();
         //if (bundleObjeto2 != null) {
-        evento2 = (Evento) bundleObjeto2.getSerializable("objeto");
-        final String id = evento2.getId();
+        reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
+        final String id = reclamo2.getId();
         //}
         //final String estado = spinner.getSelectedItem().toString();
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
@@ -195,7 +195,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_detalle_evento, container, false);
+        View vista = inflater.inflate(R.layout.fragment_detalle_reclamos, container, false);
         textUsuario = (TextView) vista.findViewById(R.id.detalle_usuario);
         textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textMunicipalidad = (TextView) vista.findViewById(R.id.detalle_municipalidad);
@@ -208,7 +208,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //String[] tipos1 = {"1","2", "3","4"};
         //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
-        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_evento, container))), tipos));
+        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
 /*
@@ -260,18 +260,18 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
         });
 
         Bundle bundleObjeto = getArguments();
-        Evento evento = null;
+        Reclamo reclamo = null;
 
         if (bundleObjeto != null){
-            evento = (Evento) bundleObjeto.getSerializable("objeto");
-            imagenDetalle.setImageBitmap(evento.getImagenDesc());
-            textUsuario.setText(evento.getId_usuario());
-            textMunicipalidad.setText(evento.getMunicipalidad());
-            textDescripcion.setText(evento.getDescripcionDesc());
-            textLatitud.setText(evento.getLatitudDesc());
-            textLongitud.setText(evento.getLongitudDesc());
-            //spinner.setItemAt(evento.getEstado());
-            String est = evento.getId_estado().toString();
+            reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
+            imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
+            textUsuario.setText(reclamo.getId_usuario());
+            textMunicipalidad.setText(reclamo.getMunicipalidad());
+            textDescripcion.setText(reclamo.getDescripcionDesc());
+            textLatitud.setText(reclamo.getLatitudDesc());
+            textLongitud.setText(reclamo.getLongitudDesc());
+            //spinner.setItemAt(reclamo.getEstado());
+            String est = reclamo.getId_estado().toString();
             if (est.equals("1")){
                 est = "Abierto";
                 spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
@@ -288,7 +288,7 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
                 est = "Re-abierto";
                 spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
             }
-            //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(evento.getId_estado()));
+            //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             //(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(myString));
         }
         /*

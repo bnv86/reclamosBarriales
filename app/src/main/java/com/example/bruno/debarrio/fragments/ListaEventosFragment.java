@@ -3,7 +3,6 @@ package com.example.bruno.debarrio.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -29,11 +28,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.bruno.debarrio.Adapters.AdaptadorEventos;
+import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Evento;
-import com.example.bruno.debarrio.entidades.Subject;
+import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import org.json.JSONArray;
@@ -66,7 +64,7 @@ public class ListaEventosFragment extends Fragment {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
 
-    ArrayList<Evento> listaEventos;
+    ArrayList<Reclamo> listaReclamos;
     RecyclerView recyclerViewEventos;
     TextView textviewRegresar;
     Activity activity;
@@ -109,16 +107,16 @@ public class ListaEventosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_lista_eventos, container, false);
+        View vista = inflater.inflate(R.layout.fragment_lista_reclamos, container, false);
         //progressBarEventos = vista.findViewById(R.id.progressBar);
-        //listaEventos = new ArrayList<>();
+        //listaReclamos = new ArrayList<>();
         recyclerViewEventos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewEventos.setLayoutManager(new LinearLayoutManager(getContext()));
         //llenarlistaReclamos();
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
-        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_evento, container))), tipos));
+        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -136,16 +134,16 @@ public class ListaEventosFragment extends Fragment {
         });
         //new GetHttpResponse(getContext()).execute();
 
-        //AdaptadorEventos adapter = new AdaptadorEventos(listaEventos);
+        //AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
 
         //recyclerViewEventos.setAdapter(adapter);
         /*
         adapter.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                Toast.makeText(getContext(), "Seleccionó " + listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
 
-                interfaceComunicacionFragments.enviarPersonaje(listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)));
+                interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
             }
         });*/
         //progressBarEventos.setVisibility(View.GONE);
@@ -158,7 +156,7 @@ public class ListaEventosFragment extends Fragment {
     }
 
     private void llenarlistaEstados(String posicion) {
-        listaEventos = new ArrayList<>();
+        listaReclamos = new ArrayList<>();
         //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
         new GetHttpResponseEstados(getContext(), posicion).execute();
     }
@@ -286,8 +284,8 @@ public class ListaEventosFragment extends Fragment {
                                         String categoria = jsonObject.getString("id_categoria");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaEventos.add(evento);
+                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo);
                                         posicion = "Abierto";
                                     }
                                     else{
@@ -309,8 +307,8 @@ public class ListaEventosFragment extends Fragment {
                                         String categoria = jsonObject.getString("id_categoria");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaEventos.add(evento);
+                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo);
                                         posicion = "En curso";
                                     }
                                     else{
@@ -331,8 +329,8 @@ public class ListaEventosFragment extends Fragment {
                                         String categoria = jsonObject.getString("id_categoria");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaEventos.add(evento);
+                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo);
                                         posicion = "Resuelto";
                                     }
                                     else{
@@ -353,8 +351,8 @@ public class ListaEventosFragment extends Fragment {
                                         String categoria = jsonObject.getString("id_categoria");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaEventos.add(evento);
+                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo);
                                         posicion = "Re-abierto";
                                     }
                                     else{
@@ -386,14 +384,14 @@ public class ListaEventosFragment extends Fragment {
         protected void onPostExecute(Void result)
 
         {
-            if(listaEventos != null) {
-                final AdaptadorEventos adapter = new AdaptadorEventos(listaEventos);
+            if(listaReclamos != null) {
+                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
                 recyclerViewEventos.setAdapter(adapter);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        //Toast.makeText(getContext(), "Seleccionó " + listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
-                        interfaceComunicacionFragments.enviarPersonaje(listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)));
+                        //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
+                        interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
                     }
                 });
             }
@@ -455,8 +453,8 @@ public class ListaEventosFragment extends Fragment {
                                 String municipalidad = jsonObject.getString("municipalidad");
                                 String descripcion = jsonObject.getString("descripcion");
 
-                                Evento evento = new Evento(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                listaEventos.add(evento);
+                                Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                listaReclamos.add(reclamo);
                             }
                         }
                         catch (JSONException e) {
@@ -481,14 +479,14 @@ public class ListaEventosFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result)
         {
-            if(listaEventos != null) {
-                final AdaptadorEventos adapter = new AdaptadorEventos(listaEventos);
+            if(listaReclamos != null) {
+                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
                 recyclerViewEventos.setAdapter(adapter);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        //Toast.makeText(getContext(), "Seleccionó " + listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
-                        interfaceComunicacionFragments.enviarPersonaje(listaEventos.get(recyclerViewEventos.getChildAdapterPosition(view)));
+                        //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
+                        interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
                     }
                 });
             }

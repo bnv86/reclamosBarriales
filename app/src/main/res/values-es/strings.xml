@@ -18,15 +18,15 @@
     <!-- Strings related to TABS ACTIVITY -->
     <string name="title_activity_main_tabbed">MainTabbedActivity</string>
     <string name="tab_text_1">SUBIR</string>
-    <string name="tab_text_2">EVENTOS</string>
-    <string name="tab_text_3">CONTACTOS</string>
+    <string name="tab_text_2">RECLAMOS</string>
+    <string name="tab_text_3">PERFIL</string>
     <string name="action_languaje">Selección de Idioma</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
-    <!-- Strings related to EVENTOS -->
-    <string name="ver_todos">VER TODOS</string>
-    <string name="ver_mios">VER MIOS</string>
+    <!-- Strings related to RECLAMOS -->
+    <string name="ver_todos">POR ESTADO</string>
+    <string name="ver_mios">POR...</string>
 
     <!-- Strings related to CONTACTOS -->
     <string name="agregar_contacto">Agregar</string>

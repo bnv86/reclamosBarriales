@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Bruno on 08/04/2018.
  */
 
-public class Evento implements Serializable{
+public class Reclamo implements Serializable{
     private String id;
     //private String usuarioDesc;
     private String id_categoria;
@@ -26,12 +26,12 @@ public class Evento implements Serializable{
     private int imagenId;
     private int imagenDescripcion;
 
-    public Evento(){
+    public Reclamo(){
 
     }
 
-    //public Evento(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
-    public Evento(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc){
+    //public Reclamo(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
+    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc){
         this.id = id;
         this.id_categoria = id_categoria;
         this.id_usuario = id_usuario;

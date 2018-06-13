@@ -20,7 +20,7 @@ import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class EventosFragment extends Fragment {
+public class ReclamosFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -34,13 +34,13 @@ public class EventosFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public EventosFragment() {
+    public ReclamosFragment() {
     }
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static EventosFragment newInstance(int columnCount) {
-        EventosFragment fragment = new EventosFragment();
+    public static ReclamosFragment newInstance(int columnCount) {
+        ReclamosFragment fragment = new ReclamosFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         fragment.setArguments(args);
@@ -59,7 +59,7 @@ public class EventosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_eventos, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_reclamos, container, false);
 
         botonVerTodos = rootView.findViewById(R.id.boton_ver_todos);
         botonVerTodos.setOnClickListener(new View.OnClickListener() {

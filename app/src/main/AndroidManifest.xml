@@ -79,8 +79,6 @@
         </activity>
         <activity android:name=".AddFotoElegirActivity" />
         <activity android:name=".NoIncluidos.IdiomaActivity" />
-        <activity android:name=".EventosTodosActivity" />
-        <activity android:name=".EventosMiosActivity" />
         <activity android:name=".ActivityUser" />
         <activity android:name=".MainActivity"></activity>
     </application>

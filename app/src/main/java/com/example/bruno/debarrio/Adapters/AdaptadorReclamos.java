@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Evento;
+import com.example.bruno.debarrio.entidades.Reclamo;
 
 import java.util.ArrayList;
 
@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * Created by Bruno on 08/04/2018.
  */
 
-public class AdaptadorEventos extends RecyclerView.Adapter<AdaptadorEventos.PersonajesViewHolder> implements View.OnClickListener{
+public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.PersonajesViewHolder> implements View.OnClickListener{
 
-    ArrayList<Evento> listaPersonajes;
+    ArrayList<Reclamo> listaPersonajes;
     private View.OnClickListener listener;
 
-    public AdaptadorEventos(ArrayList<Evento> listaPersonajes){
+    public AdaptadorReclamos(ArrayList<Reclamo> listaPersonajes){
         this.listaPersonajes = listaPersonajes;
     }
 
