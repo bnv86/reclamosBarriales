@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.ProfileFragment">
+
+    <ScrollView
+        android:id="@+id/register_scroll_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/register_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="40dp"
+            android:paddingTop="@dimen/text_margin"
+            android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Profile"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/colorDark"
+            android:paddingTop="@dimen/text_margin"
+            android:textSize="28sp"/>
+
+        <EditText
+            android:id="@+id/edit_nombre_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_nombre"
+            android:inputType="text"
+            android:layout_marginTop="@dimen/text_margin"/>
+
+        <EditText
+            android:id="@+id/edit_apellido_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_apellido"
+            android:inputType="text"
+            android:layout_marginTop="1dp"/>
+
+        <EditText
+            android:id="@+id/edit_email_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_email"
+            android:inputType="text"
+            android:layout_marginTop="1dp"/>
+
+        <EditText
+            android:id="@+id/edit_telefono_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_telefono"
+            android:inputType="number"
+            android:layout_marginTop="1dp"/>
+
+        <EditText
+            android:id="@+id/edit_direccion_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_direccion"
+            android:inputType="number"
+            android:layout_marginTop="1dp"/>
+
+        <EditText
+            android:id="@+id/edit_usuario_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_nombre_user"
+            android:inputType="text"
+            android:layout_marginTop="1dp"/>
+
+        <EditText
+            android:id="@+id/edit_password_perfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:hint="@string/usuario_password"
+            android:inputType="textPassword"
+            android:layout_marginTop="1dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/camera"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"/>
+            <Button
+                android:id="@+id/boton_foto_perfil"
+                android:layout_gravity="center"
+                android:text="Update photo"
+                android:background="@color/colorLightBlue"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="22dp"
+                android:layout_marginBottom="3dp"/>
+        </LinearLayout>
+
+            <Button
+                android:id="@+id/boton_actualizar_perfil"
+                android:layout_gravity="center"
+                android:text="Update profile"
+                android:background="@color/colorLightBlue"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
