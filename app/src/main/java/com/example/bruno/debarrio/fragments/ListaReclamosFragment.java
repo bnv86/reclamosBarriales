@@ -48,12 +48,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListaEventosFragment.OnFragmentInteractionListener} interface
+ * {@link ListaReclamosFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListaEventosFragment#newInstance} factory method to
+ * Use the {@link ListaReclamosFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaEventosFragment extends Fragment {
+public class ListaReclamosFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -74,7 +74,7 @@ public class ListaEventosFragment extends Fragment {
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     //String ServerURL2 = "https://momentary-electrode.000webhostapp.com/getCategoria.php";
 
-    public ListaEventosFragment() {
+    public ListaReclamosFragment() {
         // Required empty public constructor
     }
 
@@ -84,11 +84,11 @@ public class ListaEventosFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListaEventosFragment.
+     * @return A new instance of fragment ListaReclamosFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListaEventosFragment newInstance(String param1, String param2) {
-        ListaEventosFragment fragment = new ListaEventosFragment();
+    public static ListaReclamosFragment newInstance(String param1, String param2) {
+        ListaReclamosFragment fragment = new ListaReclamosFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

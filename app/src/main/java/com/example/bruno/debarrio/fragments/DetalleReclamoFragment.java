@@ -40,12 +40,12 @@ import java.util.TreeMap;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DetalleEventoFragment.OnFragmentInteractionListener} interface
+ * {@link DetalleReclamoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DetalleEventoFragment#newInstance} factory method to
+ * Use the {@link DetalleReclamoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetalleEventoFragment extends Fragment{ //implements AdapterView.OnItemSelectedListener    implements View.OnClickListener
+public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.OnItemSelectedListener    implements View.OnClickListener
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -60,14 +60,13 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
 
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textLatitud, textLongitud; //, textID
     ImageView imagenDetalle;
-    EditText etDescrip;
     Button botonActualizarEstado;
     Spinner spinner;
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
     private TreeMap<String, String> descrip;
 
-    public DetalleEventoFragment() {
+    public DetalleReclamoFragment() {
         // Required empty public constructor
     }
 
@@ -77,11 +76,11 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DetalleEventoFragment.
+     * @return A new instance of fragment DetalleReclamoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DetalleEventoFragment newInstance(String param1, String param2) {
-        DetalleEventoFragment fragment = new DetalleEventoFragment();
+    public static DetalleReclamoFragment newInstance(String param1, String param2) {
+        DetalleReclamoFragment fragment = new DetalleReclamoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -97,34 +96,6 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
-    /*
-    private void actualizarEstado(Spinner spinner) {
-        final String estado = spinner.getSelectedItem().toString();
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                    if (success) {
-                        Intent intent = new Intent(getContext(), MainTabbedActivity.class);
-                        getActivity().startActivity(intent);
-                        Toast.makeText(getActivity(), "Estado actualizado!", Toast.LENGTH_LONG).show();
-                    } else {
-                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getContext());
-                        alertBuilder.setMessage("Error al actualizar estado").setNegativeButton("Reintentar", null).create().show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        PedidoDeEstado pedido = new PedidoDeEstado(estado, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(getContext());
-        queue.add(pedido);
-    }*/
 
     public void subirEstado(String pos){
         String estado = "0";

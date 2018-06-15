@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:background="#BBF8FA"
-    tools:context="com.example.bruno.debarrio.fragments.DetalleEventoFragment">
+    tools:context="com.example.bruno.debarrio.fragments.DetalleReclamoFragment">
 
     <ImageView
         android:id="@+id/imagen_detalle"

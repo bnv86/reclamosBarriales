@@ -9,14 +9,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.bruno.debarrio.entidades.Reclamo;
-import com.example.bruno.debarrio.fragments.DetalleEventoFragment;
+import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
 import com.example.bruno.debarrio.NoIncluidos.ListaEventosUsuarioFragment;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import java.util.ArrayList;
 
 public class ActivityUser extends FragmentActivity implements ListaEventosUsuarioFragment.OnFragmentInteractionListener,
-DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
+DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     ListView eventosListView;
     ProgressBar progressBarEventos;
@@ -27,7 +27,7 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
     RecyclerView recyclerViewPersonajes;
 
     ListaEventosUsuarioFragment listaEventosUsuarioFragment;
-    DetalleEventoFragment detalleEventoFragment;
+    DetalleReclamoFragment detalleReclamoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +66,13 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
 
     @Override
     public void enviarPersonaje(Reclamo reclamo) {
-        detalleEventoFragment = new DetalleEventoFragment();
+        detalleReclamoFragment = new DetalleReclamoFragment();
         Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("objeto", reclamo);
-        detalleEventoFragment.setArguments(bundleEnvio);
+        detalleReclamoFragment.setArguments(bundleEnvio);
 
         //cargar el fragment en el activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleEventoFragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
     }
 
     /*

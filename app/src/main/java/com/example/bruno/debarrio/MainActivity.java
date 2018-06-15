@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 //import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.entidades.Reclamo;
-import com.example.bruno.debarrio.fragments.DetalleEventoFragment;
-import com.example.bruno.debarrio.fragments.ListaEventosFragment;
+import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
+import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity implements ListaEventosFragment.OnFragmentInteractionListener,
-DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
+public class MainActivity extends FragmentActivity implements ListaReclamosFragment.OnFragmentInteractionListener,
+DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     ListView eventosListView;
     ProgressBar progressBarEventos;
@@ -25,19 +25,19 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getEvento.php";
     ArrayList<Reclamo> listaPersonajes;
     RecyclerView recyclerViewPersonajes;
-    ListaEventosFragment listaEventosFragment;
-    DetalleEventoFragment detalleEventoFragment;
+    ListaReclamosFragment listaReclamosFragment;
+    DetalleReclamoFragment detalleReclamoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
-        listaEventosFragment = new ListaEventosFragment();
+        listaReclamosFragment = new ListaReclamosFragment();
         //listaPersonajes = new ArrayList<>();
         //recyclerViewPersonajes = (RecyclerView) findViewById(R.id.reciclerId);
         //recyclerViewPersonajes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaEventosFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         progressBarEventos = findViewById(R.id.progressBar);
     }
 
@@ -46,12 +46,12 @@ DetalleEventoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //im
 
     @Override
     public void enviarPersonaje(Reclamo reclamo) {
-        detalleEventoFragment = new DetalleEventoFragment();
+        detalleReclamoFragment = new DetalleReclamoFragment();
         Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("objeto", reclamo);
-        detalleEventoFragment.setArguments(bundleEnvio);
+        detalleReclamoFragment.setArguments(bundleEnvio);
 
         //cargar el fragment en el activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleEventoFragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
     }
 }
