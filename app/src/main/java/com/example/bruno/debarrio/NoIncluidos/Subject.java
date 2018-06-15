@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio.entidades;
+package com.example.bruno.debarrio.NoIncluidos;
 
 import android.graphics.Bitmap;
 import android.graphics.ImageFormat;

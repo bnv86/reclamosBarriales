@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio.Adapters;
+package com.example.bruno.debarrio.NoIncluidos;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Subject;
 
 import java.util.List;
 

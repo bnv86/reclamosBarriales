@@ -1,4 +1,4 @@
-package com.example.bruno.debarrio.Adapters;
+package com.example.bruno.debarrio.NoIncluidos;
 
 import android.content.Context;
 import java.util.List;
@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.bruno.debarrio.entidades.Subject;
 import com.example.bruno.debarrio.R;
 
 /**

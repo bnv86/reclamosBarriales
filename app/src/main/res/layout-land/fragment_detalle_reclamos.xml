@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imagen_detalle"
         android:layout_width="240dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@drawable/camera"
         android:scaleType="fitXY"
         android:layout_marginBottom="10dp"

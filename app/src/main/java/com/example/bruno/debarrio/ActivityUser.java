@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.fragments.DetalleEventoFragment;
-import com.example.bruno.debarrio.fragments.ListaEventosUsuarioFragment;
+import com.example.bruno.debarrio.NoIncluidos.ListaEventosUsuarioFragment;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import java.util.ArrayList;
