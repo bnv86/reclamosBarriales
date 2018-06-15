@@ -266,12 +266,15 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
             reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
             imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
             textUsuario.setText(reclamo.getId_usuario());
+            textCategoria.setText(reclamo.getId_categoria());
             textMunicipalidad.setText(reclamo.getMunicipalidad());
             textDescripcion.setText(reclamo.getDescripcionDesc());
             textLatitud.setText(reclamo.getLatitudDesc());
             textLongitud.setText(reclamo.getLongitudDesc());
             //spinner.setItemAt(reclamo.getEstado());
-            String est = reclamo.getId_estado().toString();
+            //String est = reclamo.getId_estado().toString();
+            //String estadoNombre = reclamo.getEstado().toString();
+            /*
             if (est.equals("1")){
                 est = "Abierto";
                 spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
@@ -287,8 +290,8 @@ public class DetalleEventoFragment extends Fragment{ //implements AdapterView.On
             if (est.equals("4")){
                 est = "Re-abierto";
                 spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
-            }
-            //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
+            }*/
+            spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             //(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(myString));
         }
         /*

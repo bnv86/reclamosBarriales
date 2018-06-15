@@ -3,12 +3,14 @@ package com.example.bruno.debarrio.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,7 +32,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
+import com.example.bruno.debarrio.LoginActivity;
+import com.example.bruno.debarrio.PostsDB.PedidoDeCategoria;
+import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.RegistroActivity;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
@@ -72,6 +78,7 @@ public class ListaEventosFragment extends Fragment {
     ProgressBar progressBarEventos;
     Spinner spinner;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
+    //String ServerURL2 = "https://momentary-electrode.000webhostapp.com/getCategoria.php";
 
     public ListaEventosFragment() {
         // Required empty public constructor
@@ -212,6 +219,9 @@ public class ListaEventosFragment extends Fragment {
         public Context context;
         public String posicion;
         String ResultHolder;
+        String ResultHolder2;
+        String ResultHolder3;
+
         //List<Subject> eventosList;
         public GetHttpResponseEstados(Context context, String posicion)
         {
@@ -251,40 +261,50 @@ public class ListaEventosFragment extends Fragment {
         protected Void doInBackground(Void... arg0)
         {
             HttpServices httpServiceObject = new HttpServices(ServerURL);
+            //HttpServices httpServiceObject2 = new HttpServices(ServerURL2);
             try
             {
                 httpServiceObject.ExecutePostRequest();
 
-                if(httpServiceObject.getResponseCode() == 200)
+                if((httpServiceObject.getResponseCode() == 200)) //&& (httpServiceObject2.getResponseCode() == 200)
                 {
                     ResultHolder = httpServiceObject.getResponse();
+                    //ResultHolder2 = httpServiceObject2.getResponse();
 
-                    if(ResultHolder != null)
+                    if((ResultHolder != null)) //&& (ResultHolder2 != null)
                     {
                         JSONArray jsonArray = null;
+                        //JSONArray jsonArrayCategoria = null;
+                        //JSONObject jsonObjectCategoria = null;
                         try {
                             jsonArray = new JSONArray(ResultHolder);
+                            //jsonObjectCategoria = new JSONObject(ResultHolder2);
+                            //jsonArrayCategoria = new JSONArray(ResultHolder2);
                             JSONObject jsonObject;
+                            //JSONObject jsonObjectCategoria;
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-                                String estado = jsonObject.getString("id_estado");
+                                String estado = jsonObject.getString("estado");
 
                                 if (posicion == "Abierto")
                                 {
-                                    posicion = "1";
+                                    //posicion = "1";
                                     if (estado.equals(posicion)) {
-                                        String usuario = jsonObject.getString("id_usuario");
+                                        //String usuario = jsonObject.getString("id_usuario");
+                                        String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
-                                        String categoria = jsonObject.getString("id_categoria");
+                                        //String id_categoria = jsonObject.getString("id_categoria");
+                                        String nombreCategoria = jsonObject.getString("nombre");
+                                        //int id_categoria = jsonObject.getInt("id_categoria");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Abierto";
                                     }
@@ -295,19 +315,20 @@ public class ListaEventosFragment extends Fragment {
 
                                 if (posicion == "En curso")
                                 {
-                                    posicion = "2";
+                                    //posicion = "2";
                                     if (estado.equals(posicion)) {
-                                        String usuario = jsonObject.getString("id_usuario");
+                                        //String usuario = jsonObject.getString("id_usuario");
+                                        String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
-                                        String categoria = jsonObject.getString("id_categoria");
+                                        String nombreCategoria = jsonObject.getString("nombre");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "En curso";
                                     }
@@ -317,19 +338,20 @@ public class ListaEventosFragment extends Fragment {
                                 }
                                 if (posicion == "Resuelto")
                                 {
-                                    posicion = "3";
+                                    //posicion = "3";
                                     if (estado.equals(posicion)) {
-                                        String usuario = jsonObject.getString("id_usuario");
+                                        //String usuario = jsonObject.getString("id_usuario");
+                                        String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
-                                        String categoria = jsonObject.getString("id_categoria");
+                                        String nombreCategoria = jsonObject.getString("nombre");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Resuelto";
                                     }
@@ -339,19 +361,20 @@ public class ListaEventosFragment extends Fragment {
                                 }
                                 if (posicion == "Re-abierto")
                                 {
-                                    posicion = "4";
+                                    //posicion = "4";
                                     if (estado.equals(posicion)) {
-                                        String usuario = jsonObject.getString("id_usuario");
+                                        //String usuario = jsonObject.getString("id_usuario");
+                                        String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
                                         String latitud = jsonObject.getString("latitud");
                                         String longitud = jsonObject.getString("longitud");
-                                        String categoria = jsonObject.getString("id_categoria");
+                                        String nombreCategoria = jsonObject.getString("nombre");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Re-abierto";
                                     }
