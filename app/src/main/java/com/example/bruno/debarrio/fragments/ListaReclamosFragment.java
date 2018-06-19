@@ -298,7 +298,8 @@ public class ListaReclamosFragment extends Fragment {
                                         //int id_categoria = jsonObject.getInt("id_categoria");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        String mail = jsonObject.getString("email");
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Abierto";
                                     }
@@ -322,7 +323,8 @@ public class ListaReclamosFragment extends Fragment {
                                         String nombreCategoria = jsonObject.getString("nombre");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        String mail = jsonObject.getString("email");
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "En curso";
                                     }
@@ -345,7 +347,8 @@ public class ListaReclamosFragment extends Fragment {
                                         String nombreCategoria = jsonObject.getString("nombre");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        String mail = jsonObject.getString("email");
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Resuelto";
                                     }
@@ -368,7 +371,8 @@ public class ListaReclamosFragment extends Fragment {
                                         String nombreCategoria = jsonObject.getString("nombre");
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
-                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        String mail = jsonObject.getString("email");
+                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Re-abierto";
                                     }
@@ -469,8 +473,9 @@ public class ListaReclamosFragment extends Fragment {
                                 String estado = jsonObject.getString("id_estado");
                                 String municipalidad = jsonObject.getString("municipalidad");
                                 String descripcion = jsonObject.getString("descripcion");
+                                String mail= jsonObject.getString("email");
 
-                                Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                 listaReclamos.add(reclamo);
                             }
                         }

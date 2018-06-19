@@ -23,6 +23,8 @@ public class Reclamo implements Serializable{
     private String municipalidad;
     private String descripcionDesc;
 
+    private String email;
+
     private int imagenId;
     private int imagenDescripcion;
 
@@ -31,7 +33,7 @@ public class Reclamo implements Serializable{
     }
 
     //public Reclamo(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
-    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc){
+    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc, String email){
         this.id = id;
         this.id_categoria = id_categoria;
         this.id_usuario = id_usuario;
@@ -43,6 +45,8 @@ public class Reclamo implements Serializable{
         this.longitudDesc = longitudDesc;
         this.municipalidad = municipalidad;
         this.descripcionDesc = descripcionDesc;
+
+        this.email = email;
         //this.imagenId = imagenId;
         //this.imagenDescripcion = imagenDescripcion;
     }
@@ -72,6 +76,10 @@ public class Reclamo implements Serializable{
 
     public String getDescripcionDesc(){return descripcionDesc;}
     public void setDescripcionDesc(String descripcionDesc){this.descripcionDesc = descripcionDesc;}
+
+    public String getEmail(){return email;}
+    public void setEmail(String email){this.email = email;}
+
 
     //public int getImagenId(){return imagenId;}
     //public void setImagenId(int imagenId){this.imagenId = imagenId;}

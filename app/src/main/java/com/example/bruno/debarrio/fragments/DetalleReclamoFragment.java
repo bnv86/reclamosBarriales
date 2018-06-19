@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,12 +29,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.entidades.EnviarMail;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Save;
 
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.TreeMap;
+
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,12 +61,15 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     private OnFragmentInteractionListener mListener;
 
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textLatitud, textLongitud; //, textID
+    String mailReclamo;
     ImageView imagenDetalle;
     Button botonActualizarEstado;
+    Button botonEnviarMail;
     Spinner spinner;
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
     private TreeMap<String, String> descrip;
+
 
     public DetalleReclamoFragment() {
         // Required empty public constructor
@@ -133,6 +138,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+
+
                         //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
                     }
                 },
@@ -206,6 +213,12 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         });
 
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
+
+
+
+
+
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -242,6 +255,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             textDescripcion.setText(reclamo.getDescripcionDesc());
             textLatitud.setText(reclamo.getLatitudDesc());
             textLongitud.setText(reclamo.getLongitudDesc());
+
+            mailReclamo=reclamo.getEmail();
             //spinner.setItemAt(reclamo.getEstado());
             //String est = reclamo.getId_estado().toString();
             //String estadoNombre = reclamo.getEstado().toString();
@@ -273,6 +288,18 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                 subirEstado(pos);
             }
         });*/
+
+        //PROBANDO BOTON Y CLASE ENVIARMAIL
+        botonEnviarMail=vista.findViewById(R.id.boton_enviar_mail);
+        final Reclamo finalReclamo = reclamo;
+        botonEnviarMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EnviarMail enviarMail= new EnviarMail(getContext(),finalReclamo.getEmail(), "AppReclamosBarriales",finalReclamo.getId_usuario()+" se le comunica que el reclamo fue resuelto");
+                enviarMail.execute();
+
+            }
+        });
         return vista;
     }
 
@@ -340,4 +367,5 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                 })
                 .show();
     }
+
 }

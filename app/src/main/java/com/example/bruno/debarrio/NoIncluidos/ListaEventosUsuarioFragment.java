@@ -250,7 +250,8 @@ public class ListaEventosUsuarioFragment extends Fragment {
                                     String municipalidad = jsonObject.getString("municipalidad");
                                     String descripcion = jsonObject.getString("descripcion");
                                     String estado = jsonObject.getString("id_estado");
-                                    Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                    String mail= jsonObject.getString("email");
+                                    Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(),mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                     listaReclamos.add(reclamo);
                                 }
                             }
