@@ -65,7 +65,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     String mailReclamo;
     ImageView imagenDetalle;
     Button botonActualizarEstado;
-    Button botonEnviarMail;
+    //Button botonEnviarMail;
     Spinner spinner;
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
@@ -234,6 +234,19 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                 botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        if (posicion.equals("En curso")){
+                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo esta en curso");
+                            enviomail.execute();
+                        }
+
+                        if (posicion.equals("Resuelto")) {
+                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo fue resuelto");
+                            enviomail.execute();
+                        }
+
+
+
                         subirEstado(posicion);
                     }
                 });
@@ -291,7 +304,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         });*/
 
         //PROBANDO BOTON Y CLASE ENVIARMAIL
-        botonEnviarMail=vista.findViewById(R.id.boton_enviar_mail);
+        /*botonEnviarMail=vista.findViewById(R.id.boton_enviar_mail);
         final Reclamo finalReclamo = reclamo;
         botonEnviarMail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,7 +313,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                 enviarMail.execute();
 
             }
-        });
+        });*/
         return vista;
     }
 
