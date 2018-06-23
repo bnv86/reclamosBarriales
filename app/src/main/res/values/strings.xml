@@ -26,7 +26,7 @@
 
     <!-- Strings related to RECLAMOS -->
     <string name="ver_todos">BY STATE</string>
-    <string name="ver_mios">BY ...</string>
+    <string name="ver_mios">BY LOCATION</string>
 
     <!-- Strings related to REGISTRAR ACTIVITY -->
     <string name="str_regresar">   BACK </string>

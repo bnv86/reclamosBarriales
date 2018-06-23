@@ -21,6 +21,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="26" />
+    <!-- <activity android:name=".FotoElegirActivity" /> -->
+
 
     <!-- AIzaSyAuJY44MzeWCWREBKTHAQuq66h7bz0BJPw -->
     <application
@@ -78,10 +80,9 @@
 
         </activity>
         <activity android:name=".AddFotoElegirActivity" />
-        <activity android:name=".NoIncluidos.IdiomaActivity" />
         <activity android:name=".ActivityUser" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MapActivity"></activity>
     </application>
-    <!-- <activity android:name=".FotoElegirActivity" /> -->
 
 </manifest>

@@ -129,6 +129,16 @@
                     android:text="Longitud"
                     android:textColor="#0021FA"/>
 
+                <Button
+                    android:id="@+id/boton_ubicacion_reclamo"
+                    android:layout_below="@+id/detalle_longitud"
+                    android:text="ver UBICACION"
+                    android:background="@color/colorOrange"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="16dp"/>
+
                 <TextView
                     android:id="@+id/divisor"
                     android:layout_width="wrap_content"
@@ -139,7 +149,7 @@
                     android:id="@+id/static_estado"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/detalle_longitud"
+                    android:layout_below="@+id/boton_ubicacion_reclamo"
                     android:text="Estado: "
                     android:textColor="@android:color/black"
                     android:textStyle="bold"/>

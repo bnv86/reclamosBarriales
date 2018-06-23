@@ -1,8 +1,10 @@
 package com.example.bruno.debarrio.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -28,10 +30,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.EnviarMail;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Save;
+import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -64,12 +68,14 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textLatitud, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
-    Button botonActualizarEstado;
+    Button botonActualizarEstado, botonUbicacion;
     //Button botonEnviarMail;
     Spinner spinner;
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
     private TreeMap<String, String> descrip;
+    Activity activity;
+    ComunicacionFragments interfaceComunicaFragments;
 
 
     public DetalleReclamoFragment() {
@@ -214,11 +220,14 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         });
 
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
+        botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
+        botonUbicacion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentMapa();
+            }
 
-
-
-
-
+        });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -230,7 +239,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                 //etDescrip.setText(description);
                 //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
                 final String posicion = (String) adapterView.getItemAtPosition(pos);
-
                 botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -244,9 +252,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                             EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo fue resuelto");
                             enviomail.execute();
                         }
-
-
-
                         subirEstado(posicion);
                     }
                 });
@@ -269,8 +274,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             textDescripcion.setText(reclamo.getDescripcionDesc());
             textLatitud.setText(reclamo.getLatitudDesc());
             textLongitud.setText(reclamo.getLongitudDesc());
-
-            mailReclamo=reclamo.getEmail();
+            mailReclamo = reclamo.getEmail();
             //spinner.setItemAt(reclamo.getEstado());
             //String est = reclamo.getId_estado().toString();
             //String estadoNombre = reclamo.getEstado().toString();
@@ -317,6 +321,18 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         return vista;
     }
 
+    private void llamarIntentMapa() { //pasa a un activity o fragment map
+        Intent intentMap = new Intent(getContext(), MapActivity.class);
+        getContext().startActivity(intentMap);
+
+        /* si no funciona lo anterior...
+        private final Context context;
+        context = itemView.getContext();
+        Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
+        detail.putExtra("id", imagen.getId());
+        context.startActivity(detail);*/
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -327,6 +343,15 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        /*
+        if (context instanceof Activity) {
+            this.activity = (Activity) context;
+            interfaceComunicaFragments = (ComunicacionFragments) this.activity;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }*/
+
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -359,8 +384,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     private void confirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder
-                .setMessage("¿Desea guardar la imagen?")
+        builder.setMessage("¿Desea guardar la imagen?")
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {

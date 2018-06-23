@@ -3,6 +3,7 @@ package com.example.bruno.debarrio;
 import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -12,11 +13,13 @@ import android.widget.TextView;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
 import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
+import com.example.bruno.debarrio.fragments.ReclamosFragment;
+import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity implements ListaReclamosFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener,
 DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     ListView eventosListView;
@@ -53,5 +56,10 @@ DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //i
 
         //cargar el fragment en el activity
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }

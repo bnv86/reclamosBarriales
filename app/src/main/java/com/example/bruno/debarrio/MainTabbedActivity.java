@@ -21,15 +21,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.fragments.*;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
+import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Locale;
 
-public class MainTabbedActivity extends AppCompatActivity implements SubirFragment.OnFragmentInteractionListener, ReclamosFragment.OnListFragmentInteractionListener{
+public class MainTabbedActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener, DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -47,11 +49,14 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
     private ViewPager mViewPager;
     private Locale locale;
     private Configuration config = new Configuration();
+    ListaReclamosFragment listaReclamosFragment;
+    DetalleReclamoFragment detalleReclamoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tabbed);
+        listaReclamosFragment = new ListaReclamosFragment();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,6 +82,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
                         .setAction("Action", null).show();
             }
         });*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaReclamosFragment).commit();
     }
 
     @Override
@@ -117,6 +123,22 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
 
     }
 
+    /*
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
+    }*/
+
+    @Override
+    public void enviarPersonaje(Reclamo reclamo) {
+        detalleReclamoFragment = new DetalleReclamoFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto", reclamo);
+        detalleReclamoFragment.setArguments(bundleEnvio);
+        //cargar el fragment en el activity
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleReclamoFragment).addToBackStack(null).commit();
+    }
+
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
@@ -148,6 +170,7 @@ public class MainTabbedActivity extends AppCompatActivity implements SubirFragme
                 //    break;
                 case 1:
                     fragment = new ReclamosFragment();
+                    //fragment = new ListaReclamosFragment();
                     break;
                 case 2:
                     fragment = new ProfileFragment();

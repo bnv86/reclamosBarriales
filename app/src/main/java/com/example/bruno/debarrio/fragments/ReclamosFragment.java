@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.Button;
 
 import com.example.bruno.debarrio.ActivityUser;
 import com.example.bruno.debarrio.MainActivity;
+import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
+import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 /**
  * A fragment representing a list of Items.
@@ -20,15 +24,16 @@ import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class ReclamosFragment extends Fragment {
+public class ReclamosFragment extends Fragment implements ComunicacionFragments {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    Button botonVerTodos;
-    Button botonVerMios;
+    Button botonVerTodos, botonVerMios, botonUbicacion;
+    ListaReclamosFragment listaReclamosFragment;
+    DetalleReclamoFragment detalleReclamoFragment;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -76,6 +81,17 @@ public class ReclamosFragment extends Fragment {
                 llamarIntentVerMios();
             }
         });
+
+        botonUbicacion = rootView.findViewById(R.id.boton_ubicacion_reclamo);
+        botonUbicacion.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentMapa();
+            }
+
+        });
+
+
         /*
         //View view = inflater.inflate(R.layout.fragment_eventos_list, container, false);
         // Set the adapter
@@ -112,6 +128,15 @@ public class ReclamosFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void enviarPersonaje(Reclamo reclamo) {
+        detalleReclamoFragment = new DetalleReclamoFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto", reclamo);
+        detalleReclamoFragment.setArguments(bundleEnvio);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -139,5 +164,17 @@ public class ReclamosFragment extends Fragment {
         //Intent intentVer = new Intent(getActivity(), EventosMiosActivity.class);
         Intent intentVer = new Intent(getActivity(), ActivityUser.class);
         getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentMapa() { //pasa a un activity o fragment map
+        Intent intentMap = new Intent(getActivity(), MapActivity.class);
+        getActivity().startActivity(intentMap);
+
+        /* si no funciona lo anterior...
+        private final Context context;
+        context = itemView.getContext();
+        Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
+        detail.putExtra("id", imagen.getId());
+        context.startActivity(detail);*/
     }
 }

@@ -49,6 +49,19 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/boton_ubicacion_reclamo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@android:color/holo_purple"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="ver ubicacion"
+                android:textColor="@color/colorDark"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <!--
             <TextView
                 android:id="@+id/texto_telefono"

@@ -25,7 +25,7 @@
 
     <!-- Strings related to RECLAMOS -->
     <string name="ver_todos">PER STATO</string>
-    <string name="ver_mios">PER...</string>
+    <string name="ver_mios">PER POSIZIONE</string>
 
     <!-- Strings related to CONTACTOS -->
     <string name="agregar_contacto">Aggiungere</string>
