@@ -30,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.EnviarMail;
@@ -70,12 +71,12 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     ImageView imagenDetalle;
     Button botonActualizarEstado, botonUbicacion;
     //Button botonEnviarMail;
-    Spinner spinner;
+    //Spinner spinner;
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
     private TreeMap<String, String> descrip;
     Activity activity;
-    ComunicacionFragments interfaceComunicaFragments;
+    ComunicacionFragments interfaceComunicacionFragments;
 
 
     public DetalleReclamoFragment() {
@@ -107,74 +108,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-    public void subirEstado(String pos){
-        String estado = "0";
-        if(pos == "Abierto"){
-            estado = "1";
-        }
-        if(pos == "En curso"){
-            estado = "2";
-        }
-        if(pos == "Resuelto"){
-            estado = "3";
-        }
-        if(pos == "Re-abierto"){
-            estado = "4";
-        }
-
-        final String estadoFinal = estado;
-
-        //Bundle bundleObjeto = getArguments();
-        //final String id = e.getId();
-        Reclamo reclamo2 = null;
-        Bundle bundleObjeto2 = getArguments();
-        //if (bundleObjeto2 != null) {
-        reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
-        final String id = reclamo2.getId();
-        //}
-        //final String estado = spinner.getSelectedItem().toString();
-        SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-        //final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
-
-
-                        //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
-                    }
-                }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creación de parámetros
-                Map<String,String> params = new Hashtable<String, String>();
-                //Agregando de parámetros
-                params.put(KEY_ID, id);
-                params.put(KEY_ESTADO, estadoFinal);
-                //Parámetros de retorno
-                return params;
-            }
-        };
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Creación de una cola de solicitudes
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-        //Agregar solicitud a la cola
-        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -277,6 +210,12 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             mailReclamo = reclamo.getEmail();
             //asignarInfo(reclamo);
+            //guardo las coordenadas para usar en el boton ubicacion del detalle
+            SharedPreferences sharedpreferences = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("latitud", reclamo.getLatitudDesc());
+            editor.putString("longitud", reclamo.getLongitudDesc());
+            editor.commit();
         }
         /*
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
@@ -300,6 +239,74 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         });*/
         return vista;
     }
+
+public void subirEstado(String pos){
+    String estado = "";
+    if(pos == "Abierto"){
+        estado = "1";
+    }
+    if(pos == "En curso"){
+        estado = "2";
+    }
+    if(pos == "Resuelto"){
+        estado = "3";
+    }
+    if(pos == "Re-abierto"){
+        estado = "4";
+    }
+
+    final String estadoFinal = estado;
+
+    //Bundle bundleObjeto = getArguments();
+    //final String id = e.getId();
+    Reclamo reclamo2 = null;
+    Bundle bundleObjeto2 = getArguments();
+    //if (bundleObjeto2 != null) {
+    reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
+    final String id = reclamo2.getId();
+    //}
+    //final String estado = spinner.getSelectedItem().toString();
+    //SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
+    //final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
+    final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    //Descartar el diálogo de progreso
+                    loading.dismiss();
+                    Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+
+
+                    //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    loading.dismiss();
+                    Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                }
+            }){
+
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            //Creación de parámetros
+            Map<String,String> params = new Hashtable<String, String>();
+            //Agregando de parámetros
+            params.put(KEY_ID, id);
+            params.put(KEY_ESTADO, estadoFinal);
+            //Parámetros de retorno
+            return params;
+        }
+    };
+    //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+    //Creación de una cola de solicitudes
+    RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+    //Agregar solicitud a la cola
+    requestQueue.add(stringRequest);
+}
 /*
     public void asignarInfo(Reclamo reclamo) {
         imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
@@ -314,8 +321,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     }*/
 
     private void llamarIntentMapa() { //pasa a un activity o fragment map
-        Intent intentMap = new Intent(getContext(), MapActivity.class);
-        getContext().startActivity(intentMap);
+        Intent intentMap = new Intent(getActivity(), MapActivity.class);
+        startActivity(intentMap);
 
         /* si no funciona lo anterior...
         private final Context context;
@@ -343,6 +350,11 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }*/
+
+        if (context instanceof Activity) {
+            this.activity = (Activity) context;
+            interfaceComunicacionFragments = (ComunicacionFragments) this.activity;
+        }
 
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;

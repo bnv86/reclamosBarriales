@@ -47,10 +47,7 @@ public class Reclamo implements Serializable,Parcelable{
         this.longitudDesc = longitudDesc;
         this.municipalidad = municipalidad;
         this.descripcionDesc = descripcionDesc;
-
         this.email = email;
-        //this.imagenId = imagenId;
-        //this.imagenDescripcion = imagenDescripcion;
     }
 
     protected Reclamo(Parcel in) {

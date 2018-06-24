@@ -36,14 +36,14 @@ DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //i
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
-        listaReclamosFragment = new ListaReclamosFragment();
 
         if (findViewById(R.id.contenedorFragment) != null){
             if (savedInstanceState != null){
                 return;
             }
+            listaReclamosFragment = new ListaReclamosFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-            progressBarEventos = findViewById(R.id.progressBar);
+            //progressBarEventos = findViewById(R.id.progressBar);
 
         }
         //listaPersonajes = new ArrayList<>();

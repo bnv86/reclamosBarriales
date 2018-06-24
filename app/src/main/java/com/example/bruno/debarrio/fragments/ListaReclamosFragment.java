@@ -3,6 +3,7 @@ package com.example.bruno.debarrio.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -213,8 +214,6 @@ public class ListaReclamosFragment extends Fragment {
         public Context context;
         public String posicion;
         String ResultHolder;
-        String ResultHolder2;
-        String ResultHolder3;
 
         //List<Subject> eventosList;
         public GetHttpResponseEstados(Context context, String posicion)
@@ -302,6 +301,7 @@ public class ListaReclamosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Abierto";
+
                                     }
                                     else{
                                         posicion = "Abierto";
@@ -327,6 +327,7 @@ public class ListaReclamosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "En curso";
+
                                     }
                                     else{
                                         posicion = "En curso";
@@ -351,6 +352,7 @@ public class ListaReclamosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Resuelto";
+
                                     }
                                     else{
                                         posicion = "Resuelto";
@@ -375,6 +377,7 @@ public class ListaReclamosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Re-abierto";
+
                                     }
                                     else{
                                         posicion = "Re-abierto";

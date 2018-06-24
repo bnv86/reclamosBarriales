@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 //import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada;
 import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada2;
 import com.example.bruno.debarrio.entidades.GuardarMarcador;
+import com.example.bruno.debarrio.entidades.Reclamo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +37,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -85,112 +87,31 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             return;
         }
-        /*
-        SharedPreferences sharedpreferencesMap = getApplicationContext().getSharedPreferences("sesion",getApplicationContext().MODE_PRIVATE);
-        final String latitud = sharedpreferencesMap.getString("Latitud","");
-        final String longitud = sharedpreferencesMap.getString("Longitud","");
+
+        SharedPreferences sharedpreferencesMap = getApplicationContext().getSharedPreferences("coordenadas",getApplicationContext().MODE_PRIVATE);
+        final String latitud = sharedpreferencesMap.getString("latitud","");
+        final String longitud = sharedpreferencesMap.getString("longitud","");
         mMap.setMyLocationEnabled(true); //se habilita mi localizacion
-        final LatLng coordenadasMarker = new LatLng(latFoto, lngFoto);
-        final CameraUpdate miMarker = CameraUpdateFactory.newLatLngZoom(coordenadasMarker,16);
-        double lati;
-        double longi;
-        lati=Double.valueOf(latitud).doubleValue();
-        longi=Double.valueOf(longitud).doubleValue();
+        double lati = Double.valueOf(latitud).doubleValue();
+        double longi = Double.valueOf(longitud).doubleValue();
+        final LatLng coordenadasMarker = new LatLng(lati, longi);
+        final CameraUpdate miMarker = CameraUpdateFactory.newLatLngZoom(coordenadasMarker,20);
         final GuardarMarcador guardar = new GuardarMarcador(lati,longi);
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                if (marcadorCam != null) marcadorCam.remove(); //si ya existe un marcador lo borra para crear uno nuevo
-                marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(latLng).title("Foto"));
+        //mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+        //    @Override
+        //    public void onMapLongClick(LatLng coordenadasMarker) {
+                //if (marcadorCam != null) marcadorCam.remove(); //si ya existe un marcador lo borra para crear uno nuevo
+        marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(coordenadasMarker).title(latitud + ", " + longitud));
                 //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
-                mMap.animateCamera(miMarker);
-                final double lati = latLng.latitude;
-                final double longi = latLng.longitude;
-                guardar.setLatitudMarker(lati);
-                guardar.setLongitudMarker(longi);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
-        });*/
-
-        miUbicacion();
-        //miMarcador();
-    }
-
-    private void miMarcador(){
-        final LatLng coordenadasMarker = new LatLng(latFoto, lngFoto);
-        final CameraUpdate miMarker = CameraUpdateFactory.newLatLngZoom(coordenadasMarker,16);
-        double lati = 0.0;
-        double longi = 0.0;
-        final GuardarMarcador guardar = new GuardarMarcador(lati,longi);
-        //final Location locationMarker;
-        /*
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        LocationManager locationManagerMarker = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        final Location locationMarker = locationManagerMarker.getLastKnownLocation(LocationManager.GPS_PROVIDER);*/
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                if (marcadorCam != null) marcadorCam.remove(); //si ya existe un marcador lo borra para crear uno nuevo
-                marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(latLng).title("Foto"));
-                //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
-                mMap.animateCamera(miMarker);
-                final double lati = latLng.latitude;
-                final double longi = latLng.longitude;
-                guardar.setLatitudMarker(lati);
-                guardar.setLongitudMarker(longi);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                /*
-                if (locationMarker != null){
-                    latFoto = locationMarker.getLatitude();
-                    lngFoto = locationMarker.getLongitude();
-                }*/
-            }
-        });
-        Button botonGuardar = (Button)findViewById(R.id.boton_guardar_ubicacion);
-        botonGuardar.setVisibility(View.VISIBLE);
-        botonGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-
-                            if (success) {
-                                Intent intent = new Intent(MapActivity.this, MainTabbedActivity.class);
-                                MapActivity.this.startActivity(intent);
-                                Toast.makeText(getApplicationContext(), "Coordenadas agregadas!", Toast.LENGTH_LONG).show();
-                            } else {
-                                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MapActivity.this);
-                                alertBuilder.setMessage("Error al agregar coordenadas").setNegativeButton("Reintentar", null).create().show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                final double latiMarker = guardar.getLatitudMarker();
-                final double longiMarker = guardar.getLongitudMarker();
-                Toast.makeText(getApplicationContext(),"Guardando...", Toast.LENGTH_LONG).show();
-                Intent resultIntent =  new Intent(getApplicationContext(), MainTabbedActivity.class);
-                SharedPreferences sharedpreferencesMap = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferencesMap.edit();
-                editor.putString("Latitud", String.valueOf(latiMarker));
-                editor.putString("Longitud", String.valueOf(longiMarker));
-                Toast.makeText(getApplicationContext(),latiMarker + "", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(),longiMarker + "", Toast.LENGTH_LONG).show();
-                editor.commit();
-                finish();
-            }
-        });
+        mMap.animateCamera(miMarker);
+                //final double lati = coordenadasMarker.latitude;
+                //final double longi = coordenadasMarker.longitude;
+        guardar.setLatitudMarker(lati);
+        guardar.setLongitudMarker(longi);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordenadasMarker));
+        //    }
+        //});
     }
 
     // creo un metodo que sirve para agregar el marcador al mapa, creo un objeto Latlng en el cual se incluye la longitud y la latitud
@@ -208,23 +129,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .title("Estoy aquí")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.animateCamera(miUbicacion);
-
-        //ProgressBar progressBar = (ProgressBar)findViewById(R.id.cargaMapa);
-        //progressBar.setVisibility(View.GONE);
-        /*
-        Button imgbtn = (Button)findViewById(R.id.guardar_ubicacion);
-        imgbtn.setVisibility(View.VISIBLE);
-        imgbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"Guardando...",Toast.LENGTH_LONG).show();
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("coordLat", String.valueOf(coordenadas.latitude));
-                resultIntent.putExtra("coordLong", String.valueOf(coordenadas.longitude));
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
-            }
-        });*/
     }
 
     private void actualizarMiUbicacion(Location location){
@@ -235,14 +139,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             agregarMarcadorUbicacion(latActual,lngActual);
         }
     }
-
-    /*
-    private void actualizarMiMarker(Location location){
-        if (location != null){
-            latFoto = location.getLatitude();
-            lngFoto = location.getLongitude();
-        }
-    }*/
 
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
