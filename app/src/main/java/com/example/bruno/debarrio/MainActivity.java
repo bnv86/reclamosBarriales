@@ -37,11 +37,20 @@ DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //i
         //setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
         listaReclamosFragment = new ListaReclamosFragment();
+
+        if (findViewById(R.id.contenedorFragment) != null){
+            if (savedInstanceState != null){
+                return;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            progressBarEventos = findViewById(R.id.progressBar);
+
+        }
         //listaPersonajes = new ArrayList<>();
         //recyclerViewPersonajes = (RecyclerView) findViewById(R.id.reciclerId);
         //recyclerViewPersonajes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-        progressBarEventos = findViewById(R.id.progressBar);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        //progressBarEventos = findViewById(R.id.progressBar);
     }
 
     @Override
@@ -49,13 +58,18 @@ DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //i
 
     @Override
     public void enviarPersonaje(Reclamo reclamo) {
-        detalleReclamoFragment = new DetalleReclamoFragment();
-        Bundle bundleEnvio = new Bundle();
-        bundleEnvio.putSerializable("objeto", reclamo);
-        detalleReclamoFragment.setArguments(bundleEnvio);
+        //detalleReclamoFragment = (DetalleReclamoFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentDetalle);
+        //if ((detalleReclamoFragment != null) && (findViewById(R.id.contenedorFragment) == null)){
+        //    detalleReclamoFragment.asignarInfo(reclamo);
+        //}else{
+            detalleReclamoFragment = new DetalleReclamoFragment();
+            Bundle bundleEnvio = new Bundle();
+            bundleEnvio.putSerializable("objeto", reclamo);
+            detalleReclamoFragment.setArguments(bundleEnvio);
 
-        //cargar el fragment en el activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+            //cargar el fragment en el activity
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+        //}
     }
 
     @Override

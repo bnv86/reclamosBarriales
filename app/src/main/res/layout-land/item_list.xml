@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="60dp"
+    android:layout_marginTop="45dp"
     android:orientation="vertical">
 
     <!--
@@ -47,12 +47,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:background="@color/common_google_signin_btn_text_dark_disabled"
         android:orientation="horizontal">
+
 
         <ImageView
             android:id="@+id/idImagen"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/camera"
             android:padding="2dp"
             android:layout_marginTop="5dp" />
@@ -64,13 +66,14 @@
 
             <TextView
                 android:id="@+id/idFecha"
-                android:layout_width="264dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="3dp"
-                android:layout_marginLeft="6dp"
+                android:layout_marginLeft="2dp"
                 android:text="Fecha"
+                android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -82,23 +85,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="3dp"
-                    android:layout_marginTop="-5dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginLeft="2dp"
                     android:text="Categoria:"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="15sp" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/idCategoria"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="3dp"
-                    android:layout_marginTop="-5dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="-2dp"
+                    android:layout_marginLeft="2dp"
                     android:text="Categoria"
-                    android:textColor="#0021FA"
-                    android:textSize="15sp" />
+                    android:textColor="#0a80f5"
+                    android:textSize="10sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -111,24 +115,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="3dp"
-                    android:layout_marginTop="-5dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginLeft="2dp"
                     android:text="Estado:"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="15sp" />
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/idEstado"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="3dp"
-                    android:layout_marginTop="-5dp"
-                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginLeft="2dp"
                     android:text="Estado"
-                    android:textColor="#429ed7"
-                    android:textSize="15sp" />
+                    android:textColor="#0a80f5"
+                    android:textSize="10sp" />
             </LinearLayout>
+
 
         </LinearLayout>
 

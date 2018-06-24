@@ -274,29 +274,9 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             textDescripcion.setText(reclamo.getDescripcionDesc());
             textLatitud.setText(reclamo.getLatitudDesc());
             textLongitud.setText(reclamo.getLongitudDesc());
-            mailReclamo = reclamo.getEmail();
-            //spinner.setItemAt(reclamo.getEstado());
-            //String est = reclamo.getId_estado().toString();
-            //String estadoNombre = reclamo.getEstado().toString();
-            /*
-            if (est.equals("1")){
-                est = "Abierto";
-                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
-            }
-            if (est.equals("2")){
-                est = "En curso";
-                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
-            }
-            if (est.equals("3")){
-                est = "Resuelto";
-                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
-            }
-            if (est.equals("4")){
-                est = "Re-abierto";
-                spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(est));
-            }*/
             spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
-            //(((ArrayAdapter<String>)mySpinner.getAdapter()).getPosition(myString));
+            mailReclamo = reclamo.getEmail();
+            //asignarInfo(reclamo);
         }
         /*
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
@@ -320,6 +300,18 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         });*/
         return vista;
     }
+/*
+    public void asignarInfo(Reclamo reclamo) {
+        imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
+        textUsuario.setText(reclamo.getId_usuario());
+        textCategoria.setText(reclamo.getId_categoria());
+        textMunicipalidad.setText(reclamo.getMunicipalidad());
+        textDescripcion.setText(reclamo.getDescripcionDesc());
+        textLatitud.setText(reclamo.getLatitudDesc());
+        textLongitud.setText(reclamo.getLongitudDesc());
+        spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
+        mailReclamo = reclamo.getEmail();
+    }*/
 
     private void llamarIntentMapa() { //pasa a un activity o fragment map
         Intent intentMap = new Intent(getContext(), MapActivity.class);
