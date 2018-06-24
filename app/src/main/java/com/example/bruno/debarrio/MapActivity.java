@@ -92,8 +92,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         final String latitud = sharedpreferencesMap.getString("latitud","");
         final String longitud = sharedpreferencesMap.getString("longitud","");
         mMap.setMyLocationEnabled(true); //se habilita mi localizacion
-        double lati = Double.valueOf(latitud).doubleValue();
-        double longi = Double.valueOf(longitud).doubleValue();
+        double lati = Double.valueOf(latitud);
+        double longi = Double.valueOf(longitud);
         final LatLng coordenadasMarker = new LatLng(lati, longi);
         final CameraUpdate miMarker = CameraUpdateFactory.newLatLngZoom(coordenadasMarker,20);
         final GuardarMarcador guardar = new GuardarMarcador(lati,longi);
@@ -109,7 +109,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 //final double longi = coordenadasMarker.longitude;
         guardar.setLatitudMarker(lati);
         guardar.setLongitudMarker(longi);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordenadasMarker));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadasMarker,15));
         //    }
         //});
     }
