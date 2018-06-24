@@ -68,7 +68,7 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:label="@string/title_activity_maps"></activity>
 
             <!--
           <intent-filter>
@@ -78,7 +78,7 @@
           </intent-filter>
             -->
 
-        </activity>
+
         <activity android:name=".AddFotoElegirActivity" />
         <activity android:name=".ActivityUser" />
         <activity android:name=".MainActivity" />
