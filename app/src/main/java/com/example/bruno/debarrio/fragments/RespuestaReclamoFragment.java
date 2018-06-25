@@ -148,9 +148,9 @@ public class RespuestaReclamoFragment extends Fragment {
                     Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
                 }*/
 
-                if(bitmap == null){
-                    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
-                }
+                //if(bitmap == null){
+                //    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
+                //}
                 if(KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
                     Toast.makeText(getContext(),"Debes poner un comentario de respuesta!", Toast.LENGTH_LONG).show();
                     //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
@@ -294,8 +294,8 @@ public class RespuestaReclamoFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imagenFoto.setImageBitmap(imageBitmap);
+            bitmap = (Bitmap) extras.get("data");
+            imagenFoto.setImageBitmap(bitmap);
         }
     }
 
