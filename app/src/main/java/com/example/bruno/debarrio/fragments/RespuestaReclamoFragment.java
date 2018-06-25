@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.entidades.Reclamo;
 import com.google.android.gms.plus.PlusOneButton;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -71,6 +73,7 @@ public class RespuestaReclamoFragment extends Fragment {
     ImageView imagenFoto;
     Button botonSacarFoto, botonRespuesta;
     EditText editextComentario;
+    TextView textEstado;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap bitmap;
     public int PICK_IMAGE_REQUEST = 1;
@@ -84,9 +87,6 @@ public class RespuestaReclamoFragment extends Fragment {
     private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ID_ESTADO = "id_estado";
     private String KEY_ESTADO = "estado";
-
-
-
 
     public RespuestaReclamoFragment() {
         // Required empty public constructor
@@ -133,10 +133,13 @@ public class RespuestaReclamoFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
         View rootView = inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
-
+        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE); //toma la sesion actual del usuario
+        String estado = prefEstado.getString("estado","");
         botonSacarFoto = rootView.findViewById(R.id.boton_tomar_foto);
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
+        textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
+        textEstado.setText(estado);
         //String comentario = editextComentario.getText().toString();
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
@@ -213,8 +216,17 @@ public class RespuestaReclamoFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Convertir bits a cadena
                 String foto = getStringImagen(bitmap);
-                SharedPreferences sharedPreferences = getContext().getSharedPreferences("sesion", MODE_PRIVATE); //toma la sesion actual del usuario
-                String id_usuario = sharedPreferences.getString("id","");
+                SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE); //toma la sesion actual del usuario
+                SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE); //toma la sesion actual del usuario
+                String id_usuario = prefUsuario.getString("id","");
+                String id_estado = prefEstado.getString("id_estado","");
+
+                //Reclamo reclamo = null;
+                //Bundle bundleObjeto = getArguments();
+                //if (bundleObjeto2 != null) {
+                //reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
+                //String id_reclamo = reclamo.getId();
+                //String id_estado = sharedPreferences.getString("id","");
                 //Obtener el nombre de la imagen
                 //String nombre = "CAPTURA"; //.trim()
                 String comentario = editextComentario.getText().toString().trim();
@@ -224,9 +236,9 @@ public class RespuestaReclamoFragment extends Fragment {
 
                 //Agregando de parámetros
                 params.put(KEY_ID_USUARIO, id_usuario);
+                params.put(KEY_ID_ESTADO, id_estado);
                 params.put(KEY_FECHA, fecha.format(new Date()));
                 //params.put(KEY_ID_RECLAMO, id_reclamo);
-                //params.put(KEY_ID_ESTADO, id_estado);
                 params.put(KEY_IMAGEN, foto);
                 params.put(KEY_COMENTARIO, comentario);
 

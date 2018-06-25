@@ -44,7 +44,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/spinner_estado_respuesta"
+                android:id="@+id/estado_respuesta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="estado"
