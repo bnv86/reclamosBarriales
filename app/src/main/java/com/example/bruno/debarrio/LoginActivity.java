@@ -109,6 +109,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (success) {
+                                String id = jsonResponse.getString("id");
                                 String nombre = jsonResponse.getString("nombre");
                                 String username = jsonResponse.getString("username");
                                 String password = jsonResponse.getString("password");
@@ -121,6 +122,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 //guardo el usuario logueado en sesion
                                 SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putString("id", id); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
                                 editor.putString("username", username); //GUARDA EL PASSWORD, VER PORQUÉ PASA ESTO
                                 //editor.putString("password", password);
                                 editor.commit();

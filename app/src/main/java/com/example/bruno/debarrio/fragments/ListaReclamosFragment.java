@@ -153,9 +153,9 @@ public class ListaReclamosFragment extends Fragment {
         return vista;
     }
 
-    private void llenarlistaReclamos() {
-        new GetHttpResponse(getContext()).execute();
-    }
+    //private void llenarlistaReclamos() {
+    //    new GetHttpResponse(getContext()).execute();
+    //}
 
     private void llenarlistaEstados(String posicion) {
         listaReclamos = new ArrayList<>();
@@ -427,99 +427,6 @@ public class ListaReclamosFragment extends Fragment {
         }
     }
 
-    public class GetHttpResponse extends AsyncTask<Void, Void, Void>
-    {
-        public Context context;
-        String ResultHolder;
-        //List<Subject> eventosList;
-        public GetHttpResponse(Context context)
-        {
-            this.context = context;
-        }
-
-        @Override
-        protected void onPreExecute()
-        {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0)
-        {
-            HttpServices httpServiceObject = new HttpServices(ServerURL);
-            try
-            {
-                httpServiceObject.ExecutePostRequest();
-
-                if(httpServiceObject.getResponseCode() == 200)
-                {
-                    ResultHolder = httpServiceObject.getResponse();
-
-                    if(ResultHolder != null)
-                    {
-                        JSONArray jsonArray = null;
-                        try {
-                            jsonArray = new JSONArray(ResultHolder);
-                            JSONObject jsonObject;
-
-                            for(int i=0; i<jsonArray.length(); i++) {
-                                jsonObject = jsonArray.getJSONObject(i);
-                                String usuario = jsonObject.getString("id_usuario");
-                                //nombre.getNombre(nombre) = jsonObject.getString("fecha");
-                                String id = jsonObject.getString("id");
-                                String dec = jsonObject.getString("foto");
-                                Bitmap foto = downloadImage(dec);
-                                String fecha = jsonObject.getString("fecha");
-                                String latitud = jsonObject.getString("latitud");
-                                String longitud = jsonObject.getString("longitud");
-                                String categoria = jsonObject.getString("id_categoria");
-                                String estado = jsonObject.getString("id_estado");
-                                String municipalidad = jsonObject.getString("municipalidad");
-                                String descripcion = jsonObject.getString("descripcion");
-                                String mail= jsonObject.getString("email");
-
-                                Reclamo reclamo = new Reclamo(id.toString(), categoria.toString(), usuario.toString(), estado.toString(), fecha.toString(), foto, foto, latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                listaReclamos.add(reclamo);
-                            }
-                        }
-                        catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                else
-                {
-                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-            catch (Exception e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result)
-        {
-            if(listaReclamos != null) {
-                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
-                recyclerViewEventos.setAdapter(adapter);
-                adapter.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
-                        //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
-                        interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
-                    }
-                });
-            }
-            else{
-                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
     public static Bitmap downloadImage(String url) {
         Bitmap bitmap = null;

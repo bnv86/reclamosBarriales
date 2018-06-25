@@ -47,6 +47,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +80,13 @@ public class RespuestaReclamoFragment extends Fragment {
     private String KEY_FECHA = "fecha";
     private String KEY_COMENTARIO = "comentario";
     private String KEY_IMAGEN = "foto_respuesta";
+    private String KEY_ID_USUARIO = "id_usuario";
+    private String KEY_ID_RECLAMO = "id_reclamo";
+    private String KEY_ID_ESTADO = "id_estado";
+    private String KEY_ESTADO = "estado";
+
+
+
 
     public RespuestaReclamoFragment() {
         // Required empty public constructor
@@ -205,7 +213,8 @@ public class RespuestaReclamoFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Convertir bits a cadena
                 String foto = getStringImagen(bitmap);
-
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("sesion", MODE_PRIVATE); //toma la sesion actual del usuario
+                String id_usuario = sharedPreferences.getString("id","");
                 //Obtener el nombre de la imagen
                 //String nombre = "CAPTURA"; //.trim()
                 String comentario = editextComentario.getText().toString().trim();
@@ -214,8 +223,10 @@ public class RespuestaReclamoFragment extends Fragment {
                 Map<String,String> params = new Hashtable<String, String>();
 
                 //Agregando de parámetros
+                params.put(KEY_ID_USUARIO, id_usuario);
                 params.put(KEY_FECHA, fecha.format(new Date()));
-                //params.put(KEY_USUARIO, usuario);
+                //params.put(KEY_ID_RECLAMO, id_reclamo);
+                //params.put(KEY_ID_ESTADO, id_estado);
                 params.put(KEY_IMAGEN, foto);
                 params.put(KEY_COMENTARIO, comentario);
 
@@ -294,8 +305,8 @@ public class RespuestaReclamoFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imagenFoto.setImageBitmap(imageBitmap);
+            bitmap = (Bitmap) extras.get("data");
+            imagenFoto.setImageBitmap(bitmap);
         }
     }
 

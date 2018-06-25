@@ -17,7 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 //import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada;
-import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada2;
+//import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada2;
 import com.example.bruno.debarrio.entidades.GuardarMarcador;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.google.android.gms.maps.CameraUpdateFactory;
