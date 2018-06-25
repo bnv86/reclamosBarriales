@@ -156,9 +156,9 @@ public class RespuestaReclamoFragment extends Fragment {
                     Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
                 }*/
 
-                if(bitmap == null){
-                    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
-                }
+                //if(bitmap == null){
+                //    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
+                //}
                 if(KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
                     Toast.makeText(getContext(),"Debes poner un comentario de respuesta!", Toast.LENGTH_LONG).show();
                     //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
