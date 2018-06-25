@@ -14,13 +14,14 @@ import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
 import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
 import com.example.bruno.debarrio.fragments.ReclamosFragment;
+import com.example.bruno.debarrio.fragments.RespuestaReclamoFragment;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener,
-DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
+DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     ListView eventosListView;
     ProgressBar progressBarEventos;

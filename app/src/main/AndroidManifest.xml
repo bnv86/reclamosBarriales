@@ -21,9 +21,8 @@
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="26" />
+
     <!-- <activity android:name=".FotoElegirActivity" /> -->
-
-
     <!-- AIzaSyAuJY44MzeWCWREBKTHAQuq66h7bz0BJPw -->
     <application
         android:allowBackup="true"
@@ -68,21 +67,24 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
 
-            <!--
+        <!--
           <intent-filter>
               <action android:name="android.intent.action.MAIN" />
 
               <category android:name="android.intent.category.LAUNCHER" />
           </intent-filter>
-            -->
-
+        -->
 
         <activity android:name=".AddFotoElegirActivity" />
         <activity android:name=".ActivityUser" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".MapActivity" />
+        <activity
+            android:name=".RespuestaReclamoActivity"
+            android:label="@string/title_activity_respuesta_reclamo"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

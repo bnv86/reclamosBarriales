@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textLatitud, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
-    Button botonActualizarEstado, botonUbicacion;
+    Button botonActualizarEstado, botonUbicacion, botonRespuesta;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
@@ -152,6 +153,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             }
         });
 
+
+
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
         botonUbicacion.setOnClickListener(new View.OnClickListener(){
@@ -159,7 +162,14 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             public void onClick(View v) {
                 llamarIntentMapa();
             }
+        });
 
+        botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
+        botonRespuesta.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentRespuesta();
+            }
         });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -238,6 +248,38 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             }
         });*/
         return vista;
+    }
+
+    private void llamarIntentRespuesta() { //pasa a un activity o fragment map para obtener un marcador
+        /*
+        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
+        SubirFragment.this.startActivity(intentMaps);*/
+        // Crea el nuevo fragmento y la transacción.
+        RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.contenedorFragment, fr);
+        transaction.addToBackStack(null);
+
+        // Commit a la transacción
+        transaction.commit();
+        /*
+        RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
+        fr.setArguments(bn);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.contenedor,fr)
+                .addToBackStack(null)
+                .commit();
+
+    }
+        Intent intentRespuesta = new Intent(getContext(), RespuestaReclamoFragment.class);
+        getActivity().startActivity(intentRespuesta);*/
+
+        /* si no funciona lo anterior...
+        private final Context context;
+        context = itemView.getContext();
+        Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
+        detail.putExtra("id", imagen.getId());
+        context.startActivity(detail);*/
     }
 
 public void subirEstado(String pos){

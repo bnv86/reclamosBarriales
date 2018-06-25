@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#BBF8FA"
     tools:context="com.example.bruno.debarrio.fragments.DetalleReclamoFragment">
@@ -195,7 +196,15 @@
                     android:background="@color/colorLightBlue"
                     android:text="ACTUALIZAR ESTADO" />
 
-
+            <Button
+                android:id="@+id/boton_respuesta_reclamo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/boton_actualizar_estado"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="RESPONDER" />
 
             </LinearLayout>
         </ScrollView>
