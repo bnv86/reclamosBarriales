@@ -216,10 +216,12 @@ public class RespuestaReclamoFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 //Convertir bits a cadena
                 String foto = getStringImagen(bitmap);
-                SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE); //toma la sesion actual del usuario
-                SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE); //toma la sesion actual del usuario
-                String id_usuario = prefUsuario.getString("id","");
+                SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
+                String id_usuario = prefUsuario.getString("id_usuario","");
+                SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
                 String id_estado = prefEstado.getString("id_estado","");
+                SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
+                String id_reclamo = prefReclamo.getString("id_reclamo","");
 
                 //Reclamo reclamo = null;
                 //Bundle bundleObjeto = getArguments();
@@ -235,10 +237,10 @@ public class RespuestaReclamoFragment extends Fragment {
                 Map<String,String> params = new Hashtable<String, String>();
 
                 //Agregando de parámetros
+                params.put(KEY_ID_RECLAMO, id_reclamo);
                 params.put(KEY_ID_USUARIO, id_usuario);
                 params.put(KEY_ID_ESTADO, id_estado);
                 params.put(KEY_FECHA, fecha.format(new Date()));
-                //params.put(KEY_ID_RECLAMO, id_reclamo);
                 params.put(KEY_IMAGEN, foto);
                 params.put(KEY_COMENTARIO, comentario);
 

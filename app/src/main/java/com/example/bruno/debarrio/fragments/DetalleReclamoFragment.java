@@ -230,12 +230,19 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             mailReclamo = reclamo.getEmail();
             //asignarInfo(reclamo);
+
+            //guardo el id del reclamo para usar en la respuesta
+            String id = reclamo.getId();
+            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = prefReclamo.edit();
+            editor1.putString("id_reclamo",id);
+            editor1.commit();
             //guardo las coordenadas para usar en el boton ubicacion del detalle
-            SharedPreferences sharedpreferences = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString("latitud", reclamo.getLatitudDesc());
-            editor.putString("longitud", reclamo.getLongitudDesc());
-            editor.commit();
+            SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor2 = prefCoord.edit();
+            editor2.putString("latitud", reclamo.getLatitudDesc());
+            editor2.putString("longitud", reclamo.getLongitudDesc());
+            editor2.commit();
         }
         /*
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);

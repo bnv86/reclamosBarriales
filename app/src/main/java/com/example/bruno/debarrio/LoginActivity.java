@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 //guardo el usuario logueado en sesion
                                 SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                                editor.putString("id", id); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
+                                editor.putString("id_usuario", id); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
                                 editor.putString("username", username); //GUARDA EL PASSWORD, VER PORQUÉ PASA ESTO
                                 //editor.putString("password", password);
                                 editor.commit();
