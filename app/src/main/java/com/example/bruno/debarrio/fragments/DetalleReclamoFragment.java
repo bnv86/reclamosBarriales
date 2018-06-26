@@ -122,11 +122,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         textLatitud = vista.findViewById(R.id.detalle_latitud);
         textLongitud = vista.findViewById(R.id.detalle_longitud);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
-        //etDescrip = (EditText) vista.findViewById(R.id.etDescription);
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
-        //String[] tipos1 = {"1","2", "3","4"};
-        //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);

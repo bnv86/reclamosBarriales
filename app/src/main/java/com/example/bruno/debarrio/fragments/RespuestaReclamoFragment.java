@@ -87,6 +87,7 @@ public class RespuestaReclamoFragment extends Fragment {
     private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ID_ESTADO = "id_estado";
     private String KEY_ESTADO = "estado";
+    String[] munis = {};
 
     public RespuestaReclamoFragment() {
         // Required empty public constructor
