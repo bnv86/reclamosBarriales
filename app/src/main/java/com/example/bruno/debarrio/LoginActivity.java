@@ -112,6 +112,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 String id = jsonResponse.getString("id");
                                 String nombre = jsonResponse.getString("nombre");
                                 String username = jsonResponse.getString("username");
+                                String id_municipio = jsonResponse.getString("id_municipio");
                                 String password = jsonResponse.getString("password");
                                 //int age = Integer.parseInt("age");
                                 Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class); //LoginActivity.this
@@ -124,6 +125,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 SharedPreferences.Editor editor = sharedpreferences.edit();
                                 editor.putString("id_usuario", id); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
                                 editor.putString("username", username); //GUARDA EL PASSWORD, VER PORQUÉ PASA ESTO
+                                editor.putString("id_municipio", id_municipio);
                                 //editor.putString("password", password);
                                 editor.commit();
                                 Toast.makeText(getApplicationContext(), "BIENVENIDO " + nombre + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this

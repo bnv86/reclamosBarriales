@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,43 +16,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.HTTP.HttpServices;
+import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
+import com.example.bruno.debarrio.entidades.Municipio;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.bruno.debarrio.HTTP.HttpServices;
-import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
-import com.example.bruno.debarrio.entidades.Municipio;
-import com.example.bruno.debarrio.entidades.Reclamo;
-import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.TypeAdapter;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView textviewRegresar;
-    EditText editNombre, editUsuario, editPassword, editDireccion, editTelefono, editEmail, editApellido, editMunicipio;
+    EditText editNombre, editUsuario, editPassword, editTelefono, editEmail, editApellido, editMunicipio;
     Button botonRegistrar, botonFoto;
     String REQUEST_MUNICIPIO = "https://momentary-electrode.000webhostapp.com/getMunicipio.php";
-    //ArrayList<?> listaMunis;
     ArrayList<String> listaMunis;
     ArrayList<Municipio> listaMunicipio;
     ArrayAdapter<String> comboAdapter;
@@ -79,11 +60,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         editTelefono = findViewById(R.id.edit_telefono_registro);
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
-        new GetHttpResponse(getApplicationContext()).execute();
-
-        //String[] munis = {"Bera","Quilmes", "Varela","La Plata"};
-        //Spinner spinnerMuni = (Spinner) findViewById(R.id.spinner_municipio);
-        //spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, munis));
+        //new GetHttpResponse(getApplicationContext()).execute();
+        String[] munis = {"Berazategui","Quilmes", "Florencio Varela","La Plata", "San Martin"};
+        Spinner spinnerMuni = (Spinner) findViewById(R.id.spinner_municipio);
+        spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, munis));
 
         /*
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -111,41 +91,64 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         //Spinner spinnerMuni = (Spinner) findViewById(R.id.spinner_municipio);
         //llenarSpinner(munis);
         //spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, listaMunis));
-        //spinnerMuni.setAdapter(comboAdapter);
-        //spinnerMuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-        /*
+        //spinnerMuni.setAdapter(comboAdapter);*/
+        spinnerMuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
                 String posicion = (String) adapterView.getItemAtPosition(pos);
                 //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
                 //llenarlistaEstados(posicion);
+                String idMuni = "";
+                if(posicion == "Berazategui"){
+                    idMuni = "1";
+                }
+                if(posicion == "Quilmes"){
+                    idMuni = "2";
+                }
+                if(posicion == "Florencio Varela"){
+                    idMuni = "3";
+                }
+                if(posicion == "La Plata"){
+                    idMuni = "4";
+                }
+                if(posicion == "San Martin"){
+                    idMuni = "5";
+                }
+                SharedPreferences prefMuniID = getApplication().getSharedPreferences("municipio", getApplication().MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = prefMuniID.edit();
+                editor1.putString("id", idMuni);
+                editor1.putString("nombre", posicion);
+
+                editor1.commit();
+                //subirMuni(posicion);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {    }
-        });*/
+        });
 
-        SharedPreferences prefMuni = getApplicationContext().getSharedPreferences("municipio", MODE_PRIVATE); //toma la sesion actual del usuario
-        final String id_muni = prefMuni.getString("id_municipio","");
+        //SharedPreferences prefMuni = getApplicationContext().getSharedPreferences("municipio", MODE_PRIVATE); //toma la sesion actual del usuario
+        //final String id_muni = prefMuni.getString("id_municipio","");
         botonRegistrar = findViewById(R.id.boton_registrar_registro);
+        SharedPreferences prefMuni = getApplication().getSharedPreferences("municipio", MODE_PRIVATE);
+        final String id_muni = prefMuni.getString("id","");
+        final String municipalidad = prefMuni.getString("nombre","");
         //botonRegistrar.setOnClickListener(this);
         botonRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                final String id_municipio = id_muni;
+                final int id_municipio = !id_muni.equals("") ? Integer.parseInt(id_muni) : 0;;
                 final String name = editNombre.getText().toString();
                 final String username = editUsuario.getText().toString();
                 final String password = editPassword.getText().toString();
                 final String apellido = editApellido.getText().toString();
                 final String email = editEmail.getText().toString();
-                //int age = Integer.parseInt(editEdad.getText().toString());
+                final int id_rol = 2;
                 //esto soluciona el error que tira al dejar en blanco campos int al agregar
-                final EditText a = findViewById(R.id.edit_edad_registro);
-                //final String edad = a.getText().toString().trim();
-                //final int age = !edad.equals("") ? Integer.parseInt(edad) : 0;
 
                 final EditText t = findViewById(R.id.edit_telefono_registro);
                 final String telefono = t.getText().toString().trim();
@@ -159,7 +162,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             }*/
                 if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
                         || password == null || password == "" || password.isEmpty()
-                        || telefono == null || telefono == "" || telefono.isEmpty() || apellido == null || apellido == "" || apellido.isEmpty()
+                        || apellido == null || apellido == "" || apellido.isEmpty()
                         || email == null || email == "" || email.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
                 } else {
@@ -185,7 +188,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                             }
                         }
                     };
-                    PedidoDeRegistro pedido = new PedidoDeRegistro(id_municipio, name, apellido, email, phone, username, password, responseListener);
+                    PedidoDeRegistro pedido = new PedidoDeRegistro(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
                     queue.add(pedido);
                 }
@@ -210,7 +213,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         public Context context;
         String ResultHolder;
         //List<Subject> eventosList;
-        public GetHttpResponse(Context context) //, ArrayList<String> arrayList
+        public GetHttpResponse(Context context, String posicion) //, ArrayList<String> arrayList
         {
             this.context = context;
         }

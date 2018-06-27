@@ -46,6 +46,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -273,14 +275,17 @@ public class ListaReclamosFragment extends Fragment {
                             jsonArray = new JSONArray(ResultHolder);
                             //jsonObjectCategoria = new JSONObject(ResultHolder2);
                             //jsonArrayCategoria = new JSONArray(ResultHolder2);
+                            SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
+                            String id_muni = prefUsuario.getString("id_municipio","");
                             JSONObject jsonObject;
                             //JSONObject jsonObjectCategoria;
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
                                 String estado = jsonObject.getString("estado");
+                                String id_municipio = jsonObject.getString("id_municipio");
 
-                                if (posicion == "Abierto")
+                                if ((posicion == "Abierto") && (id_municipio.equals(id_muni)))
                                 {
                                     //posicion = "1";
                                     if (estado.equals(posicion)) {
@@ -308,7 +313,7 @@ public class ListaReclamosFragment extends Fragment {
                                     }
                                 }
 
-                                if (posicion == "En curso")
+                                if ((posicion == "En curso") && (id_municipio.equals(id_muni)))
                                 {
                                     //posicion = "2";
                                     if (estado.equals(posicion)) {
@@ -333,7 +338,7 @@ public class ListaReclamosFragment extends Fragment {
                                         posicion = "En curso";
                                     }
                                 }
-                                if (posicion == "Resuelto")
+                                if ((posicion == "Resuelto") && (id_municipio.equals(id_muni)))
                                 {
                                     //posicion = "3";
                                     if (estado.equals(posicion)) {
@@ -358,7 +363,7 @@ public class ListaReclamosFragment extends Fragment {
                                         posicion = "Resuelto";
                                     }
                                 }
-                                if (posicion == "Re-abierto")
+                                if ((posicion == "Re-abierto") && (id_municipio.equals(id_muni)))
                                 {
                                     //posicion = "4";
                                     if (estado.equals(posicion)) {

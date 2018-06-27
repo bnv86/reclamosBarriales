@@ -29,7 +29,6 @@
                 android:paddingLeft="@dimen/text_margin"
                 android:textColor="@color/colorOrange"/>
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,22 +36,6 @@
                 android:layout_gravity="center"
                 android:paddingTop="@dimen/text_margin"
                 android:textSize="28sp"/>
-
-            <!--
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="Nombre"
-                android:inputType="text"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:hint="Apellido"
-                android:inputType="text"/>
-            -->
 
             <EditText
                 android:id="@+id/edit_nombre_registro"
@@ -90,14 +73,24 @@
                 android:inputType="number"
                 android:layout_marginTop="1dp"/>
 
-            <EditText
-                android:id="@+id/edit_edad_registro"
+            <TextView
+                android:id="@+id/edit_municipio_registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:hint="@string/usuario_direccion"
-                android:inputType="number"
+                android:textColor="@color/colorDark"
+                android:text="Seleccione Municipio: "
+                android:textSize="18sp"
+                android:layout_marginBottom="1dp"
                 android:layout_marginTop="1dp"/>
+
+            <Spinner
+                android:id="@+id/spinner_municipio"
+                android:textColor="@color/colorDark"
+                android:background="@color/colorBlue"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:id="@+id/edit_usuario_registro"
@@ -134,8 +127,7 @@
                 android:layout_width="140dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"/>
-                <!-- android:layout_marginTop="@dimen/text_margin" -->
-
+            <!-- android:layout_marginTop="@dimen/text_margin" -->
         </LinearLayout>
     </ScrollView>
 

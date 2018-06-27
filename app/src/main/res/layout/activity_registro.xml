@@ -74,7 +74,7 @@
                 android:layout_marginTop="1dp"/>
 
             <TextView
-                android:id="@+id/edit_direccion_registro"
+                android:id="@+id/edit_municipio_registro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

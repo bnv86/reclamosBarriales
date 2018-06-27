@@ -93,6 +93,7 @@
                 android:layout_below="@+id/static_municipalidad"
                 android:textColor="#0021FA"/>
 
+            <!--
             <TextView
                 android:id="@+id/static_latitud"
                 android:layout_width="wrap_content"
@@ -127,6 +128,7 @@
                 android:layout_below="@+id/static_longitud"
                 android:text="Longitud"
                 android:textColor="#0021FA"/>
+                -->
 
             <Button
                 android:id="@+id/boton_ubicacion_reclamo"

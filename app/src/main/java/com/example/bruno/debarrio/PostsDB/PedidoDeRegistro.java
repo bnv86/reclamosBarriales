@@ -17,18 +17,20 @@ import java.util.Map;
 public class PedidoDeRegistro extends StringRequest {
 
     //private static final String REGISTER_REQUEST_URL="http://192.168.1.38/deBarrio/Register.php";
-    private static final String REGISTER_REQUEST_URL="https://momentary-electrode.000webhostapp.com/Register.php";
+    private static final String REGISTER_REQUEST_URL="https://momentary-electrode.000webhostapp.com/RegisterMunicipal.php";
 
     private Map<String, String> params;
-    public PedidoDeRegistro (String id_municipio, String name, String apellido, String email, int telefono, String username, String password, Response.Listener<String> listener) {
+    public PedidoDeRegistro (int id_rol, int id_municipio, String name, String apellido, String email, int telefono, String municipalidad, String username, String password, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
         //parametros.put("id_usuario", idUsuario);
-        params.put("id_municipio", id_municipio);
+        params.put("id_rol", id_rol+"");
+        params.put("id_municipio", id_municipio+"");
         params.put("nombre", name);
         params.put("apellido", apellido);
         params.put("email", email);
         params.put("telefono", telefono+"");
+        params.put("municipalidad", municipalidad);
         params.put("username", username);
         params.put("password", password);
     }

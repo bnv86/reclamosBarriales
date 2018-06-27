@@ -119,8 +119,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textMunicipalidad = (TextView) vista.findViewById(R.id.detalle_municipalidad);
         textDescripcion = vista.findViewById(R.id.detalle_descripcion);
-        textLatitud = vista.findViewById(R.id.detalle_latitud);
-        textLongitud = vista.findViewById(R.id.detalle_longitud);
+        //textLatitud = vista.findViewById(R.id.detalle_latitud);
+        //textLongitud = vista.findViewById(R.id.detalle_longitud);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
@@ -222,8 +222,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             textCategoria.setText(reclamo.getId_categoria());
             textMunicipalidad.setText(reclamo.getMunicipalidad());
             textDescripcion.setText(reclamo.getDescripcionDesc());
-            textLatitud.setText(reclamo.getLatitudDesc());
-            textLongitud.setText(reclamo.getLongitudDesc());
+            //textLatitud.setText(reclamo.getLatitudDesc());
+            //textLongitud.setText(reclamo.getLongitudDesc());
             spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             mailReclamo = reclamo.getEmail();
             //asignarInfo(reclamo);
@@ -310,11 +310,11 @@ public void subirEstado(String pos){
     if(pos == "Re-abierto"){
         estado = "4";
     }
-    //guardo el usuario logueado en sesion
+    //guardo los datos del estado
     SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
     SharedPreferences.Editor editor = prefEstado.edit();
     editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
-    editor.putString("estado", pos); //GUARDA EL PASSWORD, VER PORQUÉ PASA ESTO
+    editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
     //editor.putString("password", password);
     editor.commit();
 
