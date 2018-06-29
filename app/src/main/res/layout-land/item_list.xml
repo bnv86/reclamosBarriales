@@ -53,8 +53,8 @@
 
         <ImageView
             android:id="@+id/idImagen"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/camera"
             android:padding="2dp"
             android:layout_marginTop="5dp" />
@@ -73,7 +73,7 @@
                 android:text="Fecha"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:textSize="15sp" />
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                     android:text="Categoria:"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/idCategoria"
@@ -101,7 +101,7 @@
                     android:layout_marginLeft="2dp"
                     android:text="Categoria"
                     android:textColor="#0a80f5"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
@@ -120,7 +120,7 @@
                     android:text="Estado:"
                     android:textColor="@android:color/black"
                     android:textStyle="bold"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/idEstado"
@@ -131,7 +131,7 @@
                     android:layout_marginLeft="2dp"
                     android:text="Estado"
                     android:textColor="#0a80f5"
-                    android:textSize="10sp" />
+                    android:textSize="15sp" />
             </LinearLayout>
 
 

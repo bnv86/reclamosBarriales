@@ -132,7 +132,7 @@
 
             <Button
                 android:id="@+id/boton_ubicacion_reclamo"
-                android:layout_below="@+id/detalle_longitud"
+                android:layout_below="@+id/detalle_municipalidad"
                 android:text="ver UBICACION"
                 android:background="@color/colorOrange"
                 android:layout_width="100dp"
@@ -163,8 +163,18 @@
                 android:layout_below="@+id/static_estado"/>
 
             <Button
-                android:id="@+id/boton_actualizar_estado"
+                android:id="@+id/boton_respuesta_reclamo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_below="@+id/spinner_estado"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="RESPONDER" />
+
+            <Button
+                android:id="@+id/boton_actualizar_estado"
+                android:layout_below="@+id/boton_respuesta_reclamo"
                 android:layout_gravity="center"
                 android:text="ACTUALIZAR ESTADO"
                 android:background="@color/colorLightBlue"

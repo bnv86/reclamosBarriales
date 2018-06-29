@@ -87,7 +87,6 @@
             <Spinner
                 android:id="@+id/spinner_municipio"
                 android:textColor="@color/colorDark"
-                android:background="@color/colorBlue"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

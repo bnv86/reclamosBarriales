@@ -15,6 +15,5 @@
     <color name="colorGris">#B4B4B4</color>
     <color name="colorTransparente">#80000000</color>
     <color name="colorBlanco">#FFFFFFFF</color>
-
     <color name="black_overlay">#66000000</color>
 </resources>

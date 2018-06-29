@@ -27,10 +27,28 @@
             />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/reciclerId"
-        android:layout_marginTop="40dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <!--
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:visibility="visible"/>
+            -->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/reciclerId"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+
+    </LinearLayout>
 
 </FrameLayout>

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.bruno.debarrio.ActivityUser;
 import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
@@ -74,6 +73,7 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
             }
         });
 
+        /*
         botonVerMios = rootView.findViewById(R.id.boton_ver_mios);
         botonVerMios.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +89,7 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
                 llamarIntentMapa();
             }
 
-        });
+        });*/
 
 
         /*
@@ -160,11 +160,12 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
         getActivity().startActivity(intentVer);
     }
 
+    /*
     private void llamarIntentVerMios() {
         //Intent intentVer = new Intent(getActivity(), EventosMiosActivity.class);
         Intent intentVer = new Intent(getActivity(), ActivityUser.class);
         getActivity().startActivity(intentVer);
-    }
+    }*/
 
     private void llamarIntentMapa() { //pasa a un activity o fragment map
         Intent intentMap = new Intent(getActivity(), MapActivity.class);
