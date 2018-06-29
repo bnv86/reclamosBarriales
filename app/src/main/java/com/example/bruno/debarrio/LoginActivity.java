@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
 
     TextView textviewRegistrar;
     EditText editUsuario, editPassword;
-    Button botonLogin;
+    CardView botonLogin;
 
     /**
      * Id to identity READ_CONTACTS permission request.
