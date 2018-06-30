@@ -42,5 +42,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingBottom="16dp"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:background="@drawable/gradient">
 </FrameLayout>

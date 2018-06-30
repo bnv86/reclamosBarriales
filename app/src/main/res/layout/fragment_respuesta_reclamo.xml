@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="#BBF8FA"
+    android:background="@drawable/gradient"
     tools:context="com.example.bruno.debarrio.fragments.RespuestaReclamoFragment">
 
     <ScrollView
@@ -21,34 +21,66 @@
 
             <TextView
                 android:id="@+id/static_comentario"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:text="Comentario: "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:layout_marginTop="16dp"/>
 
             <EditText
                 android:id="@+id/editext_comentario_respuesta"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:layout_toRightOf="@+id/static_usuario"
-                android:hint="Ingrese un comentario..." />
+                android:hint="Ingrese un comentario..."
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorGris"/>
 
             <TextView
                 android:id="@+id/static_estado_respuesta"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:layout_below="@+id/editext_comentario"
                 android:text="Estado: "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
             <TextView
                 android:id="@+id/estado_respuesta"
+                android:text="estado"
+                android:layout_below="@+id/static_estado_respuesta"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="estado"
-                android:layout_below="@+id/static_estado_respuesta"/>
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
             <ImageView
                 android:id="@+id/imagen_para_foto"
@@ -68,9 +100,12 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/imagen_para_foto"
-                android:background="#80f50a"
+                android:background="@color/colorOrange"
                 android:layout_gravity="center"
-                android:text="Tomar Foto" />
+                android:text="Tomar Foto"
+
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"/>
 
             <Button
                 android:id="@+id/boton_enviar_respuesta"
@@ -80,7 +115,9 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorAccent"
-                android:text="RESPONDER RECLAMO" />
+                android:text="RESPONDER RECLAMO"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
 
 
         </LinearLayout>

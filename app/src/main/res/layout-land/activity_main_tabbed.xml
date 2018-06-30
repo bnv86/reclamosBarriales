@@ -7,6 +7,7 @@
     android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/gradient"
     tools:context="com.example.bruno.debarrio.MainTabbedActivity">
 
     <!--
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_weight="1"
-            android:background="@android:color/holo_green_dark"
+            android:background="#0066cc"
             app:title="@string/app_name"
             app:layout_scrollFlags="scroll|enterAlways">
             <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->

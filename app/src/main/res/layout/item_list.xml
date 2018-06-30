@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/common_google_signin_btn_text_dark_disabled"
+        android:background="#99e6ff"
         android:orientation="horizontal">
 
 
@@ -100,7 +100,7 @@
                     android:layout_marginTop="-2dp"
                     android:layout_marginLeft="2dp"
                     android:text="Categoria"
-                    android:textColor="#0a80f5"
+                    android:textColor="#001a4d"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -130,7 +130,7 @@
                     android:layout_marginTop="-3dp"
                     android:layout_marginLeft="2dp"
                     android:text="Estado"
-                    android:textColor="#0a80f5"
+                    android:textColor="#001a4d"
                     android:textSize="15sp" />
             </LinearLayout>
 
