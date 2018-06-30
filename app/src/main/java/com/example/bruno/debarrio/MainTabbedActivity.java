@@ -130,7 +130,7 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
     }*/
 
     @Override
-    public void enviarPersonaje(Reclamo reclamo) {
+    public void enviarReclamo(Reclamo reclamo) {
         detalleReclamoFragment = new DetalleReclamoFragment();
         Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("objeto", reclamo);

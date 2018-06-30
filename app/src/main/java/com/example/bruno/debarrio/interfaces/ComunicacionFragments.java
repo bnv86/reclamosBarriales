@@ -8,6 +8,6 @@ import com.example.bruno.debarrio.entidades.Reclamo;
 
 public interface ComunicacionFragments {
 
-    public void enviarPersonaje(Reclamo reclamo);
+    public void enviarReclamo(Reclamo reclamo);
 
 }

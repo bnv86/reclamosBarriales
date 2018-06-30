@@ -130,7 +130,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             {    }
         });
 
-        //SharedPreferences prefMuni = getApplicationContext().getSharedPreferences("municipio", MODE_PRIVATE); //toma la sesion actual del usuario
+        //SharedPreferences prefMuni = getApplicationContext().getSharedPreferences("municipio", MODE_PRIVATE);
         //final String id_muni = prefMuni.getString("id_municipio","");
         botonRegistrar = findViewById(R.id.boton_registrar_registro);
         SharedPreferences prefMuni = getApplication().getSharedPreferences("municipio", MODE_PRIVATE);
@@ -153,13 +153,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 final EditText t = findViewById(R.id.edit_telefono_registro);
                 final String telefono = t.getText().toString().trim();
                 final int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
-            /*
-            try {
-                int age = Integer.parseInt(editEdad.getText().toString());
 
-            }catch (NumberFormatException n){
-                n.printStackTrace();
-            }*/
                 if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
                         || password == null || password == "" || password.isEmpty()
                         || apellido == null || apellido == "" || apellido.isEmpty()

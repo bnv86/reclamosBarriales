@@ -46,6 +46,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import static android.app.ProgressDialog.show;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -72,7 +73,7 @@ public class ListaReclamosFragment extends Fragment {
     TextView textviewRegresar;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
-    ProgressBar progressBarEventos;
+    ProgressBar progressBarReclamos;
     Spinner spinner;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     //String ServerURL2 = "https://momentary-electrode.000webhostapp.com/getCategoria.php";
@@ -106,6 +107,7 @@ public class ListaReclamosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -122,42 +124,28 @@ public class ListaReclamosFragment extends Fragment {
         //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
+        //final ProgressDialog progressDialog;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
+                //ProgressDialog progressDialog = show(getContext(),"Cargando reclamos...","Espere por favor...",true,false);
                 String posicion = (String) adapterView.getItemAtPosition(pos);
                 //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                //progressDialog.show(getContext(),"Cargando reclamos...","Espere por favor...",true,false);
                 llenarlistaEstados(posicion);
+                //progressDialog.dismiss();
+                //progressBarReclamos.setVisibility(View.GONE);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {    }
         });
-        //new GetHttpResponse(getContext()).execute();
 
-        //AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
-
-        //recyclerViewEventos.setAdapter(adapter);
-        /*
-        adapter.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getNombre(), Toast.LENGTH_SHORT).show();
-
-                interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
-            }
-        });*/
-        //progressBarEventos.setVisibility(View.GONE);
-        //recyclerViewEventos.setVisibility(View.VISIBLE);
         return vista;
     }
-
-    //private void llenarlistaReclamos() {
-    //    new GetHttpResponse(getContext()).execute();
-    //}
 
     private void llenarlistaEstados(String posicion) {
         listaReclamos = new ArrayList<>();
@@ -228,21 +216,21 @@ public class ListaReclamosFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false); //getActivity()
+
+            final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerURL,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
                             //Descartar el diálogo de progreso
                             loading.dismiss();
-                            //Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
-                            Toast.makeText(getActivity(), "No se pueden cargar" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -420,7 +408,8 @@ public class ListaReclamosFragment extends Fragment {
                     @Override
                     public void onClick(View view){
                         //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
-                        interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
+                        interfaceComunicacionFragments.enviarReclamo(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
+                        //progressDialog.dismiss();
                     }
                 });
             }

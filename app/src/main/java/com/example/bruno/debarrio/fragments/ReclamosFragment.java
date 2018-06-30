@@ -129,7 +129,7 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
     }
 
     @Override
-    public void enviarPersonaje(Reclamo reclamo) {
+    public void enviarReclamo(Reclamo reclamo) {
         detalleReclamoFragment = new DetalleReclamoFragment();
         Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("objeto", reclamo);

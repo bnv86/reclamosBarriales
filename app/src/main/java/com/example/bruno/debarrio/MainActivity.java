@@ -58,7 +58,7 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
     public void onFragmentInteraction(Uri uri) {}
 
     @Override
-    public void enviarPersonaje(Reclamo reclamo) {
+    public void enviarReclamo(Reclamo reclamo) {
         //detalleReclamoFragment = (DetalleReclamoFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentDetalle);
         //if ((detalleReclamoFragment != null) && (findViewById(R.id.contenedorFragment) == null)){
         //    detalleReclamoFragment.asignarInfo(reclamo);

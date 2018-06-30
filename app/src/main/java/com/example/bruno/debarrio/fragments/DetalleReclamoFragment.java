@@ -72,10 +72,11 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     private String mParam1;
     private String mParam2;
     private String UPLOAD_URL_ESTADO = "https://momentary-electrode.000webhostapp.com/postEstadoReclamo.php";
+    private String POST_URL_SUSCRIPTOS = "https://momentary-electrode.000webhostapp.com/getSubscripciones.php";
 
     private OnFragmentInteractionListener mListener;
 
-    TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textLatitud, textLongitud; //, textID
+    TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
     Button botonActualizarEstado, botonUbicacion, botonRespuesta;
@@ -83,6 +84,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     //Spinner spinner;
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
+    private String KEY_SUSCRIPTOS;
+
     private TreeMap<String, String> descrip;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
@@ -129,8 +132,9 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textMunicipalidad = (TextView) vista.findViewById(R.id.detalle_municipalidad);
         textDescripcion = vista.findViewById(R.id.detalle_descripcion);
-        //textLatitud = vista.findViewById(R.id.detalle_latitud);
-        //textLongitud = vista.findViewById(R.id.detalle_longitud);
+        textSuscriptos = vista.findViewById(R.id.detalle_suscriptos);
+        //getSuscriptores(KEY_SUSCRIPTOS);
+        //textSuscriptos.setText(KEY_SUSCRIPTOS);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
@@ -307,79 +311,122 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     }
 
 public void subirEstado(String pos){
-    String estado = "";
-    if(pos == "Abierto"){
-        estado = "1";
-    }
-    if(pos == "En curso"){
-        estado = "2";
-    }
-    if(pos == "Resuelto"){
-        estado = "3";
-    }
-    if(pos == "Re-abierto"){
-        estado = "4";
-    }
-    //guardo los datos del estado
-    SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
-    SharedPreferences.Editor editor = prefEstado.edit();
-    editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
-    editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
-    //editor.putString("password", password);
-    editor.commit();
-
-    final String estadoFinal = estado;
-
-    //Bundle bundleObjeto = getArguments();
-    //final String id = e.getId();
-    Reclamo reclamo2 = null;
-    Bundle bundleObjeto2 = getArguments();
-    //if (bundleObjeto2 != null) {
-    reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
-    final String id = reclamo2.getId();
-    //}
-    //final String estado = spinner.getSelectedItem().toString();
-    //SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-    //final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
-    final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-    StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String s) {
-                    //Descartar el diálogo de progreso
-                    loading.dismiss();
-                    Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
-
-
-                    //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    loading.dismiss();
-                    Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
-                }
-            }){
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            //Creación de parámetros
-            Map<String,String> params = new Hashtable<String, String>();
-            //Agregando de parámetros
-            params.put(KEY_ID, id);
-            params.put(KEY_ESTADO, estadoFinal);
-            //Parámetros de retorno
-            return params;
+        String estado = "";
+        if(pos == "Abierto"){
+            estado = "1";
         }
-    };
-    //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-    stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-    //Creación de una cola de solicitudes
-    RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-    //Agregar solicitud a la cola
-    requestQueue.add(stringRequest);
-}
+        if(pos == "En curso"){
+            estado = "2";
+        }
+        if(pos == "Resuelto"){
+            estado = "3";
+        }
+        if(pos == "Re-abierto"){
+            estado = "4";
+        }
+        //guardo los datos del estado
+        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefEstado.edit();
+        editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
+        editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
+        //editor.putString("password", password);
+        editor.commit();
+
+        final String estadoFinal = estado;
+
+        //Bundle bundleObjeto = getArguments();
+        //final String id = e.getId();
+        Reclamo reclamo2 = null;
+        Bundle bundleObjeto2 = getArguments();
+        //if (bundleObjeto2 != null) {
+        reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
+        final String id = reclamo2.getId();
+        //}
+        //final String estado = spinner.getSelectedItem().toString();
+        //SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
+        //final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+
+
+                        //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID, id);
+                params.put(KEY_ESTADO, estadoFinal);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }
+
+    public void getSuscriptores(String key){
+        Reclamo reclamo2 = null;
+        Bundle bundleObjeto2 = getArguments();
+        //if (bundleObjeto2 != null) {
+        reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
+        final String id = reclamo2.getId();
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, POST_URL_SUSCRIPTOS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "NO SE PUDO TRAER" , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID, id);
+                params.get(KEY_SUSCRIPTOS);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }
 /*
     public void asignarInfo(Reclamo reclamo) {
         imagenDetalle.setImageBitmap(reclamo.getImagenDesc());

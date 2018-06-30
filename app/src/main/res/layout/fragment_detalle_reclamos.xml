@@ -285,6 +285,23 @@
                     android:layout_marginBottom="15dp"
                     />
 
+            <TextView
+                android:id="@+id/static_suscriptos"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/detalle_categoria"
+                android:text="Suscriptos: "
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/detalle_suscriptos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/static_suscriptos"
+                android:text="Suscriptos"
+                android:textColor="#0021FA"/>
+
             </LinearLayout>
         </ScrollView>
 
