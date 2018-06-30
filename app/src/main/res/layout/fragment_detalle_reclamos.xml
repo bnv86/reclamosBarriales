@@ -55,198 +55,188 @@
             android:orientation="vertical"
             android:layout_marginLeft="10dp">
 
-                <TextView
-                    android:id="@+id/static_usuario"
-                    android:text="Usuario: "
-                    android:textStyle="bold"
+            <TextView
+                android:id="@+id/static_usuario"
+                android:text="Usuario: "
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
+            <TextView
+                android:id="@+id/detalle_usuario"
+                android:layout_toRightOf="@+id/static_usuario"
+                android:text="Usuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="#99e6ff"/>
 
-                <TextView
-                    android:id="@+id/detalle_usuario"
-                    android:layout_toRightOf="@+id/static_usuario"
-                    android:text="Usuario"
+            <TextView
+                android:id="@+id/static_categoria"
+                android:layout_below="@+id/static_usuario"
+                android:text="Categoria: "
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
+            <TextView
+                android:id="@+id/detalle_categoria"
+                android:layout_below="@+id/static_categoria"
+                android:text="Categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="#99e6ff"/>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
+            <TextView
+                android:id="@+id/static_descripcion"
+                android:layout_below="@+id/detalle_categoria"
+                android:text="Descripcion: "
+                android:textStyle="bold"
 
-                <TextView
-                    android:id="@+id/static_categoria"
-                    android:layout_below="@+id/static_usuario"
-                    android:text="Categoria: "
-                    android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
+            <TextView
+                android:id="@+id/detalle_descripcion"
+                android:layout_below="@+id/static_descripcion"
+                android:text="Descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="#99e6ff"/>
 
-                <TextView
-                    android:id="@+id/detalle_categoria"
-                    android:layout_below="@+id/static_categoria"
-                    android:text="Categoria"
+            <TextView
+                android:id="@+id/static_municipalidad"
+                android:layout_below="@+id/detalle_descripcion"
+                android:text="Municipalidad: "
+                android:textStyle="bold"
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
-                <TextView
-                    android:id="@+id/static_descripcion"
-                    android:layout_below="@+id/detalle_categoria"
-                    android:text="Descripcion: "
-                    android:textStyle="bold"
+            <TextView
+                android:id="@+id/detalle_municipalidad"
+                android:layout_below="@+id/static_municipalidad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="#99e6ff"/>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
+        <!--
+            <TextView
+                android:id="@+id/static_latitud"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/detalle_municipalidad"
+                android:text="Latitud: "
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/detalle_descripcion"
-                    android:layout_below="@+id/static_descripcion"
-                    android:text="Descripcion"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
-
-                <TextView
-                    android:id="@+id/static_municipalidad"
-                    android:layout_below="@+id/detalle_descripcion"
-                    android:text="Municipalidad: "
-                    android:textStyle="bold"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
-
-                <TextView
-                    android:id="@+id/detalle_municipalidad"
-                    android:layout_below="@+id/static_municipalidad"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
-
-            <!--
-                <TextView
-                    android:id="@+id/static_latitud"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/detalle_municipalidad"
-                    android:text="Latitud: "
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/detalle_latitud"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/static_latitud"
-                    android:text="Latitud"
-                    android:textColor="#0021FA"/>
+            <TextView
+                android:id="@+id/detalle_latitud"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/static_latitud"
+                android:text="Latitud"
+                android:textColor="#0021FA"/>
 
 
-                <TextView
-                    android:id="@+id/static_longitud"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/detalle_latitud"
-                    android:text="Longitud: "
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/static_longitud"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/detalle_latitud"
+                android:text="Longitud: "
+                android:textColor="@android:color/black"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/detalle_longitud"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/static_longitud"
-                    android:text="Longitud"
-                    android:textColor="#0021FA"/>
-                    -->
+            <TextView
+                android:id="@+id/detalle_longitud"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/static_longitud"
+                android:text="Longitud"
+                android:textColor="#0021FA"/>
+                -->
 
+            <TextView
+                android:id="@+id/static_estado"
+                android:layout_below="@+id/boton_ubicacion_reclamo"
+                android:text="Estado: "
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
-
-                <TextView
-                    android:id="@+id/static_estado"
-                    android:layout_below="@+id/boton_ubicacion_reclamo"
-                    android:text="Estado: "
-                    android:textStyle="bold"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="#11000000"
-                    android:textColor="@color/colorBlanco"/>
-
-                <Spinner
-                    android:id="@+id/spinner_estado"
-                    android:layout_below="@+id/static_estado"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:textSize="25sp"
-                    android:textColor="@color/colorBlanco"
-                    android:textColorHint="@color/colorGris"/>
+            <Spinner
+                android:id="@+id/spinner_estado"
+                android:layout_below="@+id/static_estado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:textSize="25sp"
+                android:popupBackground="#5eefef"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorGris"/>
 
             <Button
                 android:id="@+id/boton_ubicacion_reclamo"
@@ -260,29 +250,29 @@
                 android:layout_gravity="center"/>
 
             <Button
-                    android:id="@+id/boton_respuesta_reclamo"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/spinner_estado"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:background="@color/colorAccent"
-                    android:text="RESPONDER"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"/>
+                android:id="@+id/boton_respuesta_reclamo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/spinner_estado"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="RESPONDER"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
 
-                <Button
-                    android:id="@+id/boton_actualizar_estado"
-                    android:layout_below="@+id/boton_respuesta_reclamo"
-                    android:layout_gravity="center"
-                    android:text="ACTUALIZAR ESTADO"
-                    android:background="@color/colorLightBlue"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
+            <Button
+                android:id="@+id/boton_actualizar_estado"
+                android:layout_below="@+id/boton_respuesta_reclamo"
+                android:layout_gravity="center"
+                android:text="ACTUALIZAR ESTADO"
+                android:background="@color/colorLightBlue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
                     />
 
             <TextView

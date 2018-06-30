@@ -48,7 +48,7 @@
     <string name="usuario_email">Correo Electronico</string>
     <string name="usuario_telefono">Teléfono</string>
     <string name="usuario_nombre_user">Usuario</string>
-    <string name="usuario_password">Contrasena</string>
+    <string name="usuario_password">Contraseña</string>
     <string name="usuario_edad">Edad</string>
     <string name="button_registrar">REGISTRAR</string>
 

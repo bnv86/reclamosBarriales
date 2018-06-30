@@ -190,6 +190,7 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:textSize="25sp"
+                android:popupBackground="@color/colorDark"
                 android:textColor="@color/colorBlanco"
                 android:textColorHint="@color/colorGris"
                 app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"

@@ -16,6 +16,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
+
     <ScrollView
         android:id="@+id/detalle_scroll_form"
         android:layout_width="wrap_content"
@@ -33,7 +34,6 @@
                 android:layout_height="match_parent"
                 android:text="Usuario: "
                 android:textStyle="bold"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
@@ -46,26 +46,23 @@
                 android:id="@+id/detalle_usuario"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/static_usuario"
+                android:layout_below="@+id/static_usuario"
                 android:text="Usuario"
-
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:background="#11000000"
-                android:textColor="@color/colorBlanco"/>
+                android:textColor="#99e6ff"/>
 
             <TextView
                 android:id="@+id/static_categoria"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/static_usuario"
+                android:layout_below="@+id/detalle_usuario"
                 android:text="Categoria: "
                 android:textStyle="bold"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
@@ -80,14 +77,13 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/static_categoria"
                 android:text="Categoria"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:background="#11000000"
-                android:textColor="@color/colorBlanco"/>
+                android:textColor="#99e6ff"/>
 
             <TextView
                 android:id="@+id/static_descripcion"
@@ -96,7 +92,6 @@
                 android:layout_below="@+id/detalle_categoria"
                 android:text="Descripcion: "
                 android:textStyle="bold"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
@@ -118,7 +113,7 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:background="#11000000"
-                android:textColor="@color/colorBlanco"/>
+                android:textColor="#99e6ff"/>
 
             <TextView
                 android:id="@+id/static_municipalidad"
@@ -127,7 +122,6 @@
                 android:layout_below="@+id/detalle_descripcion"
                 android:text="Municipalidad: "
                 android:textStyle="bold"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
@@ -141,14 +135,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/static_municipalidad"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:background="#11000000"
-                android:textColor="@color/colorBlanco"/>
+                android:textColor="#99e6ff"/>
 
             <!--
             <TextView
@@ -189,17 +182,17 @@
 
             <Button
                 android:id="@+id/boton_ubicacion_reclamo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
                 android:layout_below="@+id/detalle_municipalidad"
+                android:gravity="center"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
+                android:padding="10dp"
                 android:background="@color/colorOrange"
                 android:text="ver UBICACION"
-
-
-                android:layout_marginStart="100dp"
-                android:layout_marginEnd="100dp"/>
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"/>
 
 
             <TextView
@@ -209,7 +202,6 @@
                 android:layout_below="@+id/boton_ubicacion_reclamo"
                 android:text="Estado: "
                 android:textStyle="bold"
-
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
@@ -223,6 +215,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:popupBackground="#5eefef"
+                android:textColor="@color/colorBlueReal"
                 android:layout_below="@+id/static_estado"/>
 
             <Button

@@ -100,7 +100,7 @@
                     android:layout_marginTop="-2dp"
                     android:layout_marginLeft="2dp"
                     android:text="Categoria"
-                    android:textColor="#001a4d"
+                    android:textColor="@color/colorBlueReal"
                     android:textSize="15sp" />
 
             </LinearLayout>
@@ -130,7 +130,7 @@
                     android:layout_marginTop="-3dp"
                     android:layout_marginLeft="2dp"
                     android:text="Estado"
-                    android:textColor="#001a4d"
+                    android:textColor="@color/colorBlueReal"
                     android:textSize="15sp" />
             </LinearLayout>
 
