@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
@@ -44,6 +46,11 @@ import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Save;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.TreeMap;
@@ -85,7 +92,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     private String KEY_ID = "id";
     private String KEY_ESTADO = "id_estado";
     private String KEY_SUSCRIPTOS;
-
+    StringRequest peticion;
+    private RequestQueue rqt;
     private TreeMap<String, String> descrip;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
@@ -133,6 +141,8 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         textMunicipalidad = (TextView) vista.findViewById(R.id.detalle_municipalidad);
         textDescripcion = vista.findViewById(R.id.detalle_descripcion);
         textSuscriptos = vista.findViewById(R.id.detalle_suscriptos);
+        getSubscripcionesReclamo();
+        //textSuscriptos.setText(getSubscripcionesReclamo());
         //getSuscriptores(KEY_SUSCRIPTOS);
         //textSuscriptos.setText(KEY_SUSCRIPTOS);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
@@ -164,8 +174,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             }
         });
 
-
-
         botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
         botonUbicacion.setOnClickListener(new View.OnClickListener(){
@@ -189,10 +197,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
-                //String name = tipos2[pos];
-                //String description = descrip.get(name);
-                //etDescrip.setText(description);
-                //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
                 final String posicion = (String) adapterView.getItemAtPosition(pos);
                 botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -209,14 +213,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                         }
                         subirEstado(posicion);
                         botonRespuesta.setVisibility(View.VISIBLE);
-                        /*
-                        botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
-                        botonRespuesta.setOnClickListener(new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                llamarIntentRespuesta();
-                            }
-                        });*/
                     }
                 });
             }
@@ -255,59 +251,17 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             editor2.putString("longitud", reclamo.getLongitudDesc());
             editor2.commit();
         }
-        /*
-        botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
-        botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                subirEstado(pos);
-            }
-        });*/
-
-        //PROBANDO BOTON Y CLASE ENVIARMAIL
-        /*botonEnviarMail=vista.findViewById(R.id.boton_enviar_mail);
-        final Reclamo finalReclamo = reclamo;
-        botonEnviarMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EnviarMail enviarMail= new EnviarMail(getContext(),finalReclamo.getEmail(), "AppReclamosBarriales",finalReclamo.getId_usuario()+" se le comunica que el reclamo fue resuelto");
-                enviarMail.execute();
-
-            }
-        });*/
         return vista;
     }
 
-    private void llamarIntentRespuesta() { //pasa a un activity o fragment map para obtener un marcador
-        /*
-        Intent intentMaps = new Intent(SubirFragment.this, MapsActivity.class);
-        SubirFragment.this.startActivity(intentMaps);*/
+    private void llamarIntentRespuesta() {
         // Crea el nuevo fragmento y la transacción.
         RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, fr);
         transaction.addToBackStack(null);
-
         // Commit a la transacción
         transaction.commit();
-        /*
-        RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
-        fr.setArguments(bn);
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.contenedor,fr)
-                .addToBackStack(null)
-                .commit();
-
-    }
-        Intent intentRespuesta = new Intent(getContext(), RespuestaReclamoFragment.class);
-        getActivity().startActivity(intentRespuesta);*/
-
-        /* si no funciona lo anterior...
-        private final Context context;
-        context = itemView.getContext();
-        Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
-        detail.putExtra("id", imagen.getId());
-        context.startActivity(detail);*/
     }
 
 public void subirEstado(String pos){
@@ -329,22 +283,15 @@ public void subirEstado(String pos){
         SharedPreferences.Editor editor = prefEstado.edit();
         editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
         editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
-        //editor.putString("password", password);
         editor.commit();
 
         final String estadoFinal = estado;
-
         //Bundle bundleObjeto = getArguments();
         //final String id = e.getId();
         Reclamo reclamo2 = null;
         Bundle bundleObjeto2 = getArguments();
-        //if (bundleObjeto2 != null) {
         reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
         final String id = reclamo2.getId();
-        //}
-        //final String estado = spinner.getSelectedItem().toString();
-        //SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-        //final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
                 new Response.Listener<String>() {
@@ -353,9 +300,6 @@ public void subirEstado(String pos){
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
-
-
-                        //Toast.makeText(getActivity(), estado, Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -427,6 +371,53 @@ public void subirEstado(String pos){
         //Agregar solicitud a la cola
         requestQueue.add(stringRequest);
     }
+
+    //Obtiene todas la cantidad de suscriptores del reclamo del reclamo
+    private void getSubscripcionesReclamo(){
+        Reclamo reclamo2 = null;
+        Bundle bundleObjeto2 = getArguments();
+        reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
+        final String id = reclamo2.getId();
+        peticion = new StringRequest(Request.Method.POST, WebService.urlGetSubscripciones,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Respuesta servidor", response);
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject subsJson = jsonArray.getJSONObject(i);
+                                int cantSubs = subsJson.getInt("COUNT(*)");
+                                String cantidad = subsJson.getString("COUNT(*)");
+                                Log.d("Cantidad de suscriptos",String.valueOf(cantSubs));
+                                textSuscriptos.setText(cantidad);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error_servidor", error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("id_reclamo", id);
+                parametros.put("subscriptores","2");
+                return parametros;
+            }
+        };
+        peticion.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(peticion);
+        //rqt.add(peticion);
+    }
 /*
     public void asignarInfo(Reclamo reclamo) {
         imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
@@ -443,13 +434,6 @@ public void subirEstado(String pos){
     private void llamarIntentMapa() { //pasa a un activity o fragment map
         Intent intentMap = new Intent(getActivity(), MapActivity.class);
         startActivity(intentMap);
-
-        /* si no funciona lo anterior...
-        private final Context context;
-        context = itemView.getContext();
-        Intent detail = new Intent(context.getApplicationContext(), ImageDetail.class);
-        detail.putExtra("id", imagen.getId());
-        context.startActivity(detail);*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -108,7 +108,6 @@ public class ListaReclamosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -119,24 +118,18 @@ public class ListaReclamosFragment extends Fragment {
         //listaReclamos = new ArrayList<>();
         recyclerViewEventos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewEventos.setLayoutManager(new LinearLayoutManager(getContext()));
-        //llenarlistaReclamos();
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
-        //final String[] tipos2 = {"Abierto","Resuelto","En curso","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
-        //final ProgressDialog progressDialog;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
-                //ProgressDialog progressDialog = show(getContext(),"Cargando reclamos...","Espere por favor...",true,false);
                 String posicion = (String) adapterView.getItemAtPosition(pos);
                 //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
-                //progressDialog.show(getContext(),"Cargando reclamos...","Espere por favor...",true,false);
                 llenarlistaEstados(posicion);
-                //progressDialog.dismiss();
                 //progressBarReclamos.setVisibility(View.GONE);
             }
 
