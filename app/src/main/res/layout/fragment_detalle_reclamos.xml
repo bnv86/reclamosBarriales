@@ -234,9 +234,7 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
                 android:textSize="25sp"
-                android:popupBackground="#5eefef"
-                android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"/>
+                android:popupBackground="#232323"/>
 
             <Button
                 android:id="@+id/boton_ubicacion_reclamo"
@@ -277,20 +275,33 @@
 
             <TextView
                 android:id="@+id/static_suscriptos"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
                 android:layout_below="@+id/detalle_categoria"
                 android:text="Suscriptos: "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
 
             <TextView
                 android:id="@+id/detalle_suscriptos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:layout_below="@+id/static_suscriptos"
                 android:text="Suscriptos"
-                android:textColor="#0021FA"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="#99e6ff"
+                />
 
             </LinearLayout>
         </ScrollView>

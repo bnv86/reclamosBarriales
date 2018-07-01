@@ -215,8 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:popupBackground="#5eefef"
-                android:textColor="@color/colorBlueReal"
+                android:popupBackground="#232323"
                 android:layout_below="@+id/static_estado"/>
 
             <Button

@@ -29,7 +29,7 @@
         <Spinner
             android:id="@+id/spinner_estado"
             android:layout_below="@+id/static_estado"
-            android:popupBackground="#5eefef"
+            android:popupBackground="#232323"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

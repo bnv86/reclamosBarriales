@@ -32,9 +32,7 @@
             android:id="@+id/spinner_estado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:popupBackground="#5eefef"
-            android:textColor="@color/colorBlanco"
-            android:textColorHint="@color/colorGris"
+            android:popupBackground="#232323"
             android:background="#11000000" />
 
     </LinearLayout>
