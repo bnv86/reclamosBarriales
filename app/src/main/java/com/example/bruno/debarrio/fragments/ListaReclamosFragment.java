@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -412,6 +413,15 @@ public class ListaReclamosFragment extends Fragment {
                         //progressDialog.dismiss();
                     }
                 });
+                /*
+                recyclerViewEventos.setOnLongClickListener(new View.OnLongClickListener() {
+
+                    @Override
+                    public boolean onLongClick(View view) {
+                        SparseBooleanArray seleccionados = recyclerViewEventos.getCheckedItemPositions();
+                        return true;
+                    }
+                });*/
             }
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();

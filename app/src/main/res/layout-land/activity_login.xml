@@ -46,13 +46,16 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_above="@+id/edit_password_login"
+        android:layout_centerHorizontal="true"
         android:textColorHint="@color/colorGris">
 
         <AutoCompleteTextView
             android:id="@+id/edit_usuario_login"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:background="#11000000"
             android:drawableLeft="@drawable/ic_action_user"
             android:hint="@string/prompt_email"
@@ -70,7 +73,7 @@
         android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="87dp"
+        android:layout_marginBottom="70dp"
         android:background="#11000000"
         android:drawableLeft="@drawable/ic_action_pass"
         android:hint="@string/prompt_password"
@@ -113,6 +116,7 @@
         android:id="@+id/imageView3"
         android:layout_width="125dp"
         android:layout_height="125dp"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
         android:adjustViewBounds="false"
         android:cropToPadding="false"

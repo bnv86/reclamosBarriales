@@ -178,6 +178,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/edit_telefono_registro" />
 
+            <!--
             <Spinner
                 android:id="@+id/spinner_municipio"
                 android:layout_width="match_parent"
@@ -189,6 +190,38 @@
                 android:layout_marginRight="15dp"
                 android:textSize="25sp"
                 android:popupBackground="@color/colorDark"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorGris"
+                app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"
+                app:layout_constraintStart_toStartOf="@+id/edit_telefono_registro"
+                app:layout_constraintTop_toBottomOf="@+id/edit_municipio_registro" />
+                -->
+
+            <!--
+            <Spinner
+                android:id="@+id/spinner_municipio"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/text_margin"
+                android:textColor="@color/colorBlanco"
+                android:textSize="25sp"
+                android:padding="3dp"
+                app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"
+                app:layout_constraintStart_toStartOf="@+id/edit_telefono_registro"
+                app:layout_constraintTop_toBottomOf="@+id/edit_municipio_registro"
+                android:popupBackground="@color/colorBlue" />
+                -->
+
+            <Spinner
+                android:id="@+id/spinner_municipio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:textSize="25sp"
+                android:popupBackground="@color/colorLightBlue"
                 android:textColor="@color/colorBlanco"
                 android:textColorHint="@color/colorGris"
                 app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"
