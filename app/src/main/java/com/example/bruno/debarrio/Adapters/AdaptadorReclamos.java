@@ -16,33 +16,33 @@ import java.util.ArrayList;
  * Created by Bruno on 08/04/2018.
  */
 
-public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.PersonajesViewHolder> implements View.OnClickListener{
+public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.ReclamosViewHolder> implements View.OnClickListener{
 
-    ArrayList<Reclamo> listaPersonajes;
+    ArrayList<Reclamo> listaReclamos;
     private View.OnClickListener listener;
 
-    public AdaptadorReclamos(ArrayList<Reclamo> listaPersonajes){
-        this.listaPersonajes = listaPersonajes;
+    public AdaptadorReclamos(ArrayList<Reclamo> listaReclamos){
+        this.listaReclamos = listaReclamos;
     }
 
     @Override
-    public PersonajesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ReclamosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
         view.setOnClickListener(this);
-        return new PersonajesViewHolder(view);
+        return new ReclamosViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PersonajesViewHolder holder, int position) {
-        holder.textFecha.setText(listaPersonajes.get(position).getFecha());
-        holder.textCategoria.setText(listaPersonajes.get(position).getId_categoria());
-        holder.textEstado.setText(listaPersonajes.get(position).getId_estado());
-        holder.foto.setImageBitmap(listaPersonajes.get(position).getImagen());
+    public void onBindViewHolder(ReclamosViewHolder holder, int position) {
+        holder.textFecha.setText(listaReclamos.get(position).getFecha());
+        holder.textCategoria.setText(listaReclamos.get(position).getId_categoria());
+        holder.textEstado.setText(listaReclamos.get(position).getId_estado());
+        holder.foto.setImageBitmap(listaReclamos.get(position).getImagen());
     }
 
     @Override
     public int getItemCount() {
-        return listaPersonajes.size();
+        return listaReclamos.size();
     }
     public void setOnClickListener(View.OnClickListener listener){
         this.listener = listener;
@@ -55,12 +55,12 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Pe
         }
     }
 
-    public class PersonajesViewHolder extends RecyclerView.ViewHolder{
+    public class ReclamosViewHolder extends RecyclerView.ViewHolder{
 
         TextView textFecha, textCategoria, textEstado;
         ImageView foto;
 
-        public PersonajesViewHolder(View itemView) {
+        public ReclamosViewHolder(View itemView) {
             super(itemView);
             textFecha = (TextView) itemView.findViewById(R.id.idFecha);
             textCategoria = (TextView) itemView.findViewById(R.id.idCategoria);

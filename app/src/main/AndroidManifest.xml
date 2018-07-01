@@ -78,13 +78,8 @@
         -->
 
         <activity android:name=".AddFotoElegirActivity" />
-        <activity android:name=".ActivityUser" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MapActivity" />
-        <activity
-            android:name=".RespuestaReclamoActivity"
-            android:label="@string/title_activity_respuesta_reclamo"
-            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

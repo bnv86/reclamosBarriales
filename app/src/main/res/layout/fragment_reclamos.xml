@@ -24,51 +24,31 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/boton_ver_todos"
+                android:id="@+id/boton_por_estado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="20dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_orange_light"
-                android:text="@string/ver_todos"
+                android:text="@string/por_estado"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/boton_ver_mios"
+                android:id="@+id/boton_por_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:background="@android:color/holo_red_light"
                 android:gravity="center"
                 android:padding="20dp"
-                android:text="@string/ver_mios"
+                android:text="@string/por_categoria"
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/boton_ubicacion_reclamo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@android:color/holo_purple"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="ver ubicacion"
-                android:textColor="@color/colorDark"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <!--
-            <TextView
-                android:id="@+id/texto_telefono"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="tel"/>
-            -->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,7 +32,8 @@ import android.widget.Toast;
 
 import java.util.Locale;
 
-public class MainTabbedActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener, DetalleReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{
+public class MainTabbedActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener,
+        DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, ComunicacionFragments{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -99,6 +101,14 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        /*
+        if (id == R.id.action_profile) {
+            //llamarIntentProfile();
+            ProfileFragment profileFragment;
+            profileFragment = new ProfileFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
+        }*/
+
         if (id == R.id.action_languaje) {
             mostrarDialog();
             /*
@@ -116,6 +126,12 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
             this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void llamarIntentProfile() {
+
+        Intent intentMaps = new Intent(MainTabbedActivity.this, ProfileFragment.class);
+        MainTabbedActivity.this.startActivity(intentMaps);
     }
 
     @Override
@@ -254,4 +270,16 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         });
         b.show();
     }
+    private void mostrarLista(){
+        //if (findViewById(R.id.contenedorFragment) != null){
+        //  if (savedInstanceState != null){
+        //      return;
+        // }
+        listaReclamosFragment = new ListaReclamosFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaReclamosFragment).commit();
+        //progressBarEventos = findViewById(R.id.progressBar);
+
+        //}
+    }
+
 }

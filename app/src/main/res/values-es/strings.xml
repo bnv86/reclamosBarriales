@@ -20,13 +20,14 @@
     <string name="tab_text_1">SUBIR</string>
     <string name="tab_text_2">RECLAMOS</string>
     <string name="tab_text_3">PERFIL</string>
+    <string name="action_profile">Perfil</string>
     <string name="action_languaje">Selección de Idioma</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- Strings related to RECLAMOS -->
-    <string name="ver_todos">POR ESTADO</string>
-    <string name="ver_mios">POR UBICACION</string>
+    <string name="por_estado">POR ESTADO</string>
+    <string name="por_categoria">POR CATEGORIA</string>
 
     <!-- Strings related to CONTACTOS -->
     <string name="agregar_contacto">Agregar</string>

@@ -30,7 +30,7 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    Button botonVerTodos, botonVerMios, botonUbicacion;
+    Button botonPorEstado, botonPorCategoria;
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
 
@@ -65,31 +65,22 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reclamos, container, false);
 
-        botonVerTodos = rootView.findViewById(R.id.boton_ver_todos);
-        botonVerTodos.setOnClickListener(new View.OnClickListener() {
+        botonPorEstado = rootView.findViewById(R.id.boton_por_estado);
+        botonPorEstado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarIntentVerTodos();
+                llamarIntentPorEstado();
             }
         });
 
-        /*
-        botonVerMios = rootView.findViewById(R.id.boton_ver_mios);
-        botonVerMios.setOnClickListener(new View.OnClickListener() {
+
+        botonPorCategoria = rootView.findViewById(R.id.boton_por_categoria);
+        botonPorCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarIntentVerMios();
+                llamarIntentPorCategoria();
             }
         });
-
-        botonUbicacion = rootView.findViewById(R.id.boton_ubicacion_reclamo);
-        botonUbicacion.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                llamarIntentMapa();
-            }
-
-        });*/
 
 
         /*
@@ -109,7 +100,6 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
 
         return rootView;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -155,9 +145,12 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
     public interface OnFragmentInteractionListener {
     }
 
-    private void llamarIntentVerTodos() {
-        Intent intentVer = new Intent(getActivity(), MainActivity.class); //  EventosTodosActivity
+    private void llamarIntentPorEstado() {
+        Intent intentVer = new Intent(getActivity(), MainActivity.class);
         getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentPorCategoria() {
     }
 
     /*
