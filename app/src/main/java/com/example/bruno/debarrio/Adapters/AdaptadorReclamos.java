@@ -38,6 +38,8 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
         holder.textCategoria.setText(listaReclamos.get(position).getId_categoria());
         holder.textEstado.setText(listaReclamos.get(position).getId_estado());
         holder.foto.setImageBitmap(listaReclamos.get(position).getImagen());
+        holder.textSuscriptos.setText(listaReclamos.get(position).getCantSuscriptos());
+
     }
 
     @Override
@@ -57,15 +59,17 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
 
     public class ReclamosViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textFecha, textCategoria, textEstado;
+        TextView textFecha, textCategoria, textEstado, textSuscriptos;
         ImageView foto;
 
         public ReclamosViewHolder(View itemView) {
             super(itemView);
-            textFecha = (TextView) itemView.findViewById(R.id.idFecha);
-            textCategoria = (TextView) itemView.findViewById(R.id.idCategoria);
-            textEstado = (TextView) itemView.findViewById(R.id.idEstado);
-            foto = (ImageView) itemView.findViewById(R.id.idImagen);
+            textFecha = (TextView) itemView.findViewById(R.id.id_fecha);
+            textCategoria = (TextView) itemView.findViewById(R.id.id_categoria);
+            textEstado = (TextView) itemView.findViewById(R.id.id_estado);
+            foto = (ImageView) itemView.findViewById(R.id.id_imagen);
+            textSuscriptos = (TextView) itemView.findViewById(R.id.cant_suscriptos);
+
         }
     }
 }

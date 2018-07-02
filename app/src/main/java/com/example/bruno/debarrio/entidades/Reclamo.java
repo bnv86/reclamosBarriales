@@ -24,8 +24,8 @@ public class Reclamo implements Serializable,Parcelable{
     //private String categoria;
     private String municipalidad;
     private String descripcionDesc;
-
     private String email;
+    private String cantSuscriptos;
 
     private int imagenId;
     private int imagenDescripcion;
@@ -35,7 +35,7 @@ public class Reclamo implements Serializable,Parcelable{
     }
 
     //public Reclamo(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
-    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc, String email){
+    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc, String email, String cantSuscriptos){
         this.id = id;
         this.id_categoria = id_categoria;
         this.id_usuario = id_usuario;
@@ -48,6 +48,7 @@ public class Reclamo implements Serializable,Parcelable{
         this.municipalidad = municipalidad;
         this.descripcionDesc = descripcionDesc;
         this.email = email;
+        this.cantSuscriptos = cantSuscriptos;
     }
 
     protected Reclamo(Parcel in) {
@@ -65,6 +66,7 @@ public class Reclamo implements Serializable,Parcelable{
         email = in.readString();
         imagenId = in.readInt();
         imagenDescripcion = in.readInt();
+        cantSuscriptos = in.readString();
     }
 
     public static final Creator<Reclamo> CREATOR = new Creator<Reclamo>() {
@@ -108,6 +110,8 @@ public class Reclamo implements Serializable,Parcelable{
     public String getEmail(){return email;}
     public void setEmail(String email){this.email = email;}
 
+    public String getCantSuscriptos(){return cantSuscriptos;}
+    public void setCantSuscriptos(String cantSuscriptos){this.cantSuscriptos = cantSuscriptos;}
 
     //public int getImagenId(){return imagenId;}
     //public void setImagenId(int imagenId){this.imagenId = imagenId;}
@@ -139,6 +143,7 @@ public class Reclamo implements Serializable,Parcelable{
         dest.writeString(email);
         dest.writeInt(imagenId);
         dest.writeInt(imagenDescripcion);
+        dest.writeString(cantSuscriptos);
     }
 
     //public int getImagenDescripcion(){return imagenDescripcion;}
