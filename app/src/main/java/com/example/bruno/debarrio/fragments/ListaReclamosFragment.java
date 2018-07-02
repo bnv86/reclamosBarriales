@@ -274,15 +274,11 @@ public class ListaReclamosFragment extends Fragment {
 
                                 if ((posicion == "Abierto") && (id_municipio.equals(id_muni)))
                                 {
-                                    //posicion = "1";
                                     if (estado.equals(posicion)) {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        getSubscripcionesReclamo(id);
-                                        // NO SIRVE
-                                        SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
-                                        String cantSuscriptos = prefSusc.getString("cantidad","");
+                                        String cantSuscriptos = getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -295,14 +291,9 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Abierto";
-                                        SharedPreferences.Editor editor1 = prefSusc.edit();
-                                        editor1.remove("cantidad");
-                                        editor1.clear();
-                                        editor1.commit();
-
                                     }
                                     else{
                                         posicion = "Abierto";
@@ -311,14 +302,12 @@ public class ListaReclamosFragment extends Fragment {
 
                                 if ((posicion == "En curso") && (id_municipio.equals(id_muni)))
                                 {
-                                    //posicion = "2";
                                     if (estado.equals(posicion)) {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        getSubscripcionesReclamo(id);
-                                        SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
-                                        String cantSuscriptos = prefSusc.getString("cantidad","");
+                                        //getSubscripcionesReclamo(id);
+                                        String cantSuscriptos = getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -329,28 +318,22 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "En curso";
-                                        SharedPreferences.Editor editor1 = prefSusc.edit();
-                                        editor1.remove("cantidad");
-                                        editor1.clear();
-                                        editor1.commit();
                                     }
                                     else{
                                         posicion = "En curso";
                                     }
                                 }
+
                                 if ((posicion == "Resuelto") && (id_municipio.equals(id_muni)))
                                 {
-                                    //posicion = "3";
                                     if (estado.equals(posicion)) {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        getSubscripcionesReclamo(id);
-                                        SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
-                                        String cantSuscriptos = prefSusc.getString("cantidad","");
+                                        String cantSuscriptos = getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -361,28 +344,22 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Resuelto";
-                                        SharedPreferences.Editor editor1 = prefSusc.edit();
-                                        editor1.remove("cantidad");
-                                        editor1.clear();
-                                        editor1.commit();
                                     }
+
                                     else{
                                         posicion = "Resuelto";
                                     }
                                 }
                                 if ((posicion == "Re-abierto") && (id_municipio.equals(id_muni)))
                                 {
-                                    //posicion = "4";
                                     if (estado.equals(posicion)) {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        getSubscripcionesReclamo(id);
-                                        SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
-                                        String cantSuscriptos = prefSusc.getString("cantidad","");
+                                        String cantSuscriptos = getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -393,14 +370,11 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Re-abierto";
-                                        SharedPreferences.Editor editor1 = prefSusc.edit();
-                                        editor1.remove("cantidad");
-                                        editor1.clear();
-                                        editor1.commit();
                                     }
+
                                     else{
                                         posicion = "Re-abierto";
                                     }
@@ -460,7 +434,7 @@ public class ListaReclamosFragment extends Fragment {
     }
 
     //Obtiene la cantidad de suscriptores del reclamo
-    private void getSubscripcionesReclamo(final String id){
+    private String getSubscripcionesReclamo(final String id){
         peticion = new StringRequest(Request.Method.POST, WebService.urlGetSubscripciones,
                 new Response.Listener<String>() {
                     @Override
@@ -475,10 +449,10 @@ public class ListaReclamosFragment extends Fragment {
                                 String cantidad = subsJson.getString("COUNT(*)");
                                 Log.d("Cantidad de suscriptos",String.valueOf(cantSubs));
                                 //textSuscriptos.setText(cantidad);
-                                if (i == jsonArray.length()-1){
+                                if (i == jsonArray.length()){
                                     SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", getActivity().MODE_PRIVATE);
                                     SharedPreferences.Editor editor1 = prefSusc.edit();
-                                    editor1.putString("cantidad",cantidad);
+                                    editor1.putString("cantidad", cantidad);
                                     editor1.commit();
                                 }
                             }
@@ -506,6 +480,13 @@ public class ListaReclamosFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
         //Agregar solicitud a la cola
         requestQueue.add(peticion);
+        SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
+        String cantSuscriptos = prefSusc.getString("cantidad","");
+        //SharedPreferences.Editor editor1 = prefSusc.edit();
+        //editor1.remove("cantidad");
+        //editor1.clear();
+        //editor1.commit();
+        return cantSuscriptos;
     }
 
 
