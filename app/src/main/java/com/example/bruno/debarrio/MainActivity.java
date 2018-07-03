@@ -52,7 +52,6 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
             listaReclamosFragment = new ListaReclamosFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
             //progressBarEventos = findViewById(R.id.progressBar);
-
         }
     }
     @Override

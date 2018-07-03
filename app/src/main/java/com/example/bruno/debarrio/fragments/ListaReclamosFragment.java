@@ -74,13 +74,12 @@ public class ListaReclamosFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     ArrayList<Reclamo> listaReclamos;
-    RecyclerView recyclerViewEventos;
+    RecyclerView recyclerViewReclamos;
     TextView textviewRegresar;
     Activity activity;
     StringRequest peticion;
     ComunicacionFragments interfaceComunicacionFragments;
     ProgressBar progressBarReclamos;
-    Spinner spinner;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     //String ServerURL2 = "https://momentary-electrode.000webhostapp.com/getCategoria.php";
 
@@ -121,8 +120,8 @@ public class ListaReclamosFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_lista_reclamos, container, false);
         //progressBarEventos = vista.findViewById(R.id.progressBar);
         //listaReclamos = new ArrayList<>();
-        recyclerViewEventos = (RecyclerView) vista.findViewById(R.id.reciclerId);
-        recyclerViewEventos.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
+        recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
@@ -150,7 +149,23 @@ public class ListaReclamosFragment extends Fragment {
         listaReclamos = new ArrayList<>();
         //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
         new GetHttpResponseEstados(getContext(), posicion).execute();
+        //listaReclamos.clear();
+        //recyclerViewReclamos.setAdapter(null);
+        //listaReclamos = new ArrayList<>();
     }
+
+    /*
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //first clear the recycler view so items are not populated twice
+        recyclerAdapter.clear();
+
+        //then reload the data
+        PostCall doPostCall = new PostCall(); //my AsyncTask...
+        doPostCall.execute();
+    }*/
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -405,15 +420,18 @@ public class ListaReclamosFragment extends Fragment {
         {
             if(listaReclamos != null) {
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
-                recyclerViewEventos.setAdapter(adapter);
+                recyclerViewReclamos.setAdapter(adapter);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
                         //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
-                        interfaceComunicacionFragments.enviarReclamo(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
+                        interfaceComunicacionFragments.enviarReclamo(listaReclamos.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         //progressDialog.dismiss();
+                        //recyclerViewReclamos.setAdapter(null);
                     }
                 });
+                //recyclerViewReclamos.setAdapter(null);
+
                 /*
                 recyclerViewEventos.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -427,9 +445,11 @@ public class ListaReclamosFragment extends Fragment {
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
+            //listaReclamos.clear();
             //progressBarEventos.setVisibility(View.GONE);
-            //recyclerViewEventos.setVisibility(View.VISIBLE);
+            //recyclerViewReclamos.setVisibility(View.VISIBLE);
         }
+
     }
 
     //Obtiene la cantidad de suscriptores del reclamo

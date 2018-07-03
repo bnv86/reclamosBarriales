@@ -57,7 +57,6 @@ import java.util.TreeMap;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -74,15 +73,12 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     NotificationCompat.Builder mBuilder;
     int mNotificationID = 001;
 
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private String UPLOAD_URL_ESTADO = "https://momentary-electrode.000webhostapp.com/postEstadoReclamo.php";
     private String POST_URL_SUSCRIPTOS = "https://momentary-electrode.000webhostapp.com/getSubscripciones.php";
-
     private OnFragmentInteractionListener mListener;
-
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
@@ -98,7 +94,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
     public int PICK_IMAGE_REQUEST = 1;
-
 
     public DetalleReclamoFragment() {
         // Required empty public constructor
@@ -129,7 +124,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -182,7 +176,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                 llamarIntentMapa();
             }
         });
-
         botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
         botonRespuesta.setVisibility(View.GONE);
         botonRespuesta.setOnClickListener(new View.OnClickListener(){
