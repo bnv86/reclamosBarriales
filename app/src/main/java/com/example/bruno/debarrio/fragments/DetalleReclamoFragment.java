@@ -240,9 +240,19 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
 
             //guardo el id del reclamo para usar en la respuesta
             String id = reclamo.getId();
+            String id_usuario = reclamo.getId_usuario();
+            String id_categoria = reclamo.getId_categoria();
+            //String suscriptos = reclamo.getCantSuscriptos();
+            String id_estado = reclamo.getId_estado();
+            String fecha = reclamo.getFecha();
             SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
             SharedPreferences.Editor editor1 = prefReclamo.edit();
-            editor1.putString("id_reclamo",id);
+            //editor1.putString("suscriptos", suscriptos);
+            editor1.putString("id_reclamo", id);
+            editor1.putString("id_usuario", id_usuario);
+            editor1.putString("id_categoria", id_categoria);
+            editor1.putString("id_estado", id_estado);
+            editor1.putString("fecha", fecha);
             editor1.commit();
             //guardo las coordenadas para usar en el boton ubicacion del detalle
             SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
@@ -392,6 +402,10 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
                                 String cantidad = subsJson.getString("COUNT(*)");
                                 Log.d("Cantidad de suscriptos",String.valueOf(cantSubs));
                                 textSuscriptos.setText(cantidad);
+                                SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+                                SharedPreferences.Editor editor1 = prefReclamo.edit();
+                                editor1.putString("suscriptos", cantidad);
+                                editor1.commit();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

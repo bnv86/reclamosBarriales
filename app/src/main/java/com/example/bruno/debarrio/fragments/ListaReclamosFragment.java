@@ -278,7 +278,7 @@ public class ListaReclamosFragment extends Fragment {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        String cantSuscriptos = getSubscripcionesReclamo(id);
+                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -291,7 +291,7 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Abierto";
                                     }
@@ -306,8 +306,7 @@ public class ListaReclamosFragment extends Fragment {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        //getSubscripcionesReclamo(id);
-                                        String cantSuscriptos = getSubscripcionesReclamo(id);
+                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -318,7 +317,7 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "En curso";
                                     }
@@ -333,7 +332,7 @@ public class ListaReclamosFragment extends Fragment {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        String cantSuscriptos = getSubscripcionesReclamo(id);
+                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -344,7 +343,7 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Resuelto";
                                     }
@@ -359,7 +358,7 @@ public class ListaReclamosFragment extends Fragment {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        String cantSuscriptos = getSubscripcionesReclamo(id);
+                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -370,7 +369,7 @@ public class ListaReclamosFragment extends Fragment {
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
                                         posicion = "Re-abierto";
                                     }
@@ -434,29 +433,29 @@ public class ListaReclamosFragment extends Fragment {
     }
 
     //Obtiene la cantidad de suscriptores del reclamo
-    private String getSubscripcionesReclamo(final String id){
+    private void getSubscripcionesReclamo(final String id){ //private String getSubscripcionesReclamo(final String id)
         peticion = new StringRequest(Request.Method.POST, WebService.urlGetSubscripciones,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Respuesta servidor", response);
-
                         try {
                             JSONArray jsonArray = new JSONArray(response);
+
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject subsJson = jsonArray.getJSONObject(i);
                                 int cantSubs = subsJson.getInt("COUNT(*)");
                                 String cantidad = subsJson.getString("COUNT(*)");
                                 Log.d("Cantidad de suscriptos",String.valueOf(cantSubs));
                                 //textSuscriptos.setText(cantidad);
+                                /*
                                 if (i == jsonArray.length()){
                                     SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", getActivity().MODE_PRIVATE);
                                     SharedPreferences.Editor editor1 = prefSusc.edit();
                                     editor1.putString("cantidad", cantidad);
                                     editor1.commit();
-                                }
+                                }*/
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -480,13 +479,13 @@ public class ListaReclamosFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
         //Agregar solicitud a la cola
         requestQueue.add(peticion);
-        SharedPreferences prefSusc = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
-        String cantSuscriptos = prefSusc.getString("cantidad","");
+        //SharedPreferences pref = getContext().getSharedPreferences("suscriptos", MODE_PRIVATE);
+        //String cantSuscriptos = pref.getString("cantidad","");
         //SharedPreferences.Editor editor1 = prefSusc.edit();
         //editor1.remove("cantidad");
         //editor1.clear();
         //editor1.commit();
-        return cantSuscriptos;
+        //return cantSuscriptos;
     }
 
 

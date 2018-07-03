@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -18,8 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 //import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada;
 //import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada2;
+import com.example.bruno.debarrio.Adapters.CustomInfoWindowAdapter;
 import com.example.bruno.debarrio.entidades.GuardarMarcador;
 import com.example.bruno.debarrio.entidades.Reclamo;
+import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,9 +40,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,10 +65,27 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private Marker marcadorPos;
     private Marker marcadorCam;
     //TextView textview_regresar;
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+    private DetalleReclamoFragment.OnFragmentInteractionListener mListener;
+
+    public static DetalleReclamoFragment newInstance(String param1, String param2) {
+        DetalleReclamoFragment fragment = new DetalleReclamoFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }*/
         setContentView(R.layout.activity_map);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -88,6 +113,39 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             return;
         }
 
+        /*
+        Bundle bundleObjeto = getArguments();
+        Reclamo reclamo = null;
+
+        if (bundleObjeto != null){
+            reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
+            imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
+            textUsuario.setText(reclamo.getId_usuario());
+            textCategoria.setText(reclamo.getId_categoria());
+            textMunicipalidad.setText(reclamo.getMunicipalidad());
+            textDescripcion.setText(reclamo.getDescripcionDesc());
+            //textLatitud.setText(reclamo.getLatitudDesc());
+            //textLongitud.setText(reclamo.getLongitudDesc());
+            spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
+            mailReclamo = reclamo.getEmail();
+            //asignarInfo(reclamo);
+
+            //guardo el id del reclamo para usar en la respuesta
+            String id = reclamo.getId();
+            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = prefReclamo.edit();
+            editor1.putString("id_reclamo",id);
+            editor1.commit();
+            //guardo las coordenadas para usar en el boton ubicacion del detalle
+            SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor2 = prefCoord.edit();
+            editor2.putString("latitud", reclamo.getLatitudDesc());
+            editor2.putString("longitud", reclamo.getLongitudDesc());
+            editor2.commit();
+        }*/
+        //Html html;
+        //html = ("<div>This is a line break<br>My new line is here</div>");
+
         SharedPreferences sharedpreferencesMap = getApplicationContext().getSharedPreferences("coordenadas",getApplicationContext().MODE_PRIVATE);
         final String latitud = sharedpreferencesMap.getString("latitud","");
         final String longitud = sharedpreferencesMap.getString("longitud","");
@@ -97,13 +155,55 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         final LatLng coordenadasMarker = new LatLng(lati, longi);
         final CameraUpdate miMarker = CameraUpdateFactory.newLatLngZoom(coordenadasMarker,20);
         final GuardarMarcador guardar = new GuardarMarcador(lati,longi);
+        SharedPreferences prefReclamo = getApplicationContext().getSharedPreferences("reclamo", getApplicationContext().MODE_PRIVATE);
+        String fecha = prefReclamo.getString("fecha", "");
+        String usuario = prefReclamo.getString("id_usuario", "");
+        String categoria = prefReclamo.getString("id_categoria", "");
+        String estado = prefReclamo.getString("id_estado", "");
+        String suscriptos = prefReclamo.getString("suscriptos", "");
 
         //mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
         //    @Override
         //    public void onMapLongClick(LatLng coordenadasMarker) {
                 //if (marcadorCam != null) marcadorCam.remove(); //si ya existe un marcador lo borra para crear uno nuevo
-        marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).anchor(0.0f, 1.0f).position(coordenadasMarker).title(latitud + ", " + longitud));
-                //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
+        //mMap.setInfoWindowAdapter(new CustomInfoWindowAdapter(LayoutInflater.from(getApplicationContext())));
+        //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+        //        .anchor(0.0f, 1.0f).position(coordenadasMarker).title(usuario).snippet(""));
+        //marcadorCam = mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ubicacion)).anchor(0.0f, 1.0f).position(latLng));
+
+
+        marcadorCam = mMap.addMarker(new MarkerOptions().position(coordenadasMarker).title(categoria)
+                .snippet(fecha + "\n" + "Usuario: " + usuario + "\n" + "Estado: " + estado + "\n" + "Suscriptos: " + suscriptos)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+
+                Context context = getApplicationContext();
+                LinearLayout info = new LinearLayout(context);
+                info.setOrientation(LinearLayout.VERTICAL);
+
+                TextView title = new TextView(context);
+                title.setTextColor(Color.BLACK);
+                title.setGravity(Gravity.CENTER);
+                title.setTypeface(null, Typeface.BOLD);
+                title.setText(marker.getTitle());
+
+                TextView snippet = new TextView(context);
+                snippet.setTextColor(Color.GRAY);
+                snippet.setText(marker.getSnippet());
+
+                info.addView(title);
+                info.addView(snippet);
+
+                return info;
+            }
+        });
         mMap.animateCamera(miMarker);
                 //final double lati = coordenadasMarker.latitude;
                 //final double longi = coordenadasMarker.longitude;
