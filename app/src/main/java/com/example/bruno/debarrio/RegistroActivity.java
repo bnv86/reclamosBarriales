@@ -1,5 +1,6 @@
 package com.example.bruno.debarrio;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,8 +19,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.PostsDB.PedidoDeRegistro;
@@ -28,6 +35,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import static android.app.ProgressDialog.show;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,7 +70,13 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         editTelefono = findViewById(R.id.edit_telefono_registro);
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
+
+        if (validarEmail("")) {
+            editEmail.setError("Email incorrecto");
+        }
         //new GetHttpResponse(getApplicationContext()).execute();
+        //GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
+        //getHttpResponseUsuarios.execute();
         String[] munis = {"Berazategui","Quilmes", "Florencio Varela","La Plata", "San Martin"};
         Spinner spinnerMuni = (Spinner) findViewById(R.id.spinner_municipio);
         spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, munis));
@@ -143,7 +159,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
                 int id_municipio = !id_muni.equals("") ? Integer.parseInt(id_muni) : 0;;
                 String name = editNombre.getText().toString();
-                String username = editUsuario.getText().toString();
+                String username = editUsuario.getText().toString().trim();
                 String password = editPassword.getText().toString();
                 String apellido = editApellido.getText().toString();
                 String email = editEmail.getText().toString();
@@ -156,23 +172,44 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
                 //EL PROBLEMA EMPIEZA ACA, PORQUE SI ESTAN TODOS LOS CAMPOS LLENOS SE METE EN EL ELSE, Y ESO DEBERIA SER EN ULTIMA INSTANCIA
                 //PRIMERO TIENE Q EVALUAR ESOS IF Y LUEGO METERSE EN EL GETHTTP, SI SALE SIN BREAK AHI SI DEBE ENTRAR AL ELSE PARA EL POSTREGISTER
-                GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
-                getHttpResponseUsuarios.execute();
+                //GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
+                //getHttpResponseUsuarios.execute();
 
-                if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
-                        || password == null || password == "" || password.isEmpty()
-                        || apellido == null || apellido == "" || apellido.isEmpty()
-                        || email == null || email == "" || email.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
-                }
-                else {
-                    PostRegister(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password);
+                //if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
+                 //       || password == null || password == "" || password.isEmpty()
+                  //      || apellido == null || apellido == "" || apellido.isEmpty()
+                   //     || email == null || email == "" || email.isEmpty()) {
+                   // Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
+                    //if (!validarEmail(email)){
+                        //editEmail.setError("Email no valido");
+                        GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
+                        getHttpResponseUsuarios.execute(); //SALTA A LA PREFERENCIA Y DESPUES EJECUTA ESTE METODO NOSE PORQUE
+
+                        SharedPreferences prefFlag = getApplicationContext().getSharedPreferences("userEqual", getApplicationContext().MODE_PRIVATE);
+                        boolean flag = prefFlag.getBoolean("flag", false );
+                        if (flag){
+                            //editUsuario.setError("elija otro");
+                            Toast.makeText(getApplicationContext(), "el usuario ya existe", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "REGISTRARRRRR", Toast.LENGTH_LONG).show();
+                        }
+                    //}
+                //}
+
+                //else {
+                    //PostRegister(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password);
                     //new GetHttpResponseUsuarios(getApplicationContext()).execute();
-
-                }
+                //}
             }
 
         });
+    }
+
+    private boolean validarEmail(String email){
+        return  android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        //Pattern pattern = Patterns.EMAIL_ADDRESS;
+        //return pattern.matcher(email).matches();
     }
 
     public void PostRegister(final int id_rol, final int id_municipio, final String name, final String apellido, final String email, final int phone,
@@ -225,6 +262,34 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         public GetHttpResponseUsuarios(Context context){
             this.context=context;
         }
+        /*
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            final ProgressDialog loading = show(getApplicationContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_MUNICIPIO,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Descartar el diálogo de progreso
+                            loading.dismiss();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            loading.dismiss();
+                            Toast.makeText(getApplicationContext(), "Error " , Toast.LENGTH_LONG).show();
+                        }
+                    });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            //Creación de una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext()); //getActivity()
+            //Agregar solicitud a la cola
+            requestQueue.add(stringRequest);
+        }*/
+
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -235,9 +300,11 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     ResultHolder= httpServiceObject.getResponse();
                     if (ResultHolder != null){
                         JSONArray jsonArray = null;
+                        boolean flag = false;
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
+                            //boolean flag = false;
 
                             for (int i=0; i<jsonArray.length();i++){
                                 jsonObject= jsonArray.getJSONObject(i);
@@ -245,24 +312,42 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                                 String tel = jsonObject.getString("telefono");
                                 String mail = jsonObject.getString("email");
                                 String userText = editUsuario.getText().toString();
-                                if (user.equals(userText)){
+                                if (userText.equals(user) || (user == userText)){
                                 //if (user == userText){
-                                    Toast.makeText(getApplicationContext(), "Ese usuario ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
-                                    break;
+                                    flag = true;
+                                    //Toast.makeText(getApplicationContext(), "Ese usuario ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
+                                    //editUsuario.setError("Ya existe");
+                                    //break;
                                 }
+
+                                /*
                                 String telText = editTelefono.getText().toString();
-                                if (tel.equals(telText)){
-                                //if (tel == telText){
+                                if (telText.equals(tel) || (tel == telText)){
                                     Toast.makeText(getApplicationContext(), "Ese telefono ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
+                                    editTelefono.setError("Ya existe");
                                     break;
                                 }
                                 String mailText = editEmail.getText().toString();
-                                if (mail.equals(mailText)){
-                                //if (mail == mailText){
+                                if (mailText.equals(mail) || (mail == mailText)){
                                     Toast.makeText(getApplicationContext(), "Esa cuenta de correo ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
+                                    editEmail.setError("Ya existe");
                                     break;
-                                }
+                                }*/
 
+                            }
+                            SharedPreferences prefFlag = getApplicationContext().getSharedPreferences("userEqual", getApplicationContext().MODE_PRIVATE);
+                            SharedPreferences.Editor editor1 = prefFlag.edit();
+                            editor1.putBoolean("flag", flag);
+
+                            if (!flag){
+                                editor1.putBoolean("flag", false).apply();
+                                //AvisoRegistro();
+                                //Toast.makeText(getApplicationContext(), "REGISTRARRRRR", Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                editor1.putBoolean("flag", true).apply();
+                                //AvisoNoRegistro();
+                                //Toast.makeText(getApplicationContext(), "usuario ya registrado", Toast.LENGTH_LONG).show();
                             }
                         }
                         catch (Exception e){
@@ -282,6 +367,14 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    private void AvisoNoRegistro() {
+        Toast.makeText(getApplicationContext(), "usuario en uso", Toast.LENGTH_LONG).show();
+    }
+
+    private void AvisoRegistro() {
+        Toast.makeText(getApplicationContext(), "REGISTRARRRRR", Toast.LENGTH_LONG).show();
+    }
+
     public class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         String REQUEST_MUNICIPIO = "https://momentary-electrode.000webhostapp.com/getMunicipio.php";
@@ -296,6 +389,27 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         protected void onPreExecute()
         {
             super.onPreExecute();
+            final ProgressDialog loading = show(getApplicationContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_MUNICIPIO,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Descartar el diálogo de progreso
+                            loading.dismiss();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            loading.dismiss();
+                            Toast.makeText(getApplicationContext(), "Error " , Toast.LENGTH_LONG).show();
+                        }
+                    });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            //Creación de una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext()); //getActivity()
+            //Agregar solicitud a la cola
+            requestQueue.add(stringRequest);
         }
 
         @Override
