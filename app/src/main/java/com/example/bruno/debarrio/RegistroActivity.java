@@ -48,6 +48,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     ArrayList<String> listaMunis;
     ArrayList<Municipio> listaMunicipio;
     ArrayAdapter<String> comboAdapter;
+    boolean flag1 = false;
+    boolean flag2 = false;
+    boolean flag3 = false;
 
 
     @Override
@@ -157,6 +160,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
 
+
                 int id_municipio = !id_muni.equals("") ? Integer.parseInt(id_muni) : 0;;
                 String name = editNombre.getText().toString();
                 String username = editUsuario.getText().toString().trim();
@@ -170,37 +174,19 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 String telefono = t.getText().toString().trim();
                 int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
 
-                //EL PROBLEMA EMPIEZA ACA, PORQUE SI ESTAN TODOS LOS CAMPOS LLENOS SE METE EN EL ELSE, Y ESO DEBERIA SER EN ULTIMA INSTANCIA
-                //PRIMERO TIENE Q EVALUAR ESOS IF Y LUEGO METERSE EN EL GETHTTP, SI SALE SIN BREAK AHI SI DEBE ENTRAR AL ELSE PARA EL POSTREGISTER
-                //GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
-                //getHttpResponseUsuarios.execute();
 
-                //if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
-                 //       || password == null || password == "" || password.isEmpty()
-                  //      || apellido == null || apellido == "" || apellido.isEmpty()
-                   //     || email == null || email == "" || email.isEmpty()) {
-                   // Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
+                if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
+                        || password == null || password == "" || password.isEmpty()
+                        || apellido == null || apellido == "" || apellido.isEmpty()
+                        || email == null || email == "" || email.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
+
                     //if (!validarEmail(email)){
-                        //editEmail.setError("Email no valido");
-                        GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
-                        getHttpResponseUsuarios.execute(); //SALTA A LA PREFERENCIA Y DESPUES EJECUTA ESTE METODO NOSE PORQUE
-
-                        SharedPreferences prefFlag = getApplicationContext().getSharedPreferences("userEqual", getApplicationContext().MODE_PRIVATE);
-                        boolean flag = prefFlag.getBoolean("flag", false );
-                        if (flag){
-                            //editUsuario.setError("elija otro");
-                            Toast.makeText(getApplicationContext(), "el usuario ya existe", Toast.LENGTH_LONG).show();
-                        }
-                        else{
-                            Toast.makeText(getApplicationContext(), "REGISTRARRRRR", Toast.LENGTH_LONG).show();
-                        }
-                    //}
-                //}
-
-                //else {
-                    //PostRegister(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password);
-                    //new GetHttpResponseUsuarios(getApplicationContext()).execute();
-                //}
+                    //editEmail.setError("Email no valido");
+                }else{
+                    GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
+                    getHttpResponseUsuarios.execute();
+                }
             }
 
         });
@@ -240,7 +226,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         queue.add(pedido);
     }
 
-
     private void llenarSpinner(String [] munis) {
         //listaMunis = new ArrayList<>();
         //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
@@ -252,7 +237,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-
     public class  GetHttpResponseUsuarios extends AsyncTask<Void,Void,Void>{
 
         String REQUEST_USUARIO="https://momentary-electrode.000webhostapp.com/getUsuario.php";
@@ -262,34 +246,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         public GetHttpResponseUsuarios(Context context){
             this.context=context;
         }
-        /*
-        @Override
-        protected void onPreExecute()
-        {
-            super.onPreExecute();
-            final ProgressDialog loading = show(getApplicationContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_MUNICIPIO,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            //Descartar el diálogo de progreso
-                            loading.dismiss();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            loading.dismiss();
-                            Toast.makeText(getApplicationContext(), "Error " , Toast.LENGTH_LONG).show();
-                        }
-                    });
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext()); //getActivity()
-            //Agregar solicitud a la cola
-            requestQueue.add(stringRequest);
-        }*/
-
 
         @Override
         protected Void doInBackground(Void... arg0) {
@@ -300,7 +256,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     ResultHolder= httpServiceObject.getResponse();
                     if (ResultHolder != null){
                         JSONArray jsonArray = null;
-                        boolean flag = false;
                         try {
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
@@ -313,41 +268,19 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                                 String mail = jsonObject.getString("email");
                                 String userText = editUsuario.getText().toString();
                                 if (userText.equals(user) || (user == userText)){
-                                //if (user == userText){
-                                    flag = true;
-                                    //Toast.makeText(getApplicationContext(), "Ese usuario ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
-                                    //editUsuario.setError("Ya existe");
-                                    //break;
+                                    flag1 = true;
                                 }
 
-                                /*
+
                                 String telText = editTelefono.getText().toString();
                                 if (telText.equals(tel) || (tel == telText)){
-                                    Toast.makeText(getApplicationContext(), "Ese telefono ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
-                                    editTelefono.setError("Ya existe");
-                                    break;
+                                    flag2 = true;
                                 }
                                 String mailText = editEmail.getText().toString();
                                 if (mailText.equals(mail) || (mail == mailText)){
-                                    Toast.makeText(getApplicationContext(), "Esa cuenta de correo ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
-                                    editEmail.setError("Ya existe");
-                                    break;
-                                }*/
+                                    flag3 = true;
+                                }
 
-                            }
-                            SharedPreferences prefFlag = getApplicationContext().getSharedPreferences("userEqual", getApplicationContext().MODE_PRIVATE);
-                            SharedPreferences.Editor editor1 = prefFlag.edit();
-                            editor1.putBoolean("flag", flag);
-
-                            if (!flag){
-                                editor1.putBoolean("flag", false).apply();
-                                //AvisoRegistro();
-                                //Toast.makeText(getApplicationContext(), "REGISTRARRRRR", Toast.LENGTH_LONG).show();
-                            }
-                            else{
-                                editor1.putBoolean("flag", true).apply();
-                                //AvisoNoRegistro();
-                                //Toast.makeText(getApplicationContext(), "usuario ya registrado", Toast.LENGTH_LONG).show();
                             }
                         }
                         catch (Exception e){
@@ -362,7 +295,57 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+
+        {
+            if (!flag1 && !flag2 && !flag3){
+                SharedPreferences prefMuni = getApplication().getSharedPreferences("municipio", MODE_PRIVATE);
+                final String id_muni = prefMuni.getString("id","");
+                final String municipalidad = prefMuni.getString("nombre","");
+                //editor1.putBoolean("flag", false).apply();
+                //AvisoRegistro();
+                int id_municipio = !id_muni.equals("") ? Integer.parseInt(id_muni) : 0;;
+                String name = editNombre.getText().toString();
+                String username = editUsuario.getText().toString().trim();
+                String password = editPassword.getText().toString();
+                String apellido = editApellido.getText().toString();
+                String email = editEmail.getText().toString();
+                int id_rol = 2;
+
+                //esto soluciona el error que tira al dejar en blanco campos int al agregar
+                EditText t = findViewById(R.id.edit_telefono_registro);
+                String telefono = t.getText().toString().trim();
+                int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
+                PostRegister(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password);
+
+                //Toast.makeText(getApplicationContext(), "REGISTRARRRRR", Toast.LENGTH_LONG).show();
+            }
+            if(flag1){
+                //editor1.putBoolean("flag", true).apply();
+                //AvisoNoRegistro();
+                editUsuario.setError("Ya existe");
+                Toast.makeText(getApplicationContext(), "Compruebe usuario", Toast.LENGTH_LONG).show();
+                flag1 = false;
+            }
+            if(flag2){
+                //editor1.putBoolean("flag", true).apply();
+                //AvisoNoRegistro();
+                editTelefono.setError("Ya existe");
+                Toast.makeText(getApplicationContext(), "Compruebe telefono", Toast.LENGTH_LONG).show();
+                flag2 = false;
+            }
+            if(flag3){
+                //editor1.putBoolean("flag", true).apply();
+                //AvisoNoRegistro();
+                editEmail.setError("Ya existe");
+                Toast.makeText(getApplicationContext(), "Compruebe Email", Toast.LENGTH_LONG).show();
+                flag3 = false;
+            }
         }
 
     }
