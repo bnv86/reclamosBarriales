@@ -201,6 +201,56 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+
+    public class  GetHttpResponseUsuarios extends AsyncTask<Void,Void,Void>{
+
+        String REQUEST_USUARIO="https://momentary-electrode.000webhostapp.com/getUsuario.php";
+        public Context context;
+        String ResultHolder;
+
+        public GetHttpResponseUsuarios(Context context){
+            this.context=context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpServices httpServiceObject = new HttpServices(REQUEST_USUARIO);
+            try{
+                httpServiceObject.ExecutePostRequest();
+                if (httpServiceObject.getResponseCode()==200){
+                    ResultHolder= httpServiceObject.getResponse();
+                    if (ResultHolder != null){
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(ResultHolder);
+                            JSONObject jsonObject;
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                jsonObject= jsonArray.getJSONObject(i);
+                                String username= jsonObject.getString("username");
+                                if (username.equals(editUsuario.getText().toString())){
+                                    Toast.makeText(getApplicationContext(), "Usuario que ya existente! Intente otro", Toast.LENGTH_LONG).show();
+                                    break;
+                                }
+                            }
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else
+                {
+                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+    }
+
     public class GetHttpResponse extends AsyncTask<Void, Void, Void>
     {
         String REQUEST_MUNICIPIO = "https://momentary-electrode.000webhostapp.com/getMunicipio.php";
