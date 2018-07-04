@@ -211,10 +211,23 @@
                 -->
 
             <Button
+                android:id="@+id/boton_eliminar_reclamo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detalle_municipalidad"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorRed"
+                android:text="Eliminar"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:layout_gravity="center"/>
+
+            <Button
                 android:id="@+id/boton_ubicacion_reclamo"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_below="@+id/detalle_municipalidad"
+                android:layout_below="@+id/boton_eliminar_reclamo"
                 android:gravity="center"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"

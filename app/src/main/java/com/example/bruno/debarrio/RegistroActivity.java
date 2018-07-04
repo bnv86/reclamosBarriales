@@ -141,55 +141,69 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             @Override
             public void onClick(View view) {
 
-                final int id_municipio = !id_muni.equals("") ? Integer.parseInt(id_muni) : 0;;
-                final String name = editNombre.getText().toString();
-                final String username = editUsuario.getText().toString();
-                final String password = editPassword.getText().toString();
-                final String apellido = editApellido.getText().toString();
-                final String email = editEmail.getText().toString();
-                final int id_rol = 2;
-                //esto soluciona el error que tira al dejar en blanco campos int al agregar
+                int id_municipio = !id_muni.equals("") ? Integer.parseInt(id_muni) : 0;;
+                String name = editNombre.getText().toString();
+                String username = editUsuario.getText().toString();
+                String password = editPassword.getText().toString();
+                String apellido = editApellido.getText().toString();
+                String email = editEmail.getText().toString();
+                int id_rol = 2;
 
-                final EditText t = findViewById(R.id.edit_telefono_registro);
-                final String telefono = t.getText().toString().trim();
-                final int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
+                //esto soluciona el error que tira al dejar en blanco campos int al agregar
+                EditText t = findViewById(R.id.edit_telefono_registro);
+                String telefono = t.getText().toString().trim();
+                int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
+
+                //EL PROBLEMA EMPIEZA ACA, PORQUE SI ESTAN TODOS LOS CAMPOS LLENOS SE METE EN EL ELSE, Y ESO DEBERIA SER EN ULTIMA INSTANCIA
+                //PRIMERO TIENE Q EVALUAR ESOS IF Y LUEGO METERSE EN EL GETHTTP, SI SALE SIN BREAK AHI SI DEBE ENTRAR AL ELSE PARA EL POSTREGISTER
+                GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
+                getHttpResponseUsuarios.execute();
 
                 if (name == null || name == "" || name.isEmpty() || username == null || username == "" || username.isEmpty()
                         || password == null || password == "" || password.isEmpty()
                         || apellido == null || apellido == "" || apellido.isEmpty()
                         || email == null || email == "" || email.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
-                } else {
+                }
+                else {
+                    PostRegister(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password);
+                    //new GetHttpResponseUsuarios(getApplicationContext()).execute();
 
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            try {
-                                JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-
-                                //if usuario ya existe, mostrar mensaje
-                                if (success) {
-                                    Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
-                                    RegistroActivity.this.startActivity(intent);
-                                    Toast.makeText(getApplicationContext(), "Usuario " + "'" + username.toString() + "'" + " registrado!", Toast.LENGTH_LONG).show();
-                                } else {
-                                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
-                                    alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    };
-                    PedidoDeRegistro pedido = new PedidoDeRegistro(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
-                    queue.add(pedido);
                 }
             }
 
         });
     }
+
+    public void PostRegister(final int id_rol, final int id_municipio, final String name, final String apellido, final String email, final int phone,
+                             final  String municipalidad, final String username, final String password){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+
+                    //if usuario ya existe, mostrar mensaje
+                    if (success) {
+                        Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+                        RegistroActivity.this.startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Usuario " + "'" + username.toString() + "'" + " registrado!", Toast.LENGTH_LONG).show();
+                    } else {
+                        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
+                        alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        PedidoDeRegistro pedido = new PedidoDeRegistro(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
+        queue.add(pedido);
+    }
+
+
     private void llenarSpinner(String [] munis) {
         //listaMunis = new ArrayList<>();
         //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
@@ -225,13 +239,30 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
 
-                            for (int i=0;i<jsonArray.length();i++){
+                            for (int i=0; i<jsonArray.length();i++){
                                 jsonObject= jsonArray.getJSONObject(i);
-                                String username= jsonObject.getString("username");
-                                if (username.equals(editUsuario.getText().toString())){
-                                    Toast.makeText(getApplicationContext(), "Usuario que ya existente! Intente otro", Toast.LENGTH_LONG).show();
+                                String user = jsonObject.getString("username");
+                                String tel = jsonObject.getString("telefono");
+                                String mail = jsonObject.getString("email");
+                                String userText = editUsuario.getText().toString();
+                                if (user.equals(userText)){
+                                //if (user == userText){
+                                    Toast.makeText(getApplicationContext(), "Ese usuario ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
                                     break;
                                 }
+                                String telText = editTelefono.getText().toString();
+                                if (tel.equals(telText)){
+                                //if (tel == telText){
+                                    Toast.makeText(getApplicationContext(), "Ese telefono ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
+                                    break;
+                                }
+                                String mailText = editEmail.getText().toString();
+                                if (mail.equals(mailText)){
+                                //if (mail == mailText){
+                                    Toast.makeText(getApplicationContext(), "Esa cuenta de correo ya existe! ...Intente otro", Toast.LENGTH_LONG).show();
+                                    break;
+                                }
+
                             }
                         }
                         catch (Exception e){
@@ -256,7 +287,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         String REQUEST_MUNICIPIO = "https://momentary-electrode.000webhostapp.com/getMunicipio.php";
         public Context context;
         String ResultHolder;
-        //List<Subject> eventosList;
         public GetHttpResponse(Context context, String posicion) //, ArrayList<String> arrayList
         {
             this.context = context;
@@ -288,21 +318,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
 
-                            //String[] munis;
-                            //Evento evento;
-                            //Evento evento = new Evento("fecha", "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                            //listaEventos = new ArrayList<Evento>();
-                            //ArrayList<Evento> listaEventos;
-                            //eventosList = new ArrayList<Subject>();
-                            //setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Contenido.titulos));
-
                             for(int i=0; i<jsonArray.length(); i++) {
-                                //ArrayList<String> listaMunis;
-                                //ArrayAdapter<String> comboAdapter;
-                                //listaMunis = new ArrayList<>();
-                                //spinnerMuni.setAdapter(comboAdapter);
-                                //String[] munis;
-                                //munis = new String[] {};
                                 jsonObject = jsonArray.getJSONObject(i);
                                 String nombre = jsonObject.getString("nombre");
                                 String id = jsonObject.getString("id");
@@ -398,7 +414,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     {
                         String posicion = (String) adapterView.getItemAtPosition(pos);
                         //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
-                        //llenarlistaEstados(posicion);
                     }
 
                     @Override
@@ -406,15 +421,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     {    }
                 });
 
-                /*final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
-                recyclerViewEventos.setAdapter(adapter);
-                adapter.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
-                        //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
-                        interfaceComunicacionFragments.enviarPersonaje(listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)));
-                    }
-                });*/
             }
         }
     }

@@ -252,7 +252,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
 
         Bundle bundleObjeto = getArguments();
         Reclamo reclamo = null;
-
         if (bundleObjeto != null){
             reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
             imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
@@ -288,9 +287,6 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             editor2.putString("latitud", reclamo.getLatitudDesc());
             editor2.putString("longitud", reclamo.getLongitudDesc());
             editor2.commit();
-
-
-
         }
         return vista;
     }
