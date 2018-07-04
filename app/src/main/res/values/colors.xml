@@ -17,4 +17,6 @@
     <color name="colorTransparente">#80000000</color>
     <color name="colorBlanco">#FFFFFFFF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="colorRed">#DF1F2C</color>
+
 </resources>

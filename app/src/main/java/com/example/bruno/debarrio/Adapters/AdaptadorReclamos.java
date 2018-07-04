@@ -39,7 +39,6 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
         holder.textEstado.setText(listaReclamos.get(position).getId_estado());
         holder.foto.setImageBitmap(listaReclamos.get(position).getImagen());
         holder.textSuscriptos.setText(listaReclamos.get(position).getCantSuscriptos());
-
     }
 
     @Override
@@ -69,7 +68,6 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
             textEstado = (TextView) itemView.findViewById(R.id.id_estado);
             foto = (ImageView) itemView.findViewById(R.id.id_imagen);
             textSuscriptos = (TextView) itemView.findViewById(R.id.cant_suscriptos);
-
         }
     }
 }

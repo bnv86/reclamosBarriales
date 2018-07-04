@@ -54,6 +54,7 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
             //progressBarEventos = findViewById(R.id.progressBar);
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -92,6 +93,37 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
 
     @Override
     public void onFragmentInteraction(Uri uri) {}
+
+    @Override
+    public void onBackPressed() {
+        //listaReclamosFragment = new ListaReclamosFragment();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            //listaReclamosFragment = new ListaReclamosFragment();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+            //listaReclamosFragment = new ListaReclamosFragment();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            //super.onBackPressed();
+        }
+        //super.onBackPressed();
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        //first clear the recycler view so items are not populated twice
+        //recyclerAdapter.clear();
+
+        //then reload the data
+        //PostCall doPostCall = new PostCall(); //my AsyncTask...
+        //doPostCall.execute();
+    }
 
     @Override
     public void enviarReclamo(Reclamo reclamo) {

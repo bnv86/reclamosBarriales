@@ -120,6 +120,7 @@ public class ListaReclamosFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_lista_reclamos, container, false);
         //progressBarEventos = vista.findViewById(R.id.progressBar);
         //listaReclamos = new ArrayList<>();
+        //recyclerViewReclamos.setAdapter(null);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
@@ -133,8 +134,13 @@ public class ListaReclamosFragment extends Fragment {
             {
                 String posicion = (String) adapterView.getItemAtPosition(pos);
                 //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                //if (listaReclamos != null){
+                //    listaReclamos.clear();
+                //}
                 llenarlistaEstados(posicion);
+                //adapterView.getItemAtPosition(1);
                 //progressBarReclamos.setVisibility(View.GONE);
+
             }
 
             @Override
@@ -147,26 +153,13 @@ public class ListaReclamosFragment extends Fragment {
 
     private void llenarlistaEstados(String posicion) {
         listaReclamos = new ArrayList<>();
+        listaReclamos.clear();
         //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
         new GetHttpResponseEstados(getContext(), posicion).execute();
         //listaReclamos.clear();
         //recyclerViewReclamos.setAdapter(null);
         //listaReclamos = new ArrayList<>();
     }
-
-    /*
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-
-        //first clear the recycler view so items are not populated twice
-        recyclerAdapter.clear();
-
-        //then reload the data
-        PostCall doPostCall = new PostCall(); //my AsyncTask...
-        doPostCall.execute();
-    }*/
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -393,6 +386,7 @@ public class ListaReclamosFragment extends Fragment {
                                         posicion = "Re-abierto";
                                     }
                                 }
+
                             }
                         }
                         catch (JSONException e) {
@@ -428,6 +422,7 @@ public class ListaReclamosFragment extends Fragment {
                         interfaceComunicacionFragments.enviarReclamo(listaReclamos.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         //progressDialog.dismiss();
                         //recyclerViewReclamos.setAdapter(null);
+                        //listaReclamos.clear();
                     }
                 });
                 //recyclerViewReclamos.setAdapter(null);

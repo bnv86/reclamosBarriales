@@ -78,14 +78,19 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     private String mParam2;
     private String UPLOAD_URL_ESTADO = "https://momentary-electrode.000webhostapp.com/postEstadoReclamo.php";
     private String POST_URL_SUSCRIPTOS = "https://momentary-electrode.000webhostapp.com/getSubscripciones.php";
+    private String DELETE_SUSCRIPCIONES = "https://momentary-electrode.000webhostapp.com/deleteSuscripciones.php";
+    private String DELETE_RECLAMO = "https://momentary-electrode.000webhostapp.com/deleteReclamo.php";
+
+
     private OnFragmentInteractionListener mListener;
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
-    Button botonActualizarEstado, botonUbicacion, botonRespuesta;
+    Button botonActualizarEstado, botonUbicacion, botonRespuesta, botonEliminar;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
+    private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ESTADO = "id_estado";
     private String KEY_SUSCRIPTOS;
     StringRequest peticion;
@@ -93,6 +98,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     private TreeMap<String, String> descrip;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
+    ListaReclamosFragment listaReclamosFragment;
     public int PICK_IMAGE_REQUEST = 1;
 
     public DetalleReclamoFragment() {
@@ -165,6 +171,35 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             public boolean onLongClick(View arg0) {
                 confirmDialog();
                 return true;
+            }
+        });
+        
+        botonEliminar = vista.findViewById(R.id.boton_eliminar_reclamo);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setMessage("¿Desea eliminar el reclamo?")
+                        .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                eliminarSuscripciones();
+                                eliminarReclamo();
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                getActivity().startActivity(intent);
+                                //listaReclamosFragment = new ListaReclamosFragment();
+                                //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+                //eliminarReclamo();
             }
         });
 
@@ -253,8 +288,93 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             editor2.putString("latitud", reclamo.getLatitudDesc());
             editor2.putString("longitud", reclamo.getLongitudDesc());
             editor2.commit();
+
+
+
         }
         return vista;
+    }
+
+    private void eliminarSuscripciones() {
+        Bundle bundleReclamo = getArguments();
+        Reclamo claim = null;
+        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
+        final String id_reclamo = claim.getId();
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_SUSCRIPCIONES,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        //loading.dismiss();
+                        Toast.makeText(getActivity(), "SUSCRIPCION ELIMINADA!", Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //loading.dismiss();
+                        Toast.makeText(getActivity(), "SUSCRIPCION NO" , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID_RECLAMO, id_reclamo);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQ.add(stringRequest);
+    }
+
+    private void eliminarReclamo() {
+        Bundle bundleReclamo = getArguments();
+        Reclamo claim = null;
+        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
+        final String id_reclamo = claim.getId();
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_RECLAMO,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "RECLAMO ELIMINADO!", Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "SIN CONEXIÓN...REINTENTE" , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID, id_reclamo);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQ.add(stringRequest);
     }
 
     private void llamarIntentRespuesta() {

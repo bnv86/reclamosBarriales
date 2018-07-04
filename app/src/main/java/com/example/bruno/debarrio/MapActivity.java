@@ -20,7 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 //import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada;
 //import com.example.bruno.debarrio.PostsDB.PedidoDeCoordenada2;
-import com.example.bruno.debarrio.Adapters.CustomInfoWindowAdapter;
 import com.example.bruno.debarrio.entidades.GuardarMarcador;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
@@ -60,8 +59,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private GoogleMap mMap;
     double latActual = 0.0;
     double lngActual = 0.0;
-    double latFoto = 0.0;
-    double lngFoto = 0.0;
     private Marker marcadorPos;
     private Marker marcadorCam;
     //TextView textview_regresar;
@@ -107,44 +104,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //doy los permisos para que se rastree mi ubicacion
+        //permisos a la app para usar mi ubicacion
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             return;
         }
-
-        /*
-        Bundle bundleObjeto = getArguments();
-        Reclamo reclamo = null;
-
-        if (bundleObjeto != null){
-            reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
-            imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
-            textUsuario.setText(reclamo.getId_usuario());
-            textCategoria.setText(reclamo.getId_categoria());
-            textMunicipalidad.setText(reclamo.getMunicipalidad());
-            textDescripcion.setText(reclamo.getDescripcionDesc());
-            //textLatitud.setText(reclamo.getLatitudDesc());
-            //textLongitud.setText(reclamo.getLongitudDesc());
-            spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
-            mailReclamo = reclamo.getEmail();
-            //asignarInfo(reclamo);
-
-            //guardo el id del reclamo para usar en la respuesta
-            String id = reclamo.getId();
-            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor1 = prefReclamo.edit();
-            editor1.putString("id_reclamo",id);
-            editor1.commit();
-            //guardo las coordenadas para usar en el boton ubicacion del detalle
-            SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor2 = prefCoord.edit();
-            editor2.putString("latitud", reclamo.getLatitudDesc());
-            editor2.putString("longitud", reclamo.getLongitudDesc());
-            editor2.commit();
-        }*/
-        //Html html;
-        //html = ("<div>This is a line break<br>My new line is here</div>");
 
         SharedPreferences sharedpreferencesMap = getApplicationContext().getSharedPreferences("coordenadas",getApplicationContext().MODE_PRIVATE);
         final String latitud = sharedpreferencesMap.getString("latitud","");
@@ -181,6 +145,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 return null;
             }
 
+            //se usa para salto de linea del snippet
             @Override
             public View getInfoContents(Marker marker) {
 
@@ -205,8 +170,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             }
         });
         mMap.animateCamera(miMarker);
-                //final double lati = coordenadasMarker.latitude;
-                //final double longi = coordenadasMarker.longitude;
+        //final double lati = coordenadasMarker.latitude;
+        //final double longi = coordenadasMarker.longitude;
         guardar.setLatitudMarker(lati);
         guardar.setLongitudMarker(longi);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(coordenadasMarker,15));
@@ -216,8 +181,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     // creo un metodo que sirve para agregar el marcador al mapa, creo un objeto Latlng en el cual se incluye la longitud y la latitud
     //luego utilizo el elemento CameraUpdate, para centrar la camara en la posisicon del marker.
-
-
     private void agregarMarcadorUbicacion(Double lat, Double lng) {
         final LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas,16);
@@ -256,8 +219,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private void ubicacionReclamo(Double lat, Double lng) {
         final LatLng coordenadas = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenadas,16);
-        //si el marcador es diferente de null se debera remover. Agrego unas propiedades al marker, como titulo y una imagen
-        //y se le agrega un metodo animateCamera para  mover la camara desde una posicion a otra.
+        //si el marcador es diferente de null se debera eliminar.
+        //animateCamera mueve la camara desde una posicion a otra.
         if (marcadorPos != null) marcadorPos.remove();
         marcadorPos = mMap.addMarker(new MarkerOptions()
                 .position(coordenadas)
@@ -269,8 +232,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     LocationListener locationListener = new LocationListener() {
 
-        // este metodo se lanza cada vez que se recibe una actualizacion de la posicion
-        //dentro de este metodo llamo a actualizarMiUbicacion. para actualizar la posicion actual del mapa.
+        // este metodo se lanza cada vez que se recibe una actualizacion de la location del dispositivo
 
         @Override
         public void onLocationChanged(Location location) {
