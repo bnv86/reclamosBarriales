@@ -159,6 +159,11 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
 
+        SharedPreferences prefFlag= getContext().getSharedPreferences("flag", getActivity().MODE_PRIVATE);
+        SharedPreferences.Editor flagEdit = prefFlag.edit();
+        flagEdit.putBoolean("flag",true);
+        flagEdit.apply();
+
         imagenDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

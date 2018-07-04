@@ -39,11 +39,14 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
     private Configuration config = new Configuration();
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
+    boolean flagFragment = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         if (findViewById(R.id.contenedorFragment) != null){
             if (savedInstanceState != null){
@@ -98,11 +101,20 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
     public void onBackPressed() {
         //listaReclamosFragment = new ListaReclamosFragment();
         //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        SharedPreferences prefFlag= getApplication().getSharedPreferences("flag", getApplication().MODE_PRIVATE);
 
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
+        if (prefFlag.getBoolean("flag",false)==true) {
             //listaReclamosFragment = new ListaReclamosFragment();
             //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-            getFragmentManager().popBackStack();
+            //getFragmentManager().popBackStack();
+            flagFragment= false;
+
+            SharedPreferences.Editor flagEdit = prefFlag.edit();
+            flagEdit.putBoolean("flag",flagFragment);
+            flagEdit.apply();
+
+            listaReclamosFragment = new ListaReclamosFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         } else {
             super.onBackPressed();
             //listaReclamosFragment = new ListaReclamosFragment();

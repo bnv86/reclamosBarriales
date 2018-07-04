@@ -54,6 +54,7 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
