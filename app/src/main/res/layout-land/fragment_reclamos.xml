@@ -23,7 +23,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/boton_ver_todos"
+                android:id="@+id/boton_por_estado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -36,7 +36,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/boton_ver_mios"
+                android:id="@+id/boton_por_categoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

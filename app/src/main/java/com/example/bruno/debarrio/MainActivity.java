@@ -115,7 +115,7 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
         }
     }*/
 
-
+/*
     @Override
     public void onBackPressed() {
         int count = getFragmentManager().getBackStackEntryCount();
@@ -124,23 +124,30 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
         } else {
             getFragmentManager().popBackStack();
         }
-    }
-
-    /*
-    @Override
-    public void onBackPressed()
-    {
-        ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
-        //if (detalleReclamoFragment instanceof ){
-
-        //}
-
-
-        if(getFragmentManager().getBackStackEntryCount() > 0)
-            getFragmentManager().popBackStack();
-        else
-            super.onBackPressed();
     }*/
+
+    @Override
+    public void onBackPressed() {
+        //listaReclamosFragment = new ListaReclamosFragment();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        //detalleReclamoFragment = new DetalleReclamoFragment();
+        //getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
+        Fragment f = getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
+        //f instanceof ListaReclamosFragment;
+        //if (getFragmentManager().getBackStackEntryCount() > 0) {
+        if (detalleReclamoFragment instanceof DetalleReclamoFragment) {
+            //Log.i(tag, "buscando el fragment actual");
+            listaReclamosFragment = new ListaReclamosFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            //getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+            //listaReclamosFragment = new ListaReclamosFragment();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            //super.onBackPressed();
+        }
+        //super.onBackPressed();
+    }
 
     /*
     @Override

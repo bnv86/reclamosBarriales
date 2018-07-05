@@ -236,7 +236,8 @@ public class RespuestasFragment extends Fragment {
                             JSONObject jsonObject;
                             SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
                             String id_reclamo = prefReclamo.getString("id_reclamo","");
-
+                            listaRespuestas.clear();
+                            listaFotos.clear();
                             for (int i=0; i<jsonArray.length();i++){
                                 jsonObject= jsonArray.getJSONObject(i);
                                 String reclamoBusqueda = jsonObject.getString("id_reclamo");
@@ -282,7 +283,6 @@ public class RespuestasFragment extends Fragment {
                 textComentario.setText(listaRespuestas.get(2).toString());
                 textEstado.setText(listaRespuestas.get(3).toString());
                 //imagenFoto.setImageBitmap(listaFotos.get(0));
-
             }
             else{
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
