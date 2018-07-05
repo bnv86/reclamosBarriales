@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/gradient"
+    tools:context="com.example.bruno.debarrio.fragments.RespuestasFragment">
+
+    <TextView
+        android:id="@+id/titulo_respuestas"
+        android:text="RESPUESTAS"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#11000000"
+        android:textColor="@color/colorBlanco"
+        android:layout_marginTop="16dp"/>
+
+    <ScrollView
+        android:id="@+id/detalle_scroll_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/static_usuario"
+                android:text="Usuario: "
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/text_usuario"
+                android:layout_below="@+id/static_fecha"
+                android:text="usuario"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorGris"/>
+
+            <TextView
+                android:id="@+id/static_fecha"
+                android:text="Fecha: "
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:layout_marginTop="0dp"/>
+
+            <TextView
+                android:id="@+id/text_fecha"
+                android:layout_below="@+id/static_fecha"
+                android:text="fecha"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorGris"/>
+
+            <TextView
+                android:id="@+id/static_estado_respuesta"
+                android:layout_below="@+id/text_fecha"
+                android:text="Estado: "
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
+
+            <TextView
+                android:id="@+id/text_estado_respuesta"
+                android:text="estado"
+                android:layout_below="@+id/static_estado_respuesta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"/>
+
+            <TextView
+                android:id="@+id/static_comentario"
+                android:text="Comentario: "
+                android:layout_below="@+id/static_estado_respuesta"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:layout_marginTop="0dp"/>
+
+            <TextView
+                android:id="@+id/text_comentario_respuesta"
+                android:layout_toRightOf="@+id/static_comentario"
+                android:text="comentario"
+                android:textSize="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:background="#11000000"
+                android:textColor="@color/colorBlanco"
+                android:textColorHint="@color/colorGris"/>
+
+
+            <ImageView
+                android:id="@+id/imagen_para_foto"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_above="@+id/boton_tomar_foto"
+                android:src="@drawable/camera"
+                android:paddingTop="@dimen/text_margin" />
+
+
+            <!--
+            <Button
+                android:id="@+id/boton_enviar_respuesta"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/spinner_estado_respuesta"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="RESPONDER RECLAMO"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+                -->
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

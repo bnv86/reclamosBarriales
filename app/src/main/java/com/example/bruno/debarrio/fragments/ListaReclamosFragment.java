@@ -3,6 +3,7 @@ package com.example.bruno.debarrio.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,10 +11,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
+import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
@@ -72,6 +76,8 @@ public class ListaReclamosFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private OnFragmentInteractionListener mListener;
+    ListaReclamosFragment listaReclamosFragment;
+    DetalleReclamoFragment detalleReclamoFragment;
 
     ArrayList<Reclamo> listaReclamos;
     RecyclerView recyclerViewReclamos;
@@ -112,15 +118,51 @@ public class ListaReclamosFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //detalleReclamoFragment = new DetalleReclamoFragment();
+        //android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+        //fragmentManager.beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+        //listaReclamosFragment = new ListaReclamosFragment();
+        // Crea el nuevo fragmento y la transacción.
+        //RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
+        //FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        //transaction.replace(R.id.contenedorFragment, listaReclamosFragment);
+        //transaction.addToBackStack(null);
+        // Commit a la transacción
+        //transaction.commit();
+
+        //getFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //ft.detach(this).attach(this).commit();
+
     }
+
+    /*
+    @Override
+    public void onResume() {
+        listaReclamosFragment = ListaReclamosFragment.newInstance(index);
+        FragmentTransaction ft = getFragmentManager()
+                .beginTransaction();
+        ft.replace(R.id.contenedorFragment, listaReclamosFragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ft.commit();
+        //Intent intentVer = new Intent(getActivity(), MainActivity.class);
+        //getActivity().startActivity(intentVer);
+        super.onResume();
+    }*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_lista_reclamos, container, false);
+        //getActivity().recreate();
+
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //ft.detach(this).attach(this).commit();
         //progressBarEventos = vista.findViewById(R.id.progressBar);
         //listaReclamos = new ArrayList<>();
         //recyclerViewReclamos.setAdapter(null);
+        //recyclerViewReclamos.removeAllViews();
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
@@ -152,13 +194,9 @@ public class ListaReclamosFragment extends Fragment {
     }
 
     private void llenarlistaEstados(String posicion) {
-        listaReclamos = new ArrayList<>();
-        listaReclamos.clear();
-        //ProgressDialog.show(getActivity(),"Cargando reclamos...","Espere por favor...",false,false);
-        new GetHttpResponseEstados(getContext(), posicion).execute();
         //listaReclamos.clear();
-        //recyclerViewReclamos.setAdapter(null);
-        //listaReclamos = new ArrayList<>();
+        listaReclamos = new ArrayList<>();
+        new GetHttpResponseEstados(getContext(), posicion).execute();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -185,12 +223,27 @@ public class ListaReclamosFragment extends Fragment {
         }
     }
 
+/*
+    @Override
+    public void onResume() {
+        //Log.e("DEBUG", "onResume of lista fragment");
+        //listaReclamosFragment = new ListaReclamosFragment();
+        //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //ft.detach(this).attach(this).commit();
+        super.onResume();
+    }*/
+
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
+    @Override
+    public void onDestroyView(){
+        super.onDestroyView();
+    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -222,6 +275,9 @@ public class ListaReclamosFragment extends Fragment {
         @Override
         protected void onPreExecute()
         {
+            //listaReclamos.clear();
+            //recyclerViewReclamos.removeAllViews();
+            //recyclerViewReclamos.removeAllViewsInLayout();
             super.onPreExecute();
 
             final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
@@ -251,29 +307,22 @@ public class ListaReclamosFragment extends Fragment {
         protected Void doInBackground(Void... arg0)
         {
             HttpServices httpServiceObject = new HttpServices(ServerURL);
-            //HttpServices httpServiceObject2 = new HttpServices(ServerURL2);
             try
             {
                 httpServiceObject.ExecutePostRequest();
 
-                if((httpServiceObject.getResponseCode() == 200)) //&& (httpServiceObject2.getResponseCode() == 200)
+                if((httpServiceObject.getResponseCode() == 200))
                 {
                     ResultHolder = httpServiceObject.getResponse();
-                    //ResultHolder2 = httpServiceObject2.getResponse();
 
-                    if((ResultHolder != null)) //&& (ResultHolder2 != null)
+                    if((ResultHolder != null))
                     {
                         JSONArray jsonArray = null;
-                        //JSONArray jsonArrayCategoria = null;
-                        //JSONObject jsonObjectCategoria = null;
                         try {
                             jsonArray = new JSONArray(ResultHolder);
-                            //jsonObjectCategoria = new JSONObject(ResultHolder2);
-                            //jsonArrayCategoria = new JSONArray(ResultHolder2);
                             SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
                             String id_muni = prefUsuario.getString("id_municipio","");
                             JSONObject jsonObject;
-                            //JSONObject jsonObjectCategoria;
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
@@ -414,6 +463,8 @@ public class ListaReclamosFragment extends Fragment {
         {
             if(listaReclamos != null) {
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
+                //recyclerViewReclamos.removeAllViewsInLayout();
+                //recyclerViewReclamos.removeAllViews();
                 recyclerViewReclamos.setAdapter(adapter);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -453,6 +504,7 @@ public class ListaReclamosFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+
                         Log.d("Respuesta servidor", response);
                         try {
                             JSONArray jsonArray = new JSONArray(response);

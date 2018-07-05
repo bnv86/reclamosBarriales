@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio.fragments;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -65,7 +66,10 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * Use the {@link DetalleReclamoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.OnItemSelectedListener    implements View.OnClickListener
+public class DetalleReclamoFragment extends Fragment{
+
+
+    //implements AdapterView.OnItemSelectedListener    implements View.OnClickListener
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -86,7 +90,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
-    Button botonActualizarEstado, botonUbicacion, botonRespuesta, botonEliminar;
+    Button botonActualizarEstado, botonUbicacion, botonRespuesta, botonEliminar, botonVerRespuestas;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
@@ -99,11 +103,14 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
     ListaReclamosFragment listaReclamosFragment;
+    DetalleReclamoFragment detalleReclamoFragment;
+    FragmentManager fm;
     public int PICK_IMAGE_REQUEST = 1;
 
     public DetalleReclamoFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -130,12 +137,14 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //getActivity().onBackPressed();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View vista = inflater.inflate(R.layout.fragment_detalle_reclamos, container, false);
+        //getActivity().onBackPressed();
         textUsuario = (TextView) vista.findViewById(R.id.detalle_usuario);
         textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textMunicipalidad = (TextView) vista.findViewById(R.id.detalle_municipalidad);
@@ -225,6 +234,14 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
             }
         });
 
+        botonVerRespuestas = vista.findViewById(R.id.boton_ver_respuestas);
+        botonVerRespuestas.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentVerRespuestas();
+            }
+        });
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -295,6 +312,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         }
         return vista;
     }
+
 
     private void eliminarSuscripciones() {
         Bundle bundleReclamo = getArguments();
@@ -376,6 +394,16 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
         //Agregar solicitud a la cola
         requestQ.add(stringRequest);
+    }
+
+    private void llamarIntentVerRespuestas() {
+        // Crea el nuevo fragmento y la transacción.
+        RespuestasFragment fra = new RespuestasFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.contenedorFragment, fra);
+        transaction.addToBackStack(null);
+        // Commit a la transacción
+        transaction.commit();
     }
 
     private void llamarIntentRespuesta() {
@@ -601,6 +629,7 @@ public class DetalleReclamoFragment extends Fragment{ //implements AdapterView.O
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

@@ -134,9 +134,8 @@ public class RespuestaReclamoFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
         View rootView = inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
-        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE); //toma la sesion actual del usuario
+        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
         String estado = prefEstado.getString("estado","");
-        botonSacarFoto = rootView.findViewById(R.id.boton_tomar_foto);
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
         textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);

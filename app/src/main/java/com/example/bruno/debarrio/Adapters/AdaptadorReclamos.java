@@ -27,6 +27,7 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
 
     @Override
     public ReclamosViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
         view.setOnClickListener(this);
         return new ReclamosViewHolder(view);
@@ -54,6 +55,7 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
         if (listener != null) {
             listener.onClick(view);
         }
+        //listener = null;
     }
 
     public class ReclamosViewHolder extends RecyclerView.ViewHolder{

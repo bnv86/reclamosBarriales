@@ -244,7 +244,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         String ResultHolder;
 
         public GetHttpResponseUsuarios(Context context){
-            this.context=context;
+            this.context = context;
         }
 
         @Override
@@ -271,7 +271,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                                     flag1 = true;
                                 }
 
-
                                 String telText = editTelefono.getText().toString();
                                 if (telText.equals(tel) || (tel == telText)){
                                     flag2 = true;
@@ -280,7 +279,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                                 if (mailText.equals(mail) || (mail == mailText)){
                                     flag3 = true;
                                 }
-
                             }
                         }
                         catch (Exception e){
