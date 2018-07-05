@@ -1,4 +1,4 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,19 @@
     android:orientation="vertical"
     android:background="@drawable/gradient"
     tools:context="com.example.bruno.debarrio.fragments.DetalleReclamoFragment">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_regresar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_media_rew" />
 
 <!--
         <ScrollView
@@ -46,6 +59,7 @@
 
     <ScrollView
         android:id="@+id/detalle_scroll_form"
+        android:layout_below="@+id/imagen_detalle"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -349,4 +363,4 @@
         android:focusable="false"
         android:inputType="textMultiLine" /> -->
 
-</LinearLayout>
+</RelativeLayout>

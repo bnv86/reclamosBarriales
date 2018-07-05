@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -77,6 +78,7 @@ public class ListaReclamosFragment extends Fragment {
     private String mParam2;
     private OnFragmentInteractionListener mListener;
     ListaReclamosFragment listaReclamosFragment;
+    ListaReclamosFragment listaReclamosFragment2;
     DetalleReclamoFragment detalleReclamoFragment;
 
     ArrayList<Reclamo> listaReclamos;
@@ -137,19 +139,20 @@ public class ListaReclamosFragment extends Fragment {
 
     }
 
-    /*
+
     @Override
     public void onResume() {
-        listaReclamosFragment = ListaReclamosFragment.newInstance(index);
-        FragmentTransaction ft = getFragmentManager()
-                .beginTransaction();
-        ft.replace(R.id.contenedorFragment, listaReclamosFragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
+        //getActivity().
+        //ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
+        //listaReclamosFragment = ListaReclamosFragment.newInstance(index);
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        //ft.replace(R.layout.fragment_lista_reclamos, listaReclamosFragment);
+        //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        //ft.commit();
         //Intent intentVer = new Intent(getActivity(), MainActivity.class);
         //getActivity().startActivity(intentVer);
         super.onResume();
-    }*/
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -163,6 +166,17 @@ public class ListaReclamosFragment extends Fragment {
         //listaReclamos = new ArrayList<>();
         //recyclerViewReclamos.setAdapter(null);
         //recyclerViewReclamos.removeAllViews();
+        //boton flotante regresar a pantalla anterior
+        FloatingActionButton botonFloatRegresar = vista.findViewById(R.id.float_regresar);
+        botonFloatRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //flagBack = true;
+                //MainActivity mainActivity = new MainActivity();
+                //mainActivity.loadItems();
+                getActivity().onBackPressed();
+            }
+        });
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
@@ -180,7 +194,8 @@ public class ListaReclamosFragment extends Fragment {
                 //    listaReclamos.clear();
                 //}
                 llenarlistaEstados(posicion);
-                //adapterView.getItemAtPosition(1);
+                //adapterView.getItemIdAtPosition(3);
+                //view.refreshDrawableState();
                 //progressBarReclamos.setVisibility(View.GONE);
 
             }

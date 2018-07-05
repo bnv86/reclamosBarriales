@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -52,18 +53,16 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
 
         if (findViewById(R.id.contenedorFragment) != null){
             if (savedInstanceState != null){
-                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
-                //return;
+                //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
+                return;
             }
+            //getActionBar().setDisplayHomeAsUpEnabled(true);
             listaReclamosFragment = new ListaReclamosFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment);
-            //getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment).commit();
-            //getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
-
             //progressBarEventos = findViewById(R.id.progressBar);
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,6 +97,13 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
             Toast.makeText(getApplicationContext(),"Sesion cerrada", Toast.LENGTH_LONG).show();
             this.finish();
         }
+        switch (item.getItemId()) {
+            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
+                Log.i("ActionBar", "Atrás!");
+                finish();
+                return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -126,6 +132,7 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
         }
     }*/
 
+/*
     @Override
     public void onBackPressed() {
         //listaReclamosFragment = new ListaReclamosFragment();
@@ -136,9 +143,13 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
         //f instanceof ListaReclamosFragment;
         //if (getFragmentManager().getBackStackEntryCount() > 0) {
         if (detalleReclamoFragment instanceof DetalleReclamoFragment) {
-            //Log.i(tag, "buscando el fragment actual");
-            listaReclamosFragment = new ListaReclamosFragment();
+            getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
+            loadItems();
+            getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            //Log.i(tag, "buscando el fragment actual");
+            //listaReclamosFragment = new ListaReclamosFragment();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
             //getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
@@ -147,7 +158,7 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
             //super.onBackPressed();
         }
         //super.onBackPressed();
-    }
+    }*/
 
     /*
     @Override
@@ -158,36 +169,26 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
     }*/
 
     public void loadItems(){
-        listaReclamosFragment = new ListaReclamosFragment();
+        //listaReclamosFragment = new ListaReclamosFragment();
+        //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment).detach(listaReclamosFragment)
+        //        .attach(listaReclamosFragment).replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        //getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment).commit();
     }
 
-
-
+    @Override
     protected void onResume() {
-        getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-        getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment).commit();
-        getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
+        //loadItems();
+        //getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment);
+        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         super.onResume();
     }
 
     @Override
     protected void onRestart() {
-        getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-        getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment).commit();
-        getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         super.onRestart();
         //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-
-
-        //first clear the recycler view so items are not populated twice
-        //recyclerAdapter.clear();
-
-        //then reload the data
-        //PostCall doPostCall = new PostCall(); //my AsyncTask...
-        //doPostCall.execute();
     }
 
     @Override

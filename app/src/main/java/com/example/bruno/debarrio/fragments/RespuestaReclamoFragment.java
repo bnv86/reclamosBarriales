@@ -143,7 +143,7 @@ public class RespuestaReclamoFragment extends Fragment {
         //String comentario = editextComentario.getText().toString();
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
-
+        botonSacarFoto = rootView.findViewById(R.id.boton_tomar_foto);
         botonSacarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
