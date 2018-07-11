@@ -30,6 +30,7 @@ import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
 import com.example.bruno.debarrio.fragments.ProfileFragment;
 import com.example.bruno.debarrio.fragments.ReclamosFragment;
 import com.example.bruno.debarrio.fragments.RespuestaReclamoFragment;
+import com.example.bruno.debarrio.fragments.RespuestasFragment;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
@@ -45,6 +46,8 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
     private Configuration config = new Configuration();
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
+    RespuestaReclamoFragment respuestaReclamoFragment;
+    RespuestasFragment respuestasFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +112,40 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
 
     @Override
     public void onFragmentInteraction(Uri uri) {}
+
+    @Override
+    public void onBackPressed() {
+        //listaReclamosFragment = new ListaReclamosFragment();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        //detalleReclamoFragment = new DetalleReclamoFragment();
+        //getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
+        Fragment f = getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
+        //DetalleReclamoFragment test = (DetalleReclamoFragment) getSupportFragmentManager().findFragmentById(R.id.contenedorFragment);
+        //ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
+
+        //f instanceof ListaReclamosFragment;
+        //if (getFragmentManager().getBackStackEntryCount() > 0) {
+        if (detalleReclamoFragment != null && detalleReclamoFragment.isVisible()){ //&& listaReclamosFragment != null
+            ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+            //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
+            //getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
+        }
+        else if (detalleReclamoFragment == null){
+            super.onBackPressed();
+        }
+        //EL PROBLEMA ACA ES QUE AL VOLVER EN ESTA VISTA VUELVE A TODAS LAS ACUMULADAS, VER COMO BORRARLAS DEL STACK
+        else if (listaReclamosFragment.isVisible() && detalleReclamoFragment == null || detalleReclamoFragment.isHidden()){
+            getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment);
+            getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
+            Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class);
+            MainActivity.this.startActivity(intent);
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
 
 /*
     @Override

@@ -1,5 +1,7 @@
 package com.example.bruno.debarrio.Adapters;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
 
 import java.util.ArrayList;
+
+import static android.app.ProgressDialog.show;
 
 /**
  * Created by Bruno on 08/04/2018.

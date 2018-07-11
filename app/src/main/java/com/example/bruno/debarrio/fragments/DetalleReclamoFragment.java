@@ -170,17 +170,15 @@ public class DetalleReclamoFragment extends Fragment{
         textSuscriptos = vista.findViewById(R.id.detalle_suscriptos);
         getSubscripcionesReclamo();
         //boton flotante regresar a pantalla anterior
+        /*
         FloatingActionButton botonFloatRegresar = vista.findViewById(R.id.float_regresar);
         botonFloatRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //flagBack = true;
-                //MainActivity mainActivity = new MainActivity();
-                //mainActivity.loadItems();
                 ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
             }
-        });
+        });*/
         //textSuscriptos.setText(getSubscripcionesReclamo());
         //getSuscriptores(KEY_SUSCRIPTOS);
         //textSuscriptos.setText(KEY_SUSCRIPTOS);

@@ -6,6 +6,7 @@
     android:background="@drawable/gradient"
     tools:context="com.example.bruno.debarrio.fragments.ListaReclamosFragment">
 
+    <!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/float_regresar"
         android:layout_width="wrap_content"
@@ -18,6 +19,7 @@
         android:layout_marginStart="@dimen/fab_margin"
         android:layout_marginTop="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_media_rew" />
+        -->
 
     <LinearLayout
         android:layout_width="wrap_content"

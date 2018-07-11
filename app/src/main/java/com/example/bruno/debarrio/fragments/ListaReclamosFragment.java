@@ -80,6 +80,8 @@ public class ListaReclamosFragment extends Fragment {
     ListaReclamosFragment listaReclamosFragment;
     ListaReclamosFragment listaReclamosFragment2;
     DetalleReclamoFragment detalleReclamoFragment;
+    ProgressDialog pDialog;
+    Context context;
 
     ArrayList<Reclamo> listaReclamos;
     RecyclerView recyclerViewReclamos;
@@ -136,9 +138,7 @@ public class ListaReclamosFragment extends Fragment {
         //getFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
         //FragmentTransaction ft = getFragmentManager().beginTransaction();
         //ft.detach(this).attach(this).commit();
-
     }
-
 
     @Override
     public void onResume() {
@@ -159,24 +159,15 @@ public class ListaReclamosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_lista_reclamos, container, false);
         //getActivity().recreate();
-
-        //FragmentTransaction ft = getFragmentManager().beginTransaction();
-        //ft.detach(this).attach(this).commit();
-        //progressBarEventos = vista.findViewById(R.id.progressBar);
-        //listaReclamos = new ArrayList<>();
-        //recyclerViewReclamos.setAdapter(null);
-        //recyclerViewReclamos.removeAllViews();
         //boton flotante regresar a pantalla anterior
+        /*
         FloatingActionButton botonFloatRegresar = vista.findViewById(R.id.float_regresar);
         botonFloatRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //flagBack = true;
-                //MainActivity mainActivity = new MainActivity();
-                //mainActivity.loadItems();
                 getActivity().onBackPressed();
             }
-        });
+        });*/
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
@@ -190,14 +181,10 @@ public class ListaReclamosFragment extends Fragment {
             {
                 String posicion = (String) adapterView.getItemAtPosition(pos);
                 //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
-                //if (listaReclamos != null){
-                //    listaReclamos.clear();
-                //}
                 llenarlistaEstados(posicion);
                 //adapterView.getItemIdAtPosition(3);
                 //view.refreshDrawableState();
                 //progressBarReclamos.setVisibility(View.GONE);
-
             }
 
             @Override
@@ -209,7 +196,6 @@ public class ListaReclamosFragment extends Fragment {
     }
 
     private void llenarlistaEstados(String posicion) {
-        //listaReclamos.clear();
         listaReclamos = new ArrayList<>();
         new GetHttpResponseEstados(getContext(), posicion).execute();
     }
@@ -294,20 +280,24 @@ public class ListaReclamosFragment extends Fragment {
             //recyclerViewReclamos.removeAllViews();
             //recyclerViewReclamos.removeAllViewsInLayout();
             super.onPreExecute();
-
-            final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
+            pDialog = new ProgressDialog(context);
+            pDialog.setMessage("Cargando Lista");
+            pDialog.setCancelable(true);
+            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog.show();
+            //final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerURL,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
                             //Descartar el diálogo de progreso
-                            loading.dismiss();
+                            //loading.dismiss();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
-                            loading.dismiss();
+                            //loading.dismiss();
                             Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
                         }
                     });
@@ -477,10 +467,34 @@ public class ListaReclamosFragment extends Fragment {
 
         {
             if(listaReclamos != null) {
+                //if (recyclerViewReclamos != null){
+                    final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
+                    //recyclerViewReclamos.removeAllViewsInLayout();
+                    //recyclerViewReclamos.removeAllViews();
+                    recyclerViewReclamos.setAdapter(adapter);
+                    pDialog.dismiss();
+                    adapter.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view){
+                            //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
+                            interfaceComunicacionFragments.enviarReclamo(listaReclamos.get(recyclerViewReclamos.getChildAdapterPosition(view)));
+                            //progressDialog.dismiss();
+                            //recyclerViewReclamos.setAdapter(null);
+                            //listaReclamos.clear();
+                            //listaReclamos.remove(recyclerViewReclamos);
+                            //listaReclamos.remove(recyclerViewReclamos.getChildAdapterPosition(view));
+                            //listaReclamos.remove(recyclerViewReclamos.getChildAdapterPosition(view));
+                        }
+                    });
+
+                //}
+                /*
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
                 //recyclerViewReclamos.removeAllViewsInLayout();
                 //recyclerViewReclamos.removeAllViews();
                 recyclerViewReclamos.setAdapter(adapter);
+                pDialog.dismiss();
+                //loading.dismiss();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -489,8 +503,13 @@ public class ListaReclamosFragment extends Fragment {
                         //progressDialog.dismiss();
                         //recyclerViewReclamos.setAdapter(null);
                         //listaReclamos.clear();
+                        //listaReclamos.remove(recyclerViewReclamos);
+                        //listaReclamos.remove(recyclerViewReclamos.getChildAdapterPosition(view));
+                        //listaReclamos.remove(recyclerViewReclamos.getChildAdapterPosition(view));
                     }
-                });
+
+                });*/
+                //listaReclamos.remove(recyclerViewReclamos);
                 //recyclerViewReclamos.setAdapter(null);
 
                 /*
@@ -504,11 +523,12 @@ public class ListaReclamosFragment extends Fragment {
                 });*/
             }
             else{
+                listaReclamos.clear();
+                listaReclamos.remove(recyclerViewReclamos);
+                recyclerViewReclamos.setAdapter(null);
+                pDialog.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
-            //listaReclamos.clear();
-            //progressBarEventos.setVisibility(View.GONE);
-            //recyclerViewReclamos.setVisibility(View.VISIBLE);
         }
 
     }
