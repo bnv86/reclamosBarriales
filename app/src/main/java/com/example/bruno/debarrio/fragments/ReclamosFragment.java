@@ -75,13 +75,13 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
         });
 
 
-        botonPorCategoria = rootView.findViewById(R.id.boton_por_categoria);
+        /*botonPorCategoria = rootView.findViewById(R.id.boton_por_categoria);
         botonPorCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 llamarIntentPorCategoria();
             }
-        });
+        });*/
 
 
         /*

@@ -35,16 +35,59 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/boton_por_categoria"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="Busque por estado: "
+                android:textColor="@color/colorBlanco"/>
+
+            <TextView
+                android:id="@+id/boton_abierto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:background="@android:color/holo_red_light"
                 android:gravity="center"
                 android:padding="20dp"
-                android:text="@string/por_categoria"
-                android:textColor="@color/colorDark"
+                android:text="Abierto"
+                android:textColor="@color/colorYellow"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/boton_encurso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="En curso"
+                android:textColor="@color/colorYellow"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/boton_resuelto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="Resuelto"
+                android:textColor="@color/colorYellow"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/boton_reabierto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="Re-abierto"
+                android:textColor="@color/colorYellow"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

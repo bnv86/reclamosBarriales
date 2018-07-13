@@ -257,17 +257,17 @@ public class DetalleReclamoFragment extends Fragment{
 
         botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
         botonRespuesta.setVisibility(View.GONE);
-        /*
+
         botonRespuesta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 llamarIntentRespuesta();
             }
-        });*/
+        });
 
 
-        botonVerRespuestas = vista.findViewById(R.id.boton_ver_respuestas);
-        botonVerRespuestas.setVisibility(View.GONE);
+        //botonVerRespuestas = vista.findViewById(R.id.boton_ver_respuestas);
+        //botonVerRespuestas.setVisibility(View.GONE);
         /*
         botonVerRespuestas.setOnClickListener(new View.OnClickListener(){
             @Override

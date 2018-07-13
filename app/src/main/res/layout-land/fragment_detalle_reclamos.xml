@@ -278,49 +278,10 @@
                 android:layout_marginEnd="50dp"/>
 
             <Button
-                android:id="@+id/boton_ver_respuestas"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:id="@+id/boton_lista_respuestas"
                 android:layout_below="@+id/boton_ubicacion_reclamo"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorBlueReal"
-                android:text="VER RESPUESTAS"
-                android:textColor="@color/colorBlanco"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"/>
-
-
-            <Button
-                android:id="@+id/boton_respuesta_reclamo"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_below="@+id/boton_ver_respuestas"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:background="@color/colorAccent"
-                android:text="RESPONDER"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"/>
-
-            <Button
-                android:id="@+id/boton_actualizar_estado"
-                android:layout_below="@+id/boton_respuesta_reclamo"
-                android:layout_gravity="center"
-                android:text="ACTUALIZAR ESTADO"
-                android:background="@color/colorLightBlue"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="15dp"/>
-
-            <Button
-                android:id="@+id/boton_lista_respuestas"
-                android:layout_below="@+id/boton_actualizar_estado"
-                android:layout_gravity="center"
-                android:text="Lista Respuestas"
+                android:text="Ver comentarios al reclamo"
                 android:textStyle="bold"
                 android:background="@color/colorYellow"
                 android:layout_width="match_parent"
@@ -330,6 +291,34 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="15dp"
                 />
+
+            <Button
+                android:id="@+id/boton_respuesta_reclamo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/boton_lista_respuestas"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="RESPONDER al usuario"
+                android:textColor="@color/colorBlanco"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"/>
+
+
+            <Button
+                android:id="@+id/boton_actualizar_estado"
+                android:layout_below="@+id/boton_respuesta_reclamo"
+                android:layout_gravity="center"
+                android:text="ACTUALIZAR ESTADO"
+                android:textStyle="bold"
+                android:background="@color/colorLightBlue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"/>
 
         </RelativeLayout>
     </ScrollView>
