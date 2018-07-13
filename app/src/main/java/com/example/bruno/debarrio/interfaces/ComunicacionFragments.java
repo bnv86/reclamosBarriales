@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio.interfaces;
 
 import com.example.bruno.debarrio.entidades.Reclamo;
+import com.example.bruno.debarrio.entidades.Respuesta;
 
 /**
  * Created by Bruno on 08/04/2018.
@@ -9,5 +10,6 @@ import com.example.bruno.debarrio.entidades.Reclamo;
 public interface ComunicacionFragments {
 
     public void enviarReclamo(Reclamo reclamo);
+    public void enviarRespuesta(Respuesta respuesta);
 
 }

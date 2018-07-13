@@ -187,7 +187,7 @@ public class RespuestasFragment extends Fragment {
 
     public class  GetHttpResponseRespuestas extends AsyncTask<Void,Void,Void> {
 
-        String REQUEST_RESPUESTAS = "https://momentary-electrode.000webhostapp.com/getRespuestas.php";
+        String REQUEST_RESPUESTAS = "https://momentary-electrode.000webhostapp.com/getRespuestas1.php";
         public Context context;
         String ResultHolder;
 
@@ -240,18 +240,20 @@ public class RespuestasFragment extends Fragment {
                             listaFotos.clear();
                             for (int i=0; i<jsonArray.length();i++){
                                 jsonObject= jsonArray.getJSONObject(i);
-                                String reclamoBusqueda = jsonObject.getString("id_reclamo");
+                                String reclamoBusqueda_id = jsonObject.getString("id_reclamo");
+                                String username = jsonObject.getString("username");
+                                String estado = jsonObject.getString("estado");
                                 String id_user = jsonObject.getString("id_usuario");
                                 String id_estado = jsonObject.getString("id_estado");
                                 String fecha = jsonObject.getString("fecha");
                                 String comentario = jsonObject.getString("comentario");
                                 //String dec = jsonObject.getString("foto_respuesta");
                                 //Bitmap foto = downloadImage(dec);
-                                if (id_reclamo.equals(reclamoBusqueda) || (id_reclamo == reclamoBusqueda)){
-                                    listaRespuestas.add(id_user.toString());
+                                if (id_reclamo.equals(reclamoBusqueda_id) || (id_reclamo == reclamoBusqueda_id)){
+                                    listaRespuestas.add(username.toString());
                                     listaRespuestas.add(fecha.toString());
                                     listaRespuestas.add(comentario.toString());
-                                    listaRespuestas.add(id_estado.toString());
+                                    listaRespuestas.add(estado.toString());
                                     //listaFotos.add(foto);
                                 }
                             }

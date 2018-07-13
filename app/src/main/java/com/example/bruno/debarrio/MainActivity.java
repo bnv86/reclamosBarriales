@@ -25,8 +25,11 @@ import android.widget.Toast;
 
 //import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.entidades.Reclamo;
+import com.example.bruno.debarrio.entidades.Respuesta;
 import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
+import com.example.bruno.debarrio.fragments.DetalleRespuestaFragment;
 import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
+import com.example.bruno.debarrio.fragments.ListaRespuestasFragment;
 import com.example.bruno.debarrio.fragments.ProfileFragment;
 import com.example.bruno.debarrio.fragments.ReclamosFragment;
 import com.example.bruno.debarrio.fragments.RespuestaReclamoFragment;
@@ -38,8 +41,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener,
-DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
+public class MainActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener, DetalleReclamoFragment.OnFragmentInteractionListener,
+        RespuestaReclamoFragment.OnFragmentInteractionListener, ListaRespuestasFragment.OnFragmentInteractionListener, DetalleRespuestaFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     //String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     private Locale locale;
@@ -48,6 +51,8 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
     DetalleReclamoFragment detalleReclamoFragment;
     RespuestaReclamoFragment respuestaReclamoFragment;
     RespuestasFragment respuestasFragment;
+    ListaRespuestasFragment listaRespuestasFragment;
+    DetalleRespuestaFragment detalleRespuestaFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +141,7 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
             super.onBackPressed();
         }
         //EL PROBLEMA ACA ES QUE AL VOLVER EN ESTA VISTA VUELVE A TODAS LAS ACUMULADAS, VER COMO BORRARLAS DEL STACK
-        else if (listaReclamosFragment.isVisible() && detalleReclamoFragment == null || detalleReclamoFragment.isHidden()){
+        else if (listaReclamosFragment.isVisible() || detalleReclamoFragment.isHidden()){ //&& detalleReclamoFragment == null ||
             getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment);
             getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
             Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class);
@@ -234,13 +239,29 @@ DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.O
         //if ((detalleReclamoFragment != null) && (findViewById(R.id.contenedorFragment) == null)){
         //    detalleReclamoFragment.asignarInfo(reclamo);
         //}else{
-            detalleReclamoFragment = new DetalleReclamoFragment();
-            Bundle bundleEnvio = new Bundle();
-            bundleEnvio.putSerializable("objeto", reclamo);
-            detalleReclamoFragment.setArguments(bundleEnvio);
+        detalleReclamoFragment = new DetalleReclamoFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto", reclamo);
+        detalleReclamoFragment.setArguments(bundleEnvio);
 
-            //cargar el fragment en el activity
-            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+        //cargar el fragment en el activity
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+        //}
+    }
+
+    @Override
+    public void enviarRespuesta(Respuesta respuesta) {
+        //detalleReclamoFragment = (DetalleReclamoFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentDetalle);
+        //if ((detalleReclamoFragment != null) && (findViewById(R.id.contenedorFragment) == null)){
+        //    detalleReclamoFragment.asignarInfo(reclamo);
+        //}else{
+        detalleRespuestaFragment = new DetalleRespuestaFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto2", respuesta);
+        detalleRespuestaFragment.setArguments(bundleEnvio);
+
+        //cargar el fragment en el activity
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleRespuestaFragment).addToBackStack(null).commit();
         //}
     }
 

@@ -2,7 +2,6 @@ package com.example.bruno.debarrio.fragments;
 
 import android.app.Activity;
 import android.app.FragmentManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -15,7 +14,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
@@ -48,6 +46,7 @@ import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.EnviarMail;
 import com.example.bruno.debarrio.entidades.Reclamo;
+import com.example.bruno.debarrio.entidades.Respuesta;
 import com.example.bruno.debarrio.entidades.Save;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
@@ -66,15 +65,12 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DetalleReclamoFragment.OnFragmentInteractionListener} interface
+ * {@link DetalleRespuestaFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DetalleReclamoFragment#newInstance} factory method to
+ * Use the {@link DetalleRespuestaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetalleReclamoFragment extends Fragment{
-
-
-    //implements AdapterView.OnItemSelectedListener    implements View.OnClickListener
+public class DetalleRespuestaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -92,10 +88,9 @@ public class DetalleReclamoFragment extends Fragment{
 
 
     private OnFragmentInteractionListener mListener;
-    TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
-    String mailReclamo;
+    TextView textUsuario, textCategoria, textComentario, textEstado, textFecha, textSuscriptos, textLongitud; //, textID
     ImageView imagenDetalle;
-    Button botonActualizarEstado, botonUbicacion, botonRespuesta, botonEliminar, botonVerRespuestas, botonListaRespuestas, botonFloat;
+    Button botonActualizarEstado, botonVerRespuestas, botonListaRespuestas, botonFloat;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
@@ -113,7 +108,7 @@ public class DetalleReclamoFragment extends Fragment{
     FragmentManager fm;
     public int PICK_IMAGE_REQUEST = 1;
 
-    public DetalleReclamoFragment() {
+    public DetalleRespuestaFragment() {
         // Required empty public constructor
     }
 
@@ -127,8 +122,8 @@ public class DetalleReclamoFragment extends Fragment{
      * @return A new instance of fragment DetalleReclamoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DetalleReclamoFragment newInstance(String param1, String param2) {
-        DetalleReclamoFragment fragment = new DetalleReclamoFragment();
+    public static DetalleRespuestaFragment newInstance(String param1, String param2) {
+        DetalleRespuestaFragment fragment = new DetalleRespuestaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -161,14 +156,15 @@ public class DetalleReclamoFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View vista = inflater.inflate(R.layout.fragment_detalle_reclamos, container, false);
+        final View vista = inflater.inflate(R.layout.fragment_respuestas, container, false);
         //getActivity().onBackPressed();
-        textUsuario = (TextView) vista.findViewById(R.id.detalle_usuario);
-        textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
-        textMunicipalidad = (TextView) vista.findViewById(R.id.detalle_municipalidad);
-        textDescripcion = vista.findViewById(R.id.detalle_descripcion);
-        textSuscriptos = vista.findViewById(R.id.detalle_suscriptos);
-        getSubscripcionesReclamo();
+        textUsuario = (TextView) vista.findViewById(R.id.text_usuario);
+        textFecha = (TextView) vista.findViewById(R.id.text_fecha);
+        textEstado = (TextView) vista.findViewById(R.id.text_estado_respuesta);
+        //textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
+        textComentario = vista.findViewById(R.id.text_comentario_respuesta);
+        //textSuscriptos = vista.findViewById(R.id.detalle_suscriptos);
+        //getSubscripcionesReclamo();
         //boton flotante regresar a pantalla anterior
         /*
         FloatingActionButton botonFloatRegresar = vista.findViewById(R.id.float_regresar);
@@ -182,24 +178,16 @@ public class DetalleReclamoFragment extends Fragment{
         //textSuscriptos.setText(getSubscripcionesReclamo());
         //getSuscriptores(KEY_SUSCRIPTOS);
         //textSuscriptos.setText(KEY_SUSCRIPTOS);
-        imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
-        final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
+        imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_para_foto);
+        //final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
+        /*
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
-        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
-/*
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.string-estados,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-*/
-        //spinner.setAdapter(adapter);
-        //spinner.setOnItemSelectedListener(this);
-
         SharedPreferences prefFlag= getContext().getSharedPreferences("flag", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor flagEdit = prefFlag.edit();
         flagEdit.putBoolean("flag",true);
-        flagEdit.apply();
+        flagEdit.apply();*/
 
         imagenDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -215,49 +203,11 @@ public class DetalleReclamoFragment extends Fragment{
                 return true;
             }
         });
-        
-        botonEliminar = vista.findViewById(R.id.boton_eliminar_reclamo);
-        botonEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-                builder.setMessage("¿Desea eliminar el reclamo?")
-                        .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                eliminarSuscripciones();
-                                eliminarReclamo();
-                                Intent intent = new Intent(getContext(), MainActivity.class);
-                                getActivity().startActivity(intent);
-                                //listaReclamosFragment = new ListaReclamosFragment();
-                                //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        })
-                        .show();
-                //eliminarReclamo();
-            }
-        });
-
-        botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
-        botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
-        botonUbicacion.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                llamarIntentMapa();
-            }
-        });
-
-
+        //botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
+        /*
         botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
         botonRespuesta.setVisibility(View.GONE);
-        /*
         botonRespuesta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -265,26 +215,7 @@ public class DetalleReclamoFragment extends Fragment{
             }
         });*/
 
-
-        botonVerRespuestas = vista.findViewById(R.id.boton_ver_respuestas);
-        botonVerRespuestas.setVisibility(View.GONE);
         /*
-        botonVerRespuestas.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                llamarIntentVerRespuestas();
-            }
-        });*/
-
-        botonListaRespuestas = vista.findViewById(R.id.boton_lista_respuestas);
-        botonListaRespuestas.setVisibility(View.GONE);
-        botonListaRespuestas.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                llamarIntentListaRespuestas();
-            }
-        });
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -313,132 +244,41 @@ public class DetalleReclamoFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {    }
-        });
+        });*/
 
         Bundle bundleObjeto = getArguments();
-        Reclamo reclamo = null;
+        Respuesta respuesta = null;
         if (bundleObjeto != null){
-            reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
-            imagenDetalle.setImageBitmap(reclamo.getImagenDesc());
-            textUsuario.setText(reclamo.getId_usuario());
-            textCategoria.setText(reclamo.getId_categoria());
-            textMunicipalidad.setText(reclamo.getMunicipalidad());
-            textDescripcion.setText(reclamo.getDescripcionDesc());
-            //textLatitud.setText(reclamo.getLatitudDesc());
-            //textLongitud.setText(reclamo.getLongitudDesc());
-            spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
-            mailReclamo = reclamo.getEmail();
-            //asignarInfo(reclamo);
-
+            respuesta = (Respuesta) bundleObjeto.getSerializable("objeto2");
+            imagenDetalle.setImageBitmap(respuesta.getImagenDesc());
+            textUsuario.setText(respuesta.getId_usuario());
+            textFecha.setText(respuesta.getFecha());
+            textEstado.setText(respuesta.getId_estado());
+            //textCategoria.setText(respuesta.getId_categoria());
+            textComentario.setText(respuesta.getComentario());
+            //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(respuesta.getId_estado()));
             //guardo el id del reclamo para usar en la respuesta
-            String id = reclamo.getId();
-            String id_usuario = reclamo.getId_usuario();
-            String id_categoria = reclamo.getId_categoria();
-            //String suscriptos = reclamo.getCantSuscriptos();
-            String id_estado = reclamo.getId_estado();
-            String fecha = reclamo.getFecha();
-            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor1 = prefReclamo.edit();
+            String id = respuesta.getId();
+            String id_usuario = respuesta.getId_usuario();
+            //String id_categoria = respuesta.getId_categoria();
+            //String suscriptos = respuesta.getCantSuscriptos();
+            String id_estado = respuesta.getId_estado();
+            String fecha = respuesta.getFecha();
+            String comentario = respuesta.getComentario();
+            SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = prefRespuesta.edit();
             //editor1.putString("suscriptos", suscriptos);
             editor1.putString("id_reclamo", id);
             editor1.putString("id_usuario", id_usuario);
-            editor1.putString("id_categoria", id_categoria);
+            //editor1.putString("id_categoria", id_categoria);
             editor1.putString("id_estado", id_estado);
             editor1.putString("fecha", fecha);
+            editor1.putString("comentario", comentario);
             editor1.commit();
-            //guardo las coordenadas para usar en el boton ubicacion del detalle
-            SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor2 = prefCoord.edit();
-            editor2.putString("latitud", reclamo.getLatitudDesc());
-            editor2.putString("longitud", reclamo.getLongitudDesc());
-            editor2.commit();
         }
-        GetHttpResponseRespuestas getHttpResponseRespuestas = new GetHttpResponseRespuestas(getContext());
-        getHttpResponseRespuestas.execute();
+        //GetHttpResponseRespuestas getHttpResponseRespuestas = new GetHttpResponseRespuestas(getContext());
+        //getHttpResponseRespuestas.execute();
         return vista;
-    }
-
-
-    private void eliminarSuscripciones() {
-        Bundle bundleReclamo = getArguments();
-        Reclamo claim = null;
-        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
-        final String id_reclamo = claim.getId();
-        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_SUSCRIPCIONES,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        //loading.dismiss();
-                        Toast.makeText(getActivity(), "SUSCRIPCION ELIMINADA!", Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //loading.dismiss();
-                        Toast.makeText(getActivity(), "SUSCRIPCION NO" , Toast.LENGTH_LONG).show();
-                    }
-                }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creación de parámetros
-                Map<String,String> params = new Hashtable<String, String>();
-                //Agregando de parámetros
-                params.put(KEY_ID_RECLAMO, id_reclamo);
-                //Parámetros de retorno
-                return params;
-            }
-        };
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Creación de una cola de solicitudes
-        RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
-        //Agregar solicitud a la cola
-        requestQ.add(stringRequest);
-    }
-
-    private void eliminarReclamo() {
-        Bundle bundleReclamo = getArguments();
-        Reclamo claim = null;
-        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
-        final String id_reclamo = claim.getId();
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_RECLAMO,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ELIMINADO!", Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "SIN CONEXIÓN...REINTENTE" , Toast.LENGTH_LONG).show();
-                    }
-                }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creación de parámetros
-                Map<String,String> params = new Hashtable<String, String>();
-                //Agregando de parámetros
-                params.put(KEY_ID, id_reclamo);
-                //Parámetros de retorno
-                return params;
-            }
-        };
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Creación de una cola de solicitudes
-        RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
-        //Agregar solicitud a la cola
-        requestQ.add(stringRequest);
     }
 
     private void llamarIntentVerRespuestas() {
@@ -446,16 +286,6 @@ public class DetalleReclamoFragment extends Fragment{
         RespuestasFragment fra = new RespuestasFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, fra);
-        transaction.addToBackStack(null);
-        // Commit a la transacción
-        transaction.commit();
-    }
-
-    private void llamarIntentListaRespuestas() {
-        // Crea el nuevo fragmento y la transacción.
-        ListaRespuestasFragment lis = new ListaRespuestasFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.contenedorFragment, lis);
         transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
@@ -472,78 +302,35 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     public void subirEstado(String pos){
-            String estado = "";
-            if(pos == "Abierto"){
-                estado = "1";
-            }
-            if(pos == "En curso"){
-                estado = "2";
-            }
-            if(pos == "Resuelto"){
-                estado = "3";
-            }
-            if(pos == "Re-abierto"){
-                estado = "4";
-            }
-            //guardo los datos del estado
-            SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefEstado.edit();
-            editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
-            editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
-            editor.commit();
+        String estado = "";
+        if(pos == "Abierto"){
+            estado = "1";
+        }
+        if(pos == "En curso"){
+            estado = "2";
+        }
+        if(pos == "Resuelto"){
+            estado = "3";
+        }
+        if(pos == "Re-abierto"){
+            estado = "4";
+        }
+        //guardo los datos del estado
+        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefEstado.edit();
+        editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
+        editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
+        editor.commit();
 
-            final String estadoFinal = estado;
-            //Bundle bundleObjeto = getArguments();
-            //final String id = e.getId();
-            Reclamo reclamo2 = null;
-            Bundle bundleObjeto2 = getArguments();
-            reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
-            final String id = reclamo2.getId();
-            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String s) {
-                            //Descartar el diálogo de progreso
-                            loading.dismiss();
-                            Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-                            loading.dismiss();
-                            Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
-                        }
-                    }){
-
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-                    //Creación de parámetros
-                    Map<String,String> params = new Hashtable<String, String>();
-                    //Agregando de parámetros
-                    params.put(KEY_ID, id);
-                    params.put(KEY_ESTADO, estadoFinal);
-                    //Parámetros de retorno
-                    return params;
-                }
-            };
-            //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            //Creación de una cola de solicitudes
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-            //Agregar solicitud a la cola
-            requestQueue.add(stringRequest);
-    }
-
-    public void getSuscriptores(String key){
+        final String estadoFinal = estado;
+        //Bundle bundleObjeto = getArguments();
+        //final String id = e.getId();
         Reclamo reclamo2 = null;
         Bundle bundleObjeto2 = getArguments();
-        //if (bundleObjeto2 != null) {
         reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
         final String id = reclamo2.getId();
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, POST_URL_SUSCRIPTOS,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
@@ -556,7 +343,7 @@ public class DetalleReclamoFragment extends Fragment{
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE PUDO TRAER" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -566,7 +353,7 @@ public class DetalleReclamoFragment extends Fragment{
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID, id);
-                params.get(KEY_SUSCRIPTOS);
+                params.put(KEY_ESTADO, estadoFinal);
                 //Parámetros de retorno
                 return params;
             }
@@ -711,17 +498,10 @@ public class DetalleReclamoFragment extends Fragment{
         protected void onPostExecute(Void result)
 
         {
-
             if (flag){
-                botonListaRespuestas.setVisibility(View.VISIBLE);
                 //botonVerRespuestas.setVisibility(View.VISIBLE);
             }
         }
-    }
-
-    private void llamarIntentMapa() { //pasa a un activity o fragment map
-        Intent intentMap = new Intent(getActivity(), MapActivity.class);
-        startActivity(intentMap);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -779,10 +559,10 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     private  void notificationPush() {
-        Bundle bundleObjeto = getArguments();
-        Reclamo reclamo = null;
-        if (bundleObjeto != null) {
-            reclamo = (Reclamo) bundleObjeto.getSerializable("objeto"); //TRAIGO LOS DATOS DEL RECLAMO ACTUAL
+        Bundle bundleObjeto2 = getArguments();
+        Respuesta respuesta = null;
+        if (bundleObjeto2 != null) {
+            respuesta = (Respuesta) bundleObjeto2.getSerializable("objeto2"); //TRAIGO LOS DATOS DEL RECLAMO ACTUAL
         }
         //Intent intent = new Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         //Intent intentGalleria = new Intent(Intent.ACTION_VIEW, MediaStore.Images.Media.EXTERNAL_CONTENT_URI); ABRE LA GALERIA
@@ -795,7 +575,7 @@ public class DetalleReclamoFragment extends Fragment{
         //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.journaldev.com"));
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intentGalleria, 0);
         mBuilder = new NotificationCompat.Builder(getContext()).setSmallIcon(android.R.drawable.ic_menu_gallery)
-                .setLargeIcon(reclamo.getImagenDesc()) //TRAIGO LA IMAGEN DEL RECLAMO
+                .setLargeIcon(respuesta.getImagenDesc()) //TRAIGO LA IMAGEN DEL RECLAMO
                 .setContentTitle("Reclamos Municipales").setContentText("Imagen guardada en galeria/ReclamosMunicipales").setContentIntent(pendingIntent);
 
         PendingIntent resultPendingIntent =
@@ -834,28 +614,5 @@ public class DetalleReclamoFragment extends Fragment{
                 })
                 .show();
     }
-
-    /*
-    public void showNotification() {
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-// Podrás mostrar el icono de la notificación, en este caso una alerta
-        Notification notification = new Notification(android.R.drawable.stat_sys_warning,
-                "Notificación", System.currentTimeMillis());
-
-        CharSequence titulo = "Alerta";
-
-// Clase de Notification
-        Intent notificationIntent = new Intent(this, NotificationActivity.class);
-        PendingIntent contIntent = PendingIntent.getActivity(this, , notificationIntent, );
-        notification.setLatestEventInfo(this, "Aviso de notificación", "Esto es un ejemplo de notificación", contIntent);
-
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-//importante
-        int not_id = 1;
-        notificationManager.notify(not_id, notification);
-    }*/
 
 }

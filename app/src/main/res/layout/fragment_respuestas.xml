@@ -9,8 +9,8 @@
     tools:context="com.example.bruno.debarrio.fragments.RespuestasFragment">
 
     <TextView
-        android:id="@+id/titulo_respuestas"
-        android:text="RESPUESTAS"
+        android:id="@+id/titulo_respuesta"
+        android:text="RESPUESTA"
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="18dp"

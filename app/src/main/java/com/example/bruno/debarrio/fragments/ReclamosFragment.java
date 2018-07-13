@@ -14,6 +14,7 @@ import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
+import com.example.bruno.debarrio.entidades.Respuesta;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent.DummyItem;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
@@ -125,6 +126,16 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
         bundleEnvio.putSerializable("objeto", reclamo);
         detalleReclamoFragment.setArguments(bundleEnvio);
         //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void enviarRespuesta(Respuesta respuesta) {
+        detalleReclamoFragment = new DetalleReclamoFragment();
+        Bundle bundleEnvio = new Bundle();
+        bundleEnvio.putSerializable("objeto2", respuesta);
+        detalleReclamoFragment.setArguments(bundleEnvio);
+        //cargar el fragment en el activity
+        //getSupportFragmentManager().beginTransaction().replace(R.id.container, detalleReclamoFragment).addToBackStack(null).commit();
     }
 
     /**
