@@ -2,15 +2,21 @@ package com.example.bruno.debarrio.fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.bruno.debarrio.MainActivity;
+import com.example.bruno.debarrio.MainActivity2;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
@@ -31,7 +37,8 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
-    Button botonPorEstado, botonPorCategoria;
+    Button botonPorEstado, botonBuscar, botonPorCategoria;
+    TextView textAbierto, textEncurso, textResuelto, textReabierto;
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
 
@@ -66,14 +73,34 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reclamos, container, false);
 
+        botonBuscar = rootView.findViewById(R.id.boton_buscar);
+        final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
+        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
+        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
+            {
+                String posicion = (String) adapterView.getItemAtPosition(pos);
+                //guardo los datos del estado
+                enviarEstado(posicion);
+                //adapterView.getItemIdAtPosition(3);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {    }
+        });
+
         botonPorEstado = rootView.findViewById(R.id.boton_por_estado);
         botonPorEstado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llamarIntentPorEstado();
+                llenarlistaEstado();
             }
         });
-
 
         /*botonPorCategoria = rootView.findViewById(R.id.boton_por_categoria);
         botonPorCategoria.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +127,52 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
         return view;*/
 
         return rootView;
+    }
+
+    private void enviarEstado(final String posicion) {
+        botonBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
+                SharedPreferences prefEstado = getContext().getSharedPreferences("estado", getContext().MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefEstado.edit();
+                editor.putString("estadoNombre", posicion); //GUARDA EL ESTADO PARA USARLO EN EL MAIN 2
+                editor.commit();
+                llamarIntentPorEstado();
+            }
+        });
+    }
+
+    //SPINNER NUEVO
+    private void llamarIntentPorEstado() {
+        Intent intentVer = new Intent(getActivity(), MainActivity2.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    //SPINNER VIEJO
+    private void llenarlistaEstado() {
+        Intent intentVer = new Intent(getActivity(), MainActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentAbierto() {
+        Intent intentVer = new Intent(getActivity(), MainActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentEncurso() {
+        Intent intentVer = new Intent(getActivity(), MainActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentResuelto() {
+        Intent intentVer = new Intent(getActivity(), MainActivity.class);
+        getActivity().startActivity(intentVer);
+    }
+
+    private void llamarIntentReabierto() {
+        Intent intentVer = new Intent(getActivity(), MainActivity.class);
+        getActivity().startActivity(intentVer);
     }
 
     @Override
@@ -156,10 +229,6 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
     public interface OnFragmentInteractionListener {
     }
 
-    private void llamarIntentPorEstado() {
-        Intent intentVer = new Intent(getActivity(), MainActivity.class);
-        getActivity().startActivity(intentVer);
-    }
 
     private void llamarIntentPorCategoria() {
     }

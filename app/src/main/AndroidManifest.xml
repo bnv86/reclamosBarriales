@@ -80,6 +80,7 @@
         <activity android:name=".AddFotoElegirActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MapActivity" />
+        <activity android:name=".MainActivity2"></activity>
     </application>
 
 </manifest>

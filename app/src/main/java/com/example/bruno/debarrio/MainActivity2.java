@@ -13,11 +13,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-//import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Respuesta;
 import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
 import com.example.bruno.debarrio.fragments.DetalleRespuestaFragment;
+import com.example.bruno.debarrio.fragments.ListaEstadosFragment;
 import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
 import com.example.bruno.debarrio.fragments.ListaRespuestasFragment;
 import com.example.bruno.debarrio.fragments.ProfileFragment;
@@ -28,36 +28,30 @@ import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener, DetalleReclamoFragment.OnFragmentInteractionListener,
+public class MainActivity2 extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaEstadosFragment.OnFragmentInteractionListener, DetalleReclamoFragment.OnFragmentInteractionListener,
         RespuestaReclamoFragment.OnFragmentInteractionListener, ListaRespuestasFragment.OnFragmentInteractionListener, DetalleRespuestaFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
-    //String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     private Locale locale;
     private Configuration config = new Configuration();
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
-    RespuestaReclamoFragment respuestaReclamoFragment;
-    RespuestasFragment respuestasFragment;
-    ListaRespuestasFragment listaRespuestasFragment;
     DetalleRespuestaFragment detalleRespuestaFragment;
+    ListaEstadosFragment listaEstadosFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
         if (findViewById(R.id.contenedorFragment) != null){
             if (savedInstanceState != null){
                 //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
                 return;
             }
-            //getActionBar().setDisplayHomeAsUpEnabled(true);
-            listaReclamosFragment = new ListaReclamosFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).detach(listaReclamosFragment).attach(listaReclamosFragment).commit();
-            //progressBarEventos = findViewById(R.id.progressBar);
+            listaEstadosFragment = new ListaEstadosFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaEstadosFragment).detach(listaEstadosFragment).attach(listaEstadosFragment).commit();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -105,128 +99,37 @@ public class MainActivity extends AppCompatActivity implements ReclamosFragment.
     @Override
     public void onFragmentInteraction(Uri uri) {}
 
+    /*
     @Override
     public void onBackPressed() {
-        //listaReclamosFragment = new ListaReclamosFragment();
-        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-        //detalleReclamoFragment = new DetalleReclamoFragment();
-        //getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
         Fragment f = getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
         //DetalleReclamoFragment test = (DetalleReclamoFragment) getSupportFragmentManager().findFragmentById(R.id.contenedorFragment);
         //ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
 
-        //f instanceof ListaReclamosFragment;
-        //if (getFragmentManager().getBackStackEntryCount() > 0) {
         if (detalleReclamoFragment != null && detalleReclamoFragment.isVisible()){ //&& listaReclamosFragment != null
             ListaReclamosFragment listaReclamosFragment = new ListaReclamosFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-            //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-            //getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         }
         else if (detalleReclamoFragment == null){
             super.onBackPressed();
         }
-        //EL PROBLEMA ACA ES QUE AL VOLVER EN ESTA VISTA VUELVE A TODAS LAS ACUMULADAS, VER COMO BORRARLAS DEL STACK
-        /*
-        else if (listaReclamosFragment.isVisible() || detalleReclamoFragment.isHidden()){ //&& detalleReclamoFragment == null ||
-            getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment);
-            getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-            Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class);
-            MainActivity.this.startActivity(intent);
-        }*/
         else {
             super.onBackPressed();
         }
-    }
-
-/*
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            super.onBackPressed();
-        }else{
-            super.onBackPressed();
-        }
     }*/
-
-/*
-    @Override
-    public void onBackPressed() {
-        int count = getFragmentManager().getBackStackEntryCount();
-        if (count == 0) {
-            super.onBackPressed();
-        } else {
-            getFragmentManager().popBackStack();
-        }
-    }*/
-
-/*
-    @Override
-    public void onBackPressed() {
-        //listaReclamosFragment = new ListaReclamosFragment();
-        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-        //detalleReclamoFragment = new DetalleReclamoFragment();
-        //getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
-        Fragment f = getFragmentManager().findFragmentById(R.layout.fragment_detalle_reclamos);
-        //f instanceof ListaReclamosFragment;
-        //if (getFragmentManager().getBackStackEntryCount() > 0) {
-        if (detalleReclamoFragment instanceof DetalleReclamoFragment) {
-            getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-            loadItems();
-            getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment).commit();
-            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-            //Log.i(tag, "buscando el fragment actual");
-            //listaReclamosFragment = new ListaReclamosFragment();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-            //getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-            //listaReclamosFragment = new ListaReclamosFragment();
-            //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-            //super.onBackPressed();
-        }
-        //super.onBackPressed();
-    }*/
-
-    /*
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //your code which you want to refresh
-        loadItems();
-    }*/
-
-    public void loadItems(){
-        //listaReclamosFragment = new ListaReclamosFragment();
-        //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment).detach(listaReclamosFragment)
-        //        .attach(listaReclamosFragment).replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
-        //getSupportFragmentManager().beginTransaction().detach(listaReclamosFragment).commit();
-    }
 
     @Override
     protected void onResume() {
-        //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
-        //loadItems();
-        //getSupportFragmentManager().beginTransaction().attach(listaReclamosFragment);
-        //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
         super.onResume();
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        //getSupportFragmentManager().beginTransaction().remove(listaReclamosFragment);
     }
 
     @Override
     public void enviarReclamo(Reclamo reclamo) {
-        //detalleReclamoFragment = (DetalleReclamoFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentDetalle);
-        //if ((detalleReclamoFragment != null) && (findViewById(R.id.contenedorFragment) == null)){
-        //    detalleReclamoFragment.asignarInfo(reclamo);
-        //}else{
         detalleReclamoFragment = new DetalleReclamoFragment();
         Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("objeto", reclamo);
@@ -234,15 +137,10 @@ public class MainActivity extends AppCompatActivity implements ReclamosFragment.
 
         //cargar el fragment en el activity
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
-        //}
     }
 
     @Override
     public void enviarRespuesta(Respuesta respuesta) {
-        //detalleReclamoFragment = (DetalleReclamoFragment) this.getSupportFragmentManager().findFragmentById(R.id.fragmentDetalle);
-        //if ((detalleReclamoFragment != null) && (findViewById(R.id.contenedorFragment) == null)){
-        //    detalleReclamoFragment.asignarInfo(reclamo);
-        //}else{
         detalleRespuestaFragment = new DetalleRespuestaFragment();
         Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("objeto2", respuesta);
@@ -250,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements ReclamosFragment.
 
         //cargar el fragment en el activity
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleRespuestaFragment).addToBackStack(null).commit();
-        //}
     }
 
     @Override
@@ -288,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements ReclamosFragment.
                         break;
                 }
                 getResources().updateConfiguration(config, null);
-                Intent idiomasAlert = new Intent(MainActivity.this, MainActivity.class);
+                Intent idiomasAlert = new Intent(MainActivity2.this, MainActivity2.class);
                 startActivity(idiomasAlert);
                 Toast.makeText(getApplicationContext(), getString(R.string.toast_idioma), Toast.LENGTH_LONG).show();
                 finish();

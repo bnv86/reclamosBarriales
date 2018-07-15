@@ -23,6 +23,45 @@
             android:paddingBottom="40dp"
             android:gravity="center">
 
+            <TextView
+                android:id="@+id/static_estado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginStart="5dp"
+                android:background="#11000000"
+                android:text="Seleccione estado"
+                android:textColor="@color/colorBlanco"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_estado"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:popupBackground="#232323"
+                android:background="#11000000" />
+
+            <Button
+                android:id="@+id/boton_buscar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/colorBlue"
+                android:text="Buscar"
+                android:textColor="@color/colorBlanco"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <!--
             <Button
                 android:id="@+id/boton_por_estado"
                 android:layout_width="match_parent"
@@ -35,62 +74,7 @@
                 android:textColor="@color/colorDark"
                 android:textSize="20dp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Busque por estado: "
-                android:textColor="@color/colorBlanco"/>
-
-            <TextView
-                android:id="@+id/boton_abierto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Abierto"
-                android:textColor="@color/colorYellow"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/boton_encurso"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="En curso"
-                android:textColor="@color/colorYellow"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/boton_resuelto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Resuelto"
-                android:textColor="@color/colorYellow"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/boton_reabierto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:padding="20dp"
-                android:text="Re-abierto"
-                android:textColor="@color/colorYellow"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                -->
 
         </LinearLayout>
     </ScrollView>

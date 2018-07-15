@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.bruno.debarrio.R;
-import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Respuesta;
-
 import java.util.ArrayList;
 
 public class AdaptadorRespuestas extends RecyclerView.Adapter<AdaptadorRespuestas.RespuestasViewHolder> implements View.OnClickListener{

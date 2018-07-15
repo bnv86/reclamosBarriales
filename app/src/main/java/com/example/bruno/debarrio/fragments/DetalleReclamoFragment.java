@@ -44,6 +44,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity;
+import com.example.bruno.debarrio.MainActivity2;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.EnviarMail;
@@ -104,19 +105,13 @@ public class DetalleReclamoFragment extends Fragment{
     private String KEY_SUSCRIPTOS;
     StringRequest peticion;
     boolean flag = false;
-    boolean flagBack = false;
     private TreeMap<String, String> descrip;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
-    ListaReclamosFragment listaReclamosFragment;
-    DetalleReclamoFragment detalleReclamoFragment;
-    FragmentManager fm;
-    public int PICK_IMAGE_REQUEST = 1;
 
     public DetalleReclamoFragment() {
         // Required empty public constructor
     }
-
 
     /**
      * Use this factory method to create a new instance of
@@ -228,10 +223,8 @@ public class DetalleReclamoFragment extends Fragment{
                             public void onClick(DialogInterface dialog, int id) {
                                 eliminarSuscripciones();
                                 eliminarReclamo();
-                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                Intent intent = new Intent(getContext(), MainActivity2.class);
                                 getActivity().startActivity(intent);
-                                //listaReclamosFragment = new ListaReclamosFragment();
-                                //getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, listaReclamosFragment).commit();
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -241,7 +234,6 @@ public class DetalleReclamoFragment extends Fragment{
                             }
                         })
                         .show();
-                //eliminarReclamo();
             }
         });
 
@@ -256,7 +248,7 @@ public class DetalleReclamoFragment extends Fragment{
 
 
         botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
-        botonRespuesta.setVisibility(View.GONE);
+        //botonRespuesta.setVisibility(View.GONE);
 
         botonRespuesta.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -285,6 +277,7 @@ public class DetalleReclamoFragment extends Fragment{
             }
         });
 
+        /*
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -313,7 +306,7 @@ public class DetalleReclamoFragment extends Fragment{
             @Override
             public void onNothingSelected(AdapterView<?> parent)
             {    }
-        });
+        });*/
 
         Bundle bundleObjeto = getArguments();
         Reclamo reclamo = null;
