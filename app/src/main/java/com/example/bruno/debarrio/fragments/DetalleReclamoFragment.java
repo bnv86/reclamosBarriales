@@ -93,7 +93,7 @@ public class DetalleReclamoFragment extends Fragment{
 
 
     private OnFragmentInteractionListener mListener;
-    TextView textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
+    TextView textEstado, textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
     Button botonActualizarEstado, botonUbicacion, botonRespuesta, botonEliminar, botonVerRespuestas, botonListaRespuestas, botonFloat;
@@ -178,18 +178,8 @@ public class DetalleReclamoFragment extends Fragment{
         //getSuscriptores(KEY_SUSCRIPTOS);
         //textSuscriptos.setText(KEY_SUSCRIPTOS);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
-        final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
-        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
-        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
-        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
-        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
-/*
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.string-estados,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-*/
-        //spinner.setAdapter(adapter);
-        //spinner.setOnItemSelectedListener(this);
+
+        textEstado = (TextView) vista.findViewById(R.id.detalle_estado);
 
         SharedPreferences prefFlag= getContext().getSharedPreferences("flag", getActivity().MODE_PRIVATE);
         SharedPreferences.Editor flagEdit = prefFlag.edit();
@@ -237,7 +227,7 @@ public class DetalleReclamoFragment extends Fragment{
             }
         });
 
-        botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
+        //botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
         botonUbicacion.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -277,6 +267,19 @@ public class DetalleReclamoFragment extends Fragment{
             }
         });
 
+        /*
+        final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
+        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
+        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));*/
+        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
+/*
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.string-estados,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+*/
+        //spinner.setAdapter(adapter);
+        //spinner.setOnItemSelectedListener(this);
         /*
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -319,7 +322,8 @@ public class DetalleReclamoFragment extends Fragment{
             textDescripcion.setText(reclamo.getDescripcionDesc());
             //textLatitud.setText(reclamo.getLatitudDesc());
             //textLongitud.setText(reclamo.getLongitudDesc());
-            spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
+            textEstado.setText(reclamo.getId_estado());
+            //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             mailReclamo = reclamo.getEmail();
             //asignarInfo(reclamo);
 

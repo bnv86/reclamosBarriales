@@ -139,6 +139,51 @@ public class RespuestaReclamoFragment extends Fragment {
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
         textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
+
+                /*
+        final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
+        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
+        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));*/
+        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
+/*
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, R.array.string-estados,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+*/
+        //spinner.setAdapter(adapter);
+        //spinner.setOnItemSelectedListener(this);
+        /*
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
+            {
+                final String posicion = (String) adapterView.getItemAtPosition(pos);
+                botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (posicion.equals("En curso")){
+                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo esta en curso");
+                            enviomail.execute();
+                        }
+
+                        if (posicion.equals("Resuelto")) {
+                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo fue resuelto");
+                            enviomail.execute();
+                        }
+                        subirEstado(posicion);
+                        botonRespuesta.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent)
+            {    }
+        });*/
+
         textEstado.setText(estado);
         //String comentario = editextComentario.getText().toString();
         Resources res = getResources();
