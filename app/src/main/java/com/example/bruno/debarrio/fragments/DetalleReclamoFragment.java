@@ -503,7 +503,7 @@ public class DetalleReclamoFragment extends Fragment{
                         public void onResponse(String s) {
                             //Descartar el diálogo de progreso
                             loading.dismiss();
-                            Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "ESTADO ACTUALIZADO! ", Toast.LENGTH_LONG).show();
                         }
                     },
                     new Response.ErrorListener() {

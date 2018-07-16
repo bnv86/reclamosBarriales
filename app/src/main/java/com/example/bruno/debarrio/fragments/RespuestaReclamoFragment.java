@@ -16,9 +16,12 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +33,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.MainActivity2;
+import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.entidades.EnviarMail;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.google.android.gms.plus.PlusOneButton;
 import java.io.ByteArrayOutputStream;
@@ -73,12 +79,14 @@ public class RespuestaReclamoFragment extends Fragment {
     ImageView imagenFoto;
     Button botonSacarFoto, botonRespuesta;
     EditText editextComentario;
+    String mailReclamo;
     TextView textEstado;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Bitmap bitmap;
     public int PICK_IMAGE_REQUEST = 1;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
+    private String UPLOAD_URL_ESTADO = "https://momentary-electrode.000webhostapp.com/postEstadoReclamo.php";
     private String UPLOAD_RESPUESTA_RECLAMO = "https://momentary-electrode.000webhostapp.com/postRespuesta.php";
     private String KEY_FECHA = "fecha";
     private String KEY_COMENTARIO = "comentario";
@@ -87,7 +95,7 @@ public class RespuestaReclamoFragment extends Fragment {
     private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ID_ESTADO = "id_estado";
     private String KEY_ESTADO = "estado";
-    String[] munis = {};
+    private String KEY_ID = "id";
 
     public RespuestaReclamoFragment() {
         // Required empty public constructor
@@ -134,17 +142,25 @@ public class RespuestaReclamoFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
         View rootView = inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
-        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
-        String estado = prefEstado.getString("estado","");
+
+        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+        String id_estado = prefReclamo.getString("id_estado","");
+
+        //SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
+        //String estado = prefEstado.getString("estado","");
+
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
-        textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
+        //textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
 
-                /*
-        final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
+        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
+        //spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(id_estado));
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
-        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));*/
+        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
+
+        spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(id_estado));
+
         //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
 /*
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -153,13 +169,22 @@ public class RespuestaReclamoFragment extends Fragment {
 */
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
-        /*
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
-                final String posicion = (String) adapterView.getItemAtPosition(pos);
+                String posicion = (String) adapterView.getItemAtPosition(pos);
+                SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = prefSpinner.edit();
+                editor1.putString("posicion", posicion);
+                editor1.commit();
+
+                //SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+                //String id_estado = prefReclamo.getString("id_estado","");
+
+                /*
                 botonActualizarEstado.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -176,15 +201,52 @@ public class RespuestaReclamoFragment extends Fragment {
                         subirEstado(posicion);
                         botonRespuesta.setVisibility(View.VISIBLE);
                     }
-                });
+                });*/
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent)
-            {    }
-        });*/
+            {
 
-        textEstado.setText(estado);
+            }
+        });
+
+        Bundle bundleObjeto = getArguments();
+        Reclamo reclamo = null;
+        if (bundleObjeto != null) {
+            reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
+            spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(reclamo.getId_estado()));
+            //textEstado.setText(reclamo.getId_estado());
+
+            mailReclamo = reclamo.getEmail();
+            //String id_usuario = reclamo.getId_usuario();
+            /*
+            //guardo el id del reclamo para usar en la respuesta
+            String id = reclamo.getId();
+            String id_usuario = reclamo.getId_usuario();
+            String id_categoria = reclamo.getId_categoria();
+            //String suscriptos = reclamo.getCantSuscriptos();
+            String id_estado = reclamo.getId_estado();
+            String fecha = reclamo.getFecha();
+            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = prefReclamo.edit();
+            //editor1.putString("suscriptos", suscriptos);
+            editor1.putString("id_reclamo", id);
+            editor1.putString("id_usuario", id_usuario);
+            editor1.putString("id_categoria", id_categoria);
+            editor1.putString("id_estado", id_estado);
+            editor1.putString("fecha", fecha);
+            editor1.commit();
+            //guardo las coordenadas para usar en el boton ubicacion del detalle
+            SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
+            SharedPreferences.Editor editor2 = prefCoord.edit();
+            editor2.putString("latitud", reclamo.getLatitudDesc());
+            editor2.putString("longitud", reclamo.getLongitudDesc());
+            editor2.commit();*/
+
+        }
+
+        //textEstado.setText(estado);
         //String comentario = editextComentario.getText().toString();
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
@@ -199,6 +261,13 @@ public class RespuestaReclamoFragment extends Fragment {
         botonRespuesta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+                String id_usuario = prefReclamo.getString("id_usuario","");
+                //String id_estado = prefReclamo.getString("id_estado","");
+                SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
+                String id_estado = prefSpinner.getString("posicion","");
+
                 /*
                 if(bitmap == null || KEY_MOTIVO == null || KEY_MOTIVO.isEmpty() || KEY_MOTIVO == "" || KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
                     Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
@@ -208,11 +277,26 @@ public class RespuestaReclamoFragment extends Fragment {
                 //    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
                 //}
                 if(KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
-                    Toast.makeText(getContext(),"Debes poner un comentario de respuesta!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Debe escribir un comentario de respuesta!", Toast.LENGTH_LONG).show();
                     //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
                     //alertBuilder2.setMessage("Debe completar el campo 'Comentario'").setNegativeButton("Por favor", null).create().show();
                 }
+
+                //subirEstado(posicion);
                 else {
+
+                    if (id_estado.equals("En curso")){
+                        EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
+                        enviomail.execute();
+                        //subirEstado(id_estado);
+                    }
+
+                    if (id_estado.equals("Resuelto")) {
+                        EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
+                        enviomail.execute();
+                        //subirEstado(id_estado);
+                    }
+                    subirEstado(id_estado);
                     subirRespuesta();
                 }
             }
@@ -224,9 +308,36 @@ public class RespuestaReclamoFragment extends Fragment {
     public void subirRespuesta(){
         final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
-        final String usuario = sharedpreferences.getString("username",""); //ME DEVUELVE EL PASSWORD, NO EL USERNAME, PROBLEMA DEL LOGIN??
-        Intent resultIntent = new Intent();
-        //resultIntent.getExtras();
+        final String usuario = sharedpreferences.getString("username","");
+
+
+        /*
+        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+        String id_usuario = prefReclamo.getString("id_usuario","");
+        //String id_estado = prefReclamo.getString("id_estado","");
+        SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
+        final String id_estado = prefSpinner.getString("posicion","");
+
+        if (id_estado.equals("En curso")){
+            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
+            enviomail.execute();
+            //subirEstado(id_estado);
+        }
+
+        if (id_estado.equals("Resuelto")) {
+            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
+            enviomail.execute();
+            //subirEstado(id_estado);
+        }
+
+        if (id_estado.equals("Abierto")){
+            subirEstado(id_estado);
+        }
+
+        if (id_estado.equals("Re-abierto")) {
+            subirEstado(id_estado);
+        }
+        subirEstado(id_estado);*/
 
         //Bundle bundle = getArguments();
         //pref_userName = preferences.getString("pref_userName", "n/a");
@@ -242,7 +353,9 @@ public class RespuestaReclamoFragment extends Fragment {
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
-                        Toast.makeText(getActivity(), "RESPUESTA SUBIDA " + usuario + " !", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "RESPUESTA ENVIADA " + usuario + " !", Toast.LENGTH_LONG).show();
+                        Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
+                        getActivity().startActivity(intentVer);
                         //llamarIntentFotoElegir();
                     }
                 },
@@ -253,7 +366,7 @@ public class RespuestaReclamoFragment extends Fragment {
                         loading.dismiss();
 
                         //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
-                        Toast.makeText(getActivity(), "NO SE SUBIO" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "NO SE ENVIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -281,7 +394,7 @@ public class RespuestaReclamoFragment extends Fragment {
                 //Creación de parámetros
                 Map<String,String> params = new Hashtable<String, String>();
 
-                //Agregando de parámetros
+                //Agregado de parámetros
                 params.put(KEY_ID_RECLAMO, id_reclamo);
                 params.put(KEY_ID_USUARIO, id_usuario);
                 params.put(KEY_ID_ESTADO, id_estado);
@@ -294,6 +407,73 @@ public class RespuestaReclamoFragment extends Fragment {
             }
         };
 
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }
+
+    public void subirEstado(String pos){
+        String estado = "";
+        if(pos == "Abierto"){
+            estado = "1";
+        }
+        if(pos == "En curso"){
+            estado = "2";
+        }
+        if(pos == "Resuelto"){
+            estado = "3";
+        }
+        if(pos == "Re-abierto"){
+            estado = "4";
+        }
+        //guardo los datos del estado
+        //SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
+        //SharedPreferences.Editor editor = prefEstado.edit();
+        //editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
+        //editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
+        //editor.commit();
+
+        final String estadoFinal = estado;
+        //Bundle bundleObjeto = getArguments();
+        //final String id = e.getId();
+        //Reclamo reclamo2 = null;
+        //Bundle bundleObjeto2 = getArguments();
+        //reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
+        //final String id = reclamo2.getId();
+        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
+        final String id = prefReclamo.getString("id_reclamo","");
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO! "+id+ " " + estadoFinal, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        loading.dismiss();
+                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID, id);
+                params.put(KEY_ESTADO, estadoFinal);
+                //Parámetros de retorno
+                return params;
+            }
+        };
         //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
