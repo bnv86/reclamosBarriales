@@ -156,26 +156,6 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
         getActivity().startActivity(intentVer);
     }
 
-    private void llamarIntentAbierto() {
-        Intent intentVer = new Intent(getActivity(), MainActivity.class);
-        getActivity().startActivity(intentVer);
-    }
-
-    private void llamarIntentEncurso() {
-        Intent intentVer = new Intent(getActivity(), MainActivity.class);
-        getActivity().startActivity(intentVer);
-    }
-
-    private void llamarIntentResuelto() {
-        Intent intentVer = new Intent(getActivity(), MainActivity.class);
-        getActivity().startActivity(intentVer);
-    }
-
-    private void llamarIntentReabierto() {
-        Intent intentVer = new Intent(getActivity(), MainActivity.class);
-        getActivity().startActivity(intentVer);
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

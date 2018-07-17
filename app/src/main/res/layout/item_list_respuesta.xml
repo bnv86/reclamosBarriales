@@ -66,14 +66,14 @@
 
             <TextView
                 android:id="@+id/id_fecha"
-                android:layout_width="match_parent"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:padding="3dp"
                 android:layout_marginLeft="2dp"
+                android:padding="3dp"
                 android:text="Fecha"
-                android:textStyle="bold"
                 android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

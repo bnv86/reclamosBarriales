@@ -236,7 +236,6 @@ public class DetalleReclamoFragment extends Fragment{
             }
         });
 
-
         botonRespuesta = vista.findViewById(R.id.boton_respuesta_reclamo);
         //botonRespuesta.setVisibility(View.GONE);
 
@@ -271,16 +270,11 @@ public class DetalleReclamoFragment extends Fragment{
         final Spinner spinner = (Spinner) vista.findViewById(R.id.spinner_estado);
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
-        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));*/
+        spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
-/*
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.string-estados,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-*/
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
-        /*
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -469,6 +463,7 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     public void subirEstado(String pos){
+
             String estado = "";
             if(pos == "Abierto"){
                 estado = "1";

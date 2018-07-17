@@ -77,7 +77,7 @@ public class RespuestaReclamoFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     ImageView imagenFoto;
-    Button botonSacarFoto, botonRespuesta;
+    Button botonSacarFoto, botonRespuesta, botonActualizarEstado;
     EditText editextComentario;
     String mailReclamo;
     TextView textEstado;
@@ -94,7 +94,7 @@ public class RespuestaReclamoFragment extends Fragment {
     private String KEY_ID_USUARIO = "id_usuario";
     private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ID_ESTADO = "id_estado";
-    private String KEY_ESTADO = "estado";
+    private String KEY_ESTADO = "id_estado";
     private String KEY_ID = "id";
 
     public RespuestaReclamoFragment() {
@@ -144,29 +144,26 @@ public class RespuestaReclamoFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
 
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-        String id_estado = prefReclamo.getString("id_estado","");
+        String estado_id = prefReclamo.getString("id_estado","");
+        final String usuario_id = prefReclamo.getString("id_usuario","");
 
         //SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
         //String estado = prefEstado.getString("estado","");
 
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
+        //botonActualizarEstado = rootView.findViewById(R.id.boton_actualizar_estado);
         //textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
 
-        Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
+        final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
         //spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(id_estado));
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
 
-        spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(id_estado));
+        spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(estado_id));
 
         //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
-/*
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.string-estados,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-*/
         //spinner.setAdapter(adapter);
         //spinner.setOnItemSelectedListener(this);
 
@@ -175,7 +172,7 @@ public class RespuestaReclamoFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
-                String posicion = (String) adapterView.getItemAtPosition(pos);
+                final String posicion = (String) adapterView.getItemAtPosition(pos);
                 SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
                 SharedPreferences.Editor editor1 = prefSpinner.edit();
                 editor1.putString("posicion", posicion);
@@ -190,16 +187,15 @@ public class RespuestaReclamoFragment extends Fragment {
                     public void onClick(View view) {
 
                         if (posicion.equals("En curso")){
-                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo esta en curso");
+                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", usuario_id.toString() +" el reclamo esta en curso");
                             enviomail.execute();
                         }
 
                         if (posicion.equals("Resuelto")) {
-                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", textUsuario.getText().toString() +" el reclamo fue resuelto");
+                            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", usuario_id.toString() +" el reclamo fue resuelto");
                             enviomail.execute();
                         }
-                        subirEstado(posicion);
-                        botonRespuesta.setVisibility(View.VISIBLE);
+                        actualizarEstado(posicion);
                     }
                 });*/
             }
@@ -215,7 +211,7 @@ public class RespuestaReclamoFragment extends Fragment {
         Reclamo reclamo = null;
         if (bundleObjeto != null) {
             reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
-            spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(reclamo.getId_estado()));
+            //spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             //textEstado.setText(reclamo.getId_estado());
 
             mailReclamo = reclamo.getEmail();
@@ -262,12 +258,6 @@ public class RespuestaReclamoFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-                String id_usuario = prefReclamo.getString("id_usuario","");
-                //String id_estado = prefReclamo.getString("id_estado","");
-                SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
-                String id_estado = prefSpinner.getString("posicion","");
-
                 /*
                 if(bitmap == null || KEY_MOTIVO == null || KEY_MOTIVO.isEmpty() || KEY_MOTIVO == "" || KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
                     Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
@@ -284,6 +274,12 @@ public class RespuestaReclamoFragment extends Fragment {
 
                 //subirEstado(posicion);
                 else {
+                    SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+                    final String id_usuario = prefReclamo.getString("id_usuario","");
+                    //String id_estado = prefReclamo.getString("id_estado","");
+
+                    SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
+                    final String id_estado = prefSpinner.getString("posicion","");
 
                     if (id_estado.equals("En curso")){
                         EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
@@ -296,8 +292,8 @@ public class RespuestaReclamoFragment extends Fragment {
                         enviomail.execute();
                         //subirEstado(id_estado);
                     }
-                    subirEstado(id_estado);
-                    subirRespuesta();
+                    actualizarEstado(id_estado);
+                    subirRespuesta(id_estado);
                 }
             }
         });
@@ -305,11 +301,26 @@ public class RespuestaReclamoFragment extends Fragment {
         return rootView;
     }
 
-    public void subirRespuesta(){
+    public void subirRespuesta(String pos){
+        String estado = "";
+        if(pos == "Abierto"){
+            estado = "1";
+        }
+        if(pos == "En curso"){
+            estado = "2";
+        }
+        if(pos == "Resuelto"){
+            estado = "3";
+        }
+        if(pos == "Re-abierto"){
+            estado = "4";
+        }
         final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
         final String usuario = sharedpreferences.getString("username","");
-
+        final String estadoFinal = estado;
+        //SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getContext().MODE_PRIVATE);
+        //final String id_estado = prefSpinner.getString("posicion","");
 
         /*
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
@@ -376,19 +387,13 @@ public class RespuestaReclamoFragment extends Fragment {
                 String foto = getStringImagen(bitmap);
                 SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
                 String id_usuario = prefUsuario.getString("id_usuario","");
-                SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
-                String id_estado = prefEstado.getString("id_estado","");
+                //SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
+                //String id_estado = prefEstado.getString("id_estado","");
+                //SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
+                //String estado = prefSpinner.getString("posicion","");
+
                 SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
                 String id_reclamo = prefReclamo.getString("id_reclamo","");
-
-                //Reclamo reclamo = null;
-                //Bundle bundleObjeto = getArguments();
-                //if (bundleObjeto2 != null) {
-                //reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
-                //String id_reclamo = reclamo.getId();
-                //String id_estado = sharedPreferences.getString("id","");
-                //Obtener el nombre de la imagen
-                //String nombre = "CAPTURA"; //.trim()
                 String comentario = editextComentario.getText().toString().trim();
 
                 //Creación de parámetros
@@ -397,9 +402,14 @@ public class RespuestaReclamoFragment extends Fragment {
                 //Agregado de parámetros
                 params.put(KEY_ID_RECLAMO, id_reclamo);
                 params.put(KEY_ID_USUARIO, id_usuario);
-                params.put(KEY_ID_ESTADO, id_estado);
+                params.put(KEY_ID_ESTADO, estadoFinal);
                 params.put(KEY_FECHA, fecha.format(new Date()));
-                params.put(KEY_IMAGEN, foto);
+                if (foto != null){
+                    params.put(KEY_IMAGEN, foto);
+                }
+                if (foto == null){
+                    params.put(KEY_IMAGEN, null);
+                }
                 params.put(KEY_COMENTARIO, comentario);
 
                 //Parámetros de retorno
@@ -415,7 +425,8 @@ public class RespuestaReclamoFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public void subirEstado(String pos){
+    public void actualizarEstado(String pos){
+
         String estado = "";
         if(pos == "Abierto"){
             estado = "1";
