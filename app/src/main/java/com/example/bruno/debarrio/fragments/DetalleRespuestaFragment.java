@@ -90,16 +90,16 @@ public class DetalleRespuestaFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     TextView textUsuario, textCategoria, textComentario, textEstado, textFecha, textSuscriptos, textLongitud; //, textID
     ImageView imagenDetalle;
-    Button botonActualizarEstado, botonVerRespuestas, botonListaRespuestas, botonFloat;
+    Button botonListaRespuestas, botonFloat;
     //Button botonEnviarMail;
     //Spinner spinner;
+    private String KEY_ID_RESPUESTA = "id";
     private String KEY_ID = "id";
     private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ESTADO = "id_estado";
     private String KEY_SUSCRIPTOS;
     StringRequest peticion;
     boolean flag = false;
-    boolean flagBack = false;
     private TreeMap<String, String> descrip;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
@@ -163,6 +163,7 @@ public class DetalleRespuestaFragment extends Fragment {
         textEstado = (TextView) vista.findViewById(R.id.text_estado_respuesta);
         //textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textComentario = vista.findViewById(R.id.text_comentario_respuesta);
+
         //textSuscriptos = vista.findViewById(R.id.detalle_suscriptos);
         //getSubscripcionesReclamo();
         //boton flotante regresar a pantalla anterior
@@ -250,6 +251,7 @@ public class DetalleRespuestaFragment extends Fragment {
         Respuesta respuesta = null;
         if (bundleObjeto != null){
             respuesta = (Respuesta) bundleObjeto.getSerializable("objeto2");
+            //textIDRespuesta.setText(respuesta.getId());
             imagenDetalle.setImageBitmap(respuesta.getImagenDesc());
             textUsuario.setText(respuesta.getId_usuario());
             textFecha.setText(respuesta.getFecha());
@@ -257,8 +259,9 @@ public class DetalleRespuestaFragment extends Fragment {
             //textCategoria.setText(respuesta.getId_categoria());
             textComentario.setText(respuesta.getComentario());
             //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(respuesta.getId_estado()));
-            //guardo el id del reclamo para usar en la respuesta
-            String id = respuesta.getId();
+            //guardo el id de la respuesta  para usar en el detalle
+            String id_respuesta = respuesta.getId();
+            String id_reclamo = respuesta.getId_reclamo();
             String id_usuario = respuesta.getId_usuario();
             //String id_categoria = respuesta.getId_categoria();
             //String suscriptos = respuesta.getCantSuscriptos();
@@ -268,7 +271,8 @@ public class DetalleRespuestaFragment extends Fragment {
             SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
             SharedPreferences.Editor editor1 = prefRespuesta.edit();
             //editor1.putString("suscriptos", suscriptos);
-            editor1.putString("id_reclamo", id);
+            editor1.putString("id_respuesta", id_respuesta);
+            editor1.putString("id_reclamo", id_reclamo);
             editor1.putString("id_usuario", id_usuario);
             //editor1.putString("id_categoria", id_categoria);
             editor1.putString("id_estado", id_estado);
@@ -286,16 +290,6 @@ public class DetalleRespuestaFragment extends Fragment {
         RespuestasFragment fra = new RespuestasFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, fra);
-        transaction.addToBackStack(null);
-        // Commit a la transacción
-        transaction.commit();
-    }
-
-    private void llamarIntentRespuesta() {
-        // Crea el nuevo fragmento y la transacción.
-        RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.contenedorFragment, fr);
         transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
@@ -328,7 +322,7 @@ public class DetalleRespuestaFragment extends Fragment {
         Reclamo reclamo2 = null;
         Bundle bundleObjeto2 = getArguments();
         reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
-        final String id = reclamo2.getId();
+        final String id_reclamo = reclamo2.getId();
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
                 new Response.Listener<String>() {
@@ -352,7 +346,7 @@ public class DetalleRespuestaFragment extends Fragment {
                 //Creación de parámetros
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
-                params.put(KEY_ID, id);
+                params.put(KEY_ID, id_reclamo);
                 params.put(KEY_ESTADO, estadoFinal);
                 //Parámetros de retorno
                 return params;

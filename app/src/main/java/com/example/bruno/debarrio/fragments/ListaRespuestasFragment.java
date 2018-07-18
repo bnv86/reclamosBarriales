@@ -274,7 +274,7 @@ public class ListaRespuestasFragment extends Fragment {
                                         //String nombreCategoria = jsonObject.getString("nombre");
                                         //int id_categoria = jsonObject.getInt("id_categoria");
                                         String comentario = jsonObject.getString("comentario");
-                                        Respuesta respuesta = new Respuesta(id.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, comentario.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        Respuesta respuesta = new Respuesta(id.toString(), id_reclamo.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, comentario.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaRespuestas.add(respuesta);
                                     }
                                     else{

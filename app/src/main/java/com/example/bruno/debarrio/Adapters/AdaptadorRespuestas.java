@@ -29,6 +29,7 @@ public class AdaptadorRespuestas extends RecyclerView.Adapter<AdaptadorRespuesta
 
     @Override
     public void onBindViewHolder(RespuestasViewHolder holder, int position) {
+        //holder.textID.setText(listaRespuestas.get(position).getId());
         holder.textFecha.setText(listaRespuestas.get(position).getFecha());
         //holder.textCategoria.setText(listaRespuestas.get(position).getId_categoria());
         holder.textUsuario.setText(listaRespuestas.get(position).getId_usuario());
@@ -55,11 +56,12 @@ public class AdaptadorRespuestas extends RecyclerView.Adapter<AdaptadorRespuesta
 
     public class RespuestasViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textFecha, textUsuario, textEstado, textSuscriptos;
+        TextView textID, textFecha, textUsuario, textEstado, textSuscriptos;
         ImageView foto;
 
         public RespuestasViewHolder(View itemView) {
             super(itemView);
+            //textID = (TextView) itemView.findViewById(R.id.id);
             textFecha = (TextView) itemView.findViewById(R.id.id_fecha);
             //textCategoria = (TextView) itemView.findViewById(R.id.id_categoria);
             textUsuario = (TextView) itemView.findViewById(R.id.id_usuario);

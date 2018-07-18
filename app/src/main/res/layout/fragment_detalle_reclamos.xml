@@ -50,11 +50,29 @@ scroll
 android:layout_below="@+id/imagen_detalle"
                     -->
 
+    <TextView
+        android:id="@+id/titulo_respuesta"
+        android:text="DETALLE DEL RECLAMO"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#11000000"
+        android:textColor="@color/colorYellow"
+        android:layout_marginTop="12dp"/>
 
     <ScrollView
         android:id="@+id/detalle_scroll_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="45dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -328,7 +346,7 @@ android:layout_below="@+id/imagen_detalle"
                 android:id="@+id/boton_lista_respuestas"
                 android:layout_below="@+id/boton_ubicacion_reclamo"
                 android:layout_gravity="center"
-                android:text="Ver comentarios al reclamo"
+                android:text="Ver publicaciones"
                 android:textStyle="bold"
                 android:background="@color/colorYellow"
                 android:layout_width="match_parent"
@@ -346,8 +364,9 @@ android:layout_below="@+id/imagen_detalle"
                 android:layout_below="@+id/boton_lista_respuestas"
                 android:layout_gravity="center"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@color/colorAccent"
-                android:text="RESPONDER al usuario"
+                android:text="Publicar"
                 android:textColor="@color/colorBlanco"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"/>
