@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio.entidades;
 
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,6 +20,7 @@ public class Reclamo implements Serializable,Parcelable{
     private String fecha;
     private Bitmap imagen;
     private Bitmap imagenDesc;
+    private Image iconoAsociado;
     private String latitudDesc;
     private String longitudDesc;
     //private String categoria;
@@ -26,6 +28,7 @@ public class Reclamo implements Serializable,Parcelable{
     private String descripcionDesc;
     private String email;
     private String cantSuscriptos;
+    private int asociados;
 
     private int imagenId;
     private int imagenDescripcion;
@@ -35,7 +38,8 @@ public class Reclamo implements Serializable,Parcelable{
     }
 
     //public Reclamo(String id, String usuarioDesc, String fecha, String latitudDesc, String longitudDesc, String motivo, String comentarioDesc, String estado, Bitmap imagen, Bitmap imagenDesc){ //int imagenDescripcion
-    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc, String municipalidad, String descripcionDesc, String email, String cantSuscriptos){
+    public Reclamo(String id, String id_categoria, String id_usuario, String id_estado, String fecha, Bitmap imagen, Bitmap imagenDesc, String latitudDesc, String longitudDesc,
+                   String municipalidad, String descripcionDesc, String email, String cantSuscriptos, int asociados){
         this.id = id;
         this.id_categoria = id_categoria;
         this.id_usuario = id_usuario;
@@ -43,12 +47,14 @@ public class Reclamo implements Serializable,Parcelable{
         this.fecha = fecha;
         this.imagen = imagen;
         this.imagenDesc = imagenDesc;
+        this.iconoAsociado = iconoAsociado;
         this.latitudDesc = latitudDesc;
         this.longitudDesc = longitudDesc;
         this.municipalidad = municipalidad;
         this.descripcionDesc = descripcionDesc;
         this.email = email;
         this.cantSuscriptos = cantSuscriptos;
+        this.asociados = asociados;
     }
 
     protected Reclamo(Parcel in) {
@@ -59,6 +65,7 @@ public class Reclamo implements Serializable,Parcelable{
         fecha = in.readString();
         imagen = in.readParcelable(Bitmap.class.getClassLoader());
         imagenDesc = in.readParcelable(Bitmap.class.getClassLoader());
+        //iconoAsociado = in.readParcelable(Image.class.getClassLoader());
         latitudDesc = in.readString();
         longitudDesc = in.readString();
         municipalidad = in.readString();
@@ -67,6 +74,8 @@ public class Reclamo implements Serializable,Parcelable{
         imagenId = in.readInt();
         imagenDescripcion = in.readInt();
         cantSuscriptos = in.readString();
+        asociados = in.readInt();
+
     }
 
     public static final Creator<Reclamo> CREATOR = new Creator<Reclamo>() {
@@ -122,6 +131,12 @@ public class Reclamo implements Serializable,Parcelable{
     public Bitmap getImagenDesc(){return imagenDesc;}
     public void setImagenDesc(Bitmap imagenDesc){this.imagenDesc = imagenDesc;}
 
+    //public Image getIconoAsociado(){return iconoAsociado;}
+    //public void setIconoAsociado(Image iconoAsociado){this.iconoAsociado = iconoAsociado;}
+
+    public int getAsociados(){return asociados;}
+    public void setAsociados(int asociados){this.asociados = asociados;}
+
     @Override
     public int describeContents() {
         return 0;
@@ -143,7 +158,9 @@ public class Reclamo implements Serializable,Parcelable{
         dest.writeString(email);
         dest.writeInt(imagenId);
         dest.writeInt(imagenDescripcion);
+        //dest.writeInt(iconoAsociado);
         dest.writeString(cantSuscriptos);
+        dest.writeInt(asociados);
     }
 
     //public int getImagenDescripcion(){return imagenDescripcion;}
