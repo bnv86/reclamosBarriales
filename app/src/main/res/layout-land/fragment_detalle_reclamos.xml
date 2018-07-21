@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
         android:layout_alignTop="@+id/imagen_detalle"
         android:layout_gravity="right"
         android:layout_marginEnd="17dp"
@@ -283,10 +284,22 @@
                 -->
 
             <Button
-                android:id="@+id/boton_eliminar_reclamo"
+                android:id="@+id/boton_asociar"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/detalle_estado"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorGreen"
+                android:textColor="@color/colorBlanco"
+                android:text="Agregar asociado"
+                android:layout_gravity="center"/>
+
+            <Button
+                android:id="@+id/boton_eliminar_reclamo"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/boton_asociar"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorRed"

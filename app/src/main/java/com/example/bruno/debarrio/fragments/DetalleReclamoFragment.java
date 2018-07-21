@@ -96,7 +96,7 @@ public class DetalleReclamoFragment extends Fragment{
     TextView textEstado, textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle;
-    Button botonActualizarEstado, botonUbicacion, botonRespuesta, botonEliminar, botonVerRespuestas, botonListaRespuestas, botonFloat;
+    Button botonAsociar, botonUbicacion, botonRespuesta, botonEliminar, botonVerRespuestas, botonListaRespuestas, botonFloat;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
@@ -226,6 +226,15 @@ public class DetalleReclamoFragment extends Fragment{
                         .show();
             }
         });
+
+        botonAsociar = vista.findViewById(R.id.boton_asociar);
+        botonAsociar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentListaAddAsociar();
+            }
+        });
+
 
         //botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
@@ -457,6 +466,16 @@ public class DetalleReclamoFragment extends Fragment{
         RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, fr);
+        transaction.addToBackStack(null);
+        // Commit a la transacción
+        transaction.commit();
+    }
+
+    private void llamarIntentListaAddAsociar() {
+        // Crea el nuevo fragmento y la transacción.
+        ListaAddAsociadoFragment lis = new ListaAddAsociadoFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.contenedorFragment, lis);
         transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();

@@ -304,6 +304,7 @@ android:layout_below="@+id/imagen_detalle"
                 android:textColor="#99e6ff"/>
 
 
+            <!--
             <Spinner
                 android:id="@+id/spinner_estado"
                 android:layout_below="@+id/static_estado"
@@ -316,13 +317,25 @@ android:layout_below="@+id/imagen_detalle"
                 android:layout_marginRight="15dp"
                 android:textSize="25sp"
                 android:popupBackground="#232323"/>
+            -->
 
+            <Button
+                android:id="@+id/boton_asociar"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detalle_estado"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorGreen"
+                android:textColor="@color/colorBlanco"
+                android:text="Agregar asociado"
+                android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/boton_eliminar_reclamo"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/detalle_estado"
+                android:layout_below="@+id/boton_asociar"
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@color/colorRed"
