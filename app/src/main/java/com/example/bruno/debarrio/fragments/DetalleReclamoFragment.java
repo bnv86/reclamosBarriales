@@ -95,8 +95,8 @@ public class DetalleReclamoFragment extends Fragment{
     private OnFragmentInteractionListener mListener;
     TextView textEstado, textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
-    ImageView imagenDetalle;
-    Button botonAsociar, botonUbicacion, botonRespuesta, botonEliminar, botonVerRespuestas, botonListaRespuestas, botonFloat;
+    ImageView imagenDetalle, botonUbicacion, botonEliminar;
+    Button botonAsociar, botonRespuesta, botonVerRespuestas, botonListaRespuestas, botonFloat;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
@@ -235,8 +235,6 @@ public class DetalleReclamoFragment extends Fragment{
             }
         });
 
-
-        //botonActualizarEstado = vista.findViewById(R.id.boton_actualizar_estado);
         botonUbicacion = vista.findViewById(R.id.boton_ubicacion_reclamo);
         botonUbicacion.setOnClickListener(new View.OnClickListener(){
             @Override
