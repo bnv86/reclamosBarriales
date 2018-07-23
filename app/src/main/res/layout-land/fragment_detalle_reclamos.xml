@@ -323,7 +323,7 @@
                 android:layout_gravity="center"/>
 
             <Button
-                android:id="@+id/boton_eliminar_asociado"
+                android:id="@+id/boton_desasociar"
                 android:layout_below="@+id/boton_asociar"
                 android:layout_width="135dp"
                 android:layout_height="60dp"
@@ -338,7 +338,7 @@
 
             <Button
                 android:id="@+id/boton_lista_respuestas"
-                android:layout_below="@+id/boton_eliminar_asociado"
+                android:layout_below="@+id/boton_desasociar"
                 android:layout_gravity="center"
                 android:text="VER PUBLICACIONES"
                 android:textStyle="bold"

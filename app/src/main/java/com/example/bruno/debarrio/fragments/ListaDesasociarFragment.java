@@ -33,10 +33,8 @@ import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity2;
-import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
-import com.example.bruno.debarrio.entidades.Save;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import org.json.JSONArray;
@@ -48,25 +46,22 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ListaAddAsociadoFragment.OnFragmentInteractionListener} interface
+ * {@link ListaDesasociarFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link ListaAddAsociadoFragment#newInstance} factory method to
+ * Use the {@link ListaDesasociarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaAddAsociadoFragment extends Fragment {
+public class ListaDesasociarFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -77,15 +72,19 @@ public class ListaAddAsociadoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    ProgressDialog pDialog;
+
+    ProgressDialog pDialog1;
+    ProgressDialog pDialog2;
     Context context;
-    ArrayList<Reclamo> listaReclamosAsociables;
+    ArrayList<Reclamo> listaReclamosAsociados;
+    ArrayList<String> listaAsociados;
     RecyclerView recyclerViewReclamos;
     Activity activity;
     StringRequest peticion;
     ComunicacionFragments interfaceComunicacionFragments;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     String URLAsociar = "https://momentary-electrode.000webhostapp.com/postAsociar.php";
+    String URLAsociados = "https://momentary-electrode.000webhostapp.com/getAsociacion.php";
     String URLTieneAsociados = "https://momentary-electrode.000webhostapp.com/updateTieneAsociadosReclamo.php";
     String URLEsAsociado = "https://momentary-electrode.000webhostapp.com/updateEsAsociadoReclamo.php";
     private String KEY_ID_RECLAMO_ORIGINAL = "id_reclamo";
@@ -94,7 +93,7 @@ public class ListaAddAsociadoFragment extends Fragment {
     private String KEY_VALOR_TIENE = "tiene_asociados";
     private String KEY_VALOR_ES = "es_asociado";
 
-    public ListaAddAsociadoFragment() {
+    public ListaDesasociarFragment() {
         // Required empty public constructor
     }
 
@@ -133,19 +132,19 @@ public class ListaAddAsociadoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View vista = inflater.inflate(R.layout.fragment_lista_add_asociado, container, false);
+        View vista = inflater.inflate(R.layout.fragment_lista_desasociar, container, false);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        //SharedPreferences prefEstado = getContext().getSharedPreferences("estado", getContext().MODE_PRIVATE);
-        //String posicion = prefEstado.getString("estadoNombre","");
-        llenarListaReclamoAasociar();
+        llenarListaAsociados();
         return vista;
     }
 
-    private void llenarListaReclamoAasociar() {
-        listaReclamosAsociables = new ArrayList<>();
-        new GetHttpResponseAsociar(getContext()).execute();
+    private void llenarListaAsociados() {
+        listaReclamosAsociados = new ArrayList<>();
+        listaAsociados = new ArrayList<>();
+        //buscarAsociados();
+        new GetHttpResponseBuscarAsociados(getContext()).execute();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -197,13 +196,12 @@ public class ListaAddAsociadoFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public class GetHttpResponseAsociar extends AsyncTask<Void, Void, Void>
+    public class GetHttpResponseBuscarAsociados extends AsyncTask<Void, Void, Void>
     {
         public Context context;
-        public String posicion;
         String ResultHolder;
 
-        public GetHttpResponseAsociar(Context context)
+        public GetHttpResponseBuscarAsociados(Context context)
         {
             this.context = context;
         }
@@ -212,11 +210,135 @@ public class ListaAddAsociadoFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            pDialog = new ProgressDialog(context);
-            pDialog.setMessage("Cargando Lista");
-            pDialog.setCancelable(true);
-            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.show();
+
+            pDialog1 = new ProgressDialog(context);
+            pDialog1.setMessage("Buscando...espere");
+            pDialog1.setCancelable(true);
+            pDialog1.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog1.show();
+            //final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAsociados,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            //Descartar el diálogo de progreso
+                            //loading.dismiss();
+                            //Toast.makeText(getActivity(), "Responde" , Toast.LENGTH_LONG).show();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            //loading.dismiss();
+                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                        }
+                    });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            //Creación de una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+            //Agregar solicitud a la cola
+            requestQueue.add(stringRequest);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0)
+        {
+            HttpServices httpServiceObject = new HttpServices(URLAsociados);
+            try
+            {
+                httpServiceObject.ExecutePostRequest();
+
+                if((httpServiceObject.getResponseCode() == 200))
+                {
+                    ResultHolder = httpServiceObject.getResponse();
+
+                    if((ResultHolder != null))
+                    {
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(ResultHolder);
+                            JSONObject jsonObject;
+                            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
+                            String id_reclamo_original = prefReclamo.getString("id_reclamo","");
+
+                            for(int i=0; i<jsonArray.length(); i++) {
+                                jsonObject = jsonArray.getJSONObject(i);
+                                String id_reclamo = jsonObject.getString("id_reclamo");
+                                if (id_reclamo.equals(id_reclamo_original))
+                                {
+                                    String idReclamoAsociado = jsonObject.getString("id_reclamo_asociado");
+                                    listaAsociados.add(idReclamoAsociado);
+                                }
+                            }
+                        }
+                        catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else
+                {
+                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            catch (Exception e)
+            {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            if(listaAsociados != null) {
+
+                //PRIMER INTENTO
+                /*
+                for(int i=0; i<listaAsociados.size(); i++) {
+                    new GetHttpResponseDesasociar(getContext(), listaAsociados.get(i).toString()).execute();
+                }*/
+
+                //SEGUNDO INTENTO
+                for (String object: listaAsociados) {
+                    //listaAsociados.get(i);
+                    new GetHttpResponseDesasociar(getContext(), object.toString()).execute();
+                //listaAsociados.forEach(new GetHttpResponseDesasociar);
+                    //new GetHttpResponseDesasociar(getContext(), listaAsociados[i]).execute();
+                }
+                pDialog1.dismiss();
+            }
+            else{
+                pDialog1.dismiss();
+                Toast.makeText(context, "Error GetHttpResponseBuscarAsociados", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    public class GetHttpResponseDesasociar extends AsyncTask<Void, Void, Void>
+    {
+        public Context context;
+        public String id_asociado;
+        String ResultHolder;
+
+        public GetHttpResponseDesasociar(Context context, String id_asociado)
+        {
+            this.context = context;
+            this.id_asociado = id_asociado;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            /*
+            pDialog2 = new ProgressDialog(context);
+            pDialog2.setMessage("Cargando Lista");
+            pDialog2.setCancelable(true);
+            pDialog2.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialog2.show();*/
             //final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerURL,
                     new Response.Listener<String>() {
@@ -224,6 +346,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         public void onResponse(String s) {
                             //Descartar el diálogo de progreso
                             //loading.dismiss();
+                            //pDialog2.dismiss();
                         }
                     },
                     new Response.ErrorListener() {
@@ -260,8 +383,6 @@ public class ListaAddAsociadoFragment extends Fragment {
                             SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
                             String id_muni = prefUsuario.getString("id_municipio","");
                             JSONObject jsonObject;
-                            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
-                            String id_reclamo_original = prefReclamo.getString("id_reclamo","");
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
@@ -271,26 +392,26 @@ public class ListaAddAsociadoFragment extends Fragment {
                                 int esAsociado = jsonObject.getInt("es_asociado");
                                 String id = jsonObject.getString("id");
 
-                                if (id_municipio.equals(id_muni) && (asociados == 0) && (esAsociado == 0) && (!id.equals(id_reclamo_original)))
+                                if (id_municipio.equals(id_muni) && (id.equals(id_asociado)))
                                 {
-                                        //String usuario = jsonObject.getString("id_usuario");
-                                        String username = jsonObject.getString("username");
-                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
-                                        String dec = jsonObject.getString("foto");
-                                        Bitmap foto = downloadImage(dec);
-                                        String fecha = jsonObject.getString("fecha");
-                                        String latitud = jsonObject.getString("latitud");
-                                        String longitud = jsonObject.getString("longitud");
-                                        //String id_categoria = jsonObject.getString("id_categoria");
-                                        String nombreCategoria = jsonObject.getString("nombre");
-                                        //int id_categoria = jsonObject.getInt("id_categoria");
-                                        String municipalidad = jsonObject.getString("municipalidad");
-                                        String descripcion = jsonObject.getString("descripcion");
-                                        String mail = jsonObject.getString("email");
+                                    //String usuario = jsonObject.getString("id_usuario");
+                                    String username = jsonObject.getString("username");
+                                    String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
+                                    String dec = jsonObject.getString("foto");
+                                    Bitmap foto = downloadImage(dec);
+                                    String fecha = jsonObject.getString("fecha");
+                                    String latitud = jsonObject.getString("latitud");
+                                    String longitud = jsonObject.getString("longitud");
+                                    //String id_categoria = jsonObject.getString("id_categoria");
+                                    String nombreCategoria = jsonObject.getString("nombre");
+                                    //int id_categoria = jsonObject.getInt("id_categoria");
+                                    String municipalidad = jsonObject.getString("municipalidad");
+                                    String descripcion = jsonObject.getString("descripcion");
+                                    String mail = jsonObject.getString("email");
 
-                                        Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaReclamosAsociables.add(reclamo);
+                                    Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
+                                            latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);
+                                    listaReclamosAsociados.add(reclamo);
                                 }
                             }
                         }
@@ -316,38 +437,86 @@ public class ListaAddAsociadoFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result)
         {
-            if(listaReclamosAsociables != null) {
-                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociables);
+            //pDialog2.dismiss();
+            if(listaReclamosAsociados != null) {
+
+                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociados);
                 recyclerViewReclamos.setAdapter(adapter);
-                pDialog.dismiss();
+
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
-                        //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                         //interfaceComunicacionFragments.enviarReclamo(listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)));
-                        String idreclamoAasociar = listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
-                        confirmDialog(idreclamoAasociar);
+                        String idreclamoADesasociar = listaReclamosAsociados.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
+                        confirmDialog(idreclamoADesasociar);
                     }
                 });
+                //pDialog2.dismiss();
             }
             else{
-                //listaReclamosAsociables.clear();
-                //listaReclamosAsociables.remove(recyclerViewReclamos);
-                //recyclerViewReclamos.setAdapter(null);
-                pDialog.dismiss();
+                //pDialog2.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
         }
     }
 
+    public void buscarAsociados(){
+
+        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
+        final String id_reclamo_original = prefReclamo.getString("id_reclamo","");
+
+        //Muestro la carga del progreso
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAsociar,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        //loading.dismiss();
+                        //Mostrando el mensaje de la respuesta
+                        //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
+                        //getActivity().startActivity(intentVer);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //Descartar el diálogo de progreso
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+
+                //Agregado de parámetros
+                params.put(KEY_ID_RECLAMO_ORIGINAL, id_reclamo_original);
+
+                //Parámetros de retorno
+                return params;
+            }
+        };
+
+        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
+    }
+
     private void confirmDialog(final String idasociado) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("¿Desea asociar el reclamo?")
+        builder.setMessage("¿Desea desasociar el reclamo?")
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        subirAsociado(idasociado);
+                        //subirAsociado(idasociado);
+                        Toast.makeText(getActivity(), "HACER ALGO" , Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -96,7 +96,7 @@ public class DetalleReclamoFragment extends Fragment{
     TextView textEstado, textUsuario, textCategoria, textDescripcion, textMunicipalidad, textFecha, textSuscriptos, textLongitud; //, textID
     String mailReclamo;
     ImageView imagenDetalle, botonUbicacion, botonEliminar;
-    Button botonAsociar, botonRespuesta, botonVerRespuestas, botonListaRespuestas, botonFloat;
+    Button botonAsociar, botonDesasociar, botonRespuesta, botonVerRespuestas, botonListaRespuestas, botonFloat;
     //Button botonEnviarMail;
     //Spinner spinner;
     private String KEY_ID = "id";
@@ -232,6 +232,14 @@ public class DetalleReclamoFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 llamarIntentListaAddAsociar();
+            }
+        });
+
+        botonDesasociar = vista.findViewById(R.id.boton_desasociar);
+        botonDesasociar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                llamarIntentListaDesasociar();
             }
         });
 
@@ -472,6 +480,16 @@ public class DetalleReclamoFragment extends Fragment{
     private void llamarIntentListaAddAsociar() {
         // Crea el nuevo fragmento y la transacción.
         ListaAddAsociadoFragment lis = new ListaAddAsociadoFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.contenedorFragment, lis);
+        transaction.addToBackStack(null);
+        // Commit a la transacción
+        transaction.commit();
+    }
+
+    private void llamarIntentListaDesasociar() {
+        // Crea el nuevo fragmento y la transacción.
+        ListaDesasociarFragment lis = new ListaDesasociarFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis);
         transaction.addToBackStack(null);

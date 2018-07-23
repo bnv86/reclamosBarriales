@@ -18,6 +18,7 @@ import com.example.bruno.debarrio.entidades.Respuesta;
 import com.example.bruno.debarrio.fragments.DetalleReclamoFragment;
 import com.example.bruno.debarrio.fragments.DetalleRespuestaFragment;
 import com.example.bruno.debarrio.fragments.ListaAddAsociadoFragment;
+import com.example.bruno.debarrio.fragments.ListaDesasociarFragment;
 import com.example.bruno.debarrio.fragments.ListaEstadosFragment;
 import com.example.bruno.debarrio.fragments.ListaReclamosFragment;
 import com.example.bruno.debarrio.fragments.ListaRespuestasFragment;
@@ -30,7 +31,7 @@ import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 import java.util.Locale;
 
 public class MainActivity2 extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaEstadosFragment.OnFragmentInteractionListener,
-        DetalleReclamoFragment.OnFragmentInteractionListener, ListaAddAsociadoFragment.OnFragmentInteractionListener,
+        DetalleReclamoFragment.OnFragmentInteractionListener, ListaAddAsociadoFragment.OnFragmentInteractionListener, ListaDesasociarFragment.OnFragmentInteractionListener,
         RespuestaReclamoFragment.OnFragmentInteractionListener, ListaRespuestasFragment.OnFragmentInteractionListener, DetalleRespuestaFragment.OnFragmentInteractionListener, ComunicacionFragments{ //implements TituloFragment.onTituloSelectedListener
 
     private Locale locale;

@@ -349,7 +349,7 @@ android:layout_below="@+id/imagen_detalle"
                     android:textColor="@color/colorBlanco" />
 
                 <Button
-                    android:id="@+id/boton_eliminar_asociado"
+                    android:id="@+id/boton_desasociar"
                     android:layout_width="135dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
