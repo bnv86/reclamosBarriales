@@ -140,7 +140,6 @@ public class RespuestaReclamoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
         View rootView = inflater.inflate(R.layout.fragment_respuesta_reclamo, container, false);
 
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
@@ -152,7 +151,6 @@ public class RespuestaReclamoFragment extends Fragment {
 
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
-        //botonActualizarEstado = rootView.findViewById(R.id.boton_actualizar_estado);
         //textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
 
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
@@ -160,12 +158,7 @@ public class RespuestaReclamoFragment extends Fragment {
         String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
-
         spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(estado_id));
-
-        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipos2);
-        //spinner.setAdapter(adapter);
-        //spinner.setOnItemSelectedListener(this);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 

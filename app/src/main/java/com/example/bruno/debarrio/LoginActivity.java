@@ -68,9 +68,6 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
         //se oculta la barra de titulo
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
-
-        //setContentView(R.layout.activity_login);
-        // Set up the login form.
         //para elegir idioma al hacer click en boton
 
         seleccion = ((Button) findViewById(R.id.seleccionIdioma));
@@ -120,12 +117,14 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
 
                                 if(id_rol.equals("2")) {
 
-                                    //int age = Integer.parseInt("age");
                                     Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class); //LoginActivity.this
-                                    //intent.putExtra("name", name);
-                                    //intent.putExtra("username", username);
-                                    //intent.putExtra("password", password);
+                                    //intent.setFlag(Intent.FLAG_ACTIVITY_CLEAR_TOP); // <- Aquí :)
+                                    //startActivity(intent);
+                                    //finish();
 
+                                    startActivity(new Intent(getBaseContext(), MainTabbedActivity.class)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                                    finish(); //de esta manera no se vuelve al login haciendo back
                                     //guardo el usuario logueado en sesion
                                     SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -136,7 +135,6 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                     editor.commit();
                                     Toast.makeText(getApplicationContext(), "BIENVENIDO " + nombre + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
                                     LoginActivity.this.startActivity(intent);
-                                    //Toast.makeText(getApplicationContext(),"BIENVENIDO "+ username + " !", Toast.LENGTH_LONG).show(); //DEVUELVE PASS, PORQUEEEEEE?
                                 }
                                 else {
                                     Toast.makeText(getApplicationContext(), "Rol incorrecto", Toast.LENGTH_LONG).show();
