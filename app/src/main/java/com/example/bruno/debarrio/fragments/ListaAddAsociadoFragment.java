@@ -86,7 +86,9 @@ public class ListaAddAsociadoFragment extends Fragment {
     ComunicacionFragments interfaceComunicacionFragments;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
     String URLAsociar = "https://momentary-electrode.000webhostapp.com/postAsociar.php";
+    String URLDeleteAsociacion = "https://momentary-electrode.000webhostapp.com/deleteAsociacion.php";
     String URLTieneAsociados = "https://momentary-electrode.000webhostapp.com/updateTieneAsociadosReclamo.php";
+    String URLAddAsociado = "https://momentary-electrode.000webhostapp.com/addTieneAsociadosReclamo.php";
     String URLEsAsociado = "https://momentary-electrode.000webhostapp.com/updateEsAsociadoReclamo.php";
     private String KEY_ID_RECLAMO_ORIGINAL = "id_reclamo";
     private String KEY_ID_RECLAMO = "id";
@@ -136,9 +138,6 @@ public class ListaAddAsociadoFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_lista_add_asociado, container, false);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        //SharedPreferences prefEstado = getContext().getSharedPreferences("estado", getContext().MODE_PRIVATE);
-        //String posicion = prefEstado.getString("estadoNombre","");
         llenarListaReclamoAasociar();
         return vista;
     }
@@ -200,7 +199,6 @@ public class ListaAddAsociadoFragment extends Fragment {
     public class GetHttpResponseAsociar extends AsyncTask<Void, Void, Void>
     {
         public Context context;
-        public String posicion;
         String ResultHolder;
 
         public GetHttpResponseAsociar(Context context)
@@ -331,9 +329,6 @@ public class ListaAddAsociadoFragment extends Fragment {
                 });
             }
             else{
-                //listaReclamosAsociables.clear();
-                //listaReclamosAsociables.remove(recyclerViewReclamos);
-                //recyclerViewReclamos.setAdapter(null);
                 pDialog.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }
@@ -348,6 +343,8 @@ public class ListaAddAsociadoFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         subirAsociado(idasociado);
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -359,13 +356,13 @@ public class ListaAddAsociadoFragment extends Fragment {
                 .show();
     }
 
-    public void subirAsociado(String idAsociado){
+    public void subirAsociado(String idAsociado){ //INSERT FILA ASOCIACION
         final String id_reclamo_asociado = idAsociado;
 
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
         final String id_reclamo_original = prefReclamo.getString("id_reclamo","");
 
-        modificarTieneAsociados(id_reclamo_original);
+        sumarTieneAsociados(id_reclamo_original);
         modificarEsAsociado(id_reclamo_asociado);
 
         //Muestro la carga del progreso
@@ -377,7 +374,6 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
                         Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
                         Intent intentVer = new Intent(getActivity(), MainActivity2.class);
                         getActivity().startActivity(intentVer);
@@ -388,7 +384,6 @@ public class ListaAddAsociadoFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
                         Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
                     }
                 }){
@@ -407,8 +402,6 @@ public class ListaAddAsociadoFragment extends Fragment {
                 return params;
             }
         };
-
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
@@ -459,17 +452,17 @@ public class ListaAddAsociadoFragment extends Fragment {
         requestQueue.add(peticion);
     }
 
-    public void modificarTieneAsociados(String idReclamoOriginal){
+    public void sumarTieneAsociados(String idReclamoOriginal){
 
         final String idOriginal = idReclamoOriginal;
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLTieneAsociados,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAddAsociado,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -486,7 +479,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID_RECLAMO, idOriginal);
-                params.put(KEY_VALOR_TIENE, "1");
+                //params.put(KEY_VALOR_TIENE, "1"); //SUMAR UNO
                 //Parámetros de retorno
                 return params;
             }
@@ -508,14 +501,14 @@ public class ListaAddAsociadoFragment extends Fragment {
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ASOCIÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "NO SE ASOCIÓ...REINTENTE" , Toast.LENGTH_LONG).show();
                     }
                 }){
 

@@ -83,9 +83,10 @@ public class ListaDesasociarFragment extends Fragment {
     StringRequest peticion;
     ComunicacionFragments interfaceComunicacionFragments;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getReclamo.php";
-    String URLAsociar = "https://momentary-electrode.000webhostapp.com/postAsociar.php";
+    String URLDesasociar = "https://momentary-electrode.000webhostapp.com/deleteAsociacion.php";
     String URLAsociados = "https://momentary-electrode.000webhostapp.com/getAsociacion.php";
     String URLTieneAsociados = "https://momentary-electrode.000webhostapp.com/updateTieneAsociadosReclamo.php";
+    String URLRemoveAsociado = "https://momentary-electrode.000webhostapp.com/removeTieneAsociadosReclamo.php";
     String URLEsAsociado = "https://momentary-electrode.000webhostapp.com/updateEsAsociadoReclamo.php";
     private String KEY_ID_RECLAMO_ORIGINAL = "id_reclamo";
     private String KEY_ID_RECLAMO = "id";
@@ -408,7 +409,6 @@ public class ListaDesasociarFragment extends Fragment {
                                     String municipalidad = jsonObject.getString("municipalidad");
                                     String descripcion = jsonObject.getString("descripcion");
                                     String mail = jsonObject.getString("email");
-
                                     Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
                                             latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);
                                     listaReclamosAsociados.add(reclamo);
@@ -460,54 +460,6 @@ public class ListaDesasociarFragment extends Fragment {
         }
     }
 
-    public void buscarAsociados(){
-
-        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
-        final String id_reclamo_original = prefReclamo.getString("id_reclamo","");
-
-        //Muestro la carga del progreso
-        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAsociar,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        //loading.dismiss();
-                        //Mostrando el mensaje de la respuesta
-                        //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
-                        //getActivity().startActivity(intentVer);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        //Descartar el diálogo de progreso
-                        //loading.dismiss();
-                        //Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
-                    }
-                }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creación de parámetros
-                Map<String,String> params = new Hashtable<String, String>();
-
-                //Agregado de parámetros
-                params.put(KEY_ID_RECLAMO_ORIGINAL, id_reclamo_original);
-
-                //Parámetros de retorno
-                return params;
-            }
-        };
-
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Creación de una cola de solicitudes
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-        //Agregar solicitud a la cola
-        requestQueue.add(stringRequest);
-    }
-
     private void confirmDialog(final String idasociado) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -515,8 +467,10 @@ public class ListaDesasociarFragment extends Fragment {
                 .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        //subirAsociado(idasociado);
-                        Toast.makeText(getActivity(), "HACER ALGO" , Toast.LENGTH_LONG).show();
+                        quitarAsociado(idasociado);
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
+                        //Toast.makeText(getActivity(), "HACER ALGO" , Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -528,26 +482,25 @@ public class ListaDesasociarFragment extends Fragment {
                 .show();
     }
 
-    public void subirAsociado(String idAsociado){
+    public void quitarAsociado(String idAsociado){ //DELETE FILA EN ASOCIACION
         final String id_reclamo_asociado = idAsociado;
 
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
         final String id_reclamo_original = prefReclamo.getString("id_reclamo","");
 
-        modificarTieneAsociados(id_reclamo_original);
+        restarTieneAsociados(id_reclamo_original);
         modificarEsAsociado(id_reclamo_asociado);
 
         //Muestro la carga del progreso
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAsociar,
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Cargando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLDesasociar,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
-                        Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "RECLAMO DESASOCIADO!", Toast.LENGTH_LONG).show();
                         Intent intentVer = new Intent(getActivity(), MainActivity2.class);
                         getActivity().startActivity(intentVer);
                     }
@@ -557,7 +510,6 @@ public class ListaDesasociarFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
                         Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
                     }
                 }){
@@ -577,7 +529,6 @@ public class ListaDesasociarFragment extends Fragment {
             }
         };
 
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
@@ -585,67 +536,24 @@ public class ListaDesasociarFragment extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    //Obtiene la cantidad de suscriptores del reclamo
-    private void getSubscripcionesReclamo(final String id){ //private String getSubscripcionesReclamo(final String id)
-        peticion = new StringRequest(Request.Method.POST, WebService.urlGetSubscripciones,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                        Log.d("Respuesta servidor", response);
-                        try {
-                            JSONArray jsonArray = new JSONArray(response);
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject subsJson = jsonArray.getJSONObject(i);
-                                int cantSubs = subsJson.getInt("COUNT(*)");
-                                String cantidad = subsJson.getString("COUNT(*)");
-                                Log.d("Cantidad de suscriptos",String.valueOf(cantSubs));
-                                //textSuscriptos.setText(cantidad);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("error_servidor", error.toString());
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams()  {
-                Map<String, String> parametros = new HashMap<>();
-                parametros.put("id_reclamo", id);
-                parametros.put("subscriptores","2");
-                return parametros;
-            }
-        };
-        peticion.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Creación de una cola de solicitudes
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-        //Agregar solicitud a la cola
-        requestQueue.add(peticion);
-    }
-
-    public void modificarTieneAsociados(String idReclamoOriginal){
+    public void restarTieneAsociados(String idReclamoOriginal){ //RESTA 1 A TIENE_ASOCIADOS
 
         final String idOriginal = idReclamoOriginal;
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLTieneAsociados,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLRemoveAsociado,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -655,7 +563,7 @@ public class ListaDesasociarFragment extends Fragment {
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID_RECLAMO, idOriginal);
-                params.put(KEY_VALOR_TIENE, "1");
+                //params.put(KEY_VALOR_TIENE, "1"); //RESTAR UNO
                 //Parámetros de retorno
                 return params;
             }
@@ -677,14 +585,14 @@ public class ListaDesasociarFragment extends Fragment {
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "RECLAMO DESASOCIADO!", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ASOCIÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "NO SE ASOCIÓ...REINTENTE" , Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -694,7 +602,7 @@ public class ListaDesasociarFragment extends Fragment {
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID_RECLAMO, idAsociado);
-                params.put(KEY_VALOR_ES, "1");
+                params.put(KEY_VALOR_ES, "0");
                 //Parámetros de retorno
                 return params;
             }

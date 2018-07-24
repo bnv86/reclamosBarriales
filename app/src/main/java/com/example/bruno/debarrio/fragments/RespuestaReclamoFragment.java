@@ -211,39 +211,9 @@ public class RespuestaReclamoFragment extends Fragment {
         Reclamo reclamo = null;
         if (bundleObjeto != null) {
             reclamo = (Reclamo) bundleObjeto.getSerializable("objeto");
-            //spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(reclamo.getId_estado()));
-            //textEstado.setText(reclamo.getId_estado());
-
             mailReclamo = reclamo.getEmail();
-            //String id_usuario = reclamo.getId_usuario();
-            /*
-            //guardo el id del reclamo para usar en la respuesta
-            String id = reclamo.getId();
-            String id_usuario = reclamo.getId_usuario();
-            String id_categoria = reclamo.getId_categoria();
-            //String suscriptos = reclamo.getCantSuscriptos();
-            String id_estado = reclamo.getId_estado();
-            String fecha = reclamo.getFecha();
-            SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor1 = prefReclamo.edit();
-            //editor1.putString("suscriptos", suscriptos);
-            editor1.putString("id_reclamo", id);
-            editor1.putString("id_usuario", id_usuario);
-            editor1.putString("id_categoria", id_categoria);
-            editor1.putString("id_estado", id_estado);
-            editor1.putString("fecha", fecha);
-            editor1.commit();
-            //guardo las coordenadas para usar en el boton ubicacion del detalle
-            SharedPreferences prefCoord = getContext().getSharedPreferences("coordenadas", getActivity().MODE_PRIVATE);
-            SharedPreferences.Editor editor2 = prefCoord.edit();
-            editor2.putString("latitud", reclamo.getLatitudDesc());
-            editor2.putString("longitud", reclamo.getLongitudDesc());
-            editor2.commit();*/
-
         }
 
-        //textEstado.setText(estado);
-        //String comentario = editextComentario.getText().toString();
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
         botonSacarFoto = rootView.findViewById(R.id.boton_tomar_foto);
@@ -272,11 +242,9 @@ public class RespuestaReclamoFragment extends Fragment {
                     //alertBuilder2.setMessage("Debe completar el campo 'Comentario'").setNegativeButton("Por favor", null).create().show();
                 }
 
-                //subirEstado(posicion);
                 else {
                     SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
                     final String id_usuario = prefReclamo.getString("id_usuario","");
-                    //String id_estado = prefReclamo.getString("id_estado","");
 
                     SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
                     final String id_estado = prefSpinner.getString("posicion","");
@@ -284,13 +252,11 @@ public class RespuestaReclamoFragment extends Fragment {
                     if (id_estado.equals("En curso")){
                         EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
                         enviomail.execute();
-                        //subirEstado(id_estado);
                     }
 
                     if (id_estado.equals("Resuelto")) {
                         EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
                         enviomail.execute();
-                        //subirEstado(id_estado);
                     }
                     actualizarEstado(id_estado);
                     subirRespuesta(id_estado);
@@ -319,41 +285,7 @@ public class RespuestaReclamoFragment extends Fragment {
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
         final String usuario = sharedpreferences.getString("username","");
         final String estadoFinal = estado;
-        //SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getContext().MODE_PRIVATE);
-        //final String id_estado = prefSpinner.getString("posicion","");
 
-        /*
-        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-        String id_usuario = prefReclamo.getString("id_usuario","");
-        //String id_estado = prefReclamo.getString("id_estado","");
-        SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
-        final String id_estado = prefSpinner.getString("posicion","");
-
-        if (id_estado.equals("En curso")){
-            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
-            enviomail.execute();
-            //subirEstado(id_estado);
-        }
-
-        if (id_estado.equals("Resuelto")) {
-            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
-            enviomail.execute();
-            //subirEstado(id_estado);
-        }
-
-        if (id_estado.equals("Abierto")){
-            subirEstado(id_estado);
-        }
-
-        if (id_estado.equals("Re-abierto")) {
-            subirEstado(id_estado);
-        }
-        subirEstado(id_estado);*/
-
-        //Bundle bundle = getArguments();
-        //pref_userName = preferences.getString("pref_userName", "n/a");
-        //userName.setText("Welcome to "+pref_userName);
-        //String username = getIntent().getStringExtra("username");
         //Muestro la carga del progreso
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_RESPUESTA_RECLAMO,
@@ -363,11 +295,9 @@ public class RespuestaReclamoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        //Toast.makeText(getContext(), s , Toast.LENGTH_LONG).show();
                         Toast.makeText(getActivity(), "RESPUESTA ENVIADA " + usuario + " !", Toast.LENGTH_LONG).show();
                         Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
                         getActivity().startActivity(intentVer);
-                        //llamarIntentFotoElegir();
                     }
                 },
                 new Response.ErrorListener() {
@@ -375,8 +305,6 @@ public class RespuestaReclamoFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-
-                        //Toast.makeText(getContext(), volleyError.getMessage().toString(), Toast.LENGTH_LONG).show(); //getActivity()
                         Toast.makeText(getActivity(), "NO SE ENVIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
                     }
                 }){
@@ -387,11 +315,6 @@ public class RespuestaReclamoFragment extends Fragment {
                 String foto = getStringImagen(bitmap);
                 SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
                 String id_usuario = prefUsuario.getString("id_usuario","");
-                //SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", MODE_PRIVATE);
-                //String id_estado = prefEstado.getString("id_estado","");
-                //SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
-                //String estado = prefSpinner.getString("posicion","");
-
                 SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
                 String id_reclamo = prefReclamo.getString("id_reclamo","");
                 String comentario = editextComentario.getText().toString().trim();
@@ -416,8 +339,6 @@ public class RespuestaReclamoFragment extends Fragment {
                 return params;
             }
         };
-
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
@@ -440,20 +361,8 @@ public class RespuestaReclamoFragment extends Fragment {
         if(pos == "Re-abierto"){
             estado = "4";
         }
-        //guardo los datos del estado
-        //SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
-        //SharedPreferences.Editor editor = prefEstado.edit();
-        //editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
-        //editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
-        //editor.commit();
 
         final String estadoFinal = estado;
-        //Bundle bundleObjeto = getArguments();
-        //final String id = e.getId();
-        //Reclamo reclamo2 = null;
-        //Bundle bundleObjeto2 = getArguments();
-        //reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
-        //final String id = reclamo2.getId();
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
         final String id = prefReclamo.getString("id_reclamo","");
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
