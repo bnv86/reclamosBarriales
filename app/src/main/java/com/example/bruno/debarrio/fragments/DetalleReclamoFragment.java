@@ -179,6 +179,9 @@ public class DetalleReclamoFragment extends Fragment{
         //textSuscriptos.setText(KEY_SUSCRIPTOS);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_detalle);
 
+        GetHttpResponseBuscarAsociados getHttpResponseBuscarAsociados = new GetHttpResponseBuscarAsociados(getContext());
+        getHttpResponseBuscarAsociados.execute();
+
         textEstado = (TextView) vista.findViewById(R.id.detalle_estado);
 
         SharedPreferences prefFlag= getContext().getSharedPreferences("flag", getActivity().MODE_PRIVATE);
@@ -234,8 +237,6 @@ public class DetalleReclamoFragment extends Fragment{
                 llamarIntentListaAddAsociar();
             }
         });
-        GetHttpResponseBuscarAsociados getHttpResponseBuscarAsociados = new GetHttpResponseBuscarAsociados(getContext());
-        getHttpResponseBuscarAsociados.execute();
 
         botonDesasociar = vista.findViewById(R.id.boton_desasociar);
         botonDesasociar.setVisibility(vista.GONE);
