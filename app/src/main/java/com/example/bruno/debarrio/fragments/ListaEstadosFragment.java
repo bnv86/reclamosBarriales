@@ -81,6 +81,7 @@ public class ListaEstadosFragment extends Fragment {
     Context context;
     ArrayList<Reclamo> listaReclamos;
     RecyclerView recyclerViewReclamos;
+    AdaptadorReclamos adapter;
     Activity activity;
     StringRequest peticion;
     ComunicacionFragments interfaceComunicacionFragments;
@@ -128,6 +129,7 @@ public class ListaEstadosFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_lista_estados, container, false);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewReclamos.setHasFixedSize(true);
         //recyclerViewReclamos.setAdapter(null);
         //AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
         //recyclerViewReclamos.setAdapter(adapter);
@@ -219,6 +221,7 @@ public class ListaEstadosFragment extends Fragment {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
+                            //adapter.notifyDataSetChanged();
                             //Descartar el diálogo de progreso
                             //loading.dismiss();
                         }
@@ -227,7 +230,7 @@ public class ListaEstadosFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Error en servidor" , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

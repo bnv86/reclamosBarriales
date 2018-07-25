@@ -312,11 +312,13 @@ public class ListaRespuestasFragment extends Fragment {
                 final AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
                 recyclerViewRespuestas.setAdapter(adapter);
                 pDialog.dismiss();
+                closefragment();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
                         //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                         interfaceComunicacionFragments.enviarRespuesta(listaRespuestas.get(recyclerViewRespuestas.getChildAdapterPosition(view)));
+
                     }
                 });
                 //}
@@ -331,6 +333,7 @@ public class ListaRespuestasFragment extends Fragment {
                 recyclerViewRespuestas.setAdapter(null);
                 pDialog.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                closefragment();
             }
         }
 
@@ -419,5 +422,8 @@ public class ListaRespuestasFragment extends Fragment {
             System.out.println("downloadImage" + ex.toString());
         }
         return stream;
+    }
+    private void closefragment() {
+        getActivity().getFragmentManager().popBackStack();
     }
 }

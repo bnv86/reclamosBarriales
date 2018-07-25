@@ -151,6 +151,7 @@ public class RespuestaReclamoFragment extends Fragment {
 
         imagenFoto = rootView.findViewById(R.id.imagen_para_foto);
         editextComentario = (EditText) rootView.findViewById(R.id.editext_comentario_respuesta);
+
         //textEstado = (TextView) rootView.findViewById(R.id.estado_respuesta);
 
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
@@ -220,6 +221,7 @@ public class RespuestaReclamoFragment extends Fragment {
         botonRespuesta.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                String coment = editextComentario.getText().toString();
 
                 /*
                 if(bitmap == null || KEY_MOTIVO == null || KEY_MOTIVO.isEmpty() || KEY_MOTIVO == "" || KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
@@ -229,30 +231,25 @@ public class RespuestaReclamoFragment extends Fragment {
                 //if(bitmap == null){
                 //    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
                 //}
-                if(KEY_COMENTARIO == null || KEY_COMENTARIO.isEmpty() || KEY_COMENTARIO == ""){
-                    Toast.makeText(getContext(),"Debe escribir un comentario de respuesta!", Toast.LENGTH_LONG).show();
+                if(coment == null || coment.isEmpty() || coment == ""){
+                    Toast.makeText(getContext(),"Debe escribir un comentario!", Toast.LENGTH_LONG).show();
                     //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
                     //alertBuilder2.setMessage("Debe completar el campo 'Comentario'").setNegativeButton("Por favor", null).create().show();
                 }
+                else if (bitmap == null){
+                    Toast.makeText(getContext(),"Debe tomar una foto!", Toast.LENGTH_LONG).show();
+                }
 
                 else {
-                    SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
-                    final String id_usuario = prefReclamo.getString("id_usuario","");
+
 
                     SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
                     final String id_estado = prefSpinner.getString("posicion","");
 
-                    if (id_estado.equals("En curso")){
-                        EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
-                        enviomail.execute();
-                    }
 
-                    if (id_estado.equals("Resuelto")) {
-                        EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
-                        enviomail.execute();
-                    }
                     actualizarEstado(id_estado);
                     subirRespuesta(id_estado);
+                    closefragment();
                 }
             }
         });
@@ -354,25 +351,37 @@ public class RespuestaReclamoFragment extends Fragment {
         if(pos == "Re-abierto"){
             estado = "4";
         }
+        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
+        final String id_usuario = prefReclamo.getString("id_usuario","");
+
+        if (pos.equals("En curso")){
+            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
+            enviomail.execute();
+        }
+
+        if (pos.equals("Resuelto")) {
+            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
+            enviomail.execute();
+        }
 
         final String estadoFinal = estado;
-        SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
+        //SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
         final String id = prefReclamo.getString("id_reclamo","");
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO! "+id+ " " + estadoFinal, Toast.LENGTH_LONG).show();
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), "ESTADO ACTUALIZADO! "+id+ " " + estadoFinal, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
                     }
                 }){
 
@@ -472,4 +481,7 @@ public class RespuestaReclamoFragment extends Fragment {
             imagenFoto.setImageBitmap(bitmap);
             //guardarFoto(imageBitmap);
         }*/
+    private void closefragment() {
+        getActivity().getFragmentManager().popBackStack();
+    }
 }

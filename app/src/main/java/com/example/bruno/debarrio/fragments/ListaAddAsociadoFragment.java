@@ -346,8 +346,11 @@ public class ListaAddAsociadoFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         subirAsociado(idasociado);
+                        closefragment();
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
+                        //closefragment();
+                        //getActivity().finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -573,5 +576,9 @@ public class ListaAddAsociadoFragment extends Fragment {
             System.out.println("downloadImage" + ex.toString());
         }
         return stream;
+    }
+
+    private void closefragment() {
+        getActivity().getFragmentManager().popBackStack();
     }
 }

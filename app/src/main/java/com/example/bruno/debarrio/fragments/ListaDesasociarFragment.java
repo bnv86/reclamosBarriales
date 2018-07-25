@@ -473,6 +473,7 @@ public class ListaDesasociarFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         quitarAsociado(idasociado);
+                        closefragment();
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
                         //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
@@ -664,5 +665,9 @@ public class ListaDesasociarFragment extends Fragment {
             System.out.println("downloadImage" + ex.toString());
         }
         return stream;
+    }
+
+    private void closefragment() {
+        getActivity().getFragmentManager().popBackStack();
     }
 }

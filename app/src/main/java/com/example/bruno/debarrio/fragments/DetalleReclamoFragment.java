@@ -421,24 +421,30 @@ public class DetalleReclamoFragment extends Fragment{
 
     private void llamarIntentListaRespuestas() {
         // Crea el nuevo fragmento y la transacción.
+        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ListaRespuestasFragment lis = new ListaRespuestasFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis);
         transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
+        closefragment();
     }
 
     private void llamarIntentRespuesta() {
         // Crea el nuevo fragmento y la transacción.
+        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, fr);
         transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //FragmentManager fm = getActivity().getSupportFragmentManager();
+        //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        closefragment();
     }
 
     private void llamarIntentListaAddAsociar() {
@@ -448,11 +454,13 @@ public class DetalleReclamoFragment extends Fragment{
         ListaAddAsociadoFragment lis1 = new ListaAddAsociadoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis1);
-        transaction.disallowAddToBackStack();
+        transaction.addToBackStack(null);
+        //transaction.disallowAddToBackStack();
         // Commit a la transacción
         transaction.commit();
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //FragmentManager fm = getActivity().getSupportFragmentManager();
+        //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        closefragment();
     }
 
     private void llamarIntentListaDesasociar() {
@@ -463,12 +471,18 @@ public class DetalleReclamoFragment extends Fragment{
         DetalleReclamoFragment detalleReclamoFragment = new DetalleReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis2);
+        transaction.addToBackStack(null);
         //transaction.disallowAddToBackStack();
         //transaction.addToBackStack(name);
         // Commit a la transacción
         transaction.commit();
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //FragmentManager fm = getActivity().getSupportFragmentManager();
+        //fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        closefragment();
+    }
+
+    private void closefragment() {
+        getActivity().getFragmentManager().popBackStack();
     }
 
     public void subirEstado(String pos){
@@ -534,6 +548,12 @@ public class DetalleReclamoFragment extends Fragment{
             RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
             //Agregar solicitud a la cola
             requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 
     public void getSuscriptores(String key){

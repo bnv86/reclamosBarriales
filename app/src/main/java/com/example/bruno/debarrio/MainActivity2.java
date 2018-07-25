@@ -56,6 +56,10 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
         }
     }
 
+    private void closefragment() {
+        getFragmentManager().popBackStack();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
