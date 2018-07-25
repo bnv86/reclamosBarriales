@@ -328,6 +328,9 @@ public class ListaAddAsociadoFragment extends Fragment {
                     }
                 });
             }
+            else if (listaReclamosAsociables == null) {
+                Toast.makeText(context, "No hay reclamos para asociar", Toast.LENGTH_LONG).show();
+            }
             else{
                 pDialog.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();

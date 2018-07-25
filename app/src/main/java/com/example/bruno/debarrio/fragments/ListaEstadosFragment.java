@@ -127,7 +127,10 @@ public class ListaEstadosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_lista_estados, container, false);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
-        recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //recyclerViewReclamos.setAdapter(null);
+        //AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
+        //recyclerViewReclamos.setAdapter(adapter);
 
 
         SharedPreferences prefEstado = getContext().getSharedPreferences("estado", getContext().MODE_PRIVATE);
@@ -138,7 +141,7 @@ public class ListaEstadosFragment extends Fragment {
 
     private void llenarlistaEstados(String posicion) {
         listaReclamos = new ArrayList<>();
-        new GetHttpResponseEstados(getContext(), posicion).execute();
+        new GetHttpResponseEstados(getActivity(), posicion).execute();
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -382,6 +385,7 @@ public class ListaEstadosFragment extends Fragment {
                 }
                 else
                 {
+                    Toast.makeText(getActivity(), "Vuelva a intentar" , Toast.LENGTH_LONG).show();
                     Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -396,9 +400,13 @@ public class ListaEstadosFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result)
         {
+
             if(listaReclamos != null) {
+                //recyclerViewReclamos.setAdapter(null);
+                //recyclerViewReclamos.setHasFixedSize(true);
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
                 recyclerViewReclamos.setAdapter(adapter);
+                //adapter.notifyDataSetChanged();
                 pDialog.dismiss();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -408,10 +416,10 @@ public class ListaEstadosFragment extends Fragment {
                     }
                 });
             }
+            else if (listaReclamos == null) {
+                Toast.makeText(context, "No hay reclamos", Toast.LENGTH_LONG).show();
+            }
             else{
-                listaReclamos.clear();
-                listaReclamos.remove(recyclerViewReclamos);
-                recyclerViewReclamos.setAdapter(null);
                 pDialog.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
             }

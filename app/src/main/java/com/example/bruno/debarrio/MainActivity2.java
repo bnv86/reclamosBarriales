@@ -87,7 +87,7 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(),"Sesion cerrada", Toast.LENGTH_LONG).show();
-            this.finish();
+            this.finish(); //cierra el activity actual para q no se vuelva con back
         }
         switch (item.getItemId()) {
             case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
@@ -140,6 +140,7 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
 
         //cargar el fragment en el activity
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+        //finish();
     }
 
     @Override

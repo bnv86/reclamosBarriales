@@ -307,9 +307,9 @@ public class ListaRespuestasFragment extends Fragment {
         {
             if(listaRespuestas != null) {
                 //if (recyclerViewReclamos != null){
-                final AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
                 //recyclerViewReclamos.removeAllViewsInLayout();
                 //recyclerViewReclamos.removeAllViews();
+                final AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
                 recyclerViewRespuestas.setAdapter(adapter);
                 pDialog.dismiss();
                 adapter.setOnClickListener(new View.OnClickListener(){
@@ -321,6 +321,9 @@ public class ListaRespuestasFragment extends Fragment {
                 });
                 //}
 
+            }
+            else if (listaRespuestas == null) {
+                Toast.makeText(context, "No hay publicaciones", Toast.LENGTH_LONG).show();
             }
             else{
                 listaRespuestas.clear();

@@ -95,6 +95,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             @Override
             public void onClick(View view) {
                 onBackPressed();
+                finish();
             }
         });
     }

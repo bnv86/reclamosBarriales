@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio.fragments;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -33,6 +34,7 @@ import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity2;
+import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
@@ -136,6 +138,7 @@ public class ListaDesasociarFragment extends Fragment {
         View vista = inflater.inflate(R.layout.fragment_lista_desasociar, container, false);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
         recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
+        //getActivity().onBackPressed();
 
         llenarListaAsociados();
         return vista;
@@ -442,7 +445,6 @@ public class ListaDesasociarFragment extends Fragment {
 
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociados);
                 recyclerViewReclamos.setAdapter(adapter);
-
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -452,6 +454,9 @@ public class ListaDesasociarFragment extends Fragment {
                     }
                 });
                 //pDialog2.dismiss();
+            }
+            else if (listaReclamosAsociados == null) {
+                Toast.makeText(context, "No hay reclamos asociados", Toast.LENGTH_LONG).show();
             }
             else{
                 //pDialog2.dismiss();
@@ -470,6 +475,11 @@ public class ListaDesasociarFragment extends Fragment {
                         quitarAsociado(idasociado);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
+                        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+                        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        //getActivity().getSupportFragmentManager().beginTransaction()
+                        //.replace(R.id.contenedorFragment, fragments.get(titleCode))
+                         //       .addToBackStack(name);
                         //Toast.makeText(getActivity(), "HACER ALGO" , Toast.LENGTH_LONG).show();
                     }
                 })

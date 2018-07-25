@@ -236,53 +236,6 @@
                 android:background="#11000000"
                 android:textColor="@color/colorLightBlue"/>
 
-            <!--
-            <Spinner
-                android:id="@+id/spinner_estado"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:popupBackground="#232323"
-                android:layout_below="@+id/static_estado"/>
-                -->
-
-            <!--
-            <TextView
-                android:id="@+id/static_latitud"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/detalle_municipalidad"
-                android:text="Latitud: "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/detalle_latitud"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/static_latitud"
-                android:text="Latitud"
-                android:textColor="#0021FA"/>
-
-
-            <TextView
-                android:id="@+id/static_longitud"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/detalle_latitud"
-                android:text="Longitud: "
-                android:textColor="@android:color/black"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/detalle_longitud"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/static_longitud"
-                android:text="Longitud"
-                android:textColor="#0021FA"/>
-                -->
-
             <ImageView
                 android:id="@+id/boton_ubicacion_reclamo"
                 android:layout_below="@+id/detalle_estado"
@@ -309,28 +262,32 @@
                 android:text="Eliminar"
                 android:textColor="@color/colorBlanco" />
 
+
             <Button
                 android:id="@+id/boton_asociar"
                 android:layout_below="@+id/boton_eliminar_reclamo"
-                android:layout_width="100dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginBottom="6dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/colorGreen"
                 android:textColor="@color/colorBlanco"
+                android:drawableLeft="@mipmap/add1"
                 android:text="Agregar asociado"
                 android:layout_gravity="center"/>
 
             <Button
                 android:id="@+id/boton_desasociar"
                 android:layout_below="@+id/boton_asociar"
-                android:layout_width="135dp"
-                android:layout_height="60dp"
                 android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/colorRed"
                 android:drawableLeft="@mipmap/close"
                 android:text="Desasociar"

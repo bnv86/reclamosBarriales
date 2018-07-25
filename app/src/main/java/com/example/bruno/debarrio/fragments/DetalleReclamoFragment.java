@@ -1,7 +1,6 @@
 package com.example.bruno.debarrio.fragments;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -17,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
@@ -437,26 +437,38 @@ public class DetalleReclamoFragment extends Fragment{
         transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     private void llamarIntentListaAddAsociar() {
         // Crea el nuevo fragmento y la transacción.
-        ListaAddAsociadoFragment lis = new ListaAddAsociadoFragment();
+        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        ListaAddAsociadoFragment lis1 = new ListaAddAsociadoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.contenedorFragment, lis);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.contenedorFragment, lis1);
+        transaction.disallowAddToBackStack();
         // Commit a la transacción
         transaction.commit();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     private void llamarIntentListaDesasociar() {
         // Crea el nuevo fragmento y la transacción.
-        ListaDesasociarFragment lis = new ListaDesasociarFragment();
+        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        ListaDesasociarFragment lis2 = new ListaDesasociarFragment();
+        DetalleReclamoFragment detalleReclamoFragment = new DetalleReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.contenedorFragment, lis);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.contenedorFragment, lis2);
+        //transaction.disallowAddToBackStack();
+        //transaction.addToBackStack(name);
         // Commit a la transacción
         transaction.commit();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     public void subirEstado(String pos){
@@ -517,7 +529,6 @@ public class DetalleReclamoFragment extends Fragment{
                     return params;
                 }
             };
-            //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             //Creación de una cola de solicitudes
             RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
@@ -560,7 +571,6 @@ public class DetalleReclamoFragment extends Fragment{
                 return params;
             }
         };
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
@@ -616,7 +626,6 @@ public class DetalleReclamoFragment extends Fragment{
         RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
         //Agregar solicitud a la cola
         requestQueue.add(peticion);
-        //rqt.add(peticion);
     }
 
     public class  GetHttpResponseRespuestas extends AsyncTask<Void,Void,Void> {
@@ -690,18 +699,14 @@ public class DetalleReclamoFragment extends Fragment{
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result)
-
         {
-
             if (flag){
                 botonListaRespuestas.setVisibility(View.VISIBLE);
-                //botonVerRespuestas.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -903,28 +908,4 @@ public class DetalleReclamoFragment extends Fragment{
                 })
                 .show();
     }
-
-    /*
-    public void showNotification() {
-
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-// Podrás mostrar el icono de la notificación, en este caso una alerta
-        Notification notification = new Notification(android.R.drawable.stat_sys_warning,
-                "Notificación", System.currentTimeMillis());
-
-        CharSequence titulo = "Alerta";
-
-// Clase de Notification
-        Intent notificationIntent = new Intent(this, NotificationActivity.class);
-        PendingIntent contIntent = PendingIntent.getActivity(this, , notificationIntent, );
-        notification.setLatestEventInfo(this, "Aviso de notificación", "Esto es un ejemplo de notificación", contIntent);
-
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-
-//importante
-        int not_id = 1;
-        notificationManager.notify(not_id, notification);
-    }*/
-
 }
