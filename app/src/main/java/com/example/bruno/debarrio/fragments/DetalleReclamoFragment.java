@@ -452,7 +452,8 @@ public class DetalleReclamoFragment extends Fragment{
         ListaAddAsociadoFragment lis1 = new ListaAddAsociadoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis1);
-        transaction.addToBackStack(name);
+        transaction.addToBackStack(null);
+        //transaction.addToBackStack(name);
         //transaction.disallowAddToBackStack();
         // Commit a la transacción
         transaction.commit();
@@ -466,10 +467,9 @@ public class DetalleReclamoFragment extends Fragment{
         String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
         getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ListaDesasociarFragment lis2 = new ListaDesasociarFragment();
-        DetalleReclamoFragment detalleReclamoFragment = new DetalleReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis2);
-        transaction.addToBackStack(name);
+        transaction.addToBackStack(null);
         //transaction.disallowAddToBackStack();
         //transaction.addToBackStack(name);
         // Commit a la transacción

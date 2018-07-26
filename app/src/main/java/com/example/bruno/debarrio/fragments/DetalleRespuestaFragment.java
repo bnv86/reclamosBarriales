@@ -42,6 +42,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity;
+import com.example.bruno.debarrio.MainActivity2;
 import com.example.bruno.debarrio.MapActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.EnviarMail;
@@ -84,20 +85,17 @@ public class DetalleRespuestaFragment extends Fragment {
     private String UPLOAD_URL_ESTADO = "https://momentary-electrode.000webhostapp.com/postEstadoReclamo.php";
     private String POST_URL_SUSCRIPTOS = "https://momentary-electrode.000webhostapp.com/getSubscripciones.php";
     private String DELETE_SUSCRIPCIONES = "https://momentary-electrode.000webhostapp.com/deleteSuscripciones.php";
-    private String DELETE_RECLAMO = "https://momentary-electrode.000webhostapp.com/deleteReclamo.php";
+    private String DELETE_PUBLICACION = "https://momentary-electrode.000webhostapp.com/deleteRespuesta.php";
 
 
     private OnFragmentInteractionListener mListener;
-    TextView textUsuario, textCategoria, textComentario, textEstado, textFecha, textSuscriptos, textLongitud; //, textID
-    ImageView imagenDetalle;
-    Button botonListaRespuestas, botonFloat;
-    //Button botonEnviarMail;
-    //Spinner spinner;
+    TextView textUsuario, textCategoria, textComentario, textEstado, textFecha, textSuscriptos; //, textID
+    ImageView imagenDetalle, botonEliminar;
+    Button botonFloat;
     private String KEY_ID_RESPUESTA = "id";
     private String KEY_ID = "id";
     private String KEY_ID_RECLAMO = "id_reclamo";
     private String KEY_ESTADO = "id_estado";
-    private String KEY_SUSCRIPTOS;
     StringRequest peticion;
     boolean flag = false;
     private TreeMap<String, String> descrip;
@@ -160,6 +158,31 @@ public class DetalleRespuestaFragment extends Fragment {
         textUsuario = (TextView) vista.findViewById(R.id.text_usuario);
         textFecha = (TextView) vista.findViewById(R.id.text_fecha);
         textEstado = (TextView) vista.findViewById(R.id.text_estado_respuesta);
+
+        botonEliminar = vista.findViewById(R.id.boton_eliminar_respuesta);
+        botonEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setMessage("¿Desea eliminar la publicación?")
+                        .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                eliminarRespuesta();
+                                Intent intent = new Intent(getContext(), MainActivity2.class);
+                                getActivity().startActivity(intent);
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+            }
+        });
         //textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textComentario = vista.findViewById(R.id.text_comentario_respuesta);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_para_foto);
@@ -213,18 +236,16 @@ public class DetalleRespuestaFragment extends Fragment {
     }
 
     private void eliminarRespuesta() {
-        Bundle bundleReclamo = getArguments();
-        Reclamo claim = null;
-        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
-        final String id_reclamo = claim.getId();
+        SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
+        final String id_respuesta = prefRespuesta.getString("id_respuesta","");
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_RECLAMO,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_PUBLICACION,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ELIMINADO!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "PUBLICACIÓN ELIMINADA!", Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -240,7 +261,7 @@ public class DetalleRespuestaFragment extends Fragment {
                 //Creación de parámetros
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
-                params.put(KEY_ID, id_reclamo);
+                params.put(KEY_ID, id_respuesta);
                 //Parámetros de retorno
                 return params;
             }

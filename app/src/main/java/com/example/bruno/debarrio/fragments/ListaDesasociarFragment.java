@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -473,6 +474,11 @@ public class ListaDesasociarFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         quitarAsociado(idasociado);
+                        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+                        //getActivity().getSupportFragmentManager().popBackStack(name, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        //ft.remove(getActivity().getSupportFragmentManager().popBackStackImmediate();
+                        getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         closefragment();
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);

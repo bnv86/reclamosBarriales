@@ -73,8 +73,6 @@ public class ListaRespuestasFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    ListaReclamosFragment listaReclamosFragment;
-    DetalleReclamoFragment detalleReclamoFragment;
     ProgressDialog pDialog;
     Context context;
     ArrayList<Respuesta> listaRespuestas;
@@ -191,7 +189,6 @@ public class ListaRespuestasFragment extends Fragment {
         public String id_reclamo;
         String ResultHolder;
 
-        //List<Subject> eventosList;
         public GetHttpResponseRespuestas(Context context, String id_reclamo)
         {
             this.context = context;
@@ -201,9 +198,6 @@ public class ListaRespuestasFragment extends Fragment {
         @Override
         protected void onPreExecute()
         {
-            //listaReclamos.clear();
-            //recyclerViewReclamos.removeAllViews();
-            //recyclerViewReclamos.removeAllViewsInLayout();
             super.onPreExecute();
             pDialog = new ProgressDialog(context);
             pDialog.setMessage("Cargando Lista");
@@ -250,23 +244,16 @@ public class ListaRespuestasFragment extends Fragment {
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(ResultHolder);
-                            //SharedPreferences prefUsuario = getContext().getSharedPreferences("sesion", MODE_PRIVATE);
-                            //String id_muni = prefUsuario.getString("id_municipio","");
                             JSONObject jsonObject;
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-                                //String estado = jsonObject.getString("estado");
-                                //String id_municipio = jsonObject.getString("id_municipio");
                                 String reclamo = jsonObject.getString("id_reclamo");
 
-                                //if ((id_reclamo == "Abierto") && (id_municipio.equals(id_muni)))
-                                //{
                                     if (reclamo.equals(id_reclamo)) {
                                         //String usuario = jsonObject.getString("id_usuario");
                                         String username = jsonObject.getString("username");
                                         String id = jsonObject.getString("id");
-                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto_respuesta");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -279,7 +266,6 @@ public class ListaRespuestasFragment extends Fragment {
                                     }
                                     else{
                                     }
-                                //}
                             }
                         }
                         catch (JSONException e) {
@@ -306,9 +292,6 @@ public class ListaRespuestasFragment extends Fragment {
 
         {
             if(listaRespuestas != null) {
-                //if (recyclerViewReclamos != null){
-                //recyclerViewReclamos.removeAllViewsInLayout();
-                //recyclerViewReclamos.removeAllViews();
                 final AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
                 recyclerViewRespuestas.setAdapter(adapter);
                 pDialog.dismiss();
@@ -318,14 +301,8 @@ public class ListaRespuestasFragment extends Fragment {
                     public void onClick(View view){
                         //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                         interfaceComunicacionFragments.enviarRespuesta(listaRespuestas.get(recyclerViewRespuestas.getChildAdapterPosition(view)));
-
                     }
                 });
-                //}
-
-            }
-            else if (listaRespuestas == null) {
-                Toast.makeText(context, "No hay publicaciones", Toast.LENGTH_LONG).show();
             }
             else{
                 listaRespuestas.clear();
