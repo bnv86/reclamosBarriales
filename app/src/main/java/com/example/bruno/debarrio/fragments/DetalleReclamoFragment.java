@@ -297,7 +297,6 @@ public class DetalleReclamoFragment extends Fragment{
             textEstado.setText(reclamo.getId_estado());
             //spinner.setSelection(((ArrayAdapter<String>)spinner.getAdapter()).getPosition(reclamo.getId_estado()));
             mailReclamo = reclamo.getEmail();
-            //asignarInfo(reclamo);
 
             //guardo el id del reclamo para usar en la respuesta
             String id = reclamo.getId();
@@ -401,7 +400,6 @@ public class DetalleReclamoFragment extends Fragment{
                 return params;
             }
         };
-        //stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 6, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
         RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
@@ -454,7 +452,7 @@ public class DetalleReclamoFragment extends Fragment{
         ListaAddAsociadoFragment lis1 = new ListaAddAsociadoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis1);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(name);
         //transaction.disallowAddToBackStack();
         // Commit a la transacción
         transaction.commit();
@@ -471,7 +469,7 @@ public class DetalleReclamoFragment extends Fragment{
         DetalleReclamoFragment detalleReclamoFragment = new DetalleReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis2);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(name);
         //transaction.disallowAddToBackStack();
         //transaction.addToBackStack(name);
         // Commit a la transacción

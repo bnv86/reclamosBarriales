@@ -315,7 +315,7 @@ public class ListaAddAsociadoFragment extends Fragment {
         protected void onPostExecute(Void result)
         {
             if(listaReclamosAsociables != null) {
-                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociables);
+                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociables, 1);
                 recyclerViewReclamos.setAdapter(adapter);
                 pDialog.dismiss();
                 adapter.setOnClickListener(new View.OnClickListener(){
@@ -381,8 +381,8 @@ public class ListaAddAsociadoFragment extends Fragment {
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
-                        Intent intentVer = new Intent(getActivity(), MainActivity2.class);
-                        getActivity().startActivity(intentVer);
+                        //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
+                        //getActivity().startActivity(intentVer);
                     }
                 },
                 new Response.ErrorListener() {

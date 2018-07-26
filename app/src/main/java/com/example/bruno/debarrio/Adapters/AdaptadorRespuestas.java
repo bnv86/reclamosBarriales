@@ -35,7 +35,6 @@ public class AdaptadorRespuestas extends RecyclerView.Adapter<AdaptadorRespuesta
         holder.textUsuario.setText(listaRespuestas.get(position).getId_usuario());
         holder.textEstado.setText(listaRespuestas.get(position).getId_estado());
         holder.foto.setImageBitmap(listaRespuestas.get(position).getImagen());
-        //holder.textSuscriptos.setText(listaRespuestas.get(position).getCantSuscriptos());
     }
 
     @Override
@@ -51,12 +50,11 @@ public class AdaptadorRespuestas extends RecyclerView.Adapter<AdaptadorRespuesta
         if (listener != null) {
             listener.onClick(view);
         }
-        //listener = null;
     }
 
     public class RespuestasViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textID, textFecha, textUsuario, textEstado, textSuscriptos;
+        TextView textID, textFecha, textUsuario, textEstado;
         ImageView foto;
 
         public RespuestasViewHolder(View itemView) {
@@ -67,7 +65,6 @@ public class AdaptadorRespuestas extends RecyclerView.Adapter<AdaptadorRespuesta
             textUsuario = (TextView) itemView.findViewById(R.id.id_usuario);
             textEstado = (TextView) itemView.findViewById(R.id.id_estado);
             foto = (ImageView) itemView.findViewById(R.id.id_imagen);
-            //textSuscriptos = (TextView) itemView.findViewById(R.id.cant_suscriptos);
         }
     }
 }

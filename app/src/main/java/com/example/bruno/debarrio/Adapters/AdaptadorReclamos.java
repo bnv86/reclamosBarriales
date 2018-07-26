@@ -2,6 +2,7 @@ package com.example.bruno.debarrio.Adapters;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +26,11 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
 
     ArrayList<Reclamo> listaReclamos;
     private View.OnClickListener listener;
+    private int color;
 
-    public AdaptadorReclamos(ArrayList<Reclamo> listaReclamos){
+    public AdaptadorReclamos(ArrayList<Reclamo> listaReclamos, int color){
         this.listaReclamos = listaReclamos;
+        this.color = color;
     }
 
     @Override
@@ -35,6 +38,15 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
         view.setOnClickListener(this);
+        if (color == 0) {
+            view.setBackgroundColor(Color.BLUE);
+        }
+        if (color == 1){
+            view.setBackgroundColor(Color.GREEN);
+        }
+        if (color == 2){
+            view.setBackgroundColor(Color.RED);
+        }
         return new ReclamosViewHolder(view);
     }
 
@@ -67,7 +79,6 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
         if (listener != null) {
             listener.onClick(view);
         }
-        //listener = null;
     }
 
     public class ReclamosViewHolder extends RecyclerView.ViewHolder{

@@ -443,7 +443,7 @@ public class ListaDesasociarFragment extends Fragment {
             //pDialog2.dismiss();
             if(listaReclamosAsociados != null) {
 
-                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociados);
+                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociados, 2);
                 recyclerViewReclamos.setAdapter(adapter);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -512,8 +512,8 @@ public class ListaDesasociarFragment extends Fragment {
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         Toast.makeText(getActivity(), "RECLAMO DESASOCIADO!", Toast.LENGTH_LONG).show();
-                        Intent intentVer = new Intent(getActivity(), MainActivity2.class);
-                        getActivity().startActivity(intentVer);
+                        //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
+                        //getActivity().startActivity(intentVer);
                     }
                 },
                 new Response.ErrorListener() {

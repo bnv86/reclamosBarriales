@@ -476,7 +476,7 @@ public class ListaReclamosFragment extends Fragment {
         {
             if(listaReclamos != null) {
                 //if (recyclerViewReclamos != null){
-                    final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
+                    final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos, 0);
                     //recyclerViewReclamos.removeAllViewsInLayout();
                     //recyclerViewReclamos.removeAllViews();
                     recyclerViewReclamos.setAdapter(adapter);

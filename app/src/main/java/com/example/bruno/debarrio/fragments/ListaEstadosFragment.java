@@ -407,7 +407,7 @@ public class ListaEstadosFragment extends Fragment {
             if(listaReclamos != null) {
                 //recyclerViewReclamos.setAdapter(null);
                 //recyclerViewReclamos.setHasFixedSize(true);
-                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
+                final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos, 0);
                 recyclerViewReclamos.setAdapter(adapter);
                 //adapter.notifyDataSetChanged();
                 pDialog.dismiss();
