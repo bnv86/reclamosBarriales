@@ -356,12 +356,13 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //ft.remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.contenedorFragment)).commit();
                         //getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         listaReclamosAsociables.remove(posicion);
-                        if (adapter != null){
-                            recyclerViewReclamos.removeViewAt(posicion);
-                        }
+                        //adapter.notifyItemInserted(posicion);
+                        adapter.notifyDataSetChanged();
+                        //adapter.notifyItemChanged(posicion);
+                        //recyclerViewReclamos.removeViewAt(posicion);
+                        //adapter.notifyItemRemoved(posicion);
 
-                        adapter.notifyItemRemoved(posicion);
-                        adapter.notifyItemRangeChanged(posicion, listaReclamosAsociables.size());
+                        //adapter.notifyItemRangeChanged(posicion, listaReclamosAsociables.size());
                         closefragment();
                         //Intent intent = new Intent(getActivity(), MainActivity2.class);
                         //startActivity(intent);

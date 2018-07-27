@@ -712,7 +712,9 @@ public class DetalleReclamoFragment extends Fragment{
                 }
                 else
                 {
-                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show(); //ESTE ERROR ES EL QUE GENERA PROBLEMAS CON LA DB
+                    Intent intent = new Intent(getActivity(), MainActivity2.class); //HAGO INTENT PARA QUE NO PERMITA AL USUARIO ACCIONAR EN LA VISTA
+                    startActivity(intent);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
