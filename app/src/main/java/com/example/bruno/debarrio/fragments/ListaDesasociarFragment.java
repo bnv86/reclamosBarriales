@@ -480,7 +480,7 @@ public class ListaDesasociarFragment extends Fragment {
                         //getActivity().getSupportFragmentManager().popBackStack(name, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                         //ft.remove(getActivity().getSupportFragmentManager().popBackStackImmediate();
-                        getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        //getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         listaReclamosAsociados.remove(posicion);
                         recyclerViewReclamos.removeViewAt(posicion);
                         adapter.notifyItemRemoved(posicion);
@@ -488,12 +488,6 @@ public class ListaDesasociarFragment extends Fragment {
                         closefragment();
                         //Intent intent = new Intent(getActivity(), MainActivity2.class);
                         //startActivity(intent);
-                        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-                        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                        //getActivity().getSupportFragmentManager().beginTransaction()
-                        //.replace(R.id.contenedorFragment, fragments.get(titleCode))
-                         //       .addToBackStack(name);
-                        //Toast.makeText(getActivity(), "HACER ALGO" , Toast.LENGTH_LONG).show();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {

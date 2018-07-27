@@ -354,7 +354,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                         //ft.remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.contenedorFragment)).commit();
-                        getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        //getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         listaReclamosAsociables.remove(posicion);
                         recyclerViewReclamos.removeViewAt(posicion);
                         adapter.notifyItemRemoved(posicion);
@@ -362,8 +362,6 @@ public class ListaAddAsociadoFragment extends Fragment {
                         closefragment();
                         //Intent intent = new Intent(getActivity(), MainActivity2.class);
                         //startActivity(intent);
-                        //closefragment();
-                        //getActivity().finish();
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
