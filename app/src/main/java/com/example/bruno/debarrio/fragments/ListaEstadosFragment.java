@@ -135,7 +135,6 @@ public class ListaEstadosFragment extends Fragment {
         //AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
         //recyclerViewReclamos.setAdapter(adapter);
 
-
         SharedPreferences prefEstado = getContext().getSharedPreferences("estado", getContext().MODE_PRIVATE);
         String posicion = prefEstado.getString("estadoNombre","");
         llenarlistaEstados(posicion);
@@ -391,8 +390,10 @@ public class ListaEstadosFragment extends Fragment {
                 }
                 else
                 {
-                    Toast.makeText(getActivity(), "Vuelva a intentar" , Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getActivity(), "Vuelva a intentar" , Toast.LENGTH_LONG).show();
                     Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), MainActivity2.class);
+                    startActivity(intent);
                 }
             }
             catch (Exception e)
@@ -411,6 +412,7 @@ public class ListaEstadosFragment extends Fragment {
                 //recyclerViewReclamos.setAdapter(null);
                 //recyclerViewReclamos.setHasFixedSize(true);
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos, 0);
+                adapter.notifyDataSetChanged();
                 recyclerViewReclamos.setAdapter(adapter);
                 //adapter.notifyDataSetChanged();
                 pDialog.dismiss();
