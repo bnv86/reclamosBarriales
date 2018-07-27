@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -73,7 +74,7 @@ public class ListaRespuestasFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    ProgressDialog pDialog;
+    ProgressDialog pDialogRespuestas;
     Context context;
     ArrayList<Respuesta> listaRespuestas;
     RecyclerView recyclerViewRespuestas;
@@ -199,11 +200,12 @@ public class ListaRespuestasFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            pDialog = new ProgressDialog(context);
-            pDialog.setMessage("Cargando Lista");
-            pDialog.setCancelable(true);
-            pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            pDialog.show();
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            pDialogRespuestas = new ProgressDialog(context);
+            pDialogRespuestas.setMessage("Cargando Lista");
+            pDialogRespuestas.setCancelable(true);
+            pDialogRespuestas.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            pDialogRespuestas.show();
             //final ProgressDialog loading = show(getActivity(),"Cargando reclamos...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, ServerURL,
                     new Response.Listener<String>() {
@@ -291,10 +293,13 @@ public class ListaRespuestasFragment extends Fragment {
         protected void onPostExecute(Void result)
 
         {
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             if(listaRespuestas != null) {
                 final AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
                 recyclerViewRespuestas.setAdapter(adapter);
-                pDialog.dismiss();
+                adapter.notifyDataSetChanged();
+                pDialogRespuestas.dismiss();
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 closefragment();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -308,8 +313,9 @@ public class ListaRespuestasFragment extends Fragment {
                 listaRespuestas.clear();
                 listaRespuestas.remove(recyclerViewRespuestas);
                 recyclerViewRespuestas.setAdapter(null);
-                pDialog.dismiss();
+                pDialogRespuestas.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 closefragment();
             }
         }

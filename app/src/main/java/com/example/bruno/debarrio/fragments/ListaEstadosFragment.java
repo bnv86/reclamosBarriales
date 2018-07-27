@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -19,8 +20,10 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
@@ -211,6 +214,7 @@ public class ListaEstadosFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialog = new ProgressDialog(context);
             pDialog.setMessage("Cargando Lista");
             pDialog.setCancelable(false);
@@ -230,7 +234,7 @@ public class ListaEstadosFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getContext(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getActivity(), MainActivity2.class);
                             startActivity(intent);
                         }
@@ -408,14 +412,14 @@ public class ListaEstadosFragment extends Fragment {
         protected void onPostExecute(Void result)
         {
 
+
             if(listaReclamos != null) {
-                //recyclerViewReclamos.setAdapter(null);
-                //recyclerViewReclamos.setHasFixedSize(true);
+                super.onPreExecute();
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos, 0);
                 adapter.notifyDataSetChanged();
                 recyclerViewReclamos.setAdapter(adapter);
-                //adapter.notifyDataSetChanged();
                 pDialog.dismiss();
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -424,12 +428,14 @@ public class ListaEstadosFragment extends Fragment {
                     }
                 });
             }
+            /*
             else if (listaReclamos == null) {
                 Toast.makeText(context, "No hay reclamos", Toast.LENGTH_LONG).show();
-            }
+            }*/
             else{
                 pDialog.dismiss();
                 Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             }
         }
     }
@@ -517,5 +523,19 @@ public class ListaEstadosFragment extends Fragment {
             System.out.println("downloadImage" + ex.toString());
         }
         return stream;
+    }
+
+    public String getRotation(Context context){
+        final int rotation = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                return "vertical";
+            case Surface.ROTATION_90:
+                return "horizontal";
+            case Surface.ROTATION_180:
+                return "vertical inversa";
+            default:
+                return "horizontal inversa";
+        }
     }
 }

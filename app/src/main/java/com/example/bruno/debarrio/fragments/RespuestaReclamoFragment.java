@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -258,6 +259,7 @@ public class RespuestaReclamoFragment extends Fragment {
     }
 
     public void subirRespuesta(String pos){
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         String estado = "";
         if(pos == "Abierto"){
             estado = "1";
@@ -286,6 +288,7 @@ public class RespuestaReclamoFragment extends Fragment {
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         Toast.makeText(getActivity(), "RESPUESTA ENVIADA " + usuario + " !", Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
                         getActivity().startActivity(intentVer);
                     }
@@ -296,6 +299,7 @@ public class RespuestaReclamoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), "NO SE ENVIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -337,7 +341,6 @@ public class RespuestaReclamoFragment extends Fragment {
     }
 
     public void actualizarEstado(String pos){
-
         String estado = "";
         if(pos == "Abierto"){
             estado = "1";

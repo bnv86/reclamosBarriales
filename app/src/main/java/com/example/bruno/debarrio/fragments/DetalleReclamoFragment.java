@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -328,6 +329,7 @@ public class DetalleReclamoFragment extends Fragment{
 
 
     private void eliminarSuscripciones() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Bundle bundleReclamo = getArguments();
         Reclamo claim = null;
         claim = (Reclamo) bundleReclamo.getSerializable("objeto");
@@ -340,6 +342,7 @@ public class DetalleReclamoFragment extends Fragment{
                         //Descartar el diálogo de progreso
                         //loading.dismiss();
                         Toast.makeText(getActivity(), "SUSCRIPCION ELIMINADA!", Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
                 new Response.ErrorListener() {
@@ -347,6 +350,7 @@ public class DetalleReclamoFragment extends Fragment{
                     public void onErrorResponse(VolleyError volleyError) {
                         //loading.dismiss();
                         Toast.makeText(getActivity(), "SUSCRIPCION NO" , Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -368,6 +372,7 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     private void eliminarReclamo() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Bundle bundleReclamo = getArguments();
         Reclamo claim = null;
         claim = (Reclamo) bundleReclamo.getSerializable("objeto");
@@ -380,6 +385,7 @@ public class DetalleReclamoFragment extends Fragment{
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), "RECLAMO ELIMINADO!", Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
                 new Response.ErrorListener() {
@@ -387,6 +393,7 @@ public class DetalleReclamoFragment extends Fragment{
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
                         Toast.makeText(getActivity(), "SIN CONEXIÓN...REINTENTE" , Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -484,6 +491,7 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     public void subirEstado(String pos){
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
             String estado = "";
             if(pos == "Abierto"){
@@ -520,6 +528,7 @@ public class DetalleReclamoFragment extends Fragment{
                             //Descartar el diálogo de progreso
                             loading.dismiss();
                             Toast.makeText(getActivity(), "ESTADO ACTUALIZADO! ", Toast.LENGTH_LONG).show();
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         }
                     },
                     new Response.ErrorListener() {
@@ -527,6 +536,7 @@ public class DetalleReclamoFragment extends Fragment{
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
                             Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         }
                     }){
 
@@ -551,7 +561,6 @@ public class DetalleReclamoFragment extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     public void getSuscriptores(String key){
@@ -660,6 +669,7 @@ public class DetalleReclamoFragment extends Fragment{
         protected void onPreExecute()
         {
             super.onPreExecute();
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             final ProgressDialog loading = show(getContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_RESPUESTAS,
                     new Response.Listener<String>() {
@@ -725,6 +735,7 @@ public class DetalleReclamoFragment extends Fragment{
         @Override
         protected void onPostExecute(Void result)
         {
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             if (flag){
                 botonListaRespuestas.setVisibility(View.VISIBLE);
             }
@@ -744,6 +755,7 @@ public class DetalleReclamoFragment extends Fragment{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             //final ProgressDialog loading = show(getContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_ASOCIADOS,
                     new Response.Listener<String>() {
@@ -806,6 +818,7 @@ public class DetalleReclamoFragment extends Fragment{
         protected void onPostExecute(Void result)
 
         {
+            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             if (flag){
                 botonDesasociar.setVisibility(View.VISIBLE);
             }

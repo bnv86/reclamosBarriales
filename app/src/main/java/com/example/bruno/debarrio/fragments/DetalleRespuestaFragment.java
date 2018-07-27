@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -236,6 +237,7 @@ public class DetalleRespuestaFragment extends Fragment {
     }
 
     private void eliminarRespuesta() {
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
         final String id_respuesta = prefRespuesta.getString("id_respuesta","");
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
@@ -246,6 +248,7 @@ public class DetalleRespuestaFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), "PUBLICACIÓN ELIMINADA!", Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
                 new Response.ErrorListener() {
@@ -253,6 +256,7 @@ public class DetalleRespuestaFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
                         Toast.makeText(getActivity(), "SIN CONEXIÓN...REINTENTE" , Toast.LENGTH_LONG).show();
+                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -271,80 +275,6 @@ public class DetalleRespuestaFragment extends Fragment {
         RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
         //Agregar solicitud a la cola
         requestQ.add(stringRequest);
-    }
-
-    private void llamarIntentVerRespuestas() {
-        // Crea el nuevo fragmento y la transacción.
-        RespuestasFragment fra = new RespuestasFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.contenedorFragment, fra);
-        transaction.addToBackStack(null);
-        // Commit a la transacción
-        transaction.commit();
-    }
-
-    public void subirEstado(String pos){
-        String estado = "";
-        if(pos == "Abierto"){
-            estado = "1";
-        }
-        if(pos == "En curso"){
-            estado = "2";
-        }
-        if(pos == "Resuelto"){
-            estado = "3";
-        }
-        if(pos == "Re-abierto"){
-            estado = "4";
-        }
-        //guardo los datos del estado
-        SharedPreferences prefEstado = getContext().getSharedPreferences("estadoReclamo", getContext().MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefEstado.edit();
-        editor.putString("id_estado", estado); //GUARDA EL ID PARA USARLO EN LA RESPUESTA DEL RECLAMO
-        editor.putString("estado", pos); //GUARDA EL ESTADO PARA USARLO EN LA RESPUESTA DEL RECLAMO
-        editor.commit();
-
-        final String estadoFinal = estado;
-        //Bundle bundleObjeto = getArguments();
-        //final String id = e.getId();
-        Reclamo reclamo2 = null;
-        Bundle bundleObjeto2 = getArguments();
-        reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
-        final String id_reclamo = reclamo2.getId();
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String s) {
-                        //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
-                    }
-                }){
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                //Creación de parámetros
-                Map<String,String> params = new Hashtable<String, String>();
-                //Agregando de parámetros
-                params.put(KEY_ID, id_reclamo);
-                params.put(KEY_ESTADO, estadoFinal);
-                //Parámetros de retorno
-                return params;
-            }
-        };
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Creación de una cola de solicitudes
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
-        //Agregar solicitud a la cola
-        requestQueue.add(stringRequest);
     }
 
     //Obtiene la cantidad de suscriptores del reclamo
