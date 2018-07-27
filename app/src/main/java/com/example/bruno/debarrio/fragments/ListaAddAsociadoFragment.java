@@ -326,7 +326,9 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                         //interfaceComunicacionFragments.enviarReclamo(listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         String idreclamoAasociar = listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
-                        confirmDialog(idreclamoAasociar);
+                        int posicion=recyclerViewReclamos.getChildAdapterPosition(view);
+                        confirmDialog(idreclamoAasociar,posicion, adapter);
+                        adapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -340,7 +342,7 @@ public class ListaAddAsociadoFragment extends Fragment {
         }
     }
 
-    private void confirmDialog(final String idasociado) {
+    private void confirmDialog(final String idasociado, final int posicion, final AdaptadorReclamos adapter) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setMessage("¿Desea asociar el reclamo?")
@@ -353,9 +355,13 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                         //ft.remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.contenedorFragment)).commit();
                         getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        listaReclamosAsociables.remove(posicion);
+                        recyclerViewReclamos.removeViewAt(posicion);
+                        adapter.notifyItemRemoved(posicion);
+                        adapter.notifyItemRangeChanged(posicion, listaReclamosAsociables.size());
                         closefragment();
-                        Intent intent = new Intent(getActivity(), MainActivity2.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        //startActivity(intent);
                         //closefragment();
                         //getActivity().finish();
                     }

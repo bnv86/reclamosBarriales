@@ -451,7 +451,9 @@ public class ListaDesasociarFragment extends Fragment {
                     public void onClick(View view){
                         //interfaceComunicacionFragments.enviarReclamo(listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         String idreclamoADesasociar = listaReclamosAsociados.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
-                        confirmDialog(idreclamoADesasociar);
+                        int posicion=recyclerViewReclamos.getChildAdapterPosition(view);
+                        confirmDialog(idreclamoADesasociar,posicion,adapter);
+                        adapter.notifyDataSetChanged();
                     }
                 });
                 //pDialog2.dismiss();
@@ -466,7 +468,7 @@ public class ListaDesasociarFragment extends Fragment {
         }
     }
 
-    private void confirmDialog(final String idasociado) {
+    private void confirmDialog(final String idasociado, final int posicion, final AdaptadorReclamos adapter) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setMessage("¿Desea desasociar el reclamo?")
@@ -479,9 +481,13 @@ public class ListaDesasociarFragment extends Fragment {
                         //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                         //ft.remove(getActivity().getSupportFragmentManager().popBackStackImmediate();
                         getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        listaReclamosAsociados.remove(posicion);
+                        recyclerViewReclamos.removeViewAt(posicion);
+                        adapter.notifyItemRemoved(posicion);
+                        adapter.notifyItemRangeChanged(posicion, listaReclamosAsociados.size());
                         closefragment();
-                        Intent intent = new Intent(getActivity(), MainActivity2.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        //startActivity(intent);
                         //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
                         //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         //getActivity().getSupportFragmentManager().beginTransaction()
