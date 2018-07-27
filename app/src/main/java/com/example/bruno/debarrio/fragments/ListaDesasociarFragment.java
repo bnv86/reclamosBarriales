@@ -441,25 +441,22 @@ public class ListaDesasociarFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result)
         {
-            //pDialog2.dismiss();
             if(listaReclamosAsociados != null) {
 
                 final AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamosAsociados, 2);
                 recyclerViewReclamos.setAdapter(adapter);
+                //pDialog2.dismiss();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
                         //interfaceComunicacionFragments.enviarReclamo(listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         String idreclamoADesasociar = listaReclamosAsociados.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
-                        int posicion=recyclerViewReclamos.getChildAdapterPosition(view);
-                        confirmDialog(idreclamoADesasociar,posicion,adapter);
+                        int posicion = recyclerViewReclamos.getChildAdapterPosition(view);
+                        confirmDialog(idreclamoADesasociar, posicion, adapter);
                         adapter.notifyDataSetChanged();
                     }
                 });
                 //pDialog2.dismiss();
-            }
-            else if (listaReclamosAsociados == null) {
-                Toast.makeText(context, "No hay reclamos asociados", Toast.LENGTH_LONG).show();
             }
             else{
                 //pDialog2.dismiss();
@@ -505,8 +502,8 @@ public class ListaDesasociarFragment extends Fragment {
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
         final String id_reclamo_original = prefReclamo.getString("id_reclamo","");
 
-        restarTieneAsociados(id_reclamo_original);
-        modificarEsAsociado(id_reclamo_asociado);
+        restarTieneAsociados(id_reclamo_original); //SI TIRA ERROR ACA ES UN PROBLEMA
+        modificarEsAsociado(id_reclamo_asociado); //SI TIRA ERROR ACA ES UN PROBLEMA
 
         //Muestro la carga del progreso
         final ProgressDialog loading = ProgressDialog.show(getActivity(),"Cargando...","Espere por favor...",false,false); //getActivity()
@@ -527,7 +524,9 @@ public class ListaDesasociarFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "NO SE DESASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 }){
 
@@ -570,7 +569,9 @@ public class ListaDesasociarFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        //Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 }){
 
@@ -609,7 +610,9 @@ public class ListaDesasociarFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        //Toast.makeText(getActivity(), "NO SE ASOCIÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 }){
 

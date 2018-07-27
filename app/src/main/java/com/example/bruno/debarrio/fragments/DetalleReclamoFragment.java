@@ -755,7 +755,9 @@ public class DetalleReclamoFragment extends Fragment{
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getContext(), "Error ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Error en servidor", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getActivity(), MainActivity2.class);
+                            startActivity(intent);
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

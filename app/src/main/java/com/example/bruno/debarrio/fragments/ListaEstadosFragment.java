@@ -39,6 +39,7 @@ import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity;
+import com.example.bruno.debarrio.MainActivity2;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
@@ -231,6 +232,8 @@ public class ListaEstadosFragment extends Fragment {
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
                             Toast.makeText(getContext(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getActivity(), MainActivity2.class);
+                            startActivity(intent);
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

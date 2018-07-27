@@ -356,7 +356,10 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //ft.remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.contenedorFragment)).commit();
                         //getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         listaReclamosAsociables.remove(posicion);
-                        recyclerViewReclamos.removeViewAt(posicion);
+                        if (adapter != null){
+                            recyclerViewReclamos.removeViewAt(posicion);
+                        }
+
                         adapter.notifyItemRemoved(posicion);
                         adapter.notifyItemRangeChanged(posicion, listaReclamosAsociables.size());
                         closefragment();
@@ -402,6 +405,8 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 }){
 
@@ -486,7 +491,10 @@ public class ListaAddAsociadoFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 }){
 
@@ -525,7 +533,9 @@ public class ListaAddAsociadoFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        //Toast.makeText(getActivity(), "NO SE ASOCIÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(intent);
                     }
                 }){
 
