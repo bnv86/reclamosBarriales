@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.example.bruno.debarrio.R;
+
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -28,11 +30,11 @@ public class EnviarMail extends AsyncTask<Void,Void,Void>{
     private ProgressDialog progressDialog;
 
 
-    public EnviarMail(Context context,String mail, String subject, String message){
-        this.context=context;
-        this.mail=mail;
-        this.subject=subject;
-        this.message=message;
+    public EnviarMail(Context context, String mail, String subject, String message){
+        this.context = context;
+        this.mail = mail;
+        this.subject = subject;
+        this.message = message;
     }
 
 
@@ -70,14 +72,14 @@ public class EnviarMail extends AsyncTask<Void,Void,Void>{
 
     protected void onPreExecute(){
         super.onPreExecute();
-        progressDialog= ProgressDialog.show(context, "Enviando mail", "Por favor espere un momento...",false,false);
+        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.enviando_mail), context.getResources().getString(R.string.str_espere),false,false);
 
     }
 
     protected void onPostExecute(Void aVoid){
         super.onPostExecute(aVoid);
         progressDialog.dismiss();
-        Toast.makeText(context, "Mail enviado con exito", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, context.getResources().getString(R.string.mail_exito), Toast.LENGTH_LONG).show();
 
     }
 }

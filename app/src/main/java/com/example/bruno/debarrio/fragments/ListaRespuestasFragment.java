@@ -202,7 +202,7 @@ public class ListaRespuestasFragment extends Fragment {
             super.onPreExecute();
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialogRespuestas = new ProgressDialog(context);
-            pDialogRespuestas.setMessage("Cargando Lista");
+            pDialogRespuestas.setMessage(getResources().getString(R.string.str_cargando));
             pDialogRespuestas.setCancelable(true);
             pDialogRespuestas.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialogRespuestas.show();
@@ -219,7 +219,7 @@ public class ListaRespuestasFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -314,7 +314,7 @@ public class ListaRespuestasFragment extends Fragment {
                 listaRespuestas.remove(recyclerViewRespuestas);
                 recyclerViewRespuestas.setAdapter(null);
                 pDialogRespuestas.dismiss();
-                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 closefragment();
             }

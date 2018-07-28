@@ -69,4 +69,81 @@
         <item>@string/idioma_japones</item>
     </string-array>
 
+    <!-- Strings related to ESTADOS -->
+    <string name="seleccione_estado">Seleccione un estado</string>
+    <string name="str_abierto">Abierto</string>
+    <string name="str_encurso">En curso</string>
+    <string name="str_resuelto">Resuelto</string>
+    <string name="str_reabierto">Re-abierto</string>
+
+    <!-- Strings related to DIALOGS -->
+    <string name="str_carga_lista">Cargando lista... </string>
+    <string name="str_actualizando">Actualizando... </string>
+    <string name="server_error">Error en servidor</string>
+    <string name="sin_conexion">Sin conexión con el servidor</string>
+    <string name="str_welcome">Bienvenido </string>
+    <string name="login_error">Hubo un error al iniciar sesión</string>
+    <string name="str_reintente">ERROR...Reintente</string>
+    <string name="rol_incorrecto">Rol incorrecto, reintente!</string>
+    <string name="mantener_boton">Mantenga presionado para guardar la imagen</string>
+    <string name="eliminar_reclamo">¿Desea eliminar el reclamo?</string>
+    <string name="str_confirmar">Si</string>
+    <string name="str_cancelar">No</string>
+    <string name="eliminar_suscripcion">Suscripcion eliminada!</string>
+    <string name="suscripcion_no_eliminada">Error: Suscripcion no eliminada</string>
+    <string name="str_eliminando">Eliminando...</string>
+    <string name="str_espere">Espere por favor...</string>
+    <string name="reclamo_eliminado">Reclamo eliminado!</string>
+    <string name="str_buscando">Buscando...</string>
+    <string name="guardar_imagen">¿Desea guardar la imagen?</string>
+    <string name="imagen_guardada">Imagen guardada en galeria</string>
+    <string name="reclamo_asociado">Reclamo asociado!</string>
+    <string name="reclamo_desasociado">Reclamo desasociado!</string>
+    <string name="reintente_asociar">No se asoció, reintente</string>
+    <string name="reintente_desasociar">No se desasoció, reintente</string>
+    <string name="str_cargando">Cargando...</string>
+    <string name="asociar_reclamo">¿Desea asociar el reclamo?</string>
+    <string name="desasociar_reclamo">¿Desea desasociar el reclamo?</string>
+    <string name="enviando_mail">Enviando correo electronico...</string>
+    <string name="mail_exito">Envio exitoso!</string>
+    <string name="eliminar_publicacion">¿Desea eliminar la publicación?</string>
+    <string name="publicacion_eliminada">Publicacion eliminada!</string>
+    <string name="debe_escribir_comentario">Debe escribir un comentario!</string>
+    <string name="debe_tomar_foto">Debe tomar una foto!</string>
+    <string name="publicacion_subida">Publicacion subida </string>
+    <string name="reclamo_encurso">Reclamo en curso! vea los detalles en la aplicación</string>
+    <string name="reclamo_resuelto">Reclamo resuelto! vea los detalles en la aplicación</string>
+    <string name="seleccione_foto">Elija una foto</string>
+    <string name="str_logout">Sesion cerrada!</string>
+    <string name="str_user">Usuario</string>
+    <string name="str_suscriptos">Suscriptos</string>
+    <string name="str_estado">Estado</string>
+    <string name="str_estoy_aqui">Aqui estoy!</string>
+    <string name="complete_campos">Complete todos los campos!</string>
+    <string name="email_incorrecto">Correo invalido</string>
+    <string name="str_registrado">registrado</string>
+    <string name="ya_existe">Ya existe</string>
+    <string name="compruebe_usuario">Compruebe usuario!</string>
+    <string name="compruebe_email">Compruebe correo!</string>
+    <string name="compruebe_telefono">Compruebe telefono!</string>
+    <string name="str_name">Nombre</string>
+    <string name="str_lastname">Apellido</string>
+    <string name="str_mail">Correo</string>
+    <string name="str_phone">Telefono</string>
+    <string name="str_address">Domicilio</string>
+    <string name="str_pass">Contraseña</string>
+    <string name="actualizar_foto">Actualizar foto</string>
+    <string name="actualizar_perfil">Actualizar perfil</string>
+    <string name="perfil_usuario">Perfil de usuario</string>
+    <string name="titulo_reclamos">Reclamos</string>
+    <string name="titulo_seleccione_asociado">Seleccione asociado</string>
+    <string name="titulo_detalle_reclamo">Reclamo detalle</string>
+    <string name="titulo_detalle_publicacion">Publicacion detalle</string>
+    <string name="titulo_publicaciones">Publicaciones</string>
+    <string name="titulo_publicacion">Publicacion</string>
+    <string name="ingrese_comentario">Ingrese un comentario...</string>
+    <string name="actualice_estado">Actualice el estado: </string>
+    <string name="tomar_foto">Tome una foto</string>
+    <string name="enviar_publicacion">Enviar publicacion</string>
+
 </resources>

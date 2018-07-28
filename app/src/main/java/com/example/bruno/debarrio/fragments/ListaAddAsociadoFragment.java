@@ -215,7 +215,7 @@ public class ListaAddAsociadoFragment extends Fragment {
             super.onPreExecute();
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialogAdd = new ProgressDialog(context);
-            pDialogAdd.setMessage("Cargando Lista");
+            pDialogAdd.setMessage(getResources().getString(R.string.str_cargando));
             pDialogAdd.setCancelable(true);
             pDialogAdd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialogAdd.show();
@@ -233,7 +233,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         }
                     });
@@ -345,7 +345,7 @@ public class ListaAddAsociadoFragment extends Fragment {
             }*/
             else{
                 pDialogAdd.dismiss();
-                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             }
         }
@@ -354,8 +354,8 @@ public class ListaAddAsociadoFragment extends Fragment {
     private void confirmDialog(final String idasociado, final int posicion, final AdaptadorReclamos adapter) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("¿Desea asociar el reclamo?")
-                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+        builder.setMessage(getResources().getString(R.string.asociar_reclamo))
+                .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         subirAsociado(idasociado);
@@ -377,7 +377,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //startActivity(intent);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int id) {
                         dialog.cancel();
@@ -397,7 +397,7 @@ public class ListaAddAsociadoFragment extends Fragment {
         modificarEsAsociado(id_reclamo_asociado);
 
         //Muestro la carga del progreso
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAsociar,
                 new Response.Listener<String>() {
                     @Override
@@ -405,7 +405,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(),  getResources().getString(R.string.reclamo_asociado), Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
                         //getActivity().startActivity(intentVer);
@@ -416,7 +416,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.reintente_asociar) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
@@ -490,13 +490,13 @@ public class ListaAddAsociadoFragment extends Fragment {
     public void sumarTieneAsociados(String idReclamoOriginal){
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String idOriginal = idReclamoOriginal;
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAddAsociado,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
-                        loading.dismiss();
+                        //loading.dismiss();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
                     }
@@ -504,9 +504,9 @@ public class ListaAddAsociadoFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
+                        //loading.dismiss();
                         //Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
-                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
@@ -534,7 +534,7 @@ public class ListaAddAsociadoFragment extends Fragment {
     public void modificarEsAsociado(String idReclamoAsociado){
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String idAsociado = idReclamoAsociado;
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLEsAsociado,
                 new Response.Listener<String>() {
                     @Override
@@ -549,7 +549,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);

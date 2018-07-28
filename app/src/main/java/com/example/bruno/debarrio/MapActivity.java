@@ -136,7 +136,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
 
         marcadorCam = mMap.addMarker(new MarkerOptions().position(coordenadasMarker).title(categoria)
-                .snippet(fecha + "\n" + "Usuario: " + usuario + "\n" + "Estado: " + estado + "\n" + "Suscriptos: " + suscriptos)
+                .snippet(fecha + "\n" + getResources().getString(R.string.str_user) + ": " + usuario + "\n" + getResources().getString(R.string.str_estado) + ": " + estado + "\n" + getResources().getString(R.string.str_suscriptos) + ": " + suscriptos)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
@@ -188,7 +188,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         if (marcadorPos != null) marcadorPos.remove();
         marcadorPos = mMap.addMarker(new MarkerOptions()
                 .position(coordenadas)
-                .title("Estoy aquí")
+                .title(getResources().getString(R.string.str_estoy_aqui))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.animateCamera(miUbicacion);
     }
@@ -223,11 +223,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         if (marcadorPos != null) marcadorPos.remove();
         marcadorPos = mMap.addMarker(new MarkerOptions()
                 .position(coordenadas)
-                .title("Estoy aquí")
+                .title(getResources().getString(R.string.str_estoy_aqui))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.animateCamera(miUbicacion);
     }
-
 
     LocationListener locationListener = new LocationListener() {
 
@@ -236,22 +235,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         @Override
         public void onLocationChanged(Location location) {
             actualizarMiUbicacion(location);
-
         }
 
         @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
+        public void onStatusChanged(String provider, int status, Bundle extras) {  }
 
         @Override
-        public void onProviderEnabled(String provider) {
-
-        }
+        public void onProviderEnabled(String provider) {  }
 
         @Override
-        public void onProviderDisabled(String provider) {
-
-        }
+        public void onProviderDisabled(String provider) {  }
     };
 }

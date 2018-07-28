@@ -216,7 +216,7 @@ public class ListaEstadosFragment extends Fragment {
             super.onPreExecute();
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialog = new ProgressDialog(context);
-            pDialog.setMessage("Cargando Lista");
+            pDialog.setMessage(getResources().getString(R.string.str_carga_lista));
             pDialog.setCancelable(false);
             pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialog.show();
@@ -234,7 +234,7 @@ public class ListaEstadosFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getActivity(), MainActivity2.class);
                             startActivity(intent);
                         }
@@ -273,6 +273,7 @@ public class ListaEstadosFragment extends Fragment {
                                 String id_municipio = jsonObject.getString("id_municipio");
                                 int esAsociado = jsonObject.getInt("es_asociado");
 
+                                //if ((posicion == getResources().getString(R.string.str_abierto)) && (id_municipio.equals(id_muni)) && (esAsociado == 0))
                                 if ((posicion == "Abierto") && (id_municipio.equals(id_muni)) && (esAsociado == 0))
                                 {
                                     if (estado.equals(posicion)) {
@@ -295,13 +296,16 @@ public class ListaEstadosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
                                                 latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
+                                        //posicion = getResources().getString(R.string.str_abierto);
                                         posicion = "Abierto";
                                     }
                                     else{
+                                        //posicion = getResources().getString(R.string.str_abierto);
                                         posicion = "Abierto";
                                     }
                                 }
 
+                                //if ((posicion == getResources().getString(R.string.str_encurso)) && (id_municipio.equals(id_muni)) && (esAsociado == 0))
                                 if ((posicion == "En curso") && (id_municipio.equals(id_muni)) && (esAsociado == 0))
                                 {
                                     if (estado.equals(posicion)) {
@@ -322,13 +326,16 @@ public class ListaEstadosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
                                                 latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
+                                        //posicion = getResources().getString(R.string.str_encurso);
                                         posicion = "En curso";
                                     }
                                     else{
+                                        //posicion = getResources().getString(R.string.str_encurso);
                                         posicion = "En curso";
                                     }
                                 }
 
+                                //if ((posicion == getResources().getString(R.string.str_resuelto)) && (id_municipio.equals(id_muni)) && (esAsociado == 0))
                                 if ((posicion == "Resuelto") && (id_municipio.equals(id_muni)) && (esAsociado == 0))
                                 {
                                     if (estado.equals(posicion)) {
@@ -349,14 +356,17 @@ public class ListaEstadosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
                                                 latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
+                                        //posicion = getResources().getString(R.string.str_resuelto);
                                         posicion = "Resuelto";
                                     }
 
                                     else{
+                                        //posicion = getResources().getString(R.string.str_resuelto);
                                         posicion = "Resuelto";
                                     }
                                 }
-                                if ((posicion == "Re-abierto") && (id_municipio.equals(id_muni)) && (esAsociado == 0))
+                                //if ((posicion == getResources().getString(R.string.str_reabierto)) && (id_municipio.equals(id_muni)) && (esAsociado == 0))
+                                if ((posicion == "Re-abierto" && (id_municipio.equals(id_muni)) && (esAsociado == 0)))
                                 {
                                     if (estado.equals(posicion)) {
                                         //String usuario = jsonObject.getString("id_usuario");
@@ -376,10 +386,12 @@ public class ListaEstadosFragment extends Fragment {
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
                                                 latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaReclamos.add(reclamo);
+                                        //posicion = getResources().getString(R.string.str_reabierto);
                                         posicion = "Re-abierto";
                                     }
 
                                     else{
+                                        //posicion = getResources().getString(R.string.str_reabierto);
                                         posicion = "Re-abierto";
                                     }
                                 }
@@ -434,7 +446,7 @@ public class ListaEstadosFragment extends Fragment {
             }*/
             else{
                 pDialog.dismiss();
-                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             }
         }

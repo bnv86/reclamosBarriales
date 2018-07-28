@@ -75,7 +75,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         editPassword = findViewById(R.id.edit_password_registro);
 
         if (validarEmail("")) {
-            editEmail.setError("Email incorrecto");
+            editEmail.setError(getResources().getString(R.string.email_incorrecto));
         }
         //new GetHttpResponse(getApplicationContext()).execute();
         //GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
@@ -179,7 +179,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                         || password == null || password == "" || password.isEmpty()
                         || apellido == null || apellido == "" || apellido.isEmpty()
                         || email == null || email == "" || email.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Complete todos los campos!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_campos), Toast.LENGTH_LONG).show();
 
                     //if (!validarEmail(email)){
                     //editEmail.setError("Email no valido");
@@ -211,10 +211,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                     if (success) {
                         Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                         RegistroActivity.this.startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "Usuario " + "'" + username.toString() + "'" + " registrado!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_user) + " '" + username.toString() + "' " + getResources().getString(R.string.str_registrado) + "!", Toast.LENGTH_LONG).show();
                     } else {
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
-                        alertBuilder.setMessage("Hubo un error al registrar").setNegativeButton("Reintentar", null).create().show();
+                        alertBuilder.setMessage(getResources().getString(R.string.server_error)).setNegativeButton(getResources().getString(R.string.str_reintente), null).create().show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -326,22 +326,22 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
             if(flag1){
                 //editor1.putBoolean("flag", true).apply();
                 //AvisoNoRegistro();
-                editUsuario.setError("Ya existe");
-                Toast.makeText(getApplicationContext(), "Compruebe usuario", Toast.LENGTH_LONG).show();
+                editUsuario.setError(getResources().getString(R.string.ya_existe));
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.compruebe_usuario), Toast.LENGTH_LONG).show();
                 flag1 = false;
             }
             if(flag2){
                 //editor1.putBoolean("flag", true).apply();
                 //AvisoNoRegistro();
-                editTelefono.setError("Ya existe");
-                Toast.makeText(getApplicationContext(), "Compruebe telefono", Toast.LENGTH_LONG).show();
+                editTelefono.setError(getResources().getString(R.string.ya_existe));
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.compruebe_telefono), Toast.LENGTH_LONG).show();
                 flag2 = false;
             }
             if(flag3){
                 //editor1.putBoolean("flag", true).apply();
                 //AvisoNoRegistro();
-                editEmail.setError("Ya existe");
-                Toast.makeText(getApplicationContext(), "Compruebe Email", Toast.LENGTH_LONG).show();
+                editEmail.setError(getResources().getString(R.string.ya_existe));
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.compruebe_email), Toast.LENGTH_LONG).show();
                 flag3 = false;
             }
         }
@@ -370,7 +370,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         protected void onPreExecute()
         {
             super.onPreExecute();
-            final ProgressDialog loading = show(getApplicationContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
+            final ProgressDialog loading = show(getApplicationContext(),getResources().getString(R.string.str_cargando),getResources().getString(R.string.str_espere),true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_MUNICIPIO,
                     new Response.Listener<String>() {
                         @Override
@@ -383,7 +383,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
-                            Toast.makeText(getApplicationContext(), "Error " , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));

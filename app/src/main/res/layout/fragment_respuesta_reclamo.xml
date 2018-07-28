@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/titulo_respuesta"
-        android:text="PUBLICACIÓN"
+        android:text="@string/titulo_publicacion"
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="18dp"
@@ -37,26 +37,9 @@
             android:orientation="vertical"
             android:layout_marginLeft="10dp">
 
-            <!--
-            <TextView
-                android:id="@+id/static_comentario"
-                android:text="Comentario: "
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:background="#11000000"
-                android:textColor="@color/colorBlanco"
-                android:layout_marginTop="10dp"/>
-                -->
-
             <EditText
                 android:id="@+id/editext_comentario_respuesta"
-                android:hint="Ingrese un comentario..."
+                android:hint="@string/ingrese_comentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -72,7 +55,7 @@
             <TextView
                 android:id="@+id/static_estado_respuesta"
                 android:layout_below="@+id/editext_comentario"
-                android:text="Actualice el estado: "
+                android:text="@string/actualice_estado"
                 android:textStyle="bold"
 
                 android:layout_width="match_parent"
@@ -134,7 +117,7 @@
                 android:layout_below="@+id/imagen_para_foto"
                 android:background="@color/colorOrange"
                 android:layout_gravity="center"
-                android:text="Tomar Foto"
+                android:text="@string/tomar_foto"
 
                 android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"/>
@@ -148,7 +131,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="15dp"
                 android:background="@color/colorAccent"
-                android:text="Enviar publicación"
+                android:text="@string/enviar_publicacion"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"/>
 

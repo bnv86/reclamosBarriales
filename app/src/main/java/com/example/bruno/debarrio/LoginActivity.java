@@ -133,19 +133,19 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                     editor.putString("id_municipio", id_municipio);
                                     //editor.putString("password", password);
                                     editor.commit();
-                                    Toast.makeText(getApplicationContext(), "BIENVENIDO " + nombre + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_welcome) + nombre + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
                                     LoginActivity.this.startActivity(intent);
                                 }
                                 else {
-                                    Toast.makeText(getApplicationContext(), "Rol incorrecto", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.rol_incorrecto), Toast.LENGTH_LONG).show();
                                 }
                             } else {
                                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
-                                alertBuilder.setMessage("Hubo un error al loguearse").setNegativeButton("Reintentar", null).create().show();
+                                alertBuilder.setMessage(getResources().getString(R.string.login_error)).setNegativeButton(getResources().getString(R.string.str_reintente), null).create().show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Error en el servidor", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
                         }
                     }
                 };

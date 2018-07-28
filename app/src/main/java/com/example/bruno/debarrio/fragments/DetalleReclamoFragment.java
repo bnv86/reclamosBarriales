@@ -193,7 +193,7 @@ public class DetalleReclamoFragment extends Fragment{
         imagenDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "(Mantenga presionado para guardar la imagen)", Toast.LENGTH_LONG).show();            }
+                Toast.makeText(getActivity(), getResources().getString(R.string.mantener_boton), Toast.LENGTH_LONG).show();            }
         });
 
         imagenDetalle.setOnLongClickListener(new View.OnLongClickListener() {
@@ -211,8 +211,8 @@ public class DetalleReclamoFragment extends Fragment{
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-                builder.setMessage("¿Desea eliminar el reclamo?")
-                        .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                builder.setMessage(getResources().getString(R.string.eliminar_reclamo))
+                        .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 eliminarSuscripciones();
@@ -221,7 +221,7 @@ public class DetalleReclamoFragment extends Fragment{
                                 getActivity().startActivity(intent);
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
@@ -341,7 +341,7 @@ public class DetalleReclamoFragment extends Fragment{
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         //loading.dismiss();
-                        Toast.makeText(getActivity(), "SUSCRIPCION ELIMINADA!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.eliminar_suscripcion), Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
@@ -349,7 +349,7 @@ public class DetalleReclamoFragment extends Fragment{
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //loading.dismiss();
-                        Toast.makeText(getActivity(), "SUSCRIPCION NO" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.suscripcion_no_eliminada) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
@@ -377,14 +377,14 @@ public class DetalleReclamoFragment extends Fragment{
         Reclamo claim = null;
         claim = (Reclamo) bundleReclamo.getSerializable("objeto");
         final String id_reclamo = claim.getId();
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_eliminando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_RECLAMO,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "RECLAMO ELIMINADO!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.reclamo_eliminado), Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
@@ -392,7 +392,7 @@ public class DetalleReclamoFragment extends Fragment{
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "SIN CONEXIÓN...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
@@ -520,7 +520,7 @@ public class DetalleReclamoFragment extends Fragment{
             Bundle bundleObjeto2 = getArguments();
             reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
             final String id = reclamo2.getId();
-            final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+            final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL_ESTADO,
                     new Response.Listener<String>() {
                         @Override
@@ -569,7 +569,7 @@ public class DetalleReclamoFragment extends Fragment{
         //if (bundleObjeto2 != null) {
         reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
         final String id = reclamo2.getId();
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, POST_URL_SUSCRIPTOS,
                 new Response.Listener<String>() {
                     @Override
@@ -670,7 +670,7 @@ public class DetalleReclamoFragment extends Fragment{
         {
             super.onPreExecute();
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            final ProgressDialog loading = show(getContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
+            final ProgressDialog loading = show(getContext(),getResources().getString(R.string.str_buscando),getResources().getString(R.string.str_espere),true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_RESPUESTAS,
                     new Response.Listener<String>() {
                         @Override
@@ -683,7 +683,7 @@ public class DetalleReclamoFragment extends Fragment{
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
-                            Toast.makeText(getContext(), "Error " , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -769,7 +769,7 @@ public class DetalleReclamoFragment extends Fragment{
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getContext(), "Error en servidor", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(getActivity(), MainActivity2.class);
                             startActivity(intent);
                         }
@@ -905,7 +905,7 @@ public class DetalleReclamoFragment extends Fragment{
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intentGalleria, 0);
         mBuilder = new NotificationCompat.Builder(getContext()).setSmallIcon(android.R.drawable.ic_menu_gallery)
                 .setLargeIcon(reclamo.getImagenDesc()) //TRAIGO LA IMAGEN DEL RECLAMO
-                .setContentTitle("Reclamos Municipales").setContentText("Imagen guardada en galeria/ReclamosMunicipales").setContentIntent(pendingIntent);
+                .setContentTitle("Reclamos Municipales").setContentText(getResources().getString(R.string.imagen_guardada) + "/ReclamosMunicipales").setContentIntent(pendingIntent);
 
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(getContext(),
@@ -921,8 +921,8 @@ public class DetalleReclamoFragment extends Fragment{
     private void confirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("¿Desea guardar la imagen?")
-                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+        builder.setMessage(getResources().getString(R.string.guardar_imagen))
+                .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         //convertir imagen a bitmap
@@ -935,7 +935,7 @@ public class DetalleReclamoFragment extends Fragment{
                         notificationPush();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int id) {
                         dialog.cancel();

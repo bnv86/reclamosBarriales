@@ -157,7 +157,7 @@ public class RespuestaReclamoFragment extends Fragment {
 
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
         //spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(id_estado));
-        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        String[] tipos1 = {getResources().getString(R.string.str_abierto),getResources().getString(R.string.str_encurso), getResources().getString(R.string.str_resuelto),getResources().getString(R.string.str_reabierto)};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(estado_id));
@@ -233,12 +233,12 @@ public class RespuestaReclamoFragment extends Fragment {
                 //    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
                 //}
                 if(coment == null || coment.isEmpty() || coment == ""){
-                    Toast.makeText(getContext(),"Debe escribir un comentario!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),getResources().getString(R.string.debe_escribir_comentario), Toast.LENGTH_LONG).show();
                     //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
                     //alertBuilder2.setMessage("Debe completar el campo 'Comentario'").setNegativeButton("Por favor", null).create().show();
                 }
                 else if (bitmap == null){
-                    Toast.makeText(getContext(),"Debe tomar una foto!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),getResources().getString(R.string.debe_tomar_foto), Toast.LENGTH_LONG).show();
                 }
 
                 else {
@@ -261,16 +261,16 @@ public class RespuestaReclamoFragment extends Fragment {
     public void subirRespuesta(String pos){
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         String estado = "";
-        if(pos == "Abierto"){
+        if(pos == getResources().getString(R.string.str_abierto)){
             estado = "1";
         }
-        if(pos == "En curso"){
+        if(pos == getResources().getString(R.string.str_encurso)){
             estado = "2";
         }
-        if(pos == "Resuelto"){
+        if(pos == getResources().getString(R.string.str_resuelto)){
             estado = "3";
         }
-        if(pos == "Re-abierto"){
+        if(pos == getResources().getString(R.string.str_reabierto)){
             estado = "4";
         }
         final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
@@ -279,7 +279,7 @@ public class RespuestaReclamoFragment extends Fragment {
         final String estadoFinal = estado;
 
         //Muestro la carga del progreso
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Subiendo...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_RESPUESTA_RECLAMO,
                 new Response.Listener<String>() {
                     @Override
@@ -287,7 +287,7 @@ public class RespuestaReclamoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        Toast.makeText(getActivity(), "RESPUESTA ENVIADA " + usuario + " !", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_subida) + usuario + " !", Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
                         getActivity().startActivity(intentVer);
@@ -298,7 +298,7 @@ public class RespuestaReclamoFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE ENVIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
@@ -358,12 +358,12 @@ public class RespuestaReclamoFragment extends Fragment {
         final String id_usuario = prefReclamo.getString("id_usuario","");
 
         if (pos.equals("En curso")){
-            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo está en curso, verifique los detalles en la aplicación");
+            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() + " " + getResources().getString(R.string.reclamo_encurso));
             enviomail.execute();
         }
 
         if (pos.equals("Resuelto")) {
-            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() +" el reclamo fue resuelto, verifique los detalles en la aplicación");
+            EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() + " " + getResources().getString(R.string.reclamo_resuelto));
             enviomail.execute();
         }
 
@@ -411,7 +411,7 @@ public class RespuestaReclamoFragment extends Fragment {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Seleccione una foto"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.seleccione_foto)), PICK_IMAGE_REQUEST);
     }
 
     private void llamarIntentFoto() { //activa la camara para capturar y guardar foto

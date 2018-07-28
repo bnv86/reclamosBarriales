@@ -66,4 +66,81 @@
         <item>@string/idioma_japones</item>
     </string-array>
 
+    <!-- Strings related to ESTADOS -->
+    <string name="seleccione_estado">Select a status</string>
+    <string name="str_abierto">Open</string>
+    <string name="str_encurso">In progress</string>
+    <string name="str_resuelto">Resolved</string>
+    <string name="str_reabierto">Re-opened</string>
+
+    <!-- Strings related to DIALOGS -->
+    <string name="str_carga_lista">Loading list... </string>
+    <string name="str_actualizando">Updating... </string>
+    <string name="server_error">Server error</string>
+    <string name="sin_conexion">No connection to the server</string>
+    <string name="str_welcome">Welcome </string>
+    <string name="login_error">There was an error when logging in</string>
+    <string name="str_reintente">ERROR...Retry</string>
+    <string name="rol_incorrecto">Wrong role, retry!</string>
+    <string name="mantener_boton">Press and hold to save the image</string>
+    <string name="eliminar_reclamo">Do you want to delete the claim?</string>
+    <string name="str_confirmar">Yes</string>
+    <string name="str_cancelar">No</string>
+    <string name="eliminar_suscripcion">Deleted subscription!</string>
+    <string name="suscripcion_no_eliminada">Error: Subscription not deleted</string>
+    <string name="str_eliminando">Removing...</string>
+    <string name="str_espere">Please wait...</string>
+    <string name="reclamo_eliminado">Deleted claim!</string>
+    <string name="str_buscando">Searching...</string>
+    <string name="guardar_imagen">Do you want to save the image?</string>
+    <string name="imagen_guardada">Image was saved in gallery</string>
+    <string name="reclamo_asociado">Associated claim!</string>
+    <string name="reclamo_desasociado">Dissociated claim!</string>
+    <string name="reintente_asociar">Did not associate, retry</string>
+    <string name="reintente_desasociar">Did not dissociate, retry</string>
+    <string name="str_cargando">Loading...</string>
+    <string name="asociar_reclamo">Do you want to associate the claim?</string>
+    <string name="desasociar_reclamo">Do you want to dissociate the claim?</string>
+    <string name="enviando_mail">Sending e-mail...</string>
+    <string name="mail_exito">Successfully sent mail!</string>
+    <string name="eliminar_publicacion">Do you want to delete the publication?</string>
+    <string name="publicacion_eliminada">Deleted publication!</string>
+    <string name="debe_escribir_comentario">You must write a comment!</string>
+    <string name="debe_tomar_foto">You must take a picture!</string>
+    <string name="publicacion_subida">Uploaded publication </string>
+    <string name="reclamo_encurso">The claim is in progress, check the details in the application</string>
+    <string name="reclamo_resuelto">The claim was resolved, verify the details in the application</string>
+    <string name="seleccione_foto">Choose a photo</string>
+    <string name="str_logout">Logged-out user!</string>
+    <string name="str_user">User</string>
+    <string name="str_suscriptos">Subscribed</string>
+    <string name="str_estado">Status</string>
+    <string name="str_estoy_aqui">Here i am!</string>
+    <string name="complete_campos">Complete all fields!</string>
+    <string name="email_incorrecto">Invalid e-mail</string>
+    <string name="str_registrado">registered</string>
+    <string name="ya_existe">It already exists</string>
+    <string name="compruebe_usuario">Check user!</string>
+    <string name="compruebe_email">Check e-mail!</string>
+    <string name="compruebe_telefono">Check phone!</string>
+    <string name="str_name">Name</string>
+    <string name="str_lastname">Lastname</string>
+    <string name="str_mail">E-mail</string>
+    <string name="str_phone">Phone</string>
+    <string name="str_address">Address</string>
+    <string name="str_pass">Password</string>
+    <string name="actualizar_foto">Update photo</string>
+    <string name="actualizar_perfil">Update profile</string>
+    <string name="perfil_usuario">User Profile</string>
+    <string name="titulo_reclamos">Claims</string>
+    <string name="titulo_seleccione_asociado">Choose associated</string>
+    <string name="titulo_detalle_reclamo">Claim detail</string>
+    <string name="titulo_detalle_publicacion">Publication detail</string>
+    <string name="titulo_publicaciones">Publications</string>
+    <string name="titulo_publicacion">Publication</string>
+    <string name="ingrese_comentario">Enter a comment...</string>
+    <string name="actualice_estado">Update status: </string>
+    <string name="tomar_foto">Take a photo</string>
+    <string name="enviar_publicacion">Send publication</string>
+
 </resources>

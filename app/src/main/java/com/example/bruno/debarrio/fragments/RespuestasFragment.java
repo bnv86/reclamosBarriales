@@ -199,7 +199,7 @@ public class RespuestasFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            final ProgressDialog loading = show(getContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
+            final ProgressDialog loading = show(getContext(),getResources().getString(R.string.str_cargando),getResources().getString(R.string.str_espere),true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_RESPUESTAS,
                     new Response.Listener<String>() {
                         @Override
@@ -212,7 +212,7 @@ public class RespuestasFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
-                            Toast.makeText(getContext(), "Error " , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -287,7 +287,7 @@ public class RespuestasFragment extends Fragment {
                 //imagenFoto.setImageBitmap(listaFotos.get(0));
             }
             else{
-                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
             }
             /*
             if (){

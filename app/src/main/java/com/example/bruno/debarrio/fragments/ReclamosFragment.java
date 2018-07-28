@@ -75,7 +75,9 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
 
         botonBuscar = rootView.findViewById(R.id.boton_buscar);
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
-        String[] tipos1 = {"Abierto","En curso", "Resuelto","Re-abierto"};
+        //String[] tipos1 = {getResources().getString(R.string.str_abierto),getResources().getString(R.string.str_encurso), getResources().getString(R.string.str_resuelto),getResources().getString(R.string.str_reabierto)};
+        String[] tipos1 = {"Abierto", "En curso", "Resuelto", "Re-abierto"};
+
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -84,6 +86,19 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
             {
                 String posicion = (String) adapterView.getItemAtPosition(pos);
+                /*
+                if (posicion.equals(getResources().getString(R.string.str_abierto)) || posicion == (getResources().getString(R.string.str_abierto))){
+                    posicion = "Abierto";
+                }
+                if (posicion.equals(getResources().getString(R.string.str_encurso)) || posicion == (getResources().getString(R.string.str_encurso))){
+                    posicion = "En curso";
+                }
+                if (posicion.equals(getResources().getString(R.string.str_resuelto)) || posicion == (getResources().getString(R.string.str_resuelto))){
+                    posicion = "Resuelto";
+                }
+                if (posicion.equals(getResources().getString(R.string.str_reabierto)) || posicion == (getResources().getString(R.string.str_reabierto))){
+                    posicion = "Re-abieto";
+                }*/
                 //guardo los datos del estado
                 enviarEstado(posicion);
                 //adapterView.getItemIdAtPosition(3);

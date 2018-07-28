@@ -218,7 +218,7 @@ public class ListaDesasociarFragment extends Fragment {
             super.onPreExecute();
             getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialogDes1 = new ProgressDialog(context);
-            pDialogDes1.setMessage("Buscando...espere");
+            pDialogDes1.setMessage(getResources().getString(R.string.str_cargando));
             pDialogDes1.setCancelable(true);
             pDialogDes1.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             pDialogDes1.show();
@@ -236,7 +236,7 @@ public class ListaDesasociarFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -319,7 +319,7 @@ public class ListaDesasociarFragment extends Fragment {
             }
             else{
                 pDialogDes1.dismiss();
-                Toast.makeText(context, "Error GetHttpResponseBuscarAsociados", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
                 //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             }
         }
@@ -362,7 +362,7 @@ public class ListaDesasociarFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
-                            Toast.makeText(getActivity(), "Error en servidor" , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -464,7 +464,7 @@ public class ListaDesasociarFragment extends Fragment {
             }
             else{
                 //pDialog2.dismiss();
-                Toast.makeText(context, "Sin conexión con el servidor :(", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
                 getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             }
         }
@@ -473,8 +473,8 @@ public class ListaDesasociarFragment extends Fragment {
     private void confirmDialog(final String idasociado, final int posicion, final AdaptadorReclamos adapter) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("¿Desea desasociar el reclamo?")
-                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+        builder.setMessage(getResources().getString(R.string.desasociar_reclamo))
+                .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         quitarAsociado(idasociado);
@@ -492,7 +492,7 @@ public class ListaDesasociarFragment extends Fragment {
                         //startActivity(intent);
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int id) {
                         dialog.cancel();
@@ -511,7 +511,7 @@ public class ListaDesasociarFragment extends Fragment {
         modificarEsAsociado(id_reclamo_asociado); //SI TIRA ERROR ACA ES UN PROBLEMA
 
         //Muestro la carga del progreso
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Cargando...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_cargando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLDesasociar,
                 new Response.Listener<String>() {
                     @Override
@@ -519,7 +519,7 @@ public class ListaDesasociarFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        Toast.makeText(getActivity(), "RECLAMO DESASOCIADO!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.reclamo_desasociado), Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
                         //getActivity().startActivity(intentVer);
@@ -530,7 +530,7 @@ public class ListaDesasociarFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE DESASOCIÓ, REINTENTE..." , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.reintente_desasociar) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
@@ -562,13 +562,13 @@ public class ListaDesasociarFragment extends Fragment {
     public void restarTieneAsociados(String idReclamoOriginal){ //RESTA 1 A TIENE_ASOCIADOS
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String idOriginal = idReclamoOriginal;
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLRemoveAsociado,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
-                        loading.dismiss();
+                        //loading.dismiss();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
                     }
@@ -576,8 +576,8 @@ public class ListaDesasociarFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        //loading.dismiss();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
@@ -605,7 +605,7 @@ public class ListaDesasociarFragment extends Fragment {
     public void modificarEsAsociado(String idReclamoAsociado){
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String idAsociado = idReclamoAsociado;
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLEsAsociado,
                 new Response.Listener<String>() {
                     @Override
@@ -620,7 +620,7 @@ public class ListaDesasociarFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "ERROR...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);

@@ -166,8 +166,8 @@ public class DetalleRespuestaFragment extends Fragment {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-                builder.setMessage("¿Desea eliminar la publicación?")
-                        .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+                builder.setMessage(getResources().getString(R.string.eliminar_publicacion))
+                        .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 eliminarRespuesta();
@@ -175,7 +175,7 @@ public class DetalleRespuestaFragment extends Fragment {
                                 getActivity().startActivity(intent);
                             }
                         })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog,int id) {
                                 dialog.cancel();
@@ -190,7 +190,7 @@ public class DetalleRespuestaFragment extends Fragment {
         imagenDetalle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "(Mantenga presionado para guardar la imagen)", Toast.LENGTH_LONG).show();            }
+                Toast.makeText(getActivity(), getResources().getString(R.string.mantener_boton), Toast.LENGTH_LONG).show();            }
         });
 
         imagenDetalle.setOnLongClickListener(new View.OnLongClickListener() {
@@ -240,14 +240,14 @@ public class DetalleRespuestaFragment extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
         final String id_respuesta = prefRespuesta.getString("id_respuesta","");
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_eliminando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_PUBLICACION,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "PUBLICACIÓN ELIMINADA!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_eliminada), Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
@@ -255,7 +255,7 @@ public class DetalleRespuestaFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
-                        Toast.makeText(getActivity(), "SIN CONEXIÓN...REINTENTE" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getResources().getString(R.string.sin_conexion) , Toast.LENGTH_LONG).show();
                         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
@@ -342,7 +342,7 @@ public class DetalleRespuestaFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            final ProgressDialog loading = show(getContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
+            final ProgressDialog loading = show(getContext(),getResources().getString(R.string.str_cargando),getResources().getString(R.string.str_espere),true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_RESPUESTAS,
                     new Response.Listener<String>() {
                         @Override
@@ -355,7 +355,7 @@ public class DetalleRespuestaFragment extends Fragment {
                         @Override
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
-                            Toast.makeText(getContext(), "Error " , Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -484,7 +484,7 @@ public class DetalleRespuestaFragment extends Fragment {
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intentGalleria, 0);
         mBuilder = new NotificationCompat.Builder(getContext()).setSmallIcon(android.R.drawable.ic_menu_gallery)
                 .setLargeIcon(respuesta.getImagenDesc()) //TRAIGO LA IMAGEN DEL RECLAMO
-                .setContentTitle("Reclamos Municipales").setContentText("Imagen guardada en galeria/ReclamosMunicipales").setContentIntent(pendingIntent);
+                .setContentTitle("Reclamos Municipales").setContentText(getResources().getString(R.string.imagen_guardada) + "/ReclamosMunicipales").setContentIntent(pendingIntent);
 
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(getContext(),
@@ -500,8 +500,8 @@ public class DetalleRespuestaFragment extends Fragment {
     private void confirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("¿Desea guardar la imagen?")
-                .setPositiveButton("Si",  new DialogInterface.OnClickListener() {
+        builder.setMessage(getResources().getString(R.string.guardar_imagen))
+                .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         //convertir imagen a bitmap
@@ -514,7 +514,7 @@ public class DetalleRespuestaFragment extends Fragment {
                         notificationPush();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog,int id) {
                         dialog.cancel();

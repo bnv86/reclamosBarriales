@@ -90,7 +90,7 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
             edit.commit();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
-            Toast.makeText(getApplicationContext(),"Sesion cerrada", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),getResources().getString(R.string.str_logout), Toast.LENGTH_LONG).show();
             this.finish(); //cierra el activity actual para q no se vuelva con back
         }
         switch (item.getItemId()) {
