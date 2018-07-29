@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/titulo_respuesta"
-            android:text="PUBLICACIONES DEL RECLAMO"
+            android:text="@string/titulo_publicaciones"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:textSize="16dp"

@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -157,7 +159,8 @@ public class RespuestaReclamoFragment extends Fragment {
 
         final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner_estado);
         //spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(id_estado));
-        String[] tipos1 = {getResources().getString(R.string.str_abierto),getResources().getString(R.string.str_encurso), getResources().getString(R.string.str_resuelto),getResources().getString(R.string.str_reabierto)};
+        //String[] tipos1 = {getResources().getString(R.string.str_abierto),getResources().getString(R.string.str_encurso), getResources().getString(R.string.str_resuelto),getResources().getString(R.string.str_reabierto)};
+        String[] tipos1 = {"Abierto", "En curso", "Resuelto", "Re-abierto"};
         //spinner.setAdapter(new ArrayAdapter<String>(this, (inflater.inflate(R.layout.fragment_detalle_reclamos, container))), tipos));
         spinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, tipos1));
         spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(estado_id));
@@ -247,10 +250,24 @@ public class RespuestaReclamoFragment extends Fragment {
                     SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
                     final String id_estado = prefSpinner.getString("posicion","");
 
-
                     actualizarEstado(id_estado);
                     subirRespuesta(id_estado);
-                    closefragment();
+                    /*
+                    // Crea el nuevo fragmento y la transacción.
+                    String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+                    getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    ListaEstadosFragment fr = new ListaEstadosFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.contenedorFragment, fr);
+                    transaction.addToBackStack(null);
+                    // Commit a la transacción
+                    transaction.commit();*/
+                    //Intent intent = new Intent(getContext(), MainTabbedActivity.class); //LoginActivity.this
+                    //startActivity(new Intent(getContext(), MainTabbedActivity.class)
+                    //        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                    //finish();
+                    //startActivity(intent);
+                    closefragment(); // NO ESTA CERRANDO EL FRAGMENT PORQUE VUELVE A APARECER CUANDO SE HACE BACK
                 }
             }
         });
@@ -259,18 +276,22 @@ public class RespuestaReclamoFragment extends Fragment {
     }
 
     public void subirRespuesta(String pos){
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         String estado = "";
-        if(pos == getResources().getString(R.string.str_abierto)){
+        //if(pos == getResources().getString(R.string.str_abierto)){
+        if(pos == "Abierto"){
             estado = "1";
         }
-        if(pos == getResources().getString(R.string.str_encurso)){
+        //if(pos == getResources().getString(R.string.str_encurso)){
+        if(pos == "En curso"){
             estado = "2";
         }
-        if(pos == getResources().getString(R.string.str_resuelto)){
+        //if(pos == getResources().getString(R.string.str_resuelto)){
+        if(pos == "Resuelto"){
             estado = "3";
         }
-        if(pos == getResources().getString(R.string.str_reabierto)){
+        //if(pos == getResources().getString(R.string.str_reabierto)){
+        if(pos == "Re-abierto"){
             estado = "4";
         }
         final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
@@ -287,10 +308,10 @@ public class RespuestaReclamoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
-                        Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_subida) + usuario + " !", Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                        Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
-                        getActivity().startActivity(intentVer);
+                        Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_subida) + " " + usuario + "!", Toast.LENGTH_LONG).show();
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
+                        //getActivity().startActivity(intentVer);
                     }
                 },
                 new Response.ErrorListener() {
@@ -299,7 +320,7 @@ public class RespuestaReclamoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -321,12 +342,14 @@ public class RespuestaReclamoFragment extends Fragment {
                 params.put(KEY_ID_USUARIO, id_usuario);
                 params.put(KEY_ID_ESTADO, estadoFinal);
                 params.put(KEY_FECHA, fecha.format(new Date()));
+                params.put(KEY_IMAGEN, foto);
+                /*
                 if (foto != null){
                     params.put(KEY_IMAGEN, foto);
                 }
                 if (foto == null){
                     params.put(KEY_IMAGEN, null);
-                }
+                }*/
                 params.put(KEY_COMENTARIO, comentario);
 
                 //Parámetros de retorno
@@ -342,15 +365,19 @@ public class RespuestaReclamoFragment extends Fragment {
 
     public void actualizarEstado(String pos){
         String estado = "";
+        //if(pos == getResources().getString(R.string.str_abierto)){
         if(pos == "Abierto"){
             estado = "1";
         }
+        //if(pos == getResources().getString(R.string.str_encurso)){
         if(pos == "En curso"){
             estado = "2";
         }
+        //if(pos == getResources().getString(R.string.str_resuelto)){
         if(pos == "Resuelto"){
             estado = "3";
         }
+        //if(pos == getResources().getString(R.string.str_reabierto)){
         if(pos == "Re-abierto"){
             estado = "4";
         }
@@ -394,7 +421,7 @@ public class RespuestaReclamoFragment extends Fragment {
                 Map<String,String> params = new Hashtable<String, String>();
                 //Agregando de parámetros
                 params.put(KEY_ID, id);
-                params.put(KEY_ESTADO, estadoFinal);
+                params.put(KEY_ID_ESTADO, estadoFinal);
                 //Parámetros de retorno
                 return params;
             }

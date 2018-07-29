@@ -81,7 +81,6 @@ public class ListaRespuestasFragment extends Fragment {
     Activity activity;
     StringRequest peticion;
     ComunicacionFragments interfaceComunicacionFragments;
-    ProgressBar progressBarReclamos;
     String ServerURL = "https://momentary-electrode.000webhostapp.com/getRespuestas1.php";
 
     public ListaRespuestasFragment() {
@@ -200,7 +199,7 @@ public class ListaRespuestasFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialogRespuestas = new ProgressDialog(context);
             pDialogRespuestas.setMessage(getResources().getString(R.string.str_cargando));
             pDialogRespuestas.setCancelable(true);
@@ -299,7 +298,7 @@ public class ListaRespuestasFragment extends Fragment {
                 recyclerViewRespuestas.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
                 pDialogRespuestas.dismiss();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 closefragment();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
@@ -315,7 +314,7 @@ public class ListaRespuestasFragment extends Fragment {
                 recyclerViewRespuestas.setAdapter(null);
                 pDialogRespuestas.dismiss();
                 Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 closefragment();
             }
         }

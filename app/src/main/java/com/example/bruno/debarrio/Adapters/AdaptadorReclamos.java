@@ -39,13 +39,13 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, null, false);
         view.setOnClickListener(this);
         if (color == 0) {
-            view.setBackgroundColor(Color.BLUE);
+            view.setBackgroundColor(Color.BLUE); //MARCO A RECLAMOS
         }
         if (color == 1){
-            view.setBackgroundColor(Color.GREEN);
+            view.setBackgroundColor(Color.GREEN); //MARCO A RECLAMOS A ASOCIAR
         }
         if (color == 2){
-            view.setBackgroundColor(Color.RED);
+            view.setBackgroundColor(Color.RED); //MARCO A RECLAMOS A DESASOCIAR
         }
         return new ReclamosViewHolder(view);
     }
@@ -57,7 +57,7 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
         holder.textEstado.setText(listaReclamos.get(position).getId_estado());
         holder.foto.setImageBitmap(listaReclamos.get(position).getImagen());
         //holder.iconoAsociado.setImageBitmap(listaReclamos.get(position).getIconoAsociado());
-        holder.textSuscriptos.setText(listaReclamos.get(position).getCantSuscriptos());
+        //holder.textSuscriptos.setText(listaReclamos.get(position).getCantSuscriptos());
         if (listaReclamos.get(position).getAsociados() == 0){
             holder.iconoAsociado.setVisibility(View.GONE);
         }
@@ -94,7 +94,7 @@ public class AdaptadorReclamos extends RecyclerView.Adapter<AdaptadorReclamos.Re
             foto = (ImageView) itemView.findViewById(R.id.id_imagen);
             iconoAsociado = (ImageView) itemView.findViewById(R.id.imagen_asociado);
             iconoAsociado.setVisibility(GONE);
-            textSuscriptos = (TextView) itemView.findViewById(R.id.cant_suscriptos);
+            //textSuscriptos = (TextView) itemView.findViewById(R.id.cant_suscriptos);
         }
     }
 }

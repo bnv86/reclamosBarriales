@@ -237,7 +237,7 @@ public class DetalleRespuestaFragment extends Fragment {
     }
 
     private void eliminarRespuesta() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
         final String id_respuesta = prefRespuesta.getString("id_respuesta","");
         final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_eliminando),getResources().getString(R.string.str_espere),false,false); //getActivity()
@@ -248,7 +248,7 @@ public class DetalleRespuestaFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_eliminada), Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
                 new Response.ErrorListener() {
@@ -256,7 +256,7 @@ public class DetalleRespuestaFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.sin_conexion) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -328,7 +328,7 @@ public class DetalleRespuestaFragment extends Fragment {
         //rqt.add(peticion);
     }
 
-    public class  GetHttpResponseRespuestas extends AsyncTask<Void,Void,Void> {
+    public class  GetHttpResponseRespuestas extends AsyncTask<Void,Void,Void> { //NO SE USA POR AHORA, EVALUAR BORRAR
 
         String REQUEST_RESPUESTAS = "https://momentary-electrode.000webhostapp.com/getRespuestas.php";
         public Context context;

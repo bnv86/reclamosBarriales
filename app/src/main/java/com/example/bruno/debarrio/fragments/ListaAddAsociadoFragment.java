@@ -213,7 +213,7 @@ public class ListaAddAsociadoFragment extends Fragment {
         protected void onPreExecute()
         {
             super.onPreExecute();
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             pDialogAdd = new ProgressDialog(context);
             pDialogAdd.setMessage(getResources().getString(R.string.str_cargando));
             pDialogAdd.setCancelable(true);
@@ -224,7 +224,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                             //Descartar el diálogo de progreso
                             //loading.dismiss();
                         }
@@ -234,7 +234,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         public void onErrorResponse(VolleyError volleyError) {
                             //loading.dismiss();
                             Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -326,7 +326,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                 recyclerViewReclamos.setAdapter(adapter);
                 //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 pDialogAdd.dismiss();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -346,7 +346,7 @@ public class ListaAddAsociadoFragment extends Fragment {
             else{
                 pDialogAdd.dismiss();
                 Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             }
         }
     }
@@ -359,18 +359,12 @@ public class ListaAddAsociadoFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         subirAsociado(idasociado);
-                        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-                        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                        //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        //ft.remove(getActivity().getSupportFragmentManager().findFragmentById(R.id.contenedorFragment)).commit();
-                        //getActivity().getSupportFragmentManager().popBackStack(0, android.support.v4.app.FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         listaReclamosAsociables.remove(posicion);
                         //adapter.notifyItemInserted(posicion);
                         adapter.notifyDataSetChanged();
                         //adapter.notifyItemChanged(posicion);
                         //recyclerViewReclamos.removeViewAt(posicion);
                         //adapter.notifyItemRemoved(posicion);
-
                         //adapter.notifyItemRangeChanged(posicion, listaReclamosAsociables.size());
                         closefragment();
                         //Intent intent = new Intent(getActivity(), MainActivity2.class);
@@ -387,7 +381,7 @@ public class ListaAddAsociadoFragment extends Fragment {
     }
 
     public void subirAsociado(String idAsociado){ //INSERT FILA ASOCIACION
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String id_reclamo_asociado = idAsociado;
 
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
@@ -406,7 +400,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         loading.dismiss();
                         //Mostrando el mensaje de la respuesta
                         Toast.makeText(getActivity(),  getResources().getString(R.string.reclamo_asociado), Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Intent intentVer = new Intent(getActivity(), MainActivity2.class);
                         //getActivity().startActivity(intentVer);
                     }
@@ -417,7 +411,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.reintente_asociar) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
                     }
@@ -488,7 +482,7 @@ public class ListaAddAsociadoFragment extends Fragment {
     }
 
     public void sumarTieneAsociados(String idReclamoOriginal){
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String idOriginal = idReclamoOriginal;
         //final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLAddAsociado,
@@ -497,7 +491,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         //loading.dismiss();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Toast.makeText(getActivity(), "RECLAMO ACTUALIZADO!", Toast.LENGTH_LONG).show();
                     }
                 },
@@ -507,7 +501,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //loading.dismiss();
                         //Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
                         Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
                     }
@@ -532,7 +526,7 @@ public class ListaAddAsociadoFragment extends Fragment {
     }
 
     public void modificarEsAsociado(String idReclamoAsociado){
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         final String idAsociado = idReclamoAsociado;
         final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLEsAsociado,
@@ -541,7 +535,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         loading.dismiss();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Toast.makeText(getActivity(), "RECLAMO ASOCIADO!", Toast.LENGTH_LONG).show();
                     }
                 },
@@ -550,7 +544,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.str_reintente) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         Intent intent = new Intent(getActivity(), MainActivity2.class);
                         startActivity(intent);
                     }

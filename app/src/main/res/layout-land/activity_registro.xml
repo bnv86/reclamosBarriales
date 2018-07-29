@@ -171,7 +171,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
-                android:text="Seleccione Municipio: "
+                android:text="@string/str_muni"
                 android:textColor="@color/colorGris"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/spinner_municipio"

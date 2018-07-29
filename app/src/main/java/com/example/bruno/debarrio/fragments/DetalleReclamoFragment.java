@@ -329,7 +329,7 @@ public class DetalleReclamoFragment extends Fragment{
 
 
     private void eliminarSuscripciones() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Bundle bundleReclamo = getArguments();
         Reclamo claim = null;
         claim = (Reclamo) bundleReclamo.getSerializable("objeto");
@@ -342,7 +342,7 @@ public class DetalleReclamoFragment extends Fragment{
                         //Descartar el diálogo de progreso
                         //loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.eliminar_suscripcion), Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
                 new Response.ErrorListener() {
@@ -350,7 +350,7 @@ public class DetalleReclamoFragment extends Fragment{
                     public void onErrorResponse(VolleyError volleyError) {
                         //loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.suscripcion_no_eliminada) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -372,7 +372,7 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     private void eliminarReclamo() {
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Bundle bundleReclamo = getArguments();
         Reclamo claim = null;
         claim = (Reclamo) bundleReclamo.getSerializable("objeto");
@@ -385,7 +385,7 @@ public class DetalleReclamoFragment extends Fragment{
                         //Descartar el diálogo de progreso
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.reclamo_eliminado), Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
                 new Response.ErrorListener() {
@@ -393,7 +393,7 @@ public class DetalleReclamoFragment extends Fragment{
                     public void onErrorResponse(VolleyError volleyError) {
                         loading.dismiss();
                         Toast.makeText(getActivity(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
-                        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
 
@@ -491,7 +491,7 @@ public class DetalleReclamoFragment extends Fragment{
     }
 
     public void subirEstado(String pos){
-        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
 
             String estado = "";
             if(pos == "Abierto"){
@@ -528,7 +528,7 @@ public class DetalleReclamoFragment extends Fragment{
                             //Descartar el diálogo de progreso
                             loading.dismiss();
                             Toast.makeText(getActivity(), "ESTADO ACTUALIZADO! ", Toast.LENGTH_LONG).show();
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         }
                     },
                     new Response.ErrorListener() {
@@ -536,7 +536,7 @@ public class DetalleReclamoFragment extends Fragment{
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
                             Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
-                            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         }
                     }){
 
@@ -669,7 +669,7 @@ public class DetalleReclamoFragment extends Fragment{
         protected void onPreExecute()
         {
             super.onPreExecute();
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             final ProgressDialog loading = show(getContext(),getResources().getString(R.string.str_buscando),getResources().getString(R.string.str_espere),true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_RESPUESTAS,
                     new Response.Listener<String>() {
@@ -755,7 +755,7 @@ public class DetalleReclamoFragment extends Fragment{
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             //final ProgressDialog loading = show(getContext(),"Consultando BD...","Espere por favor...",true,false); //getActivity()
             StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_ASOCIADOS,
                     new Response.Listener<String>() {
@@ -818,7 +818,7 @@ public class DetalleReclamoFragment extends Fragment{
         protected void onPostExecute(Void result)
 
         {
-            getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+            //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             if (flag){
                 botonDesasociar.setVisibility(View.VISIBLE);
             }

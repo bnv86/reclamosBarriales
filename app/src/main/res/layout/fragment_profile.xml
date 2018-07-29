@@ -26,7 +26,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_marginLeft="10dp"
                 android:paddingTop="@dimen/text_margin"
-                android:text="User Profile"
+                android:text="@string/perfil_usuario"
                 android:textColor="@color/colorBlanco"
                 android:textColorHint="@color/colorGris"
                 android:textSize="28sp"
@@ -104,7 +104,7 @@
                 android:id="@+id/edit_direccion_perfil"
                 android:layout_gravity="left"
                 android:layout_marginTop="1dp"
-                android:hint="@string/usuario_direccion"
+                android:hint="@string/str_address"
                 android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -171,7 +171,7 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="22dp"
                     android:background="@color/colorAccent"
-                    android:text="Update photo" />
+                    android:text="@string/actualizar_foto" />
             </LinearLayout>
 
             <Button
@@ -183,7 +183,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:background="@color/colorLightBlue"
-                android:text="Update profile" />
+                android:text="@string/actualizar_perfil" />
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"

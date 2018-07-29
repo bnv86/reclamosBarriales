@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                     editor.putString("id_municipio", id_municipio);
                                     //editor.putString("password", password);
                                     editor.commit();
-                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_welcome) + nombre + " !", Toast.LENGTH_LONG).show(); //LoginActivity.this
+                                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_welcome) + " " + nombre + "!", Toast.LENGTH_LONG).show(); //LoginActivity.this
                                     LoginActivity.this.startActivity(intent);
                                 }
                                 else {

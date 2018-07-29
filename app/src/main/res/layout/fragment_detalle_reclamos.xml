@@ -23,36 +23,10 @@
         app:srcCompat="@android:drawable/ic_media_rew" />
         -->
 
-<!--
-        <ScrollView
-            android:id="@+id/detalle_scroll_form"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp">
-
-                <ImageView
-                    android:id="@+id/imagen_detalle"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    android:src="@drawable/camera"
-                    android:scaleType="fitXY"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
-
-scroll
-android:layout_below="@+id/imagen_detalle"
-                    -->
 
     <TextView
         android:id="@+id/titulo_detalle"
-        android:text="DETALLE DEL RECLAMO"
+        android:text="@string/titulo_detalle_reclamo"
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="18dp"
@@ -98,7 +72,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/static_usuario"
-                    android:text="Usuario: "
+                    android:text="@string/str_user"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,7 +87,7 @@ android:layout_below="@+id/imagen_detalle"
                 <TextView
                     android:id="@+id/detalle_usuario"
                     android:layout_toRightOf="@+id/static_usuario"
-                    android:text="Usuario"
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -133,7 +107,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/static_suscriptos"
-                    android:text="Suscriptos: "
+                    android:text="@string/str_suscriptos"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -168,7 +142,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/static_categoria"
-                    android:text="Categoria: "
+                    android:text="@string/str_categoria"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,7 +157,7 @@ android:layout_below="@+id/imagen_detalle"
                 <TextView
                     android:id="@+id/detalle_categoria"
                     android:layout_toRightOf="@+id/static_categoria"
-                    android:text="Categoria"
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -202,7 +176,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/static_descripcion"
-                    android:text="Descripcion: "
+                    android:text="@string/str_descripcion"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -217,7 +191,7 @@ android:layout_below="@+id/imagen_detalle"
                 <TextView
                     android:id="@+id/detalle_descripcion"
                     android:layout_toRightOf="@+id/static_descripcion"
-                    android:text="Descripcion"
+                    android:text=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
@@ -237,7 +211,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/static_municipalidad"
-                    android:text="Municipalidad: "
+                    android:text="@string/str_muni"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -271,7 +245,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/static_estado"
-                    android:text="Estado: "
+                    android:text="@string/str_estado"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -285,7 +259,7 @@ android:layout_below="@+id/imagen_detalle"
 
                 <TextView
                     android:id="@+id/detalle_estado"
-                    android:text="estado"
+                    android:text=""
                     android:layout_toRightOf="@+id/static_estado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -345,7 +319,7 @@ android:layout_below="@+id/imagen_detalle"
                     android:layout_marginTop="16dp"
                     android:background="@color/colorGreen"
                     android:drawableLeft="@mipmap/add1"
-                    android:text="Agregar asociado"
+                    android:text="@string/str_add_asociado"
                     android:textColor="@color/colorBlanco" />
 
                 <Button
@@ -358,7 +332,7 @@ android:layout_below="@+id/imagen_detalle"
                     android:layout_marginTop="16dp"
                     android:background="@color/colorRed"
                     android:drawableLeft="@mipmap/close"
-                    android:text="Desasociar"
+                    android:text="@string/str_desasociar"
                     android:textColor="@color/colorBlanco" />
 
             </LinearLayout>
@@ -366,15 +340,15 @@ android:layout_below="@+id/imagen_detalle"
             <Button
                 android:id="@+id/boton_lista_respuestas"
                 android:layout_gravity="center"
-                android:text="Ver publicaciones"
+                android:text="@string/str_ver_publicaciones"
                 android:textStyle="bold"
                 android:background="@color/colorYellow"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="10dp"
                 />
 
             <Button
@@ -383,10 +357,10 @@ android:layout_below="@+id/imagen_detalle"
                 android:layout_height="50dp"
                 android:layout_below="@+id/boton_lista_respuestas"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="16dp"
                 android:background="@color/colorAccent"
-                android:text="Publicar"
+                android:text="@string/str_publicar"
                 android:textColor="@color/colorBlanco"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"/>

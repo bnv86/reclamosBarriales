@@ -132,8 +132,8 @@ public class ListaEstadosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista = inflater.inflate(R.layout.fragment_lista_estados, container, false);
         recyclerViewReclamos = (RecyclerView) vista.findViewById(R.id.reciclerId);
-        recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerViewReclamos.setHasFixedSize(true);
+        recyclerViewReclamos.setLayoutManager(new LinearLayoutManager(getContext()));
+        //recyclerViewReclamos.setHasFixedSize(true);
         //recyclerViewReclamos.setAdapter(null);
         //AdaptadorReclamos adapter = new AdaptadorReclamos(listaReclamos);
         //recyclerViewReclamos.setAdapter(adapter);

@@ -81,7 +81,7 @@
     <string name="str_actualizando">Actualizando... </string>
     <string name="server_error">Error en servidor</string>
     <string name="sin_conexion">Sin conexión con el servidor</string>
-    <string name="str_welcome">Bienvenido </string>
+    <string name="str_welcome">Bienvenido</string>
     <string name="login_error">Hubo un error al iniciar sesión</string>
     <string name="str_reintente">ERROR...Reintente</string>
     <string name="rol_incorrecto">Rol incorrecto, reintente!</string>
@@ -105,12 +105,12 @@
     <string name="asociar_reclamo">¿Desea asociar el reclamo?</string>
     <string name="desasociar_reclamo">¿Desea desasociar el reclamo?</string>
     <string name="enviando_mail">Enviando correo electronico...</string>
-    <string name="mail_exito">Envio exitoso!</string>
+    <string name="mail_exito">Envio de mail exitoso!</string>
     <string name="eliminar_publicacion">¿Desea eliminar la publicación?</string>
     <string name="publicacion_eliminada">Publicacion eliminada!</string>
     <string name="debe_escribir_comentario">Debe escribir un comentario!</string>
     <string name="debe_tomar_foto">Debe tomar una foto!</string>
-    <string name="publicacion_subida">Publicacion subida </string>
+    <string name="publicacion_subida">Publicacion subida</string>
     <string name="reclamo_encurso">Reclamo en curso! vea los detalles en la aplicación</string>
     <string name="reclamo_resuelto">Reclamo resuelto! vea los detalles en la aplicación</string>
     <string name="seleccione_foto">Elija una foto</string>
@@ -134,16 +134,27 @@
     <string name="str_pass">Contraseña</string>
     <string name="actualizar_foto">Actualizar foto</string>
     <string name="actualizar_perfil">Actualizar perfil</string>
-    <string name="perfil_usuario">Perfil de usuario</string>
-    <string name="titulo_reclamos">Reclamos</string>
+    <string name="perfil_usuario">PERFIL DE USUARIO</string>
+    <string name="titulo_reclamos">RECLAMOS</string>
     <string name="titulo_seleccione_asociado">Seleccione asociado</string>
-    <string name="titulo_detalle_reclamo">Reclamo detalle</string>
-    <string name="titulo_detalle_publicacion">Publicacion detalle</string>
-    <string name="titulo_publicaciones">Publicaciones</string>
-    <string name="titulo_publicacion">Publicacion</string>
+    <string name="titulo_detalle_reclamo">RECLAMO DETALLE</string>
+    <string name="titulo_detalle_publicacion">PUBLICACION DETALLE</string>
+    <string name="titulo_publicaciones">PUBLICACIONES DEL RECLAMO</string>
+    <string name="titulo_publicacion">PUBLICACIÓN</string>
     <string name="ingrese_comentario">Ingrese un comentario...</string>
-    <string name="actualice_estado">Actualice el estado: </string>
+    <string name="actualice_estado">Actualice el estado:</string>
     <string name="tomar_foto">Tome una foto</string>
-    <string name="enviar_publicacion">Enviar publicacion</string>
+    <string name="enviar_publicacion">ENVIAR PUBLICACIÓN</string>
+    <string name="str_categoria">Categoria</string>
+    <string name="str_muni">Municipalidad</string>
+    <string name="str_descripcion">Descripcion</string>
+    <string name="str_ver_publicaciones">VER PUBLICACIONES</string>
+    <string name="str_publicar">PUBLICAR</string>
+    <string name="str_add_asociado">Agregar reclamo asociado</string>
+    <string name="str_desasociar">Desasociar</string>
+    <string name="str_buscar">BUSCAR</string>
+    <string name="str_comentario">Comentario</string>
+    <string name="str_fecha">Fecha</string>
+
 
 </resources>

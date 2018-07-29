@@ -131,16 +131,26 @@
     <string name="str_pass">Password</string>
     <string name="actualizar_foto">Update photo</string>
     <string name="actualizar_perfil">Update profile</string>
-    <string name="perfil_usuario">User Profile</string>
-    <string name="titulo_reclamos">Claims</string>
+    <string name="perfil_usuario">USER PROFILE</string>
+    <string name="titulo_reclamos">CLAIMS</string>
     <string name="titulo_seleccione_asociado">Choose associated</string>
-    <string name="titulo_detalle_reclamo">Claim detail</string>
-    <string name="titulo_detalle_publicacion">Publication detail</string>
-    <string name="titulo_publicaciones">Publications</string>
-    <string name="titulo_publicacion">Publication</string>
+    <string name="titulo_detalle_reclamo">CLAIM DETAIL</string>
+    <string name="titulo_detalle_publicacion">PUBLICATION DETAIL</string>
+    <string name="titulo_publicaciones">CLAIM PUBLICATIONS</string>
+    <string name="titulo_publicacion">PUBLICATION</string>
     <string name="ingrese_comentario">Enter a comment...</string>
     <string name="actualice_estado">Update status: </string>
     <string name="tomar_foto">Take a photo</string>
-    <string name="enviar_publicacion">Send publication</string>
+    <string name="enviar_publicacion">SEND PUBLICATION</string>
+    <string name="str_categoria">Category</string>
+    <string name="str_muni">Municipality</string>
+    <string name="str_descripcion">Description</string>
+    <string name="str_ver_publicaciones">SEE POSTS</string>
+    <string name="str_publicar">TO POST</string>
+    <string name="str_add_asociado">Add associated claim</string>
+    <string name="str_desasociar">Disassociate</string>
+    <string name="str_buscar">SEARCH</string>
+    <string name="str_comentario">Comment</string>
+    <string name="str_fecha">Date</string>
 
 </resources>

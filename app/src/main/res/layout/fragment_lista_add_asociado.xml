@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/titulo_respuesta"
-            android:text="SELECCIONE ASOCIADO"
+            android:text="@string/titulo_seleccione_asociado"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:textSize="18dp"
