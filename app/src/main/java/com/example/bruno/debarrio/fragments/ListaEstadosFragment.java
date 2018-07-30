@@ -407,9 +407,11 @@ public class ListaEstadosFragment extends Fragment {
                 else
                 {
                     //Toast.makeText(getActivity(), "Vuelva a intentar" , Toast.LENGTH_LONG).show();
-                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), MainActivity2.class);
-                    startActivity(intent);
+                    //Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sin conexion a internet", Toast.LENGTH_SHORT).show();
+                    return null;
+                    //Intent intent = new Intent(getActivity(), MainActivity2.class);
+                    //startActivity(intent);
                 }
             }
             catch (Exception e)

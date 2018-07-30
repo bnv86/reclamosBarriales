@@ -143,7 +143,7 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
         detalleReclamoFragment.setArguments(bundleEnvio);
 
         //cargar el fragment en el activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleReclamoFragment).commit(); //addToBackStack(null).
         //finish();
     }
 
@@ -155,7 +155,7 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
         detalleRespuestaFragment.setArguments(bundleEnvio);
 
         //cargar el fragment en el activity
-        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleRespuestaFragment).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleRespuestaFragment).commit(); //addToBackStack(null).
     }
 
     @Override

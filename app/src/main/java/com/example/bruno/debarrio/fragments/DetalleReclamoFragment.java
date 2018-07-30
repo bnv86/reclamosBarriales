@@ -426,12 +426,12 @@ public class DetalleReclamoFragment extends Fragment{
 
     private void llamarIntentListaRespuestas() {
         // Crea el nuevo fragmento y la transacción.
-        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ListaRespuestasFragment lis = new ListaRespuestasFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
         closefragment();
@@ -439,12 +439,12 @@ public class DetalleReclamoFragment extends Fragment{
 
     private void llamarIntentRespuesta() {
         // Crea el nuevo fragmento y la transacción.
-        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         RespuestaReclamoFragment fr = new RespuestaReclamoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, fr);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         // Commit a la transacción
         transaction.commit();
         //FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -454,12 +454,12 @@ public class DetalleReclamoFragment extends Fragment{
 
     private void llamarIntentListaAddAsociar() {
         // Crea el nuevo fragmento y la transacción.
-        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ListaAddAsociadoFragment lis1 = new ListaAddAsociadoFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis1);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         //transaction.addToBackStack(name);
         //transaction.disallowAddToBackStack();
         // Commit a la transacción
@@ -471,12 +471,12 @@ public class DetalleReclamoFragment extends Fragment{
 
     private void llamarIntentListaDesasociar() {
         // Crea el nuevo fragmento y la transacción.
-        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-        getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
+        //getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         ListaDesasociarFragment lis2 = new ListaDesasociarFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.contenedorFragment, lis2);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         //transaction.disallowAddToBackStack();
         //transaction.addToBackStack(name);
         // Commit a la transacción
