@@ -105,7 +105,8 @@ public class DetalleReclamoFragment extends Fragment{
     private String KEY_ESTADO = "id_estado";
     private String KEY_SUSCRIPTOS;
     StringRequest peticion;
-    boolean flag = false;
+    boolean flag1 = false;
+    boolean flag2 = false;
     private TreeMap<String, String> descrip;
     Activity activity;
     ComunicacionFragments interfaceComunicacionFragments;
@@ -616,6 +617,8 @@ public class DetalleReclamoFragment extends Fragment{
                         public void onErrorResponse(VolleyError volleyError) {
                             loading.dismiss();
                             Toast.makeText(getContext(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getActivity(), MainActivity2.class);
+                            startActivity(intent);
                         }
                     });
             stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -643,7 +646,7 @@ public class DetalleReclamoFragment extends Fragment{
                                 jsonObject= jsonArray.getJSONObject(i);
                                 String reclamoBusqueda = jsonObject.getString("id_reclamo");
                                 if (id_reclamo.equals(reclamoBusqueda) || (id_reclamo == reclamoBusqueda)){
-                                    flag = true;
+                                    flag1 = true;
                                 }
                             }
                         }
@@ -668,8 +671,11 @@ public class DetalleReclamoFragment extends Fragment{
         protected void onPostExecute(Void result)
         {
             //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-            if (flag){
+            if (flag1 == true){
                 botonListaRespuestas.setVisibility(View.VISIBLE);
+            }
+            else{
+                botonListaRespuestas.setVisibility(View.GONE);
             }
         }
     }
@@ -731,7 +737,7 @@ public class DetalleReclamoFragment extends Fragment{
                                 jsonObject = jsonArray.getJSONObject(i);
                                 String reclamoBusqueda = jsonObject.getString("id_reclamo");
                                 if (reclamoBusqueda.equals(id_reclamo_original) || (id_reclamo_original == reclamoBusqueda)) {
-                                    flag = true;
+                                    flag2 = true;
                                 }
                             }
                         } catch (Exception e) {
@@ -751,8 +757,11 @@ public class DetalleReclamoFragment extends Fragment{
 
         {
             //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-            if (flag){
+            if (flag2){
                 botonDesasociar.setVisibility(View.VISIBLE);
+            }
+            else{
+                botonDesasociar.setVisibility(View.GONE);
             }
         }
     }

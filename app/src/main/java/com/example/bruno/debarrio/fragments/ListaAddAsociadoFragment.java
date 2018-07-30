@@ -333,7 +333,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //Toast.makeText(getContext(), "Seleccionó " + listaReclamos.get(recyclerViewEventos.getChildAdapterPosition(view)).getFecha(), Toast.LENGTH_SHORT).show();
                         //interfaceComunicacionFragments.enviarReclamo(listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         String idreclamoAasociar = listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
-                        int posicion=recyclerViewReclamos.getChildAdapterPosition(view);
+                        int posicion = recyclerViewReclamos.getChildAdapterPosition(view);
                         confirmDialog(idreclamoAasociar, posicion, adapter);
                         adapter.notifyDataSetChanged();
                     }
