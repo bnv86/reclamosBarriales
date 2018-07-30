@@ -334,7 +334,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         //interfaceComunicacionFragments.enviarReclamo(listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)));
                         String idreclamoAasociar = listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
                         int posicion=recyclerViewReclamos.getChildAdapterPosition(view);
-                        confirmDialog(idreclamoAasociar,posicion, adapter);
+                        confirmDialog(idreclamoAasociar, posicion, adapter);
                         adapter.notifyDataSetChanged();
                     }
                 });

@@ -99,8 +99,10 @@ public class DetalleRespuestaFragment extends Fragment {
     private String KEY_ESTADO = "id_estado";
     StringRequest peticion;
     boolean flag = false;
+    boolean flagToast = false;
     private TreeMap<String, String> descrip;
     Activity activity;
+    Context context;
     ComunicacionFragments interfaceComunicacionFragments;
     ListaReclamosFragment listaReclamosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
@@ -164,36 +166,11 @@ public class DetalleRespuestaFragment extends Fragment {
         botonEliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                builder.setMessage(getResources().getString(R.string.eliminar_publicacion))
-                        .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                eliminarRespuesta();
-
-                                ListaEstadosFragment fr = new ListaEstadosFragment();
-                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                                transaction.replace(R.id.contenedorFragment, fr);
-                                //transaction.addToBackStack(null);
-                                // Commit a la transacción
-                                transaction.commit();
-
-                                //Intent intent = new Intent(getContext(), MainActivity2.class);
-                                //getActivity().startActivity(intent);
-                                closefragment();
-                            }
-                        })
-                        .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        })
-                        .show();
+                confirmEliminar();
             }
 
         });
+
         //textCategoria = (TextView) vista.findViewById(R.id.detalle_categoria);
         textComentario = vista.findViewById(R.id.text_comentario_respuesta);
         imagenDetalle = (ImageView) vista.findViewById(R.id.imagen_para_foto);
@@ -247,17 +224,19 @@ public class DetalleRespuestaFragment extends Fragment {
     }
 
     private void eliminarRespuesta() {
+
         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         SharedPreferences prefRespuesta = getContext().getSharedPreferences("respuesta", getActivity().MODE_PRIVATE);
         final String id_respuesta = prefRespuesta.getString("id_respuesta","");
-        //final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_eliminando),getResources().getString(R.string.str_espere),false,false); //getActivity()
+        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_eliminando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_PUBLICACION,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
-                        //loading.dismiss();
-                        //Toast.makeText(getContext(), getResources().getString(R.string.publicacion_eliminada), Toast.LENGTH_LONG).show();
+                        loading.dismiss();
+                        //flagToast = true;
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.publicacion_eliminada), Toast.LENGTH_LONG).show(); //ROMPE
                         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
@@ -265,7 +244,7 @@ public class DetalleRespuestaFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //loading.dismiss();
-                        //Toast.makeText(getContext(), getResources().getString(R.string.sin_conexion) , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.sin_conexion) , Toast.LENGTH_LONG).show();
                         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
@@ -280,6 +259,7 @@ public class DetalleRespuestaFragment extends Fragment {
                 return params;
             }
         };
+
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         //Creación de una cola de solicitudes
         RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
@@ -506,6 +486,40 @@ public class DetalleRespuestaFragment extends Fragment {
         NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(mNotificationID, mBuilder.build());
     }
+
+    private void confirmEliminar(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        builder.setMessage(getResources().getString(R.string.eliminar_publicacion))
+                .setPositiveButton(getResources().getString(R.string.str_confirmar),  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        eliminarRespuesta();
+                        /*
+                        ListaRespuestasFragment fr = new ListaRespuestasFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.contenedorFragment, fr);
+                        //transaction.addToBackStack(null);
+                        // Commit a la transacción
+                        transaction.commit();*/
+
+                        //Intent intent = new Intent(getContext(), MainActivity2.class);
+                        //getActivity().startActivity(intent);
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.detach(DetalleRespuestaFragment.this);
+                        transaction.commit();
+                        closefragment();
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog,int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+    }
+
 
     private void confirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
