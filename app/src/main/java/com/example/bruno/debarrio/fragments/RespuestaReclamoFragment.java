@@ -205,11 +205,6 @@ public class RespuestaReclamoFragment extends Fragment {
                     editor1.putString("posicion", posi);
                     editor1.commit();
                 }
-                /*
-                SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
-                SharedPreferences.Editor editor1 = prefSpinner.edit();
-                editor1.putString("posicion", posicion);
-                editor1.commit(); */
             }
 
             @Override
@@ -263,26 +258,9 @@ public class RespuestaReclamoFragment extends Fragment {
                 else {
                     SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
                     final String id_estado = prefSpinner.getString("posicion","");
-                    //final String id_estadoPos = prefSpinner.getString("posID","");
 
-                    //actualizarEstado(id_estado);
                     subirRespuesta(id_estado);
-                    /*
-                    // Crea el nuevo fragmento y la transacción.
-                    String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-                    getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    ListaEstadosFragment fr = new ListaEstadosFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.contenedorFragment, fr);
-                    transaction.addToBackStack(null);
-                    // Commit a la transacción
-                    transaction.commit();*/
-                    //Intent intent = new Intent(getContext(), MainTabbedActivity.class); //LoginActivity.this
-                    //startActivity(new Intent(getContext(), MainTabbedActivity.class)
-                    //        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
-                    //finish();
-                    //startActivity(intent);
-                    //closefragment(); // NO ESTA CERRANDO EL FRAGMENT PORQUE VUELVE A APARECER CUANDO SE HACE BACK
+                    //closefragment();
                 }
             }
         });
@@ -291,24 +269,6 @@ public class RespuestaReclamoFragment extends Fragment {
 
     public void subirRespuesta(final String pos){
         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        /*
-        String estado = "";
-        //if(pos == getResources().getString(R.string.str_abierto)){
-        if(pos == "Abierto"){
-            estado = "1";
-        }
-        //if(pos == getResources().getString(R.string.str_encurso)){
-        if(pos == "En curso"){
-            estado = "2";
-        }
-        //if(pos == getResources().getString(R.string.str_resuelto)){
-        if(pos == "Resuelto"){
-            estado = "3";
-        }
-        //if(pos == getResources().getString(R.string.str_reabierto)){
-        if(pos == "Re-abierto"){
-            estado = "4";
-        }*/
 
         final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
@@ -330,6 +290,7 @@ public class RespuestaReclamoFragment extends Fragment {
                         Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_subida) + " " + usuario + "!", Toast.LENGTH_LONG).show();
                         editextComentario.setText(null);
                         imagenFoto.setImageBitmap(null);
+
 
                         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                         //Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
@@ -368,10 +329,12 @@ public class RespuestaReclamoFragment extends Fragment {
                 if (bitmap != null){
                     //String foto = getStringImagen(bitmap);
                     params.put(KEY_IMAGEN, foto);
+                    bitmap = null;
                 }
                 else{
                     //String foto = null;
-                    params.put(KEY_IMAGEN, "nada");
+                    params.put(KEY_IMAGEN, null);
+                    bitmap = null;
                 }
                 //params.put(KEY_IMAGEN, foto);
 

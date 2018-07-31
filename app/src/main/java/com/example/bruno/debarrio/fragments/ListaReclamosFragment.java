@@ -355,8 +355,8 @@ public class ListaReclamosFragment extends Fragment {
                                         int asociados = jsonObject.getInt("tiene_asociados");
                                         int esAsociado = jsonObject.getInt("es_asociado");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaReclamos.add(reclamo);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo); //cantSuscriptos,
                                         posicion = "Abierto";
                                     }
                                     else{
@@ -383,8 +383,8 @@ public class ListaReclamosFragment extends Fragment {
                                         int asociados = jsonObject.getInt("tiene_asociados");
                                         int esAsociado = jsonObject.getInt("es_asociado");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaReclamos.add(reclamo);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo); // cantSuscriptos,
                                         posicion = "En curso";
                                     }
                                     else{
@@ -411,8 +411,8 @@ public class ListaReclamosFragment extends Fragment {
                                         int asociados = jsonObject.getInt("tiene_asociados");
                                         int esAsociado = jsonObject.getInt("es_asociado");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaReclamos.add(reclamo);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo); //cantSuscriptos,
                                         posicion = "Resuelto";
                                     }
 
@@ -439,8 +439,8 @@ public class ListaReclamosFragment extends Fragment {
                                         int asociados = jsonObject.getInt("tiene_asociados");
                                         int esAsociado = jsonObject.getInt("es_asociado");
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaReclamos.add(reclamo);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamos.add(reclamo); //cantSuscriptos,
                                         posicion = "Re-abierto";
                                     }
 

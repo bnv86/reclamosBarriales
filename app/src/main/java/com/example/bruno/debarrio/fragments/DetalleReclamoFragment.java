@@ -90,6 +90,8 @@ public class DetalleReclamoFragment extends Fragment{
     private String UPLOAD_URL_ESTADO = "https://momentary-electrode.000webhostapp.com/postEstadoReclamo.php";
     private String POST_URL_SUSCRIPTOS = "https://momentary-electrode.000webhostapp.com/getSubscripciones.php";
     private String DELETE_SUSCRIPCIONES = "https://momentary-electrode.000webhostapp.com/deleteSuscripciones.php";
+    private String DELETE_ASOCIACIONES = "https://momentary-electrode.000webhostapp.com/deleteAsociaciones.php";
+    private String DELETE_RESPUESTAS = "https://momentary-electrode.000webhostapp.com/deleteRespuestas.php";
     private String DELETE_RECLAMO = "https://momentary-electrode.000webhostapp.com/deleteReclamo.php";
     String URLAsociados = "https://momentary-electrode.000webhostapp.com/getAsociacion.php";
 
@@ -217,9 +219,15 @@ public class DetalleReclamoFragment extends Fragment{
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 eliminarSuscripciones();
+                                eliminarAsociaciones();
+                                eliminarRespuestas();
                                 eliminarReclamo();
-                                Intent intent = new Intent(getContext(), MainActivity2.class);
-                                getActivity().startActivity(intent);
+                                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                transaction.detach(DetalleReclamoFragment.this);
+                                transaction.commit();
+                                closefragment();
+                                //Intent intent = new Intent(getContext(), MainActivity2.class);
+                                //getActivity().startActivity(intent);
                             }
                         })
                         .setNegativeButton(getResources().getString(R.string.str_cancelar), new DialogInterface.OnClickListener() {
@@ -342,7 +350,7 @@ public class DetalleReclamoFragment extends Fragment{
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
                         //loading.dismiss();
-                        Toast.makeText(getActivity(), getResources().getString(R.string.eliminar_suscripcion), Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.eliminar_suscripcion), Toast.LENGTH_LONG).show();
                         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 },
@@ -350,7 +358,93 @@ public class DetalleReclamoFragment extends Fragment{
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         //loading.dismiss();
-                        Toast.makeText(getActivity(), getResources().getString(R.string.suscripcion_no_eliminada) , Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.suscripcion_no_eliminada) , Toast.LENGTH_LONG).show();
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID_RECLAMO, id_reclamo);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQ.add(stringRequest);
+    }
+
+    private void eliminarAsociaciones() {
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        Bundle bundleReclamo = getArguments();
+        Reclamo claim = null;
+        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
+        final String id_reclamo = claim.getId();
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_ASOCIACIONES,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.eliminar_suscripcion), Toast.LENGTH_LONG).show();
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.suscripcion_no_eliminada) , Toast.LENGTH_LONG).show();
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID_RECLAMO, id_reclamo);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQ = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQ.add(stringRequest);
+    }
+
+    private void eliminarRespuestas() {
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        Bundle bundleReclamo = getArguments();
+        Reclamo claim = null;
+        claim = (Reclamo) bundleReclamo.getSerializable("objeto");
+        final String id_reclamo = claim.getId();
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Eliminando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_RESPUESTAS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.eliminar_suscripcion), Toast.LENGTH_LONG).show();
+                        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //loading.dismiss();
+                        //Toast.makeText(getActivity(), getResources().getString(R.string.suscripcion_no_eliminada) , Toast.LENGTH_LONG).show();
                         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
                     }
                 }){
@@ -502,21 +596,19 @@ public class DetalleReclamoFragment extends Fragment{
         //if (bundleObjeto2 != null) {
         reclamo2 = (Reclamo) bundleObjeto2.getSerializable("objeto");
         final String id = reclamo2.getId();
-        final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
         StringRequest stringRequest = new StringRequest(Request.Method.POST, POST_URL_SUSCRIPTOS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String s) {
                         //Descartar el diálogo de progreso
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "ESTADO ACTUALIZADO!", Toast.LENGTH_LONG).show();
+                        //loading.dismiss();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        loading.dismiss();
-                        Toast.makeText(getActivity(), "NO SE PUDO TRAER" , Toast.LENGTH_LONG).show();
+                        //loading.dismiss();
                     }
                 }){
 

@@ -130,7 +130,7 @@ public class ListaRespuestasFragment extends Fragment {
         return vista;
     }
 
-    private void llenarlistaRespuestas(String id_reclamo) {
+    private void llenarlistaRespuestas(final String id_reclamo) {
         listaRespuestas = new ArrayList<>();
         new GetHttpResponseRespuestas(getContext(), id_reclamo).execute();
     }
@@ -189,7 +189,7 @@ public class ListaRespuestasFragment extends Fragment {
         public String id_reclamo;
         String ResultHolder;
 
-        public GetHttpResponseRespuestas(Context context, String id_reclamo)
+        public GetHttpResponseRespuestas(Context context, final String id_reclamo)
         {
             this.context = context;
             this.id_reclamo = id_reclamo;
@@ -265,8 +265,6 @@ public class ListaRespuestasFragment extends Fragment {
                                         Respuesta respuesta = new Respuesta(id.toString(), id_reclamo.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto, comentario.toString());//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
                                         listaRespuestas.add(respuesta);
                                     }
-                                    else{
-                                    }
                             }
                         }
                         catch (JSONException e) {
@@ -294,12 +292,12 @@ public class ListaRespuestasFragment extends Fragment {
         {
             //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             if(listaRespuestas != null) {
-                final AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
+                AdaptadorRespuestas adapter = new AdaptadorRespuestas(listaRespuestas);
                 recyclerViewRespuestas.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
                 pDialogRespuestas.dismiss();
                 //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                closefragment();
+                //closefragment();
                 adapter.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view){
@@ -309,16 +307,15 @@ public class ListaRespuestasFragment extends Fragment {
                 });
             }
             else{
+                /*
                 listaRespuestas.clear();
                 listaRespuestas.remove(recyclerViewRespuestas);
-                recyclerViewRespuestas.setAdapter(null);
+                recyclerViewRespuestas.setAdapter(null);*/
                 pDialogRespuestas.dismiss();
                 Toast.makeText(context, getResources().getString(R.string.sin_conexion), Toast.LENGTH_LONG).show();
                 //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                closefragment();
             }
         }
-
     }
 
     //Obtiene la cantidad de suscriptores del reclamo

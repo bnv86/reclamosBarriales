@@ -269,7 +269,6 @@ public class ListaAddAsociadoFragment extends Fragment {
 
                             for(int i=0; i<jsonArray.length(); i++) {
                                 jsonObject = jsonArray.getJSONObject(i);
-                                String estado = jsonObject.getString("estado");
                                 String id_municipio = jsonObject.getString("id_municipio");
                                 int asociados = jsonObject.getInt("tiene_asociados");
                                 int esAsociado = jsonObject.getInt("es_asociado");
@@ -278,8 +277,10 @@ public class ListaAddAsociadoFragment extends Fragment {
                                 if (id_municipio.equals(id_muni) && (asociados == 0) && (esAsociado == 0) && (!id.equals(id_reclamo_original)))
                                 {
                                         //String usuario = jsonObject.getString("id_usuario");
+                                        String estado = jsonObject.getString("estado");
                                         String username = jsonObject.getString("username");
-                                        String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
+                                        String cantSuscriptos = jsonObject.getString("username");
+                                        //String cantSuscriptos = "0"; //getSubscripcionesReclamo(id);
                                         String dec = jsonObject.getString("foto");
                                         Bitmap foto = downloadImage(dec);
                                         String fecha = jsonObject.getString("fecha");
@@ -291,10 +292,9 @@ public class ListaAddAsociadoFragment extends Fragment {
                                         String municipalidad = jsonObject.getString("municipalidad");
                                         String descripcion = jsonObject.getString("descripcion");
                                         String mail = jsonObject.getString("email");
-
                                         Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
-                                        listaReclamosAsociables.add(reclamo);
+                                                latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), asociados, esAsociado);//(fecha, "motivo", "descripcion", R.drawable.camera, R.drawable.camera);
+                                        listaReclamosAsociables.add(reclamo); //cantSuscriptos,
                                 }
                             }
                         }
@@ -335,7 +335,7 @@ public class ListaAddAsociadoFragment extends Fragment {
                         String idreclamoAasociar = listaReclamosAsociables.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
                         int posicion = recyclerViewReclamos.getChildAdapterPosition(view);
                         confirmDialog(idreclamoAasociar, posicion, adapter);
-                        adapter.notifyDataSetChanged();
+                        //adapter.notifyDataSetChanged();
                     }
                 });
             }

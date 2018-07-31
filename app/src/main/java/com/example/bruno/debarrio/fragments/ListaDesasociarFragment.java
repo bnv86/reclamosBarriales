@@ -418,8 +418,8 @@ public class ListaDesasociarFragment extends Fragment {
                                     String descripcion = jsonObject.getString("descripcion");
                                     String mail = jsonObject.getString("email");
                                     Reclamo reclamo = new Reclamo(id.toString(), nombreCategoria.toString(), username.toString(), estado.toString(), fecha.toString(), foto, foto,
-                                            latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), cantSuscriptos, asociados, esAsociado);
-                                    listaReclamosAsociados.add(reclamo);
+                                            latitud.toString(), longitud.toString(), municipalidad.toString(), descripcion.toString(), mail.toString(), asociados, esAsociado);
+                                    listaReclamosAsociados.add(reclamo); //cantSuscriptos,
                                 }
                             }
                         }
@@ -457,7 +457,7 @@ public class ListaDesasociarFragment extends Fragment {
                         String idreclamoADesasociar = listaReclamosAsociados.get(recyclerViewReclamos.getChildAdapterPosition(view)).getId();
                         int posicion = recyclerViewReclamos.getChildAdapterPosition(view);
                         confirmDialog(idreclamoADesasociar, posicion, adapter);
-                        adapter.notifyDataSetChanged();
+                        //adapter.notifyDataSetChanged();
                     }
                 });
                 //pDialog2.dismiss();
