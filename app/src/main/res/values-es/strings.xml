@@ -144,11 +144,11 @@
     <string name="ingrese_comentario">Ingrese un comentario...</string>
     <string name="actualice_estado">Actualice el estado:</string>
     <string name="tomar_foto">Tome una foto</string>
-    <string name="enviar_publicacion">ENVIAR PUBLICACIÓN</string>
+    <string name="enviar_publicacion">SUBIR PUBLICACIÓN</string>
     <string name="str_categoria">Categoria</string>
     <string name="str_muni">Municipalidad</string>
     <string name="str_descripcion">Descripcion</string>
-    <string name="str_ver_publicaciones">VER PUBLICACIONES</string>
+    <string name="str_ver_publicaciones">VER PUBLICACIONES DEL RECLAMO</string>
     <string name="str_publicar">PUBLICAR</string>
     <string name="str_add_asociado">Agregar reclamo asociado</string>
     <string name="str_desasociar">Desasociar</string>

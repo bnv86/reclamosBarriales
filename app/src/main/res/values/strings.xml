@@ -140,12 +140,12 @@
     <string name="ingrese_comentario">Enter a comment...</string>
     <string name="actualice_estado">Update status: </string>
     <string name="tomar_foto">Take a photo</string>
-    <string name="enviar_publicacion">Send publication</string>
+    <string name="enviar_publicacion">UPLOAD PUBLICATION</string>
     <string name="str_categoria">Category</string>
     <string name="str_muni">Municipality</string>
     <string name="str_descripcion">Description</string>
-    <string name="str_ver_publicaciones">See posts</string>
-    <string name="str_publicar">To post</string>
+    <string name="str_ver_publicaciones">SEE POSTS</string>
+    <string name="str_publicar">TO POST</string>
     <string name="str_add_asociado">Add associated claim</string>
     <string name="str_desasociar">Disassociate</string>
     <string name="str_buscar">SEARCH</string>

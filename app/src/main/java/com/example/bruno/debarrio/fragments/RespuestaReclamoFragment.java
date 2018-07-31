@@ -133,15 +133,15 @@ public class RespuestaReclamoFragment extends Fragment {
 
     public String getStringImagen(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        if (bmp == null){
-            return null;
-        }
-        else{
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] imageBytes = baos.toByteArray();
-            String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-            return encodedImage;
-        }
+        //if (bmp == null){
+        //    return null;
+        //}
+        //else{
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+        //}
     }
 
     @Override
@@ -242,18 +242,14 @@ public class RespuestaReclamoFragment extends Fragment {
                     Toast.makeText(getContext(),"Completa todos los campos, por favor!", Toast.LENGTH_LONG).show();
                 }*/
 
-                //if(bitmap == null){
-                //    Toast.makeText(getContext(),"Olvidaste tomar una foto!", Toast.LENGTH_LONG).show();
-                //}
                 if(coment == null || coment.isEmpty() || coment == ""){
                     Toast.makeText(getContext(),getResources().getString(R.string.debe_escribir_comentario), Toast.LENGTH_LONG).show();
                     //AlertDialog.Builder alertBuilder2 = new AlertDialog.Builder(getContext());
                     //alertBuilder2.setMessage("Debe completar el campo 'Comentario'").setNegativeButton("Por favor", null).create().show();
                 }
-                //else if (bitmap == null){
-                //    Toast.makeText(getContext(),getResources().getString(R.string.debe_tomar_foto), Toast.LENGTH_LONG).show();
-                    //Toast.makeText(getContext(), "no tomó una foto", Toast.LENGTH_LONG).show();
-                //}
+                else if (bitmap == null){
+                    Toast.makeText(getContext(),getResources().getString(R.string.debe_tomar_foto), Toast.LENGTH_LONG).show();
+                }
 
                 else {
                     SharedPreferences prefSpinner = getContext().getSharedPreferences("spinner", getActivity().MODE_PRIVATE);
@@ -273,9 +269,7 @@ public class RespuestaReclamoFragment extends Fragment {
         final SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //iso8601Format
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion",getActivity().getApplication().MODE_PRIVATE);
         final String usuario = sharedpreferences.getString("username","");
-        //final String estadoFinal = estado;
         //final String estadoFinal = pos;
-        //final String foto = getStringImagen(bitmap);
 
         //Muestro la carga del progreso
         final ProgressDialog loading = ProgressDialog.show(getActivity(),getResources().getString(R.string.str_actualizando),getResources().getString(R.string.str_espere),false,false); //getActivity()
@@ -290,11 +284,8 @@ public class RespuestaReclamoFragment extends Fragment {
                         Toast.makeText(getActivity(), getResources().getString(R.string.publicacion_subida) + " " + usuario + "!", Toast.LENGTH_LONG).show();
                         editextComentario.setText(null);
                         imagenFoto.setImageBitmap(null);
-
-
+                        //imagenFoto = getView().findViewById(R.id.imagen_para_foto);
                         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-                        //Intent intentVer = new Intent(getActivity(), MainTabbedActivity.class);
-                        //getActivity().startActivity(intentVer);
                     }
                 },
                 new Response.ErrorListener() {
@@ -325,7 +316,7 @@ public class RespuestaReclamoFragment extends Fragment {
                 params.put(KEY_ID_USUARIO, id_usuario);
                 params.put(KEY_ID_ESTADO, pos);
                 params.put(KEY_FECHA, fecha.format(new Date()));
-
+                /*
                 if (bitmap != null){
                     //String foto = getStringImagen(bitmap);
                     params.put(KEY_IMAGEN, foto);
@@ -335,16 +326,8 @@ public class RespuestaReclamoFragment extends Fragment {
                     //String foto = null;
                     params.put(KEY_IMAGEN, null);
                     bitmap = null;
-                }
-                //params.put(KEY_IMAGEN, foto);
-
-                /*
-                if (foto != null){
-                    params.put(KEY_IMAGEN, foto);
-                }
-                if (foto == null){
-                    params.put(KEY_IMAGEN, null);
                 }*/
+                params.put(KEY_IMAGEN, foto);
                 params.put(KEY_COMENTARIO, comentario);
 
                 //Parámetros de retorno
@@ -359,24 +342,6 @@ public class RespuestaReclamoFragment extends Fragment {
     }
 
     public void actualizarEstado(final String pos){
-        /*
-        String estado = "";
-        //if(pos == getResources().getString(R.string.str_abierto)){
-        if(pos == "Abierto"){
-            estado = "1";
-        }
-        //if(pos == getResources().getString(R.string.str_encurso)){
-        if(pos == "En curso"){
-            estado = "2";
-        }
-        //if(pos == getResources().getString(R.string.str_resuelto)){
-        if(pos == "Resuelto"){
-            estado = "3";
-        }
-        //if(pos == getResources().getString(R.string.str_reabierto)){
-        if(pos == "Re-abierto"){
-            estado = "4";
-        }*/
         SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", getActivity().MODE_PRIVATE);
         final String id_usuario = prefReclamo.getString("id_usuario","");
 
@@ -391,9 +356,6 @@ public class RespuestaReclamoFragment extends Fragment {
             EnviarMail enviomail = new EnviarMail(getContext(), mailReclamo, "AppReclamosBarriales", id_usuario.toString() + " " + getResources().getString(R.string.reclamo_resuelto));
             enviomail.execute();
         }
-
-        //final String estadoFinal = estado;
-        //final String estadoFinal = pos;
         //SharedPreferences prefReclamo = getContext().getSharedPreferences("reclamo", MODE_PRIVATE);
         final String id = prefReclamo.getString("id_reclamo","");
         //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
