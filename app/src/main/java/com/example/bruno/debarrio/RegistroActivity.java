@@ -4,10 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
@@ -15,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +41,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -43,7 +52,10 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     TextView textviewRegresar;
     EditText editNombre, editUsuario, editPassword, editTelefono, editEmail, editApellido, editMunicipio;
-    Button botonRegistrar, botonFoto;
+    Button botonRegistrar, botonElegirFoto;
+    ImageView imagenFoto;
+    Bitmap bitmap;
+    public int PICK_IMAGE_REQUEST = 1;
     String REQUEST_MUNICIPIO = "https://momentary-electrode.000webhostapp.com/getMunicipio.php";
     ArrayList<String> listaMunis;
     ArrayList<Municipio> listaMunicipio;
@@ -74,43 +86,26 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         editUsuario = findViewById(R.id.edit_usuario_registro);
         editPassword = findViewById(R.id.edit_password_registro);
 
+        imagenFoto = findViewById(R.id.imagen_para_foto);
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.camera);
+
+        botonElegirFoto = findViewById(R.id.boton_foto_registro);
+        botonElegirFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFileChooser();
+                //llamarIntentFotoElegir();
+                //llamarIntentFoto();
+            }
+        });
+
         if (validarEmail("")) {
             editEmail.setError(getResources().getString(R.string.email_incorrecto));
         }
-        //new GetHttpResponse(getApplicationContext()).execute();
-        //GetHttpResponseUsuarios getHttpResponseUsuarios = new GetHttpResponseUsuarios(getApplicationContext());
-        //getHttpResponseUsuarios.execute();
         String[] munis = {"Berazategui","Quilmes", "Florencio Varela","La Plata", "San Martin"};
         Spinner spinnerMuni = (Spinner) findViewById(R.id.spinner_municipio);
         spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, munis));
-
-        /*
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Gson gson = new Gson(); //Instancia Gson.
-        //Obtiene datos (json)
-        String objetos = prefs.getString("listaMuni", "");
-        //Convierte json  a JsonArray.
-        String json = new Gson().toJson(objetos);
-        JSONArray jsonArray = new JSONArray(json);
-        JSONArray jsonArray = null;
-        //Convierte JSONArray a Lista de Objetos!
-        Type listType = new TypeToken<ArrayList<JsonArray>>(){}.getType();
-        List<JsonArray> listObjetos = new Gson().fromJson(jsonArray, listType);
-
-        // Recuperamos el string guardado
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
-        //String savedList = prefs.getString("listaMunis");
-        // Esta línea sirve para extraer el tipo correspondiente al listado, necesario para que Gson sepa a qué tiene que convertir
-        //Type type = new TypeToken<List<JsonObject>>(){}.getType();
-        // Convertimos el string en el listado
-        //List<JsonObject> objects = gson.fromJson(savedList, type);
-
-        //comboAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item, listaMunis);
-        //String[] munis = {};
-        //Spinner spinnerMuni = (Spinner) findViewById(R.id.spinner_municipio);
-        //llenarSpinner(munis);
-        //spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, listaMunis));
-        //spinnerMuni.setAdapter(comboAdapter);*/
         spinnerMuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -192,6 +187,21 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Seleccione una foto"), PICK_IMAGE_REQUEST);
+    }
+
+    public String getStringImagen(Bitmap bmp){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
     private boolean validarEmail(String email){
         return  android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         //Pattern pattern = Patterns.EMAIL_ADDRESS;
@@ -201,6 +211,8 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     public void PostRegister(final int id_rol, final int id_municipio, final String name, final String apellido, final String email, final int phone,
                              final  String municipalidad, final String username, final String password){
         final ProgressDialog loading = show(RegistroActivity.this, getResources().getString(R.string.str_espere),"",true,false);
+        String foto = getStringImagen(bitmap);
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -228,7 +240,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                 }
             }
         };
-        PedidoDeRegistro pedido = new PedidoDeRegistro(id_rol, id_municipio, name, apellido, email, phone, municipalidad, username, password, responseListener);
+        PedidoDeRegistro pedido = new PedidoDeRegistro(id_rol, id_municipio, name, apellido, email, phone, municipalidad, foto, username, password, responseListener);
         RequestQueue queue = Volley.newRequestQueue(RegistroActivity.this);
         queue.add(pedido);
     }
@@ -355,6 +367,24 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //si se elige una imagen de la galeria
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri filePath = data.getData();
+            try {
+                //obtener el mapa de bits de la galería
+                bitmap = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), filePath);
+                //se setea la foto en lugar de la imagenView predeterminada
+                imagenFoto.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void AvisoNoRegistro() {
         Toast.makeText(getApplicationContext(), "usuario en uso", Toast.LENGTH_LONG).show();
     }
@@ -428,58 +458,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
                                 listaMunicipio.add(muni);
                                 listaMunis.add(nombre);
                             }
-                            //Suponiendo tener un Listado de objetos:
-                            //List<JsonObject> nombre;
-                            //Crea un json a partir de la lista de objetos.
-                            //Gson gson = new Gson();
-                            //String jsonObjetos = gson.toJson(listaMunis);
-                            //Crea preferencia
-                            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            //SharedPreferences.Editor editor = prefs.edit();
-                            //Guarda lista de objetos, en formato .json
-                            //editor.putString("listaMuni", jsonObjetos);
-                            //editor.commit();
-
-                            /*
-                            Gson gson = new Gson();
-                            String jsonList = gson.toJson(listaMunis);
-
-                            //Crea preferencia
-                            SharedPreferences prefs = getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("listaMunis", jsonList);
-                            editor.commit();*/
-                            //Guarda lista de objetos, en formato .json
-                            /*SharedPreferences.Editor editor = prefs.edit();
-                            editor.putString("listaMunis", listaMunis);
-                            editor.commit();
-                            //prefs.putString("listaMunis", listaMunis);
-                            prefs.commit();*/
-                            //spinnerMuni.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, listaMunis));
-
-                            //comboAdapter = new ArrayAdapter<>(getApplicationContext(),android.R.layout.simple_spinner_item, listaMunis);
-                            //spinnerMuni.setAdapter(comboAdapter);
-                            /*
-                            spinnerMuni.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-                                @Override
-                                public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id)
-                                {
-                                    String posicion = (String) adapterView.getItemAtPosition(pos);
-                                    //Toast.makeText(adapterView.getContext(),(String) adapterView.getItemAtPosition(pos), Toast.LENGTH_SHORT).show();
-                                    //llenarlistaEstados(posicion);
-                                    String id_muni = spinnerMuni.getSelectedItem().toString();
-                                    SharedPreferences prefMuni = getApplicationContext().getSharedPreferences("municipio", getApplicationContext().MODE_PRIVATE);
-                                    SharedPreferences.Editor editor1 = prefMuni.edit();
-                                    editor1.putString("id_municipio",id_muni);
-                                    editor1.commit();
-
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent)
-                                {    }
-                            });*/
                         }
                         catch (JSONException e) {
                             // TODO Auto-generated catch block

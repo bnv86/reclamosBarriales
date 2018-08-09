@@ -8,6 +8,37 @@
     android:background="@drawable/gradient"
     tools:context="com.example.bruno.debarrio.RegistroActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textview_regresar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/register_scroll_form"
+            android:layout_marginBottom="0dp"
+            android:gravity="left"
+            android:paddingLeft="@dimen/text_margin"
+            android:text="@string/str_regresar"
+            android:textColor="@color/colorOrange"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="@string/str_registrar_titulo"
+            android:textColor="@color/colorBlanco"
+            android:textColorHint="@color/colorGris"
+            android:textSize="24sp" />
+
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/register_scroll_form"
@@ -15,48 +46,20 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="70dp">
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/register_form"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <TextView
-                android:id="@+id/textview_regresar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:paddingLeft="@dimen/text_margin"
-                android:text="@string/str_regresar"
-                android:textColor="@color/colorOrange"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="59dp"
-                android:paddingTop="@dimen/text_margin"
-                android:text="@string/str_registrar_titulo"
-                android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                android:textSize="28sp"
-                app:layout_constraintBottom_toTopOf="@+id/edit_nombre_registro"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"  >
 
             <EditText
                 android:id="@+id/edit_usuario_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
@@ -65,10 +68,7 @@
                 android:hint="@string/usuario_nombre_user"
                 android:inputType="text"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/edit_password_registro"
-                app:layout_constraintEnd_toEndOf="@+id/spinner_municipio"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_municipio" />
+                android:textColorHint="@color/colorGris" />
 
             <EditText
                 android:id="@+id/edit_password_registro"
@@ -79,14 +79,12 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginRight="15dp"
+                android:layout_marginTop="0dp"
                 android:background="#11000000"
                 android:hint="@string/usuario_password"
                 android:inputType="textPassword"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/boton_foto_registro"
-                app:layout_constraintEnd_toEndOf="@+id/boton_foto_registro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_usuario_registro" />
+                android:textColorHint="@color/colorGris" />
 
             <EditText
                 android:id="@+id/edit_nombre_registro"
@@ -99,10 +97,7 @@
                 android:hint="@string/usuario_nombre"
                 android:inputType="text"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/edit_apellido_registro"
-                app:layout_constraintStart_toStartOf="@+id/edit_apellido_registro"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                android:textColorHint="@color/colorGris" />
 
             <EditText
                 android:id="@+id/edit_apellido_registro"
@@ -117,12 +112,7 @@
                 android:hint="@string/usuario_apellido"
                 android:inputType="text"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/edit_email_registro"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_nombre_registro" />
+                android:textColorHint="@color/colorGris" />
 
             <EditText
                 android:id="@+id/edit_email_registro"
@@ -137,10 +127,7 @@
                 android:hint="@string/usuario_email"
                 android:inputType="text"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/edit_telefono_registro"
-                app:layout_constraintStart_toStartOf="@+id/edit_telefono_registro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_apellido_registro" />
+                android:textColorHint="@color/colorGris" />
 
             <EditText
                 android:id="@+id/edit_telefono_registro"
@@ -155,10 +142,7 @@
                 android:hint="@string/usuario_telefono"
                 android:inputType="number"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/edit_municipio_registro"
-                app:layout_constraintEnd_toEndOf="@+id/edit_apellido_registro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_email_registro" />
+                android:textColorHint="@color/colorGris" />
 
             <TextView
                 android:id="@+id/edit_municipio_registro"
@@ -171,91 +155,58 @@
                 android:layout_marginRight="15dp"
                 android:text="@string/str_muni"
                 android:textColor="@color/colorGris"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/spinner_municipio"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_telefono_registro" />
-
-            <!--
-            <Spinner
-                android:id="@+id/spinner_municipio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginRight="15dp"
-                android:textSize="25sp"
-                android:popupBackground="@color/colorDark"
-                android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"
-                app:layout_constraintStart_toStartOf="@+id/edit_telefono_registro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_municipio_registro" />
-                -->
-
-            <!--
-            <Spinner
-                android:id="@+id/spinner_municipio"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/text_margin"
-                android:textColor="@color/colorBlanco"
-                android:textSize="25sp"
-                android:padding="3dp"
-                app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"
-                app:layout_constraintStart_toStartOf="@+id/edit_telefono_registro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_municipio_registro"
-                android:popupBackground="@color/colorBlue" />
-                -->
+                android:textSize="18sp" />
 
             <Spinner
                 android:id="@+id/spinner_municipio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginRight="15dp"
-                android:textSize="25sp"
-                android:popupBackground="#232323"
-                app:layout_constraintBottom_toTopOf="@+id/edit_usuario_registro"
-                app:layout_constraintStart_toStartOf="@+id/edit_telefono_registro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_municipio_registro" />
+                android:textSize="26sp"
+                android:popupBackground="#232323" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/boton_foto_registro"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginBottom="15dp"
-                android:background="@color/colorLightBlue"
-                android:text="@string/button_foto"
-                app:layout_constraintBottom_toTopOf="@+id/boton_registrar_registro"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/edit_password_registro" />
+                <ImageView
+                    android:id="@+id/imagen_para_foto"
+                    android:layout_width="120dp"
+                    android:layout_height="100dp"
+                    android:layout_above="@+id/boton_foto_registro"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/camera" />
 
-            <Button
-                android:id="@+id/boton_registrar_registro"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:layout_marginBottom="15dp"
-                android:background="@color/colorLightBlue"
-                android:text="@string/button_registrar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/boton_foto_registro" />
+                <Button
+                    android:id="@+id/boton_foto_registro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorBlanco"
+                    android:background="@color/colorOrange"
+                    android:text="@string/button_foto" />
+
+                <Button
+                    android:id="@+id/boton_registrar_registro"
+                    android:layout_width="150dp"
+                    android:layout_height="45dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/colorBlanco"
+                    android:background="@color/colorLightBlue"
+                    android:text="@string/button_registrar" />
+
+            </LinearLayout>
+        </LinearLayout>
 
             <!-- android:layout_marginTop="@dimen/text_margin" -->
-
-        </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
 </RelativeLayout>

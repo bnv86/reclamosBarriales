@@ -4,6 +4,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.Response;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -20,7 +22,7 @@ public class PedidoDeRegistro extends StringRequest {
     private static final String REGISTER_REQUEST_URL="https://momentary-electrode.000webhostapp.com/RegisterMunicipal.php";
 
     private Map<String, String> params;
-    public PedidoDeRegistro (int id_rol, int id_municipio, String name, String apellido, String email, int telefono, String municipalidad, String username, String password, Response.Listener<String> listener) {
+    public PedidoDeRegistro (int id_rol, int id_municipio, String name, String apellido, String email, int telefono, String municipalidad, String foto, String username, String password, Response.Listener<String> listener) {
         super(Method.POST, REGISTER_REQUEST_URL, listener, null);
         params = new HashMap<>();
         //parametros.put("id_usuario", idUsuario);
@@ -31,6 +33,7 @@ public class PedidoDeRegistro extends StringRequest {
         params.put("email", email);
         params.put("telefono", telefono+"");
         params.put("municipalidad", municipalidad);
+        params.put("foto", foto);
         params.put("username", username);
         params.put("password", password);
     }
