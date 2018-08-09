@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio;
 
 //import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
@@ -26,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.Locale;
 
+import static android.app.ProgressDialog.show;
+
 /**
  * A login screen that offers login via email/password.
  */
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
     TextView textviewRegistrar;
     EditText editUsuario, editPassword;
     CardView botonLogin;
+    ProgressDialog pDialog;
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -60,6 +64,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,7 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                 //final String idUsuario
                 final String username = editUsuario.getText().toString();
                 final String password = editPassword.getText().toString();
+                final ProgressDialog loading = show(LoginActivity.this, getResources().getString(R.string.str_espere),"",true,false); //getActivity()
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -112,16 +118,14 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                 String username = jsonResponse.getString("username");
                                 String id_municipio = jsonResponse.getString("id_municipio");
                                 String password = jsonResponse.getString("password");
-
                                 String id_rol= jsonResponse.getString("id_rol");
 
                                 if(id_rol.equals("2")) {
-
+                                    loading.dismiss();
                                     Intent intent = new Intent(getApplicationContext(), MainTabbedActivity.class); //LoginActivity.this
                                     //intent.setFlag(Intent.FLAG_ACTIVITY_CLEAR_TOP); // <- Aquí :)
                                     //startActivity(intent);
                                     //finish();
-
                                     startActivity(new Intent(getBaseContext(), MainTabbedActivity.class)
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
                                     finish(); //de esta manera no se vuelve al login haciendo back
@@ -137,14 +141,17 @@ public class LoginActivity extends AppCompatActivity { //implements LoaderCallba
                                     LoginActivity.this.startActivity(intent);
                                 }
                                 else {
+                                    loading.dismiss();
                                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.rol_incorrecto), Toast.LENGTH_LONG).show();
                                 }
                             } else {
+                                loading.dismiss();
                                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
                                 alertBuilder.setMessage(getResources().getString(R.string.login_error)).setNegativeButton(getResources().getString(R.string.str_reintente), null).create().show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            loading.dismiss();
                             Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error), Toast.LENGTH_LONG).show();
                         }
                     }

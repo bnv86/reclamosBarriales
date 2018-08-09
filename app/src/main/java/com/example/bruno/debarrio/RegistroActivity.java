@@ -200,6 +200,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
     public void PostRegister(final int id_rol, final int id_municipio, final String name, final String apellido, final String email, final int phone,
                              final  String municipalidad, final String username, final String password){
+        final ProgressDialog loading = show(RegistroActivity.this, getResources().getString(R.string.str_espere),"",true,false);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -209,15 +210,21 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
                     //if usuario ya existe, mostrar mensaje
                     if (success) {
+                        loading.dismiss();
                         Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
+                        startActivity(new Intent(getBaseContext(), MainTabbedActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                        finish(); //de esta manera no se vuelve al register haciendo back en main tabbed, pero vuelve al login
                         RegistroActivity.this.startActivity(intent);
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.str_user) + " '" + username.toString() + "' " + getResources().getString(R.string.str_registrado) + "!", Toast.LENGTH_LONG).show();
                     } else {
+                        loading.dismiss();
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(RegistroActivity.this);
                         alertBuilder.setMessage(getResources().getString(R.string.server_error)).setNegativeButton(getResources().getString(R.string.str_reintente), null).create().show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    loading.dismiss();
                 }
             }
         };
