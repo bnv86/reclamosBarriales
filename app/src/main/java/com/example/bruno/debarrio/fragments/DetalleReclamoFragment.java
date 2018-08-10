@@ -858,9 +858,6 @@ public class DetalleReclamoFragment extends Fragment{
         }
     }
 
-
-
-
     private void llamarIntentMapa() { //pasa a un activity o fragment map
         Intent intentMap = new Intent(getActivity(), MapActivity.class);
         startActivity(intentMap);

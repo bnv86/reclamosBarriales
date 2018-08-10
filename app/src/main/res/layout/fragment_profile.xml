@@ -19,7 +19,6 @@
             android:paddingBottom="40dp"
             android:paddingTop="@dimen/text_margin">
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -29,7 +28,7 @@
                 android:text="@string/perfil_usuario"
                 android:textColor="@color/colorBlanco"
                 android:textColorHint="@color/colorGris"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:layout_gravity="center"/>
 
             <EditText
@@ -100,6 +99,7 @@
                 android:textColor="@color/colorBlanco"
                 android:textColorHint="@color/colorGris"/>
 
+            <!--
             <EditText
                 android:id="@+id/edit_direccion_perfil"
                 android:layout_gravity="left"
@@ -116,6 +116,7 @@
                 android:background="#11000000"
                 android:textColor="@color/colorBlanco"
                 android:textColorHint="@color/colorGris"/>
+                -->
 
             <EditText
                 android:id="@+id/edit_usuario_perfil"
@@ -149,14 +150,14 @@
                 android:layout_marginRight="15dp"
                 android:background="#11000000"
                 android:textColor="@color/colorBlanco"
-                android:textColorHint="@color/colorGris"
-                />
+                android:textColorHint="@color/colorGris" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
+                    android:id="@+id/imagen_para_foto"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_margin="10dp"
