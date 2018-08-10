@@ -77,6 +77,7 @@ public class ProfileFragment extends Fragment {
     boolean flag1 = false;
     ArrayList<Perfil> listaDatosUser;
     ArrayList<String> lista;
+    ArrayList<Bitmap> listaFoto;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -235,6 +236,7 @@ public class ProfileFragment extends Fragment {
                         try {
                             //listaDatosUser = new ArrayList<>();
                             lista = new ArrayList<>();
+                            listaFoto = new ArrayList<>();
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
                             SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion", getActivity().getApplication().MODE_PRIVATE);
@@ -249,7 +251,8 @@ public class ProfileFragment extends Fragment {
                                     String apellido = jsonObject.getString("apellido");
                                     String username = jsonObject.getString("username");
                                     String password = jsonObject.getString("password");
-                                    //String foto = jsonObject.getString("foto");
+                                    String dec = jsonObject.getString("foto");
+                                    Bitmap foto = downloadImage(dec);
                                     String email = jsonObject.getString("email");
                                     String telefono = jsonObject.getString("telefono");
                                     //Perfil perfil = new Perfil(id_usuario.toString(), nombre.toString(), apellido.toString(), email.toString(), telefono.toString(),
@@ -261,6 +264,7 @@ public class ProfileFragment extends Fragment {
                                     lista.add(password.toString());
                                     lista.add(email.toString());
                                     lista.add(telefono.toString());
+                                    listaFoto.add(foto);
                                     break;
                                 }
                             }
@@ -294,12 +298,13 @@ public class ProfileFragment extends Fragment {
                 editTelefono.setText(lista.get(3).toString(), TextView.BufferType.EDITABLE);
                 editUsuario.setText(lista.get(4).toString(), TextView.BufferType.EDITABLE);
                 editPassword.setText(lista.get(5).toString(), TextView.BufferType.EDITABLE);
-                //imagenFoto.setImageBitmap(foto, TextView.BufferType.EDITABLE);
-
-                //botonListaRespuestas.setVisibility(View.VISIBLE);
+                imagenFoto.setImageBitmap(listaFoto.get(0));
+                //String fot = lista.get(6).toString();
+                //Bitmap foto = downloadImage(fot);
+                //imagenFoto.setImageBitmap(foto);
             }
             else{
-                //botonListaRespuestas.setVisibility(View.GONE);
+
             }
         }
     }
