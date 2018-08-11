@@ -81,6 +81,7 @@ public class ProfileFragment extends Fragment {
     boolean flag1 = false;
     ArrayList<Perfil> listaDatosUser;
     ArrayList<String> lista;
+    ArrayList<String> listaInicio;
     ArrayList<String> listaActualizar;
     ArrayList<Bitmap> listaFoto;
     private String KEY_NOMBRE = "nombre";
@@ -129,7 +130,7 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View vista = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        listaInicio = new ArrayList<>();
         editNombre = vista.findViewById(R.id.edit_nombre_perfil);
         editApellido = vista.findViewById(R.id.edit_apellido_perfil);
         editEmail = vista.findViewById(R.id.edit_email_perfil);
@@ -155,13 +156,25 @@ public class ProfileFragment extends Fragment {
         }
 
         botonActualizar = vista.findViewById(R.id.boton_actualizar_perfil);
-        /*
         botonActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actualizarPerfil();
+                String nombreInicio = editNombre.getText().toString(); //editNombre.getEditableText().toString()
+                String apellidoInicio = editApellido.getText().toString();
+                String emailInicio = editEmail.getText().toString();
+                String telefonoInicio = editTelefono.getText().toString();
+                String usernameInicio = editUsuario.getText().toString();
+                String passwordInicio = editPassword.getText().toString();
+
+                listaActualizar.add(nombreInicio);
+                listaActualizar.add(apellidoInicio);
+                listaActualizar.add(emailInicio);
+                listaActualizar.add(telefonoInicio);
+                listaActualizar.add(usernameInicio);
+                listaActualizar.add(passwordInicio);
+                actualizarPerfil(listaInicio);
             }
-        });*/
+        });
         GetHttpResponseDatosUser getHttpResponseDatosUser = new GetHttpResponseDatosUser(getContext());
         getHttpResponseDatosUser.execute();
 
@@ -209,12 +222,15 @@ public class ProfileFragment extends Fragment {
     public void actualizarPerfil(ArrayList<String> listaUpdate){
         SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion", getActivity().getApplication().MODE_PRIVATE);
         final String id = sharedpreferences.getString("id_usuario","");
-        final String nombre = listaActualizar.get(0).toString();
-        final String apellido = listaActualizar.get(1).toString();
-        final String email = listaActualizar.get(2).toString();
-        //final String telefono = lista.get(3).toString();
-        final String username = listaActualizar.get(3).toString();
-        final String password = listaActualizar.get(4).toString();
+        final String nombre = listaUpdate.get(0).toString();
+        final String apellido = listaUpdate.get(1).toString();
+        final String email = listaUpdate.get(2).toString();
+        String telefono = listaUpdate.get(3).toString().trim();
+        //String telefono = t.getText().toString().trim();
+        //final int phone = !telefono.equals("") ? Integer.parseInt(telefono) : 0;
+        final int p = Integer.parseInt(telefono);
+        final String username = listaUpdate.get(4).toString();
+        final String password = listaUpdate.get(5).toString();
         //String foto = lista.get(0).toString();
 
         //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
@@ -244,7 +260,8 @@ public class ProfileFragment extends Fragment {
                 params.put(KEY_NOMBRE, nombre);
                 params.put(KEY_APELLIDO, apellido);
                 params.put(KEY_EMAIL, email);
-                //params.put(KEY_TELEFONO, telefono);
+                //params.put(KEY_TELEFONO, phone+"");
+                params.put(KEY_TELEFONO, p+"");
                 //params.put(KEY_FOTO, foto);
                 params.put(KEY_USERNAME, username);
                 params.put(KEY_PASSWORD, password);
@@ -340,10 +357,10 @@ public class ProfileFragment extends Fragment {
                                     //listaDatosUser.add(perfil);
                                     lista.add(nombre.toString());
                                     lista.add(apellido.toString());
-                                    lista.add(username.toString());
-                                    lista.add(password.toString());
                                     lista.add(email.toString());
                                     lista.add(telefono.toString());
+                                    lista.add(username.toString());
+                                    lista.add(password.toString());
                                     listaFoto.add(foto);
                                     break;
                                 }
@@ -379,25 +396,28 @@ public class ProfileFragment extends Fragment {
                 editPassword.setText(lista.get(5).toString(), TextView.BufferType.EDITABLE);
                 imagenFoto.setImageBitmap(listaFoto.get(0));
 
+
                 listaActualizar = new ArrayList<>();
 
                 botonActualizar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String nombreActualizado = editNombre.getEditableText().toString();
+                        String nombreActualizado = editNombre.getText().toString(); //editNombre.getEditableText().toString()
                         String apellidoActualizado = editApellido.getText().toString();
                         String emailActualizado = editEmail.getText().toString();
-                        //String telefonoActualizado = editTelefono.getText().toString();
+                        String telefonoActualizado = editTelefono.getText().toString();
                         String usernameActualizado = editUsuario.getText().toString();
                         String passwordActualizado = editPassword.getText().toString();
 
                         listaActualizar.add(nombreActualizado);
                         listaActualizar.add(apellidoActualizado);
                         listaActualizar.add(emailActualizado);
-                        //listaActualizar.add(telefonoActualizado);
+                        listaActualizar.add(telefonoActualizado);
                         listaActualizar.add(usernameActualizado);
                         listaActualizar.add(passwordActualizado);
                         actualizarPerfil(listaActualizar);
+                        lista.clear();
+                        listaActualizar.clear();
                     }
                 });
                 //String fot = lista.get(6).toString();
