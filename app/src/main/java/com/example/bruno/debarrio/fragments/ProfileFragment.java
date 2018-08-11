@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.MainActivity2;
 import com.example.bruno.debarrio.R;
+import com.example.bruno.debarrio.entidades.EnviarMail;
 import com.example.bruno.debarrio.entidades.Perfil;
 
 import org.json.JSONArray;
@@ -45,6 +47,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 import static android.app.ProgressDialog.show;
@@ -77,7 +81,17 @@ public class ProfileFragment extends Fragment {
     boolean flag1 = false;
     ArrayList<Perfil> listaDatosUser;
     ArrayList<String> lista;
+    ArrayList<String> listaActualizar;
     ArrayList<Bitmap> listaFoto;
+    private String KEY_NOMBRE = "nombre";
+    private String KEY_APELLIDO = "apellido";
+    private String KEY_EMAIL = "email";
+    private String KEY_TELEFONO = "telefono";
+    private String KEY_FOTO = "foto";
+    private String KEY_USERNAME = "username";
+    private String KEY_PASSWORD = "password";
+    private String KEY_ID = "id";
+    String UPDATE_PROFILE = "https://momentary-electrode.000webhostapp.com/updateProfile.php";
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -128,6 +142,7 @@ public class ProfileFragment extends Fragment {
         Drawable drawable = res.getDrawable(R.drawable.camera);
 
         botonCambiarFoto = vista.findViewById(R.id.boton_foto_perfil);
+
         botonCambiarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,6 +153,15 @@ public class ProfileFragment extends Fragment {
         if (validarEmail("")) {
             editEmail.setError(getResources().getString(R.string.email_incorrecto));
         }
+
+        botonActualizar = vista.findViewById(R.id.boton_actualizar_perfil);
+        /*
+        botonActualizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                actualizarPerfil();
+            }
+        });*/
         GetHttpResponseDatosUser getHttpResponseDatosUser = new GetHttpResponseDatosUser(getContext());
         getHttpResponseDatosUser.execute();
 
@@ -162,8 +186,6 @@ public class ProfileFragment extends Fragment {
 
     private boolean validarEmail(String email){
         return  android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-        //Pattern pattern = Patterns.EMAIL_ADDRESS;
-        //return pattern.matcher(email).matches();
     }
 
     @Override
@@ -182,6 +204,59 @@ public class ProfileFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void actualizarPerfil(ArrayList<String> listaUpdate){
+        SharedPreferences sharedpreferences = getActivity().getSharedPreferences("sesion", getActivity().getApplication().MODE_PRIVATE);
+        final String id = sharedpreferences.getString("id_usuario","");
+        final String nombre = listaActualizar.get(0).toString();
+        final String apellido = listaActualizar.get(1).toString();
+        final String email = listaActualizar.get(2).toString();
+        //final String telefono = lista.get(3).toString();
+        final String username = listaActualizar.get(3).toString();
+        final String password = listaActualizar.get(4).toString();
+        //String foto = lista.get(0).toString();
+
+        //final ProgressDialog loading = ProgressDialog.show(getActivity(),"Actualizando...","Espere por favor...",false,false); //getActivity()
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPDATE_PROFILE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        //Descartar el diálogo de progreso
+                        //loading.dismiss();
+                        Toast.makeText(getActivity(), "PERFIL ACTUALIZADO! "+id, Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        //loading.dismiss();
+                        Toast.makeText(getActivity(), "NO SE ACTUALIZÓ...REINTENTE" , Toast.LENGTH_LONG).show();
+                    }
+                }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                //Creación de parámetros
+                Map<String,String> params = new Hashtable<String, String>();
+                //Agregando de parámetros
+                params.put(KEY_ID, id);
+                params.put(KEY_NOMBRE, nombre);
+                params.put(KEY_APELLIDO, apellido);
+                params.put(KEY_EMAIL, email);
+                //params.put(KEY_TELEFONO, telefono);
+                //params.put(KEY_FOTO, foto);
+                params.put(KEY_USERNAME, username);
+                params.put(KEY_PASSWORD, password);
+                //Parámetros de retorno
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Creación de una cola de solicitudes
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext()); //getActivity()
+        //Agregar solicitud a la cola
+        requestQueue.add(stringRequest);
     }
 
     public class  GetHttpResponseDatosUser extends AsyncTask<Void,Void,Void> {
@@ -297,13 +372,34 @@ public class ProfileFragment extends Fragment {
             //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
             if (lista != null){ //listaDatosUser
                 editNombre.setText(lista.get(0).toString(), TextView.BufferType.EDITABLE);
-
                 editApellido.setText(lista.get(1).toString(), TextView.BufferType.EDITABLE);
                 editEmail.setText(lista.get(2).toString(), TextView.BufferType.EDITABLE);
                 editTelefono.setText(lista.get(3).toString(), TextView.BufferType.EDITABLE);
                 editUsuario.setText(lista.get(4).toString(), TextView.BufferType.EDITABLE);
                 editPassword.setText(lista.get(5).toString(), TextView.BufferType.EDITABLE);
                 imagenFoto.setImageBitmap(listaFoto.get(0));
+
+                listaActualizar = new ArrayList<>();
+
+                botonActualizar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String nombreActualizado = editNombre.getEditableText().toString();
+                        String apellidoActualizado = editApellido.getText().toString();
+                        String emailActualizado = editEmail.getText().toString();
+                        //String telefonoActualizado = editTelefono.getText().toString();
+                        String usernameActualizado = editUsuario.getText().toString();
+                        String passwordActualizado = editPassword.getText().toString();
+
+                        listaActualizar.add(nombreActualizado);
+                        listaActualizar.add(apellidoActualizado);
+                        listaActualizar.add(emailActualizado);
+                        //listaActualizar.add(telefonoActualizado);
+                        listaActualizar.add(usernameActualizado);
+                        listaActualizar.add(passwordActualizado);
+                        actualizarPerfil(listaActualizar);
+                    }
+                });
                 //String fot = lista.get(6).toString();
                 //Bitmap foto = downloadImage(fot);
                 //imagenFoto.setImageBitmap(foto);
