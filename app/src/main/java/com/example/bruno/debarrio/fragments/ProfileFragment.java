@@ -255,6 +255,11 @@ public class ProfileFragment extends Fragment {
                                     Bitmap foto = downloadImage(dec);
                                     String email = jsonObject.getString("email");
                                     String telefono = jsonObject.getString("telefono");
+                                    SharedPreferences imagenUsuario = getActivity().getSharedPreferences("sesion", getActivity().getApplication().MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = imagenUsuario.edit();
+                                    editor.putString("foto_usuario", dec); //GUARDA LA IMAGEN PARA USAR EN APP BAR
+                                    editor.commit();
+
                                     //Perfil perfil = new Perfil(id_usuario.toString(), nombre.toString(), apellido.toString(), email.toString(), telefono.toString(),
                                     //        username.toString(), password.toString()); //foto.toString()
                                     //listaDatosUser.add(perfil);

@@ -1,10 +1,17 @@
 package com.example.bruno.debarrio;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -22,19 +29,40 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Respuesta;
 import com.example.bruno.debarrio.fragments.*;
 import com.example.bruno.debarrio.fragments.dummy.DummyContent;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.app.ProgressDialog.show;
+
 public class MainTabbedActivity extends AppCompatActivity implements ReclamosFragment.OnListFragmentInteractionListener, ListaReclamosFragment.OnFragmentInteractionListener,
-        DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.OnFragmentInteractionListener, ProfileFragment.OnFragmentInteractionListener, ComunicacionFragments{
+        DetalleReclamoFragment.OnFragmentInteractionListener, RespuestaReclamoFragment.OnFragmentInteractionListener,
+        ProfileFragment.OnFragmentInteractionListener, ListaEstadosFragment.OnFragmentInteractionListener, ComunicacionFragments{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -52,15 +80,19 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
     private ViewPager mViewPager;
     private Locale locale;
     private Configuration config = new Configuration();
-    ListaReclamosFragment listaReclamosFragment;
+    //ListaReclamosFragment listaReclamosFragment;
+    ListaEstadosFragment listaEstadosFragment;
     DetalleReclamoFragment detalleReclamoFragment;
-
+    ImageView imagenFoto;
+    Bitmap bitmap;
+    ArrayList<Bitmap> listaFoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tabbed);
-        listaReclamosFragment = new ListaReclamosFragment();
+        //listaReclamosFragment = new ListaReclamosFragment();
+        listaEstadosFragment = new ListaEstadosFragment();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,6 +109,20 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
 
+        imagenFoto = findViewById(R.id.imagen_appbar);
+        Resources res = getResources();
+        Drawable drawable = res.getDrawable(R.drawable.camera);
+
+        GetHttpResponseDatosUser getHttpResponseDatosUser = new GetHttpResponseDatosUser(getApplicationContext());
+        getHttpResponseDatosUser.execute();
+
+        /*
+        SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
+        String foto_usuario = sharedpreferences.getString("foto_usuario","");
+        Bitmap foto = downloadImage(foto_usuario);
+        imagenFoto.setImageBitmap(foto);*/
+
+
         /* boton flotante de correo
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +132,7 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
                         .setAction("Action", null).show();
             }
         });*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaReclamosFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaEstadosFragment).commit();
     }
 
     @Override
@@ -170,6 +216,47 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
+    }
+
+    public static Bitmap downloadImage(String url) {
+        Bitmap bitmap = null;
+        InputStream stream = null;
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inSampleSize = 1;
+
+        try {
+            stream = getHttpConnection(url);
+            bitmap = BitmapFactory.decodeStream(stream, null, bmOptions);
+            stream.close();
+        }
+        catch (IOException e1) {
+            e1.printStackTrace();
+            System.out.println("downloadImage"+ e1.toString());
+        }
+        return bitmap;
+    }
+
+    // Makes HttpURLConnection and returns InputStream
+    public static  InputStream getHttpConnection(String urlString)  throws IOException {
+
+        InputStream stream = null;
+        URL url = new URL(urlString);
+        URLConnection connection = url.openConnection();
+
+        try {
+            HttpURLConnection httpConnection = (HttpURLConnection) connection;
+            httpConnection.setRequestMethod("GET");
+            httpConnection.connect();
+
+            if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                stream = httpConnection.getInputStream();
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            System.out.println("downloadImage" + ex.toString());
+        }
+        return stream;
     }
 
     /**
@@ -282,13 +369,108 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         });
         b.show();
     }
+
+    public class  GetHttpResponseDatosUser extends AsyncTask<Void,Void,Void> {
+
+        String REQUEST_USUARIO = "https://momentary-electrode.000webhostapp.com/getUsuario.php";
+        public Context context;
+        String ResultHolder;
+
+        public GetHttpResponseDatosUser(Context context){
+            this.context = context;
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+            super.onPreExecute();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, REQUEST_USUARIO,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.server_error) , Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                            startActivity(intent);
+                        }
+                    });
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            //Creación de una cola de solicitudes
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext()); //getActivity()
+            //Agregar solicitud a la cola
+            requestQueue.add(stringRequest);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            HttpServices httpServiceObject = new HttpServices(REQUEST_USUARIO);
+            try{
+                httpServiceObject.ExecutePostRequest();
+                if (httpServiceObject.getResponseCode()==200){
+                    ResultHolder= httpServiceObject.getResponse();
+                    if (ResultHolder != null){
+                        JSONArray jsonArray = null;
+                        try {
+                            //listaDatosUser = new ArrayList<>();
+                            listaFoto = new ArrayList<>();
+                            jsonArray = new JSONArray(ResultHolder);
+                            JSONObject jsonObject;
+                            SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
+                            String id_usuario = sharedpreferences.getString("id_usuario","");
+                            for (int i=0; i<jsonArray.length();i++){
+                                jsonObject= jsonArray.getJSONObject(i);
+                                String usuarioBusqueda = jsonObject.getString("id");
+                                if (id_usuario.equals(usuarioBusqueda) || (id_usuario == usuarioBusqueda)){
+                                    //String nombre = jsonObject.getString("nombre");
+                                    //String username = jsonObject.getString("username");
+                                    String dec = jsonObject.getString("foto");
+                                    Bitmap foto = downloadImage(dec);
+                                    listaFoto.add(foto);
+                                    break;
+                                }
+                            }
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                else
+                {
+                    Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show(); //ESTE ERROR ES EL QUE GENERA PROBLEMAS CON LA DB
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result)
+        {
+            if (listaFoto != null){ //listaDatosUser
+                imagenFoto.setImageBitmap(listaFoto.get(0));
+                //String fot = lista.get(6).toString();
+                //Bitmap foto = downloadImage(fot);
+                //imagenFoto.setImageBitmap(foto);
+            }
+            else{
+
+            }
+        }
+    }
+
     private void mostrarLista(){
         //if (findViewById(R.id.contenedorFragment) != null){
         //  if (savedInstanceState != null){
         //      return;
         // }
-        listaReclamosFragment = new ListaReclamosFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, listaReclamosFragment).commit();
+        //listaReclamosFragment = new ListaReclamosFragment();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.container, listaReclamosFragment).commit();
         //progressBarEventos = findViewById(R.id.progressBar);
 
         //}
