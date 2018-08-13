@@ -1,5 +1,6 @@
 package com.example.bruno.debarrio.fragments;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,9 +37,11 @@ import com.android.volley.toolbox.Volley;
 import com.example.bruno.debarrio.Adapters.AdaptadorReclamos;
 import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.MainActivity2;
+import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.EnviarMail;
 import com.example.bruno.debarrio.entidades.Perfil;
+import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -98,6 +101,8 @@ public class ProfileFragment extends Fragment {
     private String KEY_ID = "id";
     String UPDATE_PROFILE = "https://momentary-electrode.000webhostapp.com/updateProfile.php";
     String UPDATE_FOTO = "https://momentary-electrode.000webhostapp.com/updateFoto.php";
+    Activity activity;
+    ComunicacionFragments interfaceComunicacionFragments;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -150,6 +155,7 @@ public class ProfileFragment extends Fragment {
 
         GetHttpResponseDatosUser getHttpResponseDatosUser = new GetHttpResponseDatosUser(getContext());
         getHttpResponseDatosUser.execute();
+        interfaceComunicacionFragments.reejecutarGetHttpResponseDatosUser();
 
         botonCambiarFoto = vista.findViewById(R.id.boton_foto_perfil);
 
@@ -157,6 +163,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showFileChooser();
+                //interfaceComunicacionFragments.reejecutarGetHttpResponseDatosUser();
             }
         });
 
@@ -185,9 +192,6 @@ public class ProfileFragment extends Fragment {
                 listaInicio.add(usernameInicio);
                 listaInicio.add(passwordInicio);
                 confirmDialogPerfil(listaInicio);
-
-                //actualizarPerfil(listaActualizar);
-                //actualizarFoto(fotoInicioConver);
             }
         });
         listaInicio.clear();
@@ -235,7 +239,7 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void confirmDialogFoto(final Bitmap bitmap) {
+    public void confirmDialogFoto(final Bitmap bitmap) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //getResources().getString(R.string.desasociar_reclamo)
 
         builder.setMessage(getResources().getString(R.string.confirmacion_actualizar_foto))
@@ -244,6 +248,7 @@ public class ProfileFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         imagenFoto.setImageBitmap(bitmap);
                         actualizarFoto(bitmap);
+                        interfaceComunicacionFragments.reejecutarGetHttpResponseDatosUser();
                         //Intent intent = new Intent(getActivity(), MainActivity2.class);
                         //startActivity(intent);
                     }
@@ -591,17 +596,21 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    /*
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        if (context instanceof Activity) {
+            this.activity = (Activity) context;
+            interfaceComunicacionFragments = (ComunicacionFragments) this.activity;
+        }
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }*/
+    }
 
     @Override
     public void onDetach() {

@@ -1,6 +1,7 @@
 package com.example.bruno.debarrio;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -157,6 +158,12 @@ public class MainActivity2 extends AppCompatActivity implements ReclamosFragment
         //cargar el fragment en el activity
         getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragment, detalleRespuestaFragment).commit(); //addToBackStack(null).
     }
+
+    @Override
+    public void reejecutarGetHttpResponseDatosUser(){
+
+    }
+
 
     @Override
     public void onListFragmentInteraction(DummyContent.DummyItem item) {

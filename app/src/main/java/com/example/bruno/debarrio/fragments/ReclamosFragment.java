@@ -247,4 +247,9 @@ public class ReclamosFragment extends Fragment implements ComunicacionFragments 
         detail.putExtra("id", imagen.getId());
         context.startActivity(detail);*/
     }
+
+    @Override
+    public void reejecutarGetHttpResponseDatosUser(){
+
+    }
 }

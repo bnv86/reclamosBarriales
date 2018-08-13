@@ -113,8 +113,9 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.camera);
 
-        GetHttpResponseDatosUser getHttpResponseDatosUser = new GetHttpResponseDatosUser(getApplicationContext());
-        getHttpResponseDatosUser.execute();
+        //GetHttpResponseDatosUser getHttpResponseDatosUser = new GetHttpResponseDatosUser(getApplicationContext());
+        //getHttpResponseDatosUser.execute();
+        //reejecutarGetHttpResponseDatosUser();
 
         /*
         SharedPreferences sharedpreferences = getSharedPreferences("sesion", getApplication().MODE_PRIVATE);
@@ -370,13 +371,13 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         b.show();
     }
 
-    public class  GetHttpResponseDatosUser extends AsyncTask<Void,Void,Void> {
+    public class  GetHttpResponseFotoUser extends AsyncTask<Void,Void,Void> {
 
         String REQUEST_USUARIO = "https://momentary-electrode.000webhostapp.com/getUsuario.php";
         public Context context;
         String ResultHolder;
 
-        public GetHttpResponseDatosUser(Context context){
+        public GetHttpResponseFotoUser(Context context){
             this.context = context;
         }
 
@@ -416,6 +417,10 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
                         JSONArray jsonArray = null;
                         try {
                             //listaDatosUser = new ArrayList<>();
+                            /*
+                            if (listaFoto != null){
+                                listaFoto.clear();
+                            }*/
                             listaFoto = new ArrayList<>();
                             jsonArray = new JSONArray(ResultHolder);
                             JSONObject jsonObject;
@@ -454,15 +459,19 @@ public class MainTabbedActivity extends AppCompatActivity implements ReclamosFra
         {
             if (listaFoto != null){ //listaDatosUser
                 imagenFoto.setImageBitmap(listaFoto.get(0));
-                //String fot = lista.get(6).toString();
-                //Bitmap foto = downloadImage(fot);
-                //imagenFoto.setImageBitmap(foto);
+                //listaFoto.clear();
             }
             else{
 
             }
         }
     }
+
+    public void reejecutarGetHttpResponseDatosUser(){
+        GetHttpResponseFotoUser getHttpResponseFotoUser = new GetHttpResponseFotoUser(getApplicationContext());
+        getHttpResponseFotoUser.execute();
+    }
+
 
     private void mostrarLista(){
         //if (findViewById(R.id.contenedorFragment) != null){

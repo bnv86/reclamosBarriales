@@ -1,5 +1,7 @@
 package com.example.bruno.debarrio.interfaces;
 
+import android.content.Context;
+
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.entidades.Respuesta;
 
@@ -11,5 +13,6 @@ public interface ComunicacionFragments {
 
     public void enviarReclamo(Reclamo reclamo);
     public void enviarRespuesta(Respuesta respuesta);
+    public void reejecutarGetHttpResponseDatosUser ();
 
 }

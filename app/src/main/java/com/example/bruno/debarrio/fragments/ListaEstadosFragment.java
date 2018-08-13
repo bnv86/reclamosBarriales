@@ -43,6 +43,7 @@ import com.example.bruno.debarrio.HTTP.HttpServices;
 import com.example.bruno.debarrio.HTTP.WebService;
 import com.example.bruno.debarrio.MainActivity;
 import com.example.bruno.debarrio.MainActivity2;
+import com.example.bruno.debarrio.MainTabbedActivity;
 import com.example.bruno.debarrio.R;
 import com.example.bruno.debarrio.entidades.Reclamo;
 import com.example.bruno.debarrio.interfaces.ComunicacionFragments;
@@ -409,9 +410,9 @@ public class ListaEstadosFragment extends Fragment {
                     //Toast.makeText(getActivity(), "Vuelva a intentar" , Toast.LENGTH_LONG).show();
                     //Toast.makeText(context, httpServiceObject.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(context, "Sin conexion a internet", Toast.LENGTH_SHORT).show();
-                    return null;
-                    //Intent intent = new Intent(getActivity(), MainActivity2.class);
-                    //startActivity(intent);
+                    //return null;
+                    Intent intent = new Intent(getActivity(), MainTabbedActivity.class);
+                    startActivity(intent);
                 }
             }
             catch (Exception e)
