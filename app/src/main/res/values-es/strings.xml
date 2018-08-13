@@ -95,6 +95,10 @@
     <string name="str_espere">Espere por favor...</string>
     <string name="reclamo_eliminado">Reclamo eliminado!</string>
     <string name="str_buscando">Buscando...</string>
+    <string name="confirmacion_actualizar_perfil">¿Desea actualizar sus datos de perfil?</string>
+    <string name="confirmacion_actualizar_foto">¿Desea actualizar su foto de perfil?</string>
+    <string name="foto_actualizada">Foto actualizada!</string>
+    <string name="perfil_actualizado">Datos del perfil actualizados!</string>
     <string name="guardar_imagen">¿Desea guardar la imagen?</string>
     <string name="imagen_guardada">Imagen guardada en galeria</string>
     <string name="reclamo_asociado">Reclamo asociado!</string>

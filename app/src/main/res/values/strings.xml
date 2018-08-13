@@ -91,7 +91,10 @@
     <string name="str_espere">Please wait...</string>
     <string name="reclamo_eliminado">Deleted claim!</string>
     <string name="str_buscando">Searching...</string>
-    <string name="guardar_imagen">Do you want to save the image?</string>
+    <string name="confirmacion_actualizar_perfil">Do you want to update your profile data?</string>
+    <string name="confirmacion_actualizar_foto">Do you want to update your profile photo?</string>
+    <string name="foto_actualizada">Photo updated!</string>
+    <string name="perfil_actualizado">Profile data updated!</string>
     <string name="imagen_guardada">Image was saved in gallery</string>
     <string name="reclamo_asociado">Associated claim!</string>
     <string name="reclamo_desasociado">Dissociated claim!</string>
