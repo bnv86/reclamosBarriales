@@ -14,6 +14,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="str_logout">Sesion cerrada!</string>
+
 
     <!-- Strings related to TABS ACTIVITY -->
     <string name="title_activity_main_tabbed">MainTabbedActivity</string>
@@ -24,10 +26,33 @@
     <string name="action_languaje">Selección de Idioma</string>
     <string name="action_logout">Cerrar sesión</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="str_buscar">BUSCAR</string>
 
     <!-- Strings related to RECLAMOS -->
     <string name="por_estado">POR ESTADO</string>
     <string name="por_categoria">POR CATEGORIA</string>
+    <string name="eliminar_reclamo">¿Desea eliminar el reclamo?</string>
+    <string name="reclamo_eliminado">Reclamo eliminado!</string>
+    <string name="reclamo_asociado">Reclamo asociado!</string>
+    <string name="reclamo_desasociado">Reclamo desasociado!</string>
+    <string name="reintente_asociar">No se asoció, reintente</string>
+    <string name="reintente_desasociar">No se desasoció, reintente</string>
+    <string name="asociar_reclamo">¿Desea asociar el reclamo?</string>
+    <string name="desasociar_reclamo">¿Desea desasociar el reclamo?</string>
+    <string name="reclamo_encurso">Reclamo en curso! vea los detalles en la aplicación</string>
+    <string name="reclamo_resuelto">Reclamo resuelto! vea los detalles en la aplicación</string>
+    <string name="titulo_reclamos">RECLAMOS</string>
+    <string name="titulo_seleccione_asociado">Seleccione asociado</string>
+    <string name="titulo_detalle_reclamo">RECLAMO DETALLE</string>
+    <string name="str_add_asociado">Agregar reclamo asociado</string>
+    <string name="str_desasociar">Desasociar</string>
+    <string name="str_suscriptos">Suscriptos</string>
+    <string name="str_estado">Estado</string>
+    <string name="str_categoria">Categoria</string>
+    <string name="str_muni">Municipalidad</string>
+    <string name="str_descripcion">Descripcion</string>
+    <string name="str_comentario">Comentario</string>
+    <string name="str_fecha">Fecha</string>
 
     <!-- Strings related to CONTACTOS -->
     <string name="agregar_contacto">Agregar</string>
@@ -40,7 +65,6 @@
     <string name="contactos_contacto">Contactos</string>
     <string name="usuarios_contacto">Usuarios</string>
 
-
     <!-- Strings related to REGISTRAR -->
     <string name="str_regresar">   REGRESAR </string>
     <string name="str_registrar_titulo">Registrar Usuario</string>
@@ -52,6 +76,18 @@
     <string name="usuario_password">Contraseña</string>
     <string name="usuario_edad">Edad</string>
     <string name="button_registrar">REGISTRAR</string>
+    <string name="seleccione_foto">Elija una foto</string>
+    <string name="complete_campos">Complete todos los campos!</string>
+    <string name="email_incorrecto">Correo invalido</string>
+    <string name="str_registrado">registrado</string>
+    <string name="ya_existe">Ya existe</string>
+    <string name="compruebe_usuario">Compruebe usuario!</string>
+    <string name="compruebe_email">Compruebe correo!</string>
+    <string name="compruebe_telefono">Compruebe telefono!</string>
+
+    <!-- Strings related to MAPS ACTIVITY -->
+    <string name="title_activity_maps">Map</string>
+    <string name="str_estoy_aqui">Aqui estoy!</string>
 
     <!-- Strings related to IDIOMA ACTIVITY -->
     <string name="str_idioma_titulo">Seleccione un idioma</string>
@@ -59,7 +95,6 @@
     <string name="idioma_español">Español</string>
     <string name="idioma_italiano">Italiano</string>
     <string name="idioma_japones">Japonés</string>
-
     <string name="toast_idioma">Lenguaje cambiado!</string>
     <string name="seleccion_idioma">Lenguaje</string>
     <string-array name="languages">
@@ -76,72 +111,12 @@
     <string name="str_resuelto">Resuelto</string>
     <string name="str_reabierto">Re-abierto</string>
 
-    <!-- Strings related to DIALOGS -->
-    <string name="str_carga_lista">Cargando lista... </string>
-    <string name="str_actualizando">Actualizando... </string>
-    <string name="server_error">Error en servidor</string>
-    <string name="sin_conexion">Sin conexión con el servidor</string>
-    <string name="str_welcome">Bienvenido</string>
-    <string name="login_error">Hubo un error al iniciar sesión</string>
-    <string name="str_reintente">ERROR...Reintente</string>
-    <string name="rol_incorrecto">Rol incorrecto, reintente!</string>
-    <string name="mantener_boton">Mantenga presionado para guardar la imagen</string>
-    <string name="eliminar_reclamo">¿Desea eliminar el reclamo?</string>
-    <string name="str_confirmar">Si</string>
-    <string name="str_cancelar">No</string>
-    <string name="eliminar_suscripcion">Suscripcion eliminada!</string>
-    <string name="suscripcion_no_eliminada">Error: Suscripcion no eliminada</string>
-    <string name="str_eliminando">Eliminando...</string>
-    <string name="str_espere">Espere por favor...</string>
-    <string name="reclamo_eliminado">Reclamo eliminado!</string>
-    <string name="str_buscando">Buscando...</string>
-    <string name="confirmacion_actualizar_perfil">¿Desea actualizar sus datos de perfil?</string>
-    <string name="confirmacion_actualizar_foto">¿Desea actualizar su foto de perfil?</string>
-    <string name="foto_actualizada">Foto actualizada!</string>
-    <string name="perfil_actualizado">Datos del perfil actualizados!</string>
-    <string name="guardar_imagen">¿Desea guardar la imagen?</string>
-    <string name="imagen_guardada">Imagen guardada en galeria</string>
-    <string name="reclamo_asociado">Reclamo asociado!</string>
-    <string name="reclamo_desasociado">Reclamo desasociado!</string>
-    <string name="reintente_asociar">No se asoció, reintente</string>
-    <string name="reintente_desasociar">No se desasoció, reintente</string>
-    <string name="str_cargando">Cargando...</string>
-    <string name="asociar_reclamo">¿Desea asociar el reclamo?</string>
-    <string name="desasociar_reclamo">¿Desea desasociar el reclamo?</string>
-    <string name="enviando_mail">Enviando correo electronico...</string>
-    <string name="mail_exito">Envio de mail exitoso!</string>
+    <!-- Strings related to PUBLICACIONES -->
     <string name="eliminar_publicacion">¿Desea eliminar la publicación?</string>
     <string name="publicacion_eliminada">Publicacion eliminada!</string>
     <string name="debe_escribir_comentario">Debe escribir un comentario!</string>
     <string name="debe_tomar_foto">Debe tomar una foto!</string>
     <string name="publicacion_subida">Publicacion subida</string>
-    <string name="reclamo_encurso">Reclamo en curso! vea los detalles en la aplicación</string>
-    <string name="reclamo_resuelto">Reclamo resuelto! vea los detalles en la aplicación</string>
-    <string name="seleccione_foto">Elija una foto</string>
-    <string name="str_logout">Sesion cerrada!</string>
-    <string name="str_user">Usuario</string>
-    <string name="str_suscriptos">Suscriptos</string>
-    <string name="str_estado">Estado</string>
-    <string name="str_estoy_aqui">Aqui estoy!</string>
-    <string name="complete_campos">Complete todos los campos!</string>
-    <string name="email_incorrecto">Correo invalido</string>
-    <string name="str_registrado">registrado</string>
-    <string name="ya_existe">Ya existe</string>
-    <string name="compruebe_usuario">Compruebe usuario!</string>
-    <string name="compruebe_email">Compruebe correo!</string>
-    <string name="compruebe_telefono">Compruebe telefono!</string>
-    <string name="str_name">Nombre</string>
-    <string name="str_lastname">Apellido</string>
-    <string name="str_mail">Correo</string>
-    <string name="str_phone">Telefono</string>
-    <string name="str_address">Domicilio</string>
-    <string name="str_pass">Contraseña</string>
-    <string name="actualizar_foto">Actualizar foto</string>
-    <string name="actualizar_perfil">Actualizar perfil</string>
-    <string name="perfil_usuario">PERFIL DE USUARIO</string>
-    <string name="titulo_reclamos">RECLAMOS</string>
-    <string name="titulo_seleccione_asociado">Seleccione asociado</string>
-    <string name="titulo_detalle_reclamo">RECLAMO DETALLE</string>
     <string name="titulo_detalle_publicacion">PUBLICACION DETALLE</string>
     <string name="titulo_publicaciones">PUBLICACIONES DEL RECLAMO</string>
     <string name="titulo_publicacion">PUBLICACIÓN</string>
@@ -149,16 +124,51 @@
     <string name="actualice_estado">Actualice el estado:</string>
     <string name="tomar_foto">Tome una foto</string>
     <string name="enviar_publicacion">SUBIR PUBLICACIÓN</string>
-    <string name="str_categoria">Categoria</string>
-    <string name="str_muni">Municipalidad</string>
-    <string name="str_descripcion">Descripcion</string>
     <string name="str_ver_publicaciones">VER PUBLICACIONES DEL RECLAMO</string>
     <string name="str_publicar">PUBLICAR</string>
-    <string name="str_add_asociado">Agregar reclamo asociado</string>
-    <string name="str_desasociar">Desasociar</string>
-    <string name="str_buscar">BUSCAR</string>
-    <string name="str_comentario">Comentario</string>
-    <string name="str_fecha">Fecha</string>
+
+    <!-- Strings related to PROFILE TAB -->
+    <string name="perfil_usuario">PERFIL DE USUARIO</string>
+    <string name="actualizar_foto">Actualizar foto</string>
+    <string name="actualizar_perfil">Actualizar perfil</string>
+    <string name="str_name">Nombre</string>
+    <string name="str_lastname">Apellido</string>
+    <string name="str_mail">Correo</string>
+    <string name="str_phone">Telefono</string>
+    <string name="str_address">Domicilio</string>
+    <string name="str_user">Usuario</string>
+    <string name="str_pass">Contraseña</string>
+    <string name="confirmacion_actualizar_perfil">¿Desea actualizar sus datos de perfil?</string>
+    <string name="confirmacion_actualizar_foto">¿Desea actualizar su foto de perfil?</string>
+    <string name="foto_actualizada">Foto actualizada!</string>
+    <string name="perfil_actualizado">Datos del perfil actualizados!</string>
+
+    <!-- Strings related to ALERT DIALOGS -->
+    <string name="str_confirmar">Si</string>
+    <string name="str_cancelar">No</string>
+
+    <!-- Strings related to PROGRESS DIALOGS -->
+    <string name="str_carga_lista">Cargando lista... </string>
+    <string name="str_actualizando">Actualizando... </string>
+    <string name="str_eliminando">Eliminando...</string>
+    <string name="str_espere">Espere por favor...</string>
+    <string name="str_buscando">Buscando...</string>
+    <string name="str_cargando">Cargando...</string>
+    <string name="enviando_mail">Enviando correo electronico...</string>
+
+    <!-- Strings related to TOASTS -->
+    <string name="eliminar_suscripcion">Suscripcion eliminada!</string>
+    <string name="suscripcion_no_eliminada">Error: Suscripcion no eliminada</string>
+    <string name="guardar_imagen">¿Desea guardar la imagen?</string>
+    <string name="imagen_guardada">Imagen guardada en galeria</string>
+    <string name="mail_exito">Envio de mail exitoso!</string>
+    <string name="server_error">Error en servidor</string>
+    <string name="sin_conexion">Sin conexión con el servidor</string>
+    <string name="str_welcome">Bienvenido</string>
+    <string name="login_error">Hubo un error al iniciar sesión</string>
+    <string name="str_reintente">ERROR...Reintente</string>
+    <string name="rol_incorrecto">Rol incorrecto, reintente!</string>
+    <string name="mantener_boton">Mantenga presionado para guardar la imagen</string>
 
 
 </resources>
