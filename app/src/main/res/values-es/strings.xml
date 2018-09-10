@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">reclamosMunicipales</string>
+    <string name="app_name">VisibilizAr</string>
 
     <!-- Strings related to LOGIN -->
     <string name="prompt_email">Usuario</string>

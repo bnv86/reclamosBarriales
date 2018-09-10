@@ -935,7 +935,7 @@ public class DetalleReclamoFragment extends Fragment{
         PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intentGalleria, 0);
         mBuilder = new NotificationCompat.Builder(getContext()).setSmallIcon(android.R.drawable.ic_menu_gallery)
                 .setLargeIcon(reclamo.getImagenDesc()) //TRAIGO LA IMAGEN DEL RECLAMO
-                .setContentTitle("Reclamos Municipales").setContentText(getResources().getString(R.string.imagen_guardada) + "/ReclamosMunicipales").setContentIntent(pendingIntent);
+                .setContentTitle("VisibilizAr").setContentText(getResources().getString(R.string.imagen_guardada) + "/VisibilizAr").setContentIntent(pendingIntent);
 
         PendingIntent resultPendingIntent =
                 PendingIntent.getActivity(getContext(),
